@@ -29,13 +29,8 @@ export const BasicInformationPanel = observer(function BasicInformationPanel() {
                     <Box mb={2}>
                         <CommonSelectField
                             label={t(`${T_PREFIX}.category`)}
-                            value={article.category as string}
-                            options={[
-                                { label: t(`${T_PREFIX}.categories.emotions`), value: 'emotions' },
-                                { label: t(`${T_PREFIX}.categories.activity`), value: 'activity' },
-                                { label: t(`${T_PREFIX}.categories.food`), value: 'food' },
-                                { label: t(`${T_PREFIX}.categories.other`), value: 'other' },
-                            ]}
+                            value={article.category}
+                            options={createCategoryOptions()}
                             onChange={(value) => update('category', value)}
                         />
                     </Box>
@@ -56,4 +51,11 @@ export const BasicInformationPanel = observer(function BasicInformationPanel() {
             }
         />
     );
+
+    function createCategoryOptions() {
+        return ['emotions', 'activity', 'food', 'other'].map((c) => ({
+            label: t(`${T_PREFIX}.categories.${c}`),
+            value: c,
+        }));
+    }
 });
