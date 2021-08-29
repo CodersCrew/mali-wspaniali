@@ -38,9 +38,9 @@ function ResultsModal(props: ResultsModalProps & ActionDialog<{ child: ChildInpu
             {props.progressKey !== 'progress' && (
                 <Typography gutterBottom variant="subtitle2">
                     {' '}
-                    <strong className={classes.link}>
-                        {t(`${RESULTS_PREFIX}.${props.progressKey}.text-1-1`)}{' '}
-                    </strong>{' '}
+                    <a href={`/parent/child/${props.result.getChildId()}/tests-information`}>
+                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${props.progressKey}.text-1-1`)}</strong>
+                    </a>
                     {t(`${RESULTS_PREFIX}.${props.progressKey}.text-1-2`)}
                 </Typography>
             )}
