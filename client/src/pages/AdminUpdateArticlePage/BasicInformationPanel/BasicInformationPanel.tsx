@@ -29,7 +29,7 @@ export const BasicInformationPanel = observer(function BasicInformationPanel() {
                     <Box mb={2}>
                         <CommonSelectField
                             label={t(`${T_PREFIX}.category`)}
-                            value={article.category as string}
+                            value={article.category}
                             options={[
                                 { label: t(`${T_PREFIX}.categories.emotions`), value: 'emotions' },
                                 { label: t(`${T_PREFIX}.categories.activity`), value: 'activity' },
