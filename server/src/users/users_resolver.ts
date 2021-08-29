@@ -107,7 +107,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => ReturnedStatusDTO)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async anonymizeUser(@Args('id') id: string) {
     const user: User = await this.commandBus.execute(
       new AnonymizeUserCommand(id),
