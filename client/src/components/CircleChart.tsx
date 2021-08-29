@@ -45,7 +45,7 @@ export const CircleChart = React.memo(
 const useStyles = makeStyles({
     icon: {
         color: 'rgba(0, 0, 0, 0.54)',
-        position: 'absolute',
+        position: 'relative',
         right: '10.5%',
         bottom: '10.5%',
     },
