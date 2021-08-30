@@ -1,6 +1,5 @@
 import { Query, Resolver, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import * as Sentry from '@sentry/minimal';
 
 import { CreateArticleInput, UpdateArticleInput } from './inputs/article_input';
 import { Article, ArticleCore } from './domain/models/article_model';
@@ -8,7 +7,6 @@ import { CreateArticleCommand } from './domain/commands/impl/create_article_comm
 import { GetAllArticlesQuery } from './domain/queries/impl';
 import { GetArticleByIdQuery } from './domain/queries/impl/get_article_by_id_query';
 import { GetLastArticlesQuery } from './domain/queries/impl/get_last_articles_query';
-import { ReturnedStatusDTO } from '../shared/returned_status';
 import {
   HttpException,
   HttpStatus,
@@ -21,7 +19,6 @@ import { GqlAuthGuard } from '../users/guards/jwt_guard';
 import { ArticleDTO } from './dto/article_dto';
 import { PaginatedArticlesDTO } from './dto/paginated_article_dto';
 import { GetArticlesCountQuery } from './domain/queries/impl/get_article_count_query';
-import { classToPlain } from 'class-transformer';
 import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 import { UpdateArticleCommand } from './domain/commands/impl/update_article_command';
 
@@ -78,16 +75,23 @@ export class ArticlesResolver {
 
   @Query(() => ArticleDTO)
   @UseGuards(GqlAuthGuard)
-  async article(@Args('id') id: string): Promise<Record<string, any>> {
+  async article(
+    @CurrentUser() user: LoggedUser,
+    @Args('id') id: string,
+  ): Promise<Record<string, any>> {
     const article: Article = await this.queryBus.execute(
       new GetArticleByIdQuery(id),
     );
 
-    if (classToPlain(article.getProps())) {
-      return ArticleMapper.toPlain(article);
+    if (!article) {
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
     }
 
-    throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    if (user.role !== 'admin' && (!article.isPublished || article.isDeleted)) {
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    }
+
+    return ArticleMapper.toPlain(article);
   }
 
   @Mutation(() => ArticleDTO)
