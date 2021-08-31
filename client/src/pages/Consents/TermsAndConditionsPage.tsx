@@ -1,12 +1,11 @@
 import { Box, Grid, Paper } from '@material-ui/core';
 
-import { TermsAndConditionsWrapper } from './TermsAndConditionsWrapper';
-import { TermsAndConditionsContentPl } from './translations/pl/TermsAndConditionsContentPl';
-import { TermsAndConditionsContentEn } from './translations/en/TermsAndConditionsContentEn';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
+import { TermsAndConditionsWrapper } from './TermsAndConditionsWrapper';
+import { TermsAndConditionsContent } from './TermsAndConditionsContent';
+
 export default function TermsAndConditionsPage() {
-    const language = localStorage.getItem('i18nextLng')!;
     const { isMobile } = useIsDevice();
 
     return (
@@ -15,15 +14,15 @@ export default function TermsAndConditionsPage() {
                 <Grid item xs={isMobile ? 1 : 3} />
                 <Grid item xs={isMobile ? 10 : 6}>
                     {isMobile ? (
-                        <Box>
-                            {language === 'pl' && <TermsAndConditionsContentPl />}
-                            {language === 'en' && <TermsAndConditionsContentEn />}
+                        <Box mb="2rem">
+                            <TermsAndConditionsContent />
                         </Box>
                     ) : (
-                        <Paper style={{ padding: '16px' }}>
-                            {language === 'pl' && <TermsAndConditionsContentPl />}
-                            {language === 'en' && <TermsAndConditionsContentEn />}
-                        </Paper>
+                        <Box mb="2rem">
+                            <Paper style={{ padding: '16px' }}>
+                                <TermsAndConditionsContent />
+                            </Paper>
+                        </Box>
                     )}
                 </Grid>
                 <Grid item xs={isMobile ? 1 : 3} />
