@@ -67,7 +67,7 @@
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
             "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
-            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a style='color: #00acc1; text-decoration: none'; href='#'>Regulaminu</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Polityki prywatności</a>",
+            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a href='/docs/polityka_prywatnosci_pl.pdf' style='color: #00acc1; text-decoration: none'>Regulaminu</a>, <a href='/docs/regulamin_pl.pdf' style='color: #00acc1; text-decoration: none;'>Polityki prywatności</a>",
             "required-field": "*pole obowiązkowe do wypełnienia",
             "required-agreements": "Wymagane zgody lub oświadczenia",
             "select-all": "Zaznacz wszystkie zgody",

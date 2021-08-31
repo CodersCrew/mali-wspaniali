@@ -67,7 +67,7 @@
             "show-more-content-modal": "See the full text in a new tab",
             "sub-title": "Consents",
             "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused at any time on the platform in 'Consents' tab.",
-            "statement": "I declare that I have read and accepted <a style='color: #00acc1; text-decoration: none'; href='#'>Terms & Conditions</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Privacy Policy</a>.",
+            "statement": "I declare that I have read and accepted <a href='/docs/polityka_prywatnosci_pl.pdf' style='color: #00acc1; text-decoration: none'>Terms & Conditions</a>, <a  href='/docs/regulamin_pl.pdf' style='color: #00acc1; text-decoration: none;'>Privacy Policy</a>.",
             "required-field": "mandatory field",
             "required-agreements": "Required consents and declarations",
             "select-all": "Select all consents",
