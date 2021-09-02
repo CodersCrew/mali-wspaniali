@@ -455,6 +455,10 @@
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
     },
+    "parent-settings": {
+        "terms-conditions": "Terms & conditions",
+        "privacy-policy": "Privacy Policy"
+    },
     "test-results": {
         "search-result": "Search results",
         "no-results": "No results",

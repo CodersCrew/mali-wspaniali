@@ -518,6 +518,10 @@
         "parent": "Rodzic",
         "no-parent": "Nie istnieje rodzic o takim id"
     },
+    "parent-settings": {
+        "terms-conditions": "Regulamin",
+        "privacy-policy": "Polityka prywatności"
+    },
     "alert-dialog": {
         "error": "Błąd",
         "warning": "Uwaga!",
