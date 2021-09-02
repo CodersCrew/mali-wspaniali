@@ -1,9 +1,10 @@
 import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Maker from '../../assets/authTemplateLogos/maker/maker.svg';
+import CodersCrew from '../../assets/authTemplateLogos/maker/coders-crew.svg';
 import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
+import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.svg';
+import Wroclaw from '../../assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {

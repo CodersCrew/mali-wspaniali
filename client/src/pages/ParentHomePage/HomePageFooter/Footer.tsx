@@ -1,7 +1,7 @@
 import { makeStyles, createStyles, Box, Typography, Paper, Button, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import CCLogo from '../../../assets/authTemplateLogos/maker/maker.svg';
+import CCLogo from '../../../assets/authTemplateLogos/maker/coders-crew.svg';
 import { Theme } from '../../../theme';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 
