@@ -1,17 +1,16 @@
 import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Maker from '../../assets/authTemplateLogos/maker/maker.svg';
+import CodersCrew from '../../assets/authTemplateLogos/maker/coders-crew.svg';
 import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
+import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.svg';
+import Wroclaw from '../../assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
-
-    const partners = [Ecm, MinisterstwoSportu];
 
     return (
         <div className={classes.partnersContainer}>
@@ -27,17 +26,27 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
             </div>
             <div className={classes.makerBox}>
                 <div className={classes.imageBox}>
-                    <Link href="https://coderscrew.pl/" target="_blank">
-                        <img src={Maker} alt="maker_logo" className={classes.image} />
+                    <Link href="https://coderscrew.pl/" target="_blank" className={classes.link}>
+                        <img src={CodersCrew} alt="CodersCrew" className={classes.image} />
                     </Link>
                 </div>
             </div>
             <div className={classes.partnersBox}>
-                {partners.map((logo, key) => (
-                    <div className={classes.imageBox} key={key}>
-                        <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
-                    </div>
-                ))}
+                <div className={classes.imageBox}>
+                    <Link href="https://www.wroclaw.pl/" target="_blank" className={classes.link}>
+                        <img src={Wroclaw} alt="Wrocław" className={classes.image} />
+                    </Link>
+                </div>
+                <div className={classes.imageBox}>
+                    <Link href="https://www.gov.pl/web/kulturaisport" target="_blank" className={classes.link}>
+                        <img src={MinisterstwoSportu} alt="Ministerstwo Sportu" className={classes.image} />
+                    </Link>
+                </div>
+                <div className={classes.imageBox}>
+                    <Link href="http://e-cm.pl/" target="_blank" className={classes.link}>
+                        <img src={Ecm} alt="e-cm.pl" className={classes.image} />
+                    </Link>
+                </div>
             </div>
         </div>
     );
@@ -69,8 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             gridColumnStart: 'span 2',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr',
             columnGap: theme.spacing(2),
+            rowGap: theme.spacing(2),
             [theme.breakpoints.down('md')]: {
                 columnGap: theme.spacing(1),
             },
@@ -80,7 +90,6 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '70px',
             minHeight: '70px',
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
             padding: theme.spacing(0.5),
             backgroundColor: theme.palette.background.paper,
@@ -92,7 +101,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(0.25),
             },
         },
+        link: {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+        },
         image: {
+            width: '100%',
             maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
             maxHeight: `calc(70px - 2 * ${theme.spacing(0.5)}px)`,
             [theme.breakpoints.down('md')]: {
