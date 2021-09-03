@@ -10,6 +10,7 @@ import {
 } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
+import * as pick from 'lodash.pick';
 
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
@@ -88,13 +89,17 @@ export class AssessmentResolver {
   }
 
   @Mutation(() => AssessmentDTO)
-  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  @UseGuards(new GqlAuthGuard({ role: ['admin', 'instructor'] }))
   async updateAssessment(
+    @CurrentUser() user: LoggedUser,
     @Args('id') id: string,
     @Args('assessment') assessment: UpdatedAssessmentInput,
   ): Promise<AssessmentCore> {
     const updated: Assessment = await this.commandBus.execute(
-      new UpdateAssessmentCommand(id, assessment),
+      new UpdateAssessmentCommand(
+        id,
+        user.role === 'instructor' ? pick(assessment, ['groups']) : assessment,
+      ),
     );
 
     return AssessmentMapper.toPlain(updated);

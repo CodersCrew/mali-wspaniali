@@ -17,8 +17,6 @@ export class UpdateAssessmentHandler
 
     assessment.update(updatedAssessment);
 
-    const result = await this.repository.update(assessment);
-
-    return result;
+    return this.repository.update(assessment);
   }
 }
