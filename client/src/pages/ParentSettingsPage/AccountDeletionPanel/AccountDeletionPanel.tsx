@@ -6,6 +6,7 @@ import { openSettingsModal } from '../../../components/AccountDeletionPanel/Moda
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
+import { useCreateNewsletter } from '../../../operations/mutations/Newsletter/createNewsletter';
 
 const useStyles = makeStyles((theme) => ({
     header: { color: theme.palette.text.primary },
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export const AccountDeletionPanel = () => {
     const { t } = useTranslation();
     const { user } = useGetMe();
+    const { createNewsletter } = useCreateNewsletter();
     const classes = useStyles();
 
     if (!user) return null;
@@ -36,6 +38,13 @@ export const AccountDeletionPanel = () => {
                         user,
                     }).then((result) => {
                         if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
+
+                        createNewsletter({
+                            message: result.decision?.parent.message || '',
+                            recipients: ['fundacja@mali-wspaniali.pl'],
+                            type: result.decision?.parent.messageTopic || '',
+                            title: `${result.decision?.parent.messageTopic} [${result.decision?.parent.email}]` || '',
+                        });
                     });
                 }}
             />
