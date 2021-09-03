@@ -14,12 +14,3 @@ export class NewsletterInput {
   @Field()
   type: string;
 }
-
-@InputType()
-export class ParentNewsletterInput {
-  @Field()
-  message: string;
-
-  @Field()
-  type: string;
-}
