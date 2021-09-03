@@ -18,6 +18,22 @@ export class NewsletterCreatedHandler
   async handle({ newsletter }: NewsletterCreatedEvent): Promise<void> {
     await this.repository.create(newsletter);
 
+    if (
+      newsletter.recipients.length === 1 &&
+      newsletter.recipients[0] === 'fundacja@mali-wspaniali.pl'
+    ) {
+      await this.sendMail.send({
+        from: process.env.SENDER,
+        bcc: newsletter.recipients,
+        subject: newsletter.title,
+        html: getTemplate({
+          title: newsletter.title,
+          content: newsletter.message,
+        }),
+        text: '',
+      });
+    }
+
     if (newsletter.type.includes('ALL')) {
       const users = await this.userRepository.getAll({ role: 'parent' });
 
