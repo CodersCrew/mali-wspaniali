@@ -79,6 +79,6 @@ export class AssessmentRepository {
 
     await assessmentDocument.update(AssessmentMapper.toPlain(assessment));
 
-    return assessment;
+    return AssessmentMapper.toDomain(await this.model.findById(assessment.id));
   }
 }
