@@ -39,7 +39,6 @@ export const RegistrationForm = () => {
 
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
-    const [skip, setSkip] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
@@ -208,7 +207,6 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     classFormItem={classes.formItem}
-                    skip={setSkip}
                     loading={loading}
                     error={error}
                     setError={setError}
@@ -297,16 +295,11 @@ export const RegistrationForm = () => {
             })
             .catch(() => {
                 setLoading(() => false);
-                if (skip) {
-                    setSkip(() => false);
-                    handleNext();
-                } else {
-                    openAlertDialog({
-                        type: 'error',
-                        title: t('registration-page.register-failure'),
-                        description: <Trans i18nKey={'registration-page.register-failure-description'} />,
-                    });
-                }
+                openAlertDialog({
+                    type: 'error',
+                    title: t('registration-page.register-failure'),
+                    description: <Trans i18nKey={'registration-page.register-failure-description'} />,
+                });
             });
     }
 
