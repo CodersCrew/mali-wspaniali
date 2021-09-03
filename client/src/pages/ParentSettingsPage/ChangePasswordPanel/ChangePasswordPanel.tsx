@@ -7,7 +7,7 @@ import { ChangePasswordPanelReducer, ChangePasswordPanelInitialState } from './C
 import { useMe } from '../../../utils/useMe';
 import { ButtonResetOldPassword } from './ChangepasswordPanelFormControls/ButtonResetOldPassword';
 import { ButtonSendMessage } from './ChangepasswordPanelFormControls/ButtonSendMessage';
-import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
+import { openSendMessageModal } from '../../../components/AccountDeletionPanel/SendMessageModal';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { useCreateNewsletter } from '../../../operations/mutations/Newsletter/createNewsletter';
 
@@ -41,7 +41,7 @@ export function ChangePasswordPanel() {
                 </Typography>
                 <ButtonSendMessage
                     handleClick={() => {
-                        openSettingsModal({
+                        openSendMessageModal({
                             user,
                         }).then((result) => {
                             if (result.close) return;
