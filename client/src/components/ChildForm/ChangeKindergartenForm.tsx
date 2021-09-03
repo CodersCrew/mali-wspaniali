@@ -28,7 +28,9 @@ interface ChangeKindergartenProps {
 
 export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKindergartenProps) => {
     const { t } = useTranslation();
-    const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
+    const kindergartenOptions = [...kindergartens]
+        .sort((a, b) => (a.city > b.city ? -1 : 1))
+        .map(mapKindergartenToOption);
 
     const classes = useStyles();
 

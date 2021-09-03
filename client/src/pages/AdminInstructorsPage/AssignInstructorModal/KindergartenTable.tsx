@@ -134,7 +134,9 @@ function KindergartenItem(props: KindergartenItemProps) {
                 <div>
                     {props.kindergarten.number}/{props.kindergarten.name}
                 </div>
-                <div>{props.kindergarten.address}</div>
+                <div>
+                    {props.kindergarten.address}&nbsp;{props.kindergarten.city}
+                </div>
             </TableCell>
         </TableRow>
     );

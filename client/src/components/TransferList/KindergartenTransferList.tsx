@@ -180,7 +180,8 @@ function KindergartenPicker(props: {
                                             <div>
                                                 <div>{label}</div>
                                                 <div className={classes.helperLabel}>
-                                                    {selectableKindergarten.kindergarten.address}
+                                                    {selectableKindergarten.kindergarten.address}&nbsp;
+                                                    {selectableKindergarten.kindergarten.city}
                                                 </div>
                                             </div>
                                         }

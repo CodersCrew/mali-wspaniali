@@ -64,7 +64,8 @@ export function KindergartenList({ kindergartens }: Props) {
                                                 {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
                                             </div>
                                             <div className={classes.helperLabel}>
-                                                {kindergarten.kindergarten.address}
+                                                {kindergarten.kindergarten.address}&nbsp;
+                                                {kindergarten.kindergarten.city}
                                             </div>
                                         </TableCell>
                                     </TableRow>

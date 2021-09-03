@@ -6,6 +6,7 @@ interface Props {
     options: {
         value: string;
         label: React.ReactNode;
+        helperLabel: React.ReactNode;
     }[];
     value: string;
     onChange: (value: string) => void;
@@ -18,7 +19,7 @@ export const AdminKindergardenSelect = ({ label, options, onChange, value }: Pro
             <Select label={label} value={value} onChange={(e) => onChange(e.target.value as string)}>
                 {options?.map((kindergarden) => (
                     <MenuItem key={kindergarden.value} value={kindergarden.value}>
-                        {kindergarden.label}
+                        {kindergarden.label}&nbsp;{kindergarden.helperLabel}
                     </MenuItem>
                 ))}
             </Select>
