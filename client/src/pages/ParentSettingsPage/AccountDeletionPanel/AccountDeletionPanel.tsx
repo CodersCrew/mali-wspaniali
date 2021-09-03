@@ -2,7 +2,7 @@ import { Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { useGetMe } from '../../../operations/mutations/User/useGetMe';
-import { openSettingsModal } from '../../../components/AccountDeletionPanel/ModalSettings';
+import { openSendMessageModal } from '../../../components/AccountDeletionPanel/SendMessageModal';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
 import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
@@ -34,17 +34,18 @@ export const AccountDeletionPanel = () => {
             </Typography>
             <ButtonSendMessage
                 handleClick={() => {
-                    openSettingsModal({
+                    openSendMessageModal({
                         user,
+                        defaultTopic: 'deleteAccount',
                     }).then((result) => {
-                        if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
+                        if (result.close) return;
 
                         createNewsletter({
                             message: result.decision?.parent.message || '',
                             recipients: ['fundacja@mali-wspaniali.pl'],
                             type: result.decision?.parent.messageTopic || '',
                             title: `${result.decision?.parent.messageTopic} [${result.decision?.parent.email}]` || '',
-                        });
+                        }).then(() => openSnackbar({ text: t('settings-modal.snackBar-message') }));
                     });
                 }}
             />
