@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ButtonSecondary } from '../../../../components/Button';
 
 interface ButtonSendMessageProps {
-    handleClick?: () => void;
+    handleClick: () => void;
 }
 
 export const ButtonSendMessage: FC<ButtonSendMessageProps> = ({ handleClick }) => {
