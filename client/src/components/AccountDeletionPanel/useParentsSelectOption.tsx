@@ -12,10 +12,6 @@ export function useParentsSelectOptions(): { getOptions: (name: string) => Optio
     const options: { [index: string]: Option[] } = {
         'settings-message': [
             {
-                value: 'changePassword',
-                label: t('settings-modal.select-options.1'),
-            },
-            {
                 value: 'testResult',
                 label: t('settings-modal.select-options.2'),
             },

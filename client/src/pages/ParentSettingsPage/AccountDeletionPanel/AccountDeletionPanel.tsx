@@ -36,15 +36,16 @@ export const AccountDeletionPanel = () => {
                 handleClick={() => {
                     openSettingsModal({
                         user,
+                        defaultTopic: 'deleteAccount',
                     }).then((result) => {
-                        if (!result.close) openSnackbar({ text: t('settings-modal.snackBar-message') });
+                        if (result.close) return;
 
                         createNewsletter({
                             message: result.decision?.parent.message || '',
                             recipients: ['fundacja@mali-wspaniali.pl'],
                             type: result.decision?.parent.messageTopic || '',
                             title: `${result.decision?.parent.messageTopic} [${result.decision?.parent.email}]` || '',
-                        });
+                        }).then(() => openSnackbar({ text: t('settings-modal.snackBar-message') }));
                     });
                 }}
             />
