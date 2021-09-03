@@ -136,6 +136,7 @@ export const GET_ME = gql`
                     _id
                     name
                     number
+                    city
                 }
             }
             agreements {

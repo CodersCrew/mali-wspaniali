@@ -43,6 +43,7 @@ export const CREATE_ASSESSMENT = gql`
                     name
                     number
                     address
+                    city
                 }
                 instructor {
                     _id
