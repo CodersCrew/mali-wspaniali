@@ -31,6 +31,7 @@ export const GET_ALL_ASSESSMENTS = gql`
                     name
                     number
                     address
+                    city
                 }
                 instructor {
                     _id
@@ -64,6 +65,7 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                     name
                     number
                     address
+                    city
                     children {
                         _id
                         firstname

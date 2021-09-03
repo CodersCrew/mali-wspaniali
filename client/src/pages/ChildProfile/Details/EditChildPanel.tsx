@@ -60,7 +60,9 @@ export function EditChildPanel({ handleSubmit, kindergartens, child }: ChildForm
 
     const { getOptions } = useSelectOptions();
 
-    const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
+    const kindergartenOptions = [...kindergartens]
+        .sort((a, b) => (a.city > b.city ? -1 : 1))
+        .map(mapKindergartenToOption);
 
     return (
         <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
@@ -155,7 +157,7 @@ function mapKindergartenToOption(kindergarten: Kindergarten) {
     return {
         value: kindergarten._id,
         label: `nr. ${kindergarten.number}, ${kindergarten.name}`,
-        helperLabel: kindergarten.address,
+        helperLabel: `${kindergarten.address} ${kindergarten.city}`,
     };
 }
 
