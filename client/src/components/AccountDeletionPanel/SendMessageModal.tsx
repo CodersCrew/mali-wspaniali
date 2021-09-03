@@ -31,7 +31,7 @@ const normalizeParent = (parent: FormValues) => {
     };
 };
 
-export const openSettingsModal = (props: { user: Me; defaultTopic?: string }) => {
+export const openSendMessageModal = (props: { user: Me; defaultTopic?: string }) => {
     return openDialog<
         { user: Me; defaultTopic?: string },
         { parent: { email: string; message: string; messageTopic: string } }
