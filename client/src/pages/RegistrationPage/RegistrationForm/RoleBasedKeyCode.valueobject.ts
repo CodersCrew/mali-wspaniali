@@ -25,9 +25,8 @@ export class RoleBasedKeyCodeObject {
     // valid if the passed string is at least CODE_LENGTH characters long
     isValid = (): boolean => {
         if (this.key.length !== CODE_LENGTH) return false;
-        if (!isValidKeyCodeString(this.key)) return false;
         if (this.key.substr(1, 1) !== '.') return false;
 
-        return !(this.key.substr(0, 1) in ['I', 'P']);
+        return ['I', 'P'].includes(this.key.substr(0, 1));
     };
 }
