@@ -32,11 +32,11 @@ const setLabel = (
 
 const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
     const values = kindergardens.map((kindergarden) => {
-        const { _id, number, name } = kindergarden;
+        const { _id, number, name, city, address } = kindergarden;
 
         return {
             value: _id,
-            label: `${number}, ${name}`,
+            label: `${number}, ${name} ${address} ${city}`,
         };
     });
 

@@ -62,7 +62,10 @@ interface SettingsHeaderProps {
 
 function SettingsHeader(props: SettingsHeaderProps) {
     const { t } = useTranslation();
-    const kindergartenOptions = [{ label: '-', value: '' }, ...props.kindergartens.map(mapKindergartenToOption)];
+    const kindergartenOptions = [
+        { label: '-', helperLabel: '', value: '' },
+        ...[...props.kindergartens].sort((a, b) => (a.city > b.city ? -1 : 1)).map(mapKindergartenToOption),
+    ];
 
     const classes = useStyles();
 
@@ -100,8 +103,8 @@ function SettingsHeader(props: SettingsHeaderProps) {
 
     function getRoleOptions() {
         return [
-            { label: t(`${T_PREFIX}.parent-option`), value: 'parent' },
-            { label: 'Instructor', value: 'instructor' },
+            { label: t(`${T_PREFIX}.parent-option`), helperLabel: '', value: 'parent' },
+            { label: 'Instructor', helperLabel: '', value: 'instructor' },
         ];
     }
 }
