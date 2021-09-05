@@ -25,6 +25,7 @@ import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 // import { NoGroups } from './NoGroups';
 import { GroupsList } from './GroupsList';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
+import { useAssessment } from '../../../operations/queries/Assessment/getAssessment';
 
 interface ModalProps {
     selectedKindergarten: string;
@@ -47,7 +48,8 @@ export function openGroupsModal(props: Partial<ModalProps>) {
 function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { updateAssessment } = useUpdateAssessment();
+    const { updateAssessment, isUpdatePending } = useUpdateAssessment();
+    const { assessment, refetchAssessment } = useAssessment(props.selectedAssessment);
     const [providedName, setProvidedName] = React.useState('');
 
     const initialValues = {
@@ -63,8 +65,10 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
         onSubmit: props.handleSubmit,
     });
 
-    const kindergartens = props.assessment.kindergartens || [];
-    const groups = props.assessment.groups || [];
+    if (!assessment) return null;
+
+    const kindergartens = assessment.kindergartens || [];
+    const groups = assessment.groups || [];
 
     return (
         <TwoActionsModal
@@ -95,7 +99,11 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                     >
                         {kindergartens.map((k) => (
                             <MenuItem value={k.kindergarten?._id} key={k.kindergarten?._id}>
-                                {k.kindergarten?.number}/{k.kindergarten?.name}
+                                {k.kindergarten?.number}/{k.kindergarten?.name}&nbsp;
+                                <span className={classes.additionalSelectText}>
+                                    {k.kindergarten?.address}&nbsp;
+                                    {k.kindergarten?.city}
+                                </span>
                             </MenuItem>
                         ))}
                     </TextField>
@@ -121,6 +129,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                             innerText={t('groupsModal.add-group')}
                             onClick={onAddGroupClick}
                             className={classes.button}
+                            disabled={isUpdatePending}
                         />
                     </Grid>
                 </Grid>
@@ -129,17 +138,21 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                 <GroupsTransferList />
                 */}
                 {/* <NoGroups /> */}
-                <GroupsList assessment={props.assessment} />
+                <GroupsList assessment={assessment} />
             </div>
         </TwoActionsModal>
     );
 
     function onAddGroupClick() {
+        if (!assessment) return null;
+
         const normalizedGroups = groups.map(({ group, kindergartenId }) => ({ group, kindergartenId }));
 
-        updateAssessment(props.assessment._id, {
+        updateAssessment(assessment._id, {
             groups: [...normalizedGroups, { kindergartenId: props.selectedKindergarten, group: providedName }],
-        });
+        })
+            .then(refetchAssessment)
+            .then(() => setProvidedName(''));
     }
 }
 
@@ -158,6 +171,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             marginLeft: theme.spacing(3),
+        },
+        additionalSelectText: {
+            color: theme.palette.grey[500],
         },
     }),
 );

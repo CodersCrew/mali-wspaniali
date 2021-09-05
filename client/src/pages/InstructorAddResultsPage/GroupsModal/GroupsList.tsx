@@ -33,6 +33,8 @@ export function GroupsList(props: GroupsListProps) {
         setGroupList(groupList.map((group) => (group.group === id ? { ...group, name } : group)));
     };
 
+    const sortedGroups = [...groupList].sort((a, b) => (a.group < b.group ? -1 : 1));
+
     return (
         <>
             <Grid container direction="column" alignItems="center" xs={12}>
@@ -49,7 +51,7 @@ export function GroupsList(props: GroupsListProps) {
                     </Tooltip>
                 </Grid>
                 <Box mt={2} />
-                {groupList.map((group, index) => (
+                {sortedGroups.map((group, index) => (
                     <Box key={index} width="100%">
                         <Divider />
                         <Box

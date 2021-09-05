@@ -9,6 +9,7 @@ export interface AssessmentResponse {
 interface UseAssessmentReturn {
     assessment: Assessment | undefined;
     isAssessmentLoading: boolean;
+    refetchAssessment: () => void;
 }
 
 export const GET_ASSESSMENT = gql`
@@ -26,6 +27,7 @@ export const GET_ASSESSMENT = gql`
                     name
                     address
                     city
+                    number
                 }
                 instructor {
                     _id
@@ -38,12 +40,16 @@ export const GET_ASSESSMENT = gql`
             firstMeasurementResultCount
             lastMeasurementResultCount
             maxResultCount
+            groups {
+                kindergartenId
+                group
+            }
         }
     }
 `;
 
 export function useAssessment(id: string | undefined): UseAssessmentReturn {
-    const [getTest, { data, loading }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT);
+    const [getTest, { data, loading, refetch }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT);
 
     useEffect(() => {
         if (id) {
@@ -54,5 +60,10 @@ export function useAssessment(id: string | undefined): UseAssessmentReturn {
     return {
         assessment: data?.assessment,
         isAssessmentLoading: loading,
+        refetchAssessment: () => {
+            if (!refetch) return;
+
+            refetch({ variables: { id } });
+        },
     };
 }
