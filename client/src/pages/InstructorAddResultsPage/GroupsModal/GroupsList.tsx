@@ -44,7 +44,8 @@ export function GroupsList(props: GroupsListProps) {
     const classes = useStyles();
 
     const setGroupName = (id: string, name: string) => {
-        setGroupList(groupList.map((group) => (group.group === id ? { ...group, name } : group)));
+        setCurrentlyEdited(name);
+        setGroupList(groupList.map((group) => (group.group === id ? { ...group, group: name } : group)));
     };
 
     const sortedGroups = [...groupList].sort((a, b) => (a.group < b.group ? -1 : 1));
@@ -90,15 +91,22 @@ export function GroupsList(props: GroupsListProps) {
                                         value={group.group}
                                         label={t('groupsModal.group-name').toString()}
                                         onChange={(value: string) => setGroupName(group.group, value)}
+                                        options={{ autoFocus: true }}
                                     />
 
                                     <Tooltip title={<>{t('groupsModal.save')}</>}>
-                                        <IconButton size="small">
+                                        <IconButton size="small" onClick={onGroupChange}>
                                             <DoneIcon color="primary" className={classes.button} />
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title={<>{t('groupsModal.close')}</>}>
-                                        <IconButton size="small" onClick={() => setCurrentlyEdited('')}>
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setCurrentlyEdited('');
+                                                setGroupList(props.assessment.groups);
+                                            }}
+                                        >
                                             <CloseIcon color="disabled" className={classes.button} />
                                         </IconButton>
                                     </Tooltip>
@@ -114,7 +122,7 @@ export function GroupsList(props: GroupsListProps) {
                                             disabled={isUpdatePending}
                                             onClick={() => setCurrentlyEdited(group.group)}
                                         >
-                                            <EditIcon color="disabled" className={classes.edit} />
+                                            <EditIcon color="disabled" />
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title={<>{t('groupsModal.delete')}</>}>
@@ -150,6 +158,14 @@ export function GroupsList(props: GroupsListProps) {
             }
         });
     }
+
+    function onGroupChange() {
+        updateAssessment(props.assessment._id, {
+            groups: groupList.map(({ group: name, kindergartenId }) => ({ group: name, kindergartenId })),
+        })
+            .then(refetchAssessment)
+            .then(() => setCurrentlyEdited(''));
+    }
 }
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -158,9 +174,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         icon: {
             color: theme.palette.text.secondary,
-        },
-        edit: {
-            marginRight: theme.spacing(2),
         },
         button: {
             margin: theme.spacing(1),
