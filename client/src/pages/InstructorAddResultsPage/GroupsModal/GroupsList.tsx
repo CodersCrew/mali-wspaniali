@@ -12,6 +12,8 @@ import { Assessment, Group } from '../../../graphql/types';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 import { openGroupsDeleteModal } from './GroupsDeleteModal';
+import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
+import { useAssessment } from '../../../operations/queries/Assessment/getAssessment';
 
 interface GroupsListProps {
     assessment: Assessment;
@@ -21,6 +23,8 @@ export function GroupsList(props: GroupsListProps) {
     const [groupList, setGroupList] = useState<Group[]>([]);
     const [editMode, setEditMode] = useState(false);
     const [currentlyEdited, setCurrentlyEdited] = useState('');
+    const { updateAssessment, isUpdatePending } = useUpdateAssessment();
+    const { refetchAssessment } = useAssessment(props.assessment._id);
 
     const { t } = useTranslation();
 
@@ -112,6 +116,18 @@ export function GroupsList(props: GroupsListProps) {
             </Grid>
         </>
     );
+
+    function onGroupDelete(group: Group) {
+        openGroupsDeleteModal(group).then((response) => {
+            if (response.decision?.accepted) {
+                updateAssessment(props.assessment._id, {
+                    groups: sortedGroups
+                        .filter((g) => g.group !== group.group)
+                        .map(({ group: name, kindergartenId }) => ({ group: name, kindergartenId })),
+                }).then(refetchAssessment);
+            }
+        });
+    }
 }
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
