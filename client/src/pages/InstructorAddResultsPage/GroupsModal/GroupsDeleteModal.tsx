@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { openDialog } from '../../../utils/openDialog';
+import { ActionDialog, openDialog } from '../../../utils/openDialog';
 import { Group } from '../../../graphql/types';
 
 interface Props {
@@ -15,14 +15,14 @@ export const openGroupsDeleteModal = (group: Group) => {
     return openDialog(GroupsDeleteModal, { group });
 };
 
-export const GroupsDeleteModal = ({ onClose, onDelete, group }: Props) => {
+const GroupsDeleteModal = ({ onClose, makeDecision, group }: Props & ActionDialog) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <TwoActionsModal
             lowerButtonOnClick={onClose}
-            upperButtonOnClick={() => onDelete(group.group)}
+            upperButtonOnClick={() => makeDecision({ accepted: true })}
             lowerButtonText={t('groupsModal.close')}
             upperButtonText={t('groupsModal.delete')}
             isOpen
