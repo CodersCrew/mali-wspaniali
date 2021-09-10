@@ -11,20 +11,19 @@ import { User } from '../../graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAnonymizeUser } from '../../operations/mutations/User/anonymizeUser';
 import { useEditChild } from '../../operations/mutations/User/editChild';
-import { useUsers } from '../../operations/queries/Users/getUsersByRole';
 
 interface AdminSettingsItemProps {
     user: User;
+    onChange: () => void;
 }
 
-export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
+export function AdminSettingsItem({ user, onChange }: AdminSettingsItemProps) {
     const classes = useStyles();
 
     const { t } = useTranslation();
     const { kindergartenList } = useKindergartens();
     const { anonymizeUser } = useAnonymizeUser();
     const { editChild } = useEditChild();
-    const { refetch: refetchUser } = useUsers({ role: 'parent' });
     const childrenData = user.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
     const editIconTooltip = t('user-settings.button-icon-edit-tooltip');
@@ -51,7 +50,7 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
                                     kindergartens: kindergartenList,
                                 }).then((result) => {
                                     if (!result.close) {
-                                        editChild(result.decision!.child)?.then(refetchUser);
+                                        editChild(result.decision!.child)?.then(onChange);
                                         openSnackbar({
                                             text: t('user-settings.modal-edit-account.success-message'),
                                         });
@@ -80,7 +79,7 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
                                                     editChild(childDetails),
                                                 ) || [];
 
-                                            Promise.all(editChildPromises as Promise<void>[]).then(refetchUser);
+                                            Promise.all(editChildPromises as Promise<void>[]).then(onChange);
                                             openSnackbar({
                                                 text: t('user-settings.modal-change-kindergarden.success-message'),
                                             });

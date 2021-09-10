@@ -26,7 +26,7 @@ interface UseParentsReturnType {
 interface UseUsersReturnType {
     users: User[];
     isUserListLoading: boolean;
-    refetch: () => void;
+    refetchUser: () => void;
 }
 
 interface PaginatedUserOptions {
@@ -35,7 +35,7 @@ interface PaginatedUserOptions {
     search?: string;
 }
 
-export const INSTRUCTORS = gql`
+const INSTRUCTORS = gql`
     query Users($options: UserPagination!) {
         users(options: $options) {
             _id
@@ -48,7 +48,7 @@ export const INSTRUCTORS = gql`
     }
 `;
 
-export const ADMINS = gql`
+const ADMINS = gql`
     query Users($options: UserPagination!) {
         users(options: $options) {
             _id
@@ -59,7 +59,7 @@ export const ADMINS = gql`
     }
 `;
 
-export const PARENTS = gql`
+const PARENTS = gql`
     query Users($options: UserPagination!) {
         users(options: $options) {
             _id
@@ -73,18 +73,6 @@ export const PARENTS = gql`
                 sex
                 birthYear
                 birthQuarter
-                results {
-                    _id
-                    createdAt
-                    modifiedAt
-                    childId
-                    kindergartenId
-                    assessmentId
-                    assessment {
-                        _id
-                        title
-                    }
-                }
                 kindergarten {
                     _id
                     createdAt
@@ -93,12 +81,6 @@ export const PARENTS = gql`
                     city
                     address
                 }
-            }
-            agreements {
-                _id
-                createdAt
-                text
-                isSigned
             }
         }
     }
@@ -142,7 +124,7 @@ export function useUsers(options: PaginatedUserOptions): UseUsersReturnType {
     return {
         users: data?.users.map(normalizeUser) || [],
         isUserListLoading: loading,
-        refetch,
+        refetchUser: refetch,
     };
 }
 
