@@ -24,7 +24,7 @@ export function AdminSettingsItem({ user }: AdminSettingsItemProps) {
     const { kindergartenList } = useKindergartens();
     const { anonymizeUser } = useAnonymizeUser();
     const { editChild } = useEditChild();
-    const { refetch: refetchUser } = useUsers({ role: 'parent' });
+    const { refetchUser } = useUsers({ role: 'parent' });
     const childrenData = user.children.map((c) => `${c.firstname} ${c.lastname}`).join(', ');
 
     const editIconTooltip = t('user-settings.button-icon-edit-tooltip');
