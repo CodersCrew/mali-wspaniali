@@ -73,18 +73,6 @@ export const PARENTS = gql`
                 sex
                 birthYear
                 birthQuarter
-                results {
-                    _id
-                    createdAt
-                    modifiedAt
-                    childId
-                    kindergartenId
-                    assessmentId
-                    assessment {
-                        _id
-                        title
-                    }
-                }
                 kindergarten {
                     _id
                     createdAt
@@ -93,12 +81,6 @@ export const PARENTS = gql`
                     city
                     address
                 }
-            }
-            agreements {
-                _id
-                createdAt
-                text
-                isSigned
             }
         }
     }
