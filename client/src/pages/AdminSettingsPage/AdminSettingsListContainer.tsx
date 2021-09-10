@@ -17,7 +17,7 @@ export const AdminSettingsListContainers = React.memo(function AdminSettingsList
 ) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const { users, isUserListLoading } = useUsers({ ...props, page: page.toString() });
+    const { users, isUserListLoading, refetchUser } = useUsers({ ...props, page: page.toString() });
 
     const isParent = props.role === 'parent';
     const Header = isParent ? ParentHeader : InstructorHeader;
@@ -29,7 +29,7 @@ export const AdminSettingsListContainers = React.memo(function AdminSettingsList
                 <TableBody>
                     {isUserListLoading && <AdminSettingsLoadingItem />}
                     {users.map((user: User) => {
-                        return <AdminSettingsItem user={user} key={user.mail} />;
+                        return <AdminSettingsItem user={user} key={user.mail} onChange={refetchUser} />;
                     })}
                 </TableBody>
             </Table>
