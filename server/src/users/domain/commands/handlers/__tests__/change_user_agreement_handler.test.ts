@@ -158,7 +158,7 @@ describe('CreateUserHandler', () => {
     return parent;
   }
 
-  async function createAgreement(name: string = 'my-name'): Promise<Agreement> {
+  async function createAgreement(name = 'my-name'): Promise<Agreement> {
     return await app.get(CreateAgreementHandler).execute(
       new CreateAgreementCommand({
         text: name,

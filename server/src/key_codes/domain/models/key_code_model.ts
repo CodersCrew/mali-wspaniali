@@ -12,11 +12,11 @@ export class KeyCodeCore extends CoreModel {
   createdBy: string;
 
   @Expose()
-  @Transform((value) => value ?? uuid.randomUUID(10))
+  @Transform(value => value ?? uuid.randomUUID(10))
   keyCode?: string;
 
   @Expose()
-  @Transform((value) => value ?? uuid.randomUUID(10))
+  @Transform(value => value ?? uuid.randomUUID(10))
   series?: string;
 
   @Expose()
