@@ -17,16 +17,15 @@ export class RoleBasedKeyCodeObject {
         return this.key.substr(2);
     };
 
-    // valid if the passed string begins with 'I.'
+    // valid if the passed string begins with 'I.' or 'in'
     isInstructor = (): boolean => {
-        return this.key.substr(0, 2) === 'I.';
+        return ['I.', 'in'].includes(this.key.substr(0, 2));
     };
 
     // valid if the passed string is at least CODE_LENGTH characters long
     isValid = (): boolean => {
         if (this.key.length !== CODE_LENGTH) return false;
-        if (this.key.substr(1, 1) !== '.') return false;
 
-        return ['I', 'P'].includes(this.key.substr(0, 1));
+        return ['I.', 'P.', 'in', 'pa'].includes(this.key.substr(0, 2));
     };
 }
