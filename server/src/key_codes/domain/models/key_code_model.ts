@@ -1,7 +1,7 @@
 import { Expose, Transform } from 'class-transformer';
 import { IsIn } from 'class-validator';
 import ShortUniqueId from 'short-unique-id';
-import { CoreModel } from '@app/shared/utils/core_model';
+import { CoreModel } from '../../../shared/utils/core_model';
 
 const uuid = new ShortUniqueId({
   dictionary: [...'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'],
@@ -12,11 +12,11 @@ export class KeyCodeCore extends CoreModel {
   createdBy: string;
 
   @Expose()
-  @Transform(value => value ?? uuid.randomUUID(10))
+  @Transform((value) => value ?? uuid.randomUUID(10))
   keyCode?: string;
 
   @Expose()
-  @Transform(value => value ?? uuid.randomUUID(10))
+  @Transform((value) => value ?? uuid.randomUUID(10))
   series?: string;
 
   @Expose()
