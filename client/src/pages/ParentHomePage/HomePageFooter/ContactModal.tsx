@@ -41,7 +41,6 @@ export function ContactModal({ onClose }: ActionDialog) {
                         <Typography variant="body1">Fundacja Mali Wspaniali </Typography>
                         <Typography variant="body1">Ślężna 2 - 24, Wrocław, 53-302 </Typography>
                         <Box mb={2} />
-                        <Typography variant="body1">+48 510 454 457</Typography>
                         <Typography variant="body1">fundacja@mali-wspaniali.pl</Typography>
                     </Box>
                     <Box
