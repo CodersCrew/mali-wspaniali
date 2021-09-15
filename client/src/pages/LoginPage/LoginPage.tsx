@@ -1,7 +1,21 @@
 import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
+import {
+    TextField,
+    makeStyles,
+    createStyles,
+    Typography,
+    Box,
+    Divider,
+    CircularProgress,
+    InputAdornment,
+    IconButton,
+    FormControl,
+    OutlinedInput,
+    InputLabel,
+} from '@material-ui/core/';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { ButtonSecondary } from '../../components/Button';
 import { Theme } from '../../theme';
@@ -32,14 +46,14 @@ export default function LoginPage() {
         },
     );
     const { isDesktop } = useIsDevice();
+    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
+    const params = useParams<{ confirm?: string }>();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
     const [loading, setLoading] = useState(false);
-    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
-
-    const params = useParams<{ confirm?: string }>();
+    const [showPassword, setShowPassword] = useState(false);
 
     React.useEffect(() => {
         if (params.confirm) {
@@ -79,22 +93,36 @@ export default function LoginPage() {
                         className={classes.formItem}
                     />
                     <Box mb={2} />
-                    <TextField
-                        required
-                        onChange={({ target: { value } }) => {
-                            setPassword(value);
-                            setLoginError((prevState) => {
-                                return { ...prevState, message: '' };
-                            });
-                        }}
-                        value={password}
-                        id="password"
-                        label={t('password')}
-                        type="password"
-                        variant="outlined"
-                        error={!!loginError.message}
-                        className={classes.formItem}
-                    />
+                    <FormControl variant={'outlined'} fullWidth required error={!!loginError.message}>
+                        <InputLabel htmlFor="password">{t('password')}</InputLabel>
+                        <OutlinedInput
+                            label={t('password')}
+                            id="password"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={({ target: { value } }) => {
+                                setPassword(value);
+                                setLoginError((prevState) => {
+                                    return { ...prevState, message: '' };
+                                });
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            // data-testid="confirmPassword"
+                            // labelWidth={150}
+                            // error={!!loginError.message}
+                            // className={classes.formItem}
+                        />
+                    </FormControl>
                     <Box mb={6} />
                     <div className={classes.submitWrapper}>
                         <ButtonSecondary
@@ -166,6 +194,10 @@ export default function LoginPage() {
     function handleConfirmationSuccess() {
         openSnackbar({ text: t('login-page.confirmation-success'), severity: 'success' });
         history.push('/login');
+    }
+
+    function togglePasswordVisibility() {
+        setShowPassword((prev) => !prev);
     }
 }
 
