@@ -7,11 +7,11 @@ export class UserChangePasswordCronService {
   constructor(private repository: UserChangePasswordRepository) {}
   private logger = new Logger(UserChangePasswordCronService.name);
 
-  @Cron(CronExpression.EVERY_12_HOURS)
+  @Cron(CronExpression.EVERY_HOUR)
   async handleCron(): Promise<void> {
     this.logger.log('[UserChangePassword - cron] Job started');
 
-    await this.repository.removeOlderThan(2);
+    await this.repository.removeOlderThan(14);
 
     this.logger.log('[UserChangePassword - cron] Job started');
   }
