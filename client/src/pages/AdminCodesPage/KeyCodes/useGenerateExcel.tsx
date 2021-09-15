@@ -17,7 +17,7 @@ export function useGenerateExcel(onCreate: (filename: string) => void) {
                 const workbook = getKeyCodesWorkbook(
                     keyCodes.map((code) => ({
                         ...code,
-                        keyCode: `${code.target === 'parent' ? 'P' : 'I'}.${code.keyCode}`,
+                        keyCode: `${code.target === 'parent' ? 'pa' : 'in'}${code.keyCode}`,
                     })),
                 );
 

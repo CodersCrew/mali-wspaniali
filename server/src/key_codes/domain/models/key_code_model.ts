@@ -3,18 +3,20 @@ import { IsIn } from 'class-validator';
 import ShortUniqueId from 'short-unique-id';
 import { CoreModel } from '../../../shared/utils/core_model';
 
-const uuid = new ShortUniqueId();
+const uuid = new ShortUniqueId({
+  dictionary: [...'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'],
+});
 
 export class KeyCodeCore extends CoreModel {
   @Expose()
   createdBy: string;
 
   @Expose()
-  @Transform(value => value ?? uuid.randomUUID(10))
+  @Transform((value) => value ?? uuid.randomUUID(10))
   keyCode?: string;
 
   @Expose()
-  @Transform(value => value ?? uuid.randomUUID(10))
+  @Transform((value) => value ?? uuid.randomUUID(10))
   series?: string;
 
   @Expose()

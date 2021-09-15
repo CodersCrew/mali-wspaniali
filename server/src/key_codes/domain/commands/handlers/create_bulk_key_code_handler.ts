@@ -6,7 +6,9 @@ import { KeyCodeRepository } from '../../repositories/key_codes_repository';
 import { KeyCodeMapper } from '../../mappers/keycode_mapper';
 import { KeyCode } from '../../models/key_code_model';
 
-const uuid = new ShortUniqueId();
+const uuid = new ShortUniqueId({
+  dictionary: [...'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'],
+});
 
 @CommandHandler(CreateBulkKeyCodeCommand)
 export class CreateBulkKeyCodeHandler
