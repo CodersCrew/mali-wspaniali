@@ -117,10 +117,6 @@ export default function LoginPage() {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            // data-testid="confirmPassword"
-                            // labelWidth={150}
-                            // error={!!loginError.message}
-                            // className={classes.formItem}
                         />
                     </FormControl>
                     <Box mb={6} />
