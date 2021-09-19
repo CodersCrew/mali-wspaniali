@@ -33,6 +33,7 @@ export default function InstructorAddResultsPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [fullNameSortType, setFullNameSortType] = useState('asc');
     const [ageSortType, setAgeSortType] = useState('');
+    const [creationDateSortType, setCreationDateSortType] = useState('');
     const { t } = useTranslation();
     const history = useHistory();
     const device = useIsDevice();
@@ -111,6 +112,7 @@ export default function InstructorAddResultsPage() {
                                 onClick={handleClick}
                                 fullNameSortType={fullNameSortType}
                                 ageSortType={ageSortType}
+                                creationDateSortType={creationDateSortType}
                             />
                         }
                     />
@@ -263,11 +265,19 @@ export default function InstructorAddResultsPage() {
         if (type === 'full-name') {
             setFullNameSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setAgeSortType('');
+            setCreationDateSortType('');
         }
 
         if (type === 'age') {
             setAgeSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setFullNameSortType('');
+            setCreationDateSortType('');
+        }
+
+        if (type === 'created-at') {
+            setCreationDateSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
+            setFullNameSortType('');
+            setAgeSortType('');
         }
 
         if (type === 'see-results') {
@@ -311,6 +321,16 @@ export default function InstructorAddResultsPage() {
                 }
 
                 return childAgeB - childAgeA;
+            });
+        }
+
+        if (creationDateSortType !== '') {
+            filtredChildList.sort((a, b) => {
+                if (creationDateSortType === 'asc') {
+                    return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1;
+                }
+
+                return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? -1 : 1;
             });
         }
 

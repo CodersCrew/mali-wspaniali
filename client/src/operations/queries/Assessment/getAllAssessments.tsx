@@ -126,6 +126,7 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 veryGoodStageLimit
                             }
                         }
+                        createdAt
                     }
                 }
                 instructor {

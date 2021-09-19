@@ -7,6 +7,7 @@ import { Clickable } from '../../components/Clickable';
 import { CustomIconButton } from '../../components/Button/CustomIconButton';
 import { CountIcon } from '../../components/CountIcon';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
+import dayjs from '../../localizedMoment';
 
 interface Props {
     childList: Child[];
@@ -14,12 +15,13 @@ interface Props {
     assessment: Assessment;
     fullNameSortType: string;
     ageSortType: string;
+    creationDateSortType: string;
     onClick: (type: string, value: string) => void;
 }
 
 export function ChildListContainer(props: Props) {
     const { t } = useTranslation();
-    const { childList, results, assessment, fullNameSortType, ageSortType, onClick } = props;
+    const { childList, results, assessment, fullNameSortType, ageSortType, creationDateSortType, onClick } = props;
     const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
     const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
 
@@ -32,6 +34,13 @@ export function ChildListContainer(props: Props) {
                     </TableCell>
                     <TableCell onClick={() => onClick('age', '')}>
                         <SortableHeaderItem label={t('add-results-page.age')} type={ageSortType} isCenter />
+                    </TableCell>
+                    <TableCell onClick={() => onClick('created-at', '')}>
+                        <SortableHeaderItem
+                            label={t('add-results-page.created-at')}
+                            type={creationDateSortType}
+                            isCenter
+                        />
                     </TableCell>
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
                     <TableCell align="center">{t('add-results-page.last-assessment')}</TableCell>
@@ -53,6 +62,7 @@ export function ChildListContainer(props: Props) {
                                 {c.firstname} {c.lastname}
                             </TableCell>
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
+                            <TableCell align="center">{dayjs(c.createdAt).format('L')}</TableCell>
                             <TableCell align="center">
                                 <Grid container alignItems="center" justify="space-evenly">
                                     <Grid item xs={3}>
@@ -168,7 +178,7 @@ export function ChildListContainer(props: Props) {
 function SortableHeaderItem({ type, label, isCenter }: { type: string; label: string; isCenter?: boolean }) {
     return (
         <Clickable>
-            <Box display="flex" justifyContent={isCenter ? 'center' : 'left'}>
+            <Box display="flex" justifyContent={isCenter ? 'center' : 'left'} alignItems="center">
                 <Box mr={1}>{label}</Box>
                 <ArrowItem type={type} />
             </Box>
