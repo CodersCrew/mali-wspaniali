@@ -1020,6 +1020,7 @@
         "lastname": "Last name",
         "full-name": "Full name",
         "age": "Age",
+        "created-at": "Added at",
         "birth-quarter": "Birth quarter",
         "first-assessment": "Initial measurement",
         "last-assessment": "Final measurement",

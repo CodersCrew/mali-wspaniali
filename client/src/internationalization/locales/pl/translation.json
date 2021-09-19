@@ -1023,6 +1023,7 @@
         "full-name": "Imie i nazwisko",
         "birth-quarter": "Kwartał urodzenia",
         "age": "Wiek dziecka",
+        "created-at": "Dodane",
         "first-assessment": "Pomiar początkowy",
         "last-assessment": "Pomiar końcowy",
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",

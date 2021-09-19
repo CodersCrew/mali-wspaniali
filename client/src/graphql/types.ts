@@ -134,6 +134,7 @@ export interface Child extends BaseChildInfo {
     birthQuarter: number;
     age?: number;
     results: AssessmentResult[];
+    createdAt: string;
     currentParams?: {
         run?: AssessmentParam;
         pendelumRun?: AssessmentParam;
