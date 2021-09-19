@@ -93,7 +93,7 @@ export default function LoginPage() {
                         className={classes.formItem}
                     />
                     <Box mb={2} />
-                    <FormControl variant={'outlined'} fullWidth required error={!!loginError.message}>
+                    <FormControl variant="outlined" fullWidth required error={!!loginError.message}>
                         <InputLabel htmlFor="password">{t('password')}</InputLabel>
                         <OutlinedInput
                             label={t('password')}
