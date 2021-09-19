@@ -30,7 +30,9 @@ export default function InstructorSettingsPage() {
         <PageContainer>
             <CustomContainer
                 header={
-                    <Typography variant="h3">{t('instructor-settings-page.basic-information-panel.title')}</Typography>
+                    <Typography variant="h3">
+                        {t('instructor-settings-page.basic-information-panel.title')}&nbsp;
+                    </Typography>
                 }
                 container={
                     <Box p={2}>
