@@ -87,7 +87,7 @@ export class UserRepository {
 
   async getByMail(mail: string): Promise<User> {
     return await this.userModel
-      .findOne({ mail })
+      .findOne({ mail: { $regex: mail, $options: 'i' } })
       .lean()
       .exec()
       .then(parseUser);
