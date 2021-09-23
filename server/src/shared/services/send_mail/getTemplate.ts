@@ -44,8 +44,7 @@ export function getTemplate(options: { title: string; content: string }) {
             <div class="address">
                   Fundacja Mali Wspaniali</br>
               ul. Ślężna 2 - 24, 53-302 Wrocław</br></br>
-              +48 510 454 457</br>
-              <a href="mailto:biuro@mali-wspaniali.pl">biuro@mali-wspaniali.pl</a>
+              <a href="mailto:fundacja@mali-wspaniali.pl">fundacja@mali-wspaniali.pl</a>
             </div>
             <div class="contact">
               Odwiedź nas na:</br>
