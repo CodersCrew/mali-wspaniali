@@ -51,6 +51,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
     const { assessment, refetchAssessment } = useAssessment(props.selectedAssessment);
     const [providedName, setProvidedName] = React.useState('');
+    const [selectedKindergarten, setSelectedKinderten] = React.useState(props.selectedKindergarten);
 
     const initialValues = {
         kindergarten: props.selectedKindergarten,
@@ -69,6 +70,9 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
 
     const kindergartens = assessment.kindergartens || [];
     const groups = assessment.groups || [];
+    const groupsPerKindegarten = groups.filter((g) => g.kindergartenId === selectedKindergarten);
+    const isTextfieldDisabled = isUpdatePending || groupsPerKindegarten.length >= 25;
+    const isAddingGroupDisabled = isTextfieldDisabled || providedName.length === 0;
 
     return (
         <TwoActionsModal
@@ -87,7 +91,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                         select
                         label={t('groupsModal.kindergarten-name')}
                         variant="outlined"
-                        value={props.selectedKindergarten}
+                        value={selectedKindergarten}
                         fullWidth
                         SelectProps={{
                             MenuProps: {
@@ -95,6 +99,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                                 anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
                             },
                         }}
+                        onChange={({ target: { value } }) => setSelectedKinderten(value)}
                     >
                         {kindergartens.map((k) => (
                             <MenuItem value={k.kindergarten?._id} key={k.kindergarten?._id}>
@@ -117,6 +122,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                             {...formik.getFieldProps('name')}
                             value={providedName}
                             onChange={({ target: { value } }) => setProvidedName(value)}
+                            disabled={isTextfieldDisabled}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -128,16 +134,18 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                             innerText={t('groupsModal.add-group')}
                             onClick={onAddGroupClick}
                             className={classes.button}
-                            disabled={isUpdatePending}
+                            disabled={isAddingGroupDisabled}
                         />
                     </Grid>
                 </Grid>
-                <Typography variant="subtitle1">{t('groupsModal.kindergarten-groups', { count: 0 })}</Typography>
+                <Typography variant="subtitle1">
+                    {t('groupsModal.kindergarten-groups', { count: groupsPerKindegarten.length })}
+                </Typography>
                 {/*
                 <GroupsTransferList />
                 */}
                 {/* <NoGroups /> */}
-                <GroupsList assessment={assessment} />
+                <GroupsList assessment={assessment} selectedKindergarten={selectedKindergarten} />
             </div>
         </TwoActionsModal>
     );
@@ -148,7 +156,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
         const normalizedGroups = groups.map(({ group, kindergartenId }) => ({ group, kindergartenId }));
 
         updateAssessment(assessment._id, {
-            groups: [...normalizedGroups, { kindergartenId: props.selectedKindergarten, group: providedName }],
+            groups: [...normalizedGroups, { kindergartenId: selectedKindergarten, group: providedName }],
         })
             .then(refetchAssessment)
             .then(() => setProvidedName(''));

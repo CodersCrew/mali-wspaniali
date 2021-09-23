@@ -27,6 +27,7 @@ import { useAssessment } from '../../../operations/queries/Assessment/getAssessm
 
 interface GroupsListProps {
     assessment: Assessment;
+    selectedKindergarten: string;
 }
 
 export function GroupsList(props: GroupsListProps) {
@@ -40,7 +41,7 @@ export function GroupsList(props: GroupsListProps) {
 
     useEffect(() => {
         setGroupList(props.assessment.groups);
-    }, [props.assessment]);
+    }, [props.assessment, props.selectedKindergarten]);
     const classes = useStyles();
 
     const setGroupName = (id: string, name: string) => {
@@ -48,7 +49,9 @@ export function GroupsList(props: GroupsListProps) {
         setGroupList(groupList.map((group) => (group.group === id ? { ...group, group: name } : group)));
     };
 
-    const sortedGroups = [...groupList].sort((a, b) => (a.group < b.group ? -1 : 1));
+    const sortedGroups = [...groupList]
+        .filter((g) => g.kindergartenId === props.selectedKindergarten)
+        .sort((a, b) => (a.group < b.group ? -1 : 1));
 
     return (
         <>
