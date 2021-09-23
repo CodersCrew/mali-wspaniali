@@ -13,6 +13,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
@@ -24,6 +25,8 @@ import { OutlinedTextField } from '../../../components/OutlinedTextField';
 import { openGroupsDeleteModal } from './GroupsDeleteModal';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import { useAssessment } from '../../../operations/queries/Assessment/getAssessment';
+import { GroupWithTransferList } from './GroupWithTransferList';
+import { NoGroups } from './NoGroups';
 
 interface GroupsListProps {
     assessment: Assessment;
@@ -34,6 +37,7 @@ export function GroupsList(props: GroupsListProps) {
     const [groupList, setGroupList] = useState<Group[]>([]);
     const [editMode, setEditMode] = useState(false);
     const [currentlyEdited, setCurrentlyEdited] = useState('');
+    const [groupTransferList, setGroupTransferList] = useState('');
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
     const { refetchAssessment } = useAssessment(props.assessment._id);
 
@@ -53,101 +57,110 @@ export function GroupsList(props: GroupsListProps) {
         .filter((g) => g.kindergartenId === props.selectedKindergarten)
         .sort((a, b) => (a.group < b.group ? -1 : 1));
 
-    return (
-        <>
-            <Grid container direction="column" alignItems="center" xs={12}>
-                <Grid container direction="row" justify="space-between" alignItems="center" xs={12}>
-                    <Typography variant="subtitle2">{t('groupsModal.group-name')}</Typography>
-                    <Tooltip title={<>{t('groupsModal.edit-groups')}</>}>
-                        <IconButton
-                            size="small"
-                            onClick={() => {
-                                setEditMode(!editMode);
-                                setCurrentlyEdited('');
-                            }}
-                        >
-                            <EditIcon color={editMode ? 'secondary' : 'disabled'} />
-                        </IconButton>
-                    </Tooltip>
-                </Grid>
-                <Box mt={2} />
-                {sortedGroups.map((group, index) => (
-                    <Box key={index} width="100%">
-                        <Divider />
-                        <Box
-                            display="flex"
-                            width="100%"
-                            flexDirection="row"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            className={classes.row}
-                        >
-                            {currentlyEdited === group.group ? (
-                                <Box
-                                    display="flex"
-                                    width="60%"
-                                    flexDirection="row"
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                >
-                                    <OutlinedTextField
-                                        value={group.group}
-                                        label={t('groupsModal.group-name').toString()}
-                                        onChange={(value: string) => setGroupName(group.group, value)}
-                                        options={{ autoFocus: true }}
-                                    />
+    if (sortedGroups.length === 0) return <NoGroups />;
 
-                                    <Tooltip title={<>{t('groupsModal.save')}</>}>
-                                        <IconButton size="small" onClick={onGroupChange}>
-                                            <DoneIcon color="primary" className={classes.button} />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title={<>{t('groupsModal.close')}</>}>
-                                        <IconButton
-                                            size="small"
-                                            onClick={() => {
-                                                setCurrentlyEdited('');
-                                                setGroupList(props.assessment.groups);
-                                            }}
-                                        >
-                                            <CloseIcon color="disabled" className={classes.button} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            ) : (
-                                <Typography>{group.group}</Typography>
-                            )}
-                            {editMode ? (
-                                <div>
-                                    <Tooltip title={<>{t('groupsModal.edit')}</>}>
-                                        <IconButton
-                                            size="small"
-                                            disabled={isUpdatePending}
-                                            onClick={() => setCurrentlyEdited(group.group)}
-                                        >
-                                            <EditIcon color="disabled" />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title={<>{t('groupsModal.delete')}</>}>
-                                        <IconButton
-                                            size="small"
-                                            disabled={isUpdatePending}
-                                            onClick={() => onGroupDelete(group)}
-                                        >
-                                            <DeleteIcon color="disabled" />
-                                        </IconButton>
-                                    </Tooltip>
-                                </div>
-                            ) : (
-                                <IconButton size="small">
-                                    <ChevronRightIcon className={classes.icon} />
-                                </IconButton>
-                            )}
-                        </Box>
-                    </Box>
-                ))}
+    return (
+        <Grid container direction="column" alignItems="center" xs={12}>
+            <Grid container direction="row" justify="space-between" alignItems="center" xs={12}>
+                <Typography variant="subtitle2">{t('groupsModal.group-name')}</Typography>
+                <Tooltip title={<>{t('groupsModal.edit-groups')}</>}>
+                    <IconButton
+                        size="small"
+                        onClick={() => {
+                            setEditMode(!editMode);
+                            setCurrentlyEdited('');
+                        }}
+                    >
+                        <EditIcon color={editMode ? 'secondary' : 'disabled'} />
+                    </IconButton>
+                </Tooltip>
             </Grid>
-        </>
+            <Box mt={2} />
+            {sortedGroups.map((group) => (
+                <Box key={group.group} width="100%">
+                    <Divider />
+                    <Box
+                        display="flex"
+                        width="100%"
+                        flexDirection="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        className={classes.row}
+                    >
+                        {currentlyEdited === group.group ? (
+                            <Box
+                                display="flex"
+                                width="60%"
+                                flexDirection="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                            >
+                                <OutlinedTextField
+                                    value={group.group}
+                                    label={t('groupsModal.group-name').toString()}
+                                    onChange={(value: string) => setGroupName(group.group, value)}
+                                    options={{ autoFocus: true }}
+                                />
+
+                                <Tooltip title={<>{t('groupsModal.save')}</>}>
+                                    <IconButton size="small" onClick={onGroupChange}>
+                                        <DoneIcon color="primary" className={classes.button} />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title={<>{t('groupsModal.close')}</>}>
+                                    <IconButton
+                                        size="small"
+                                        onClick={() => {
+                                            setCurrentlyEdited('');
+                                            setGroupList(props.assessment.groups);
+                                        }}
+                                    >
+                                        <CloseIcon color="disabled" className={classes.button} />
+                                    </IconButton>
+                                </Tooltip>
+                            </Box>
+                        ) : (
+                            <GroupWithTransferList isOpen={groupTransferList === group.group} group={group} />
+                        )}
+                        {editMode ? (
+                            <div>
+                                <Tooltip title={<>{t('groupsModal.edit')}</>}>
+                                    <IconButton
+                                        size="small"
+                                        disabled={isUpdatePending}
+                                        onClick={() => setCurrentlyEdited(group.group)}
+                                    >
+                                        <EditIcon color="disabled" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title={<>{t('groupsModal.delete')}</>}>
+                                    <IconButton
+                                        size="small"
+                                        disabled={isUpdatePending}
+                                        onClick={() => onGroupDelete(group)}
+                                    >
+                                        <DeleteIcon color="disabled" />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+                        ) : (
+                            <IconButton
+                                size="small"
+                                onClick={() =>
+                                    setGroupTransferList((prev) => (prev === group.group ? '' : group.group))
+                                }
+                            >
+                                {groupTransferList === group.group ? (
+                                    <ChevronRightIcon className={classes.icon} />
+                                ) : (
+                                    <ChevronLeftIcon className={classes.icon} />
+                                )}
+                            </IconButton>
+                        )}
+                    </Box>
+                </Box>
+            ))}
+        </Grid>
     );
 
     function onGroupDelete(group: Group) {
