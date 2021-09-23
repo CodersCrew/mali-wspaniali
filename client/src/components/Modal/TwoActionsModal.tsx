@@ -5,7 +5,7 @@ import { ButtonDefault, ButtonPrimary } from '../Button';
 
 interface Props {
     isOpen: boolean;
-    onClose: () => void;
+    onClose?: () => void;
     upperButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     upperButtonText: string;
     lowerButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
