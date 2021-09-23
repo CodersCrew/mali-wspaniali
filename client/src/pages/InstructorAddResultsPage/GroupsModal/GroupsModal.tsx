@@ -77,7 +77,6 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
             lowerButtonText={t('groupsModal.close')}
             upperButtonText={t('groupsModal.save')}
             isOpen
-            onClose={props.onClose}
         >
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
