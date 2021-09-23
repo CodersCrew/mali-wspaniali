@@ -111,6 +111,7 @@ export default function InstructorAddResultsPage() {
                                 childList={childList}
                                 onClick={handleClick}
                                 fullNameSortType={fullNameSortType}
+                                selectedGroup={selectedGroup}
                                 ageSortType={ageSortType}
                                 creationDateSortType={creationDateSortType}
                             />
@@ -159,6 +160,7 @@ export default function InstructorAddResultsPage() {
                                 results={kindergartenResults}
                                 onChange={handleFilterChanged}
                                 compact
+                                selectedGroup={selectedGroup}
                                 searchTerm={searchTerm}
                                 onClick={handleClick}
                             />
@@ -191,7 +193,6 @@ export default function InstructorAddResultsPage() {
 
         if (type === 'group') {
             setSelectedGroup(value);
-            console.log(selectedGroup);
 
             return;
         }

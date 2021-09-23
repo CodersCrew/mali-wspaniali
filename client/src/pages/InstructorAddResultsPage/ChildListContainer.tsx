@@ -16,6 +16,7 @@ interface Props {
     fullNameSortType: string;
     ageSortType: string;
     creationDateSortType: string;
+    selectedGroup: string;
     onClick: (type: string, value: string) => void;
 }
 
@@ -55,6 +56,13 @@ export function ChildListContainer(props: Props) {
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
                     const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
                     const result = results.find((r) => r.childId === c._id);
+
+                    const isGroupActive =
+                        props.selectedGroup !== 'unassigned'
+                            ? result?.firstMeasurementGroup === props.selectedGroup
+                            : true;
+
+                    if (!isGroupActive) return null;
 
                     return (
                         <TableRow key={c._id} hover>
