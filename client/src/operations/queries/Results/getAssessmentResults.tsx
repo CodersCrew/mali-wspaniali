@@ -36,6 +36,8 @@ export const GET_ASSESSMENT_RESULTS = gql`
             lastMeasurementThrowDate
             firstMeasurementJumpDate
             lastMeasurementJumpDate
+            firstMeasurementGroup
+            lastMeasurementGroup
         }
     }
 `;

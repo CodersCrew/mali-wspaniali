@@ -59,13 +59,17 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
                     onClick={() => toggleOrSelect('unassigned')}
                     selected={selectedGroup === 'unassigned'}
                 />
-                {groups.map((group, index) => (
-                    <GroupsChip
-                        key={index}
-                        label={group.group}
-                        onClick={() => toggleOrSelect(group.group)}
-                        selected={selectedGroup === group.group}
-                    />
+                {groups.map((group) => (
+                    <Box key={group.group} display="inline">
+                        <Box display="inline-block" mb={1}>
+                            <GroupsChip
+                                key={group.group}
+                                label={group.group}
+                                onClick={() => toggleOrSelect(group.group)}
+                                selected={selectedGroup === group.group}
+                            />
+                        </Box>
+                    </Box>
                 ))}
             </Grid>
             {device.isDesktop && (

@@ -1,17 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import {
+    makeStyles,
+    Theme,
+    createStyles,
+    Card,
+    CardHeader,
+    Checkbox,
+    Divider,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Grid,
+    Button,
+} from '@material-ui/core';
+import { Group } from '../../../graphql/types';
 
 function not(a: number[], b: number[]) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -25,7 +30,11 @@ function union(a: number[], b: number[]) {
     return [...a, ...not(b, a)];
 }
 
-export function GroupsTransferList() {
+interface GroupsTransferListProps {
+    group: Group;
+}
+
+export function GroupsTransferList(props: GroupsTransferListProps) {
     const classes = useStyles();
     const { t } = useTranslation();
     const [checked, setChecked] = React.useState<number[]>([]);
@@ -136,7 +145,7 @@ export function GroupsTransferList() {
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList('Grupa 1', right)}</Grid>
+            <Grid item>{customList(props.group.group, right)}</Grid>
         </Grid>
     );
 }
