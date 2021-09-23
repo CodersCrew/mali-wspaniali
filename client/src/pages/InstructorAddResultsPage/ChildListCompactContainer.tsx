@@ -28,6 +28,7 @@ interface Props {
     assessment: Assessment;
     results: AssessmentResult[];
     searchTerm: string;
+    selectedGroup: string;
     compact?: boolean;
     onChange: (type: string, value: string) => void;
     onClick: (type: string, value: string) => void;

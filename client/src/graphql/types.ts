@@ -286,6 +286,8 @@ export interface AssessmentResult {
     lastMeasurementJumpDate: Date;
     createdAt: Date;
     modifiedAt: Date;
+    firstMeasurementGroup?: string;
+    lastMeasurementGroup?: string;
 }
 
 export interface ReturnedStatusDTO {
