@@ -20,7 +20,7 @@ interface GroupsSubheaderProps {
 export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
     const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
-    const [selectedGroup, setSelectedGroup] = useState('unassigned');
+    const [selectedGroup, setSelectedGroup] = useState('');
     const toggleOrSelect = (groupId: string) => {
         if (selectedGroup === groupId) {
             setSelectedGroup('');
@@ -37,7 +37,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
         if (currentAssessment) {
             setGroups(currentAssessment.groups);
         }
-    }, [currentAssessment]); // to be deleted
+    }, [currentAssessment]);
     const device = useIsDevice();
 
     return (
