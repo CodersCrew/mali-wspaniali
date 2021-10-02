@@ -57,10 +57,15 @@ export function ChildListContainer(props: Props) {
                     const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
                     const result = results.find((r) => r.childId === c._id);
 
-                    const isGroupActive =
-                        props.selectedGroup !== 'unassigned'
-                            ? result?.firstMeasurementGroup === props.selectedGroup
-                            : true;
+                    let isGroupActive;
+
+                    if (props.selectedGroup === '') {
+                        isGroupActive = true;
+                    } else if (props.selectedGroup !== 'unassigned') {
+                        isGroupActive = result?.firstMeasurementGroup === props.selectedGroup;
+                    } else {
+                        isGroupActive = true;
+                    }
 
                     if (!isGroupActive) return null;
 
