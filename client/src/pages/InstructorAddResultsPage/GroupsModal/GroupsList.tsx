@@ -19,7 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { Assessment, Group } from '../../../graphql/types';
+import { Assessment, AssessmentResult, Group } from '../../../graphql/types';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 import { openGroupsDeleteModal } from './GroupsDeleteModal';
@@ -88,95 +88,99 @@ export function GroupsList(props: GroupsListProps) {
                 </Tooltip>
             </Grid>
             <Box mt={2} />
-            {sortedGroups.map((group) => (
-                <Box key={group.group} width="100%">
-                    <Divider />
-                    <Box
-                        display="flex"
-                        width="100%"
-                        flexDirection="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        className={classes.row}
-                    >
-                        {currentlyEdited === group.group ? (
-                            <Box
-                                display="flex"
-                                width="60%"
-                                flexDirection="row"
-                                justifyContent="space-between"
-                                alignItems="center"
-                            >
-                                <OutlinedTextField
-                                    value={group.group}
-                                    label={t('groupsModal.group-name').toString()}
-                                    onChange={(value: string) => setGroupName(group.group, value)}
-                                    options={{ autoFocus: true }}
-                                />
+            {sortedGroups.map((group) => {
+                const isGroupDisabled = isUpdatePending || areChildrenAssingedToGroup(group, kindergartenResults);
 
-                                <Tooltip title={<>{t('groupsModal.save')}</>}>
-                                    <IconButton size="small" onClick={onGroupChange}>
-                                        <DoneIcon color="primary" className={classes.button} />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title={<>{t('groupsModal.close')}</>}>
-                                    <IconButton
-                                        size="small"
-                                        onClick={() => {
-                                            setCurrentlyEdited('');
-                                            setGroupList(props.assessment.groups);
-                                        }}
-                                    >
-                                        <CloseIcon color="disabled" className={classes.button} />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
-                        ) : (
-                            <GroupWithTransferList
-                                isOpen={groupTransferList === group.group}
-                                group={group}
-                                childrenList={currentChildren}
-                                results={kindergartenResults}
-                            />
-                        )}
-                        {editMode ? (
-                            <div>
-                                <Tooltip title={<>{t('groupsModal.edit')}</>}>
-                                    <IconButton
-                                        size="small"
-                                        disabled={isUpdatePending}
-                                        onClick={() => setCurrentlyEdited(group.group)}
-                                    >
-                                        <EditIcon color="disabled" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title={<>{t('groupsModal.delete')}</>}>
-                                    <IconButton
-                                        size="small"
-                                        disabled={isUpdatePending}
-                                        onClick={() => onGroupDelete(group)}
-                                    >
-                                        <DeleteIcon color="disabled" />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-                        ) : (
-                            <IconButton
-                                size="small"
-                                onClick={() =>
-                                    setGroupTransferList((prev) => (prev === group.group ? '' : group.group))
-                                }
-                            >
-                                {groupTransferList === group.group ? (
-                                    <ChevronRightIcon className={classes.icon} />
-                                ) : (
-                                    <ChevronLeftIcon className={classes.icon} />
-                                )}
-                            </IconButton>
-                        )}
+                return (
+                    <Box key={group.group} width="100%">
+                        <Divider />
+                        <Box
+                            display="flex"
+                            width="100%"
+                            flexDirection="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            className={classes.row}
+                        >
+                            {currentlyEdited === group.group ? (
+                                <Box
+                                    display="flex"
+                                    width="60%"
+                                    flexDirection="row"
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                >
+                                    <OutlinedTextField
+                                        value={group.group}
+                                        label={t('groupsModal.group-name').toString()}
+                                        onChange={(value: string) => setGroupName(group.group, value)}
+                                        options={{ autoFocus: true }}
+                                    />
+
+                                    <Tooltip title={<>{t('groupsModal.save')}</>}>
+                                        <IconButton size="small" onClick={onGroupChange}>
+                                            <DoneIcon color="primary" className={classes.button} />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title={<>{t('groupsModal.close')}</>}>
+                                        <IconButton
+                                            size="small"
+                                            onClick={() => {
+                                                setCurrentlyEdited('');
+                                                setGroupList(props.assessment.groups);
+                                            }}
+                                        >
+                                            <CloseIcon color="disabled" className={classes.button} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Box>
+                            ) : (
+                                <GroupWithTransferList
+                                    isOpen={groupTransferList === group.group}
+                                    group={group}
+                                    childrenList={currentChildren}
+                                    results={kindergartenResults}
+                                />
+                            )}
+                            {editMode ? (
+                                <div>
+                                    <Tooltip title={<>{t('groupsModal.edit')}</>}>
+                                        <IconButton
+                                            size="small"
+                                            disabled={isUpdatePending}
+                                            onClick={() => setCurrentlyEdited(group.group)}
+                                        >
+                                            <EditIcon color={isUpdatePending ? 'disabled' : 'inherit'} />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title={<>{t('groupsModal.delete')}</>}>
+                                        <IconButton
+                                            size="small"
+                                            disabled={isGroupDisabled}
+                                            onClick={() => onGroupDelete(group)}
+                                        >
+                                            <DeleteIcon color={isGroupDisabled ? 'disabled' : 'inherit'} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
+                            ) : (
+                                <IconButton
+                                    size="small"
+                                    onClick={() =>
+                                        setGroupTransferList((prev) => (prev === group.group ? '' : group.group))
+                                    }
+                                >
+                                    {groupTransferList === group.group ? (
+                                        <ChevronRightIcon className={classes.icon} />
+                                    ) : (
+                                        <ChevronLeftIcon className={classes.icon} />
+                                    )}
+                                </IconButton>
+                            )}
+                        </Box>
                     </Box>
-                </Box>
-            ))}
+                );
+            })}
         </Grid>
     );
 
@@ -198,6 +202,10 @@ export function GroupsList(props: GroupsListProps) {
         })
             .then(refetchAssessment)
             .then(() => setCurrentlyEdited(''));
+    }
+
+    function areChildrenAssingedToGroup(group: Group, results: AssessmentResult[]) {
+        return !!results.find((r) => r.firstMeasurementGroup === group.group);
     }
 }
 const useStyles = makeStyles((theme: Theme) =>
