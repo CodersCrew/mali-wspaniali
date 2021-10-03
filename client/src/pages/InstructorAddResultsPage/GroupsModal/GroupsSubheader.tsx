@@ -40,6 +40,8 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
     }, [currentAssessment]);
     const device = useIsDevice();
 
+    const activeGroups = selectGroupsFromKindergarten(groups);
+
     return (
         <Grid
             container
@@ -59,7 +61,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
                     onClick={() => toggleOrSelect('unassigned')}
                     selected={selectedGroup === 'unassigned'}
                 />
-                {groups.map((group) => (
+                {activeGroups.map((group) => (
                     <Box key={group.group} display="inline">
                         <Box display="inline-block" mb={1}>
                             <GroupsChip
@@ -93,5 +95,9 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
             ...props,
             assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
         });
+    }
+
+    function selectGroupsFromKindergarten(groupList: Group[]) {
+        return groupList.filter((g) => g.kindergartenId === props.selectedKindergarten);
     }
 }
