@@ -16,69 +16,78 @@ import {
     Grid,
     Button,
 } from '@material-ui/core';
-import { Group } from '../../../graphql/types';
-
-function not(a: number[], b: number[]) {
-    return a.filter((value) => b.indexOf(value) === -1);
-}
-
-function intersection(a: number[], b: number[]) {
-    return a.filter((value) => b.indexOf(value) !== -1);
-}
-
-function union(a: number[], b: number[]) {
-    return [...a, ...not(b, a)];
-}
+import { AssessmentResult, Child, Group } from '../../../graphql/types';
+import {
+    UpdatedAssessmentInput,
+    useUpdateAssessmentResult,
+} from '../../../operations/mutations/Results/updateAssessmentResult';
+import { useCreateAssessmentResult } from '../../../operations/mutations/Results/createAssessmentResult';
+import { useAssessmentResults } from '../../../operations/queries/Results/getAssessmentResults';
 
 interface GroupsTransferListProps {
     group: Group;
+    childrenList: Child[];
+    results: AssessmentResult[];
 }
 
 export function GroupsTransferList(props: GroupsTransferListProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [checked, setChecked] = React.useState<number[]>([]);
-    const [left, setLeft] = React.useState<number[]>([0, 1, 2, 3]);
-    const [right, setRight] = React.useState<number[]>([4, 5, 6, 7]);
+    const [checked, setChecked] = React.useState<string[]>([]);
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
+    const { assessmentId } = props.results[0];
+    const { refetchResults } = useAssessmentResults(props.group.kindergartenId, assessmentId);
+    const [isActionPending, setIsActionPending] = React.useState(false);
 
-    const leftChecked = intersection(checked, left);
-    const rightChecked = intersection(checked, right);
-
-    const handleToggle = (value: number) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
+    const handleToggle = (value: Child) => () => {
+        if (checked.includes(value._id)) {
+            setChecked(checked.filter((i) => i !== value._id));
         } else {
-            newChecked.splice(currentIndex, 1);
+            setChecked([...checked, value._id]);
         }
-
-        setChecked(newChecked);
     };
 
-    const numberOfChecked = (items: number[]) => intersection(checked, items).length;
+    const numberOfChecked = (items: Child[]) => {
+        const selectedItems = items.filter((i) => checked.includes(i._id));
 
-    const handleToggleAll = (items: number[]) => () => {
-        if (numberOfChecked(items) === items.length) {
-            setChecked(not(checked, items));
+        return selectedItems.length;
+    };
+
+    const handleToggleAll = (items: Child[]) => () => {
+        if (checked.length === items.length && checked.length > 0) {
+            setChecked([]);
         } else {
-            setChecked(union(checked, items));
+            setChecked(items.map((i) => i._id));
         }
     };
 
     const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setLeft(not(left, leftChecked));
-        setChecked(not(checked, leftChecked));
+        setIsActionPending(true);
+        Promise.all(
+            checked.map((c) => createOrUpdateResult({ childId: c, firstMeasurementGroup: props.group.group })),
+        ).then(() => {
+            setTimeout(() => {
+                refetchResults()?.then(() => {
+                    setChecked([]);
+                    setIsActionPending(false);
+                });
+            }, 2000);
+        });
     };
 
     const handleCheckedLeft = () => {
-        setLeft(left.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
+        setIsActionPending(true);
+        Promise.all(checked.map((c) => createOrUpdateResult({ childId: c, firstMeasurementGroup: '' }))).then(() => {
+            setTimeout(() => {
+                refetchResults()?.then(() => {
+                    setChecked([]);
+                    setIsActionPending(false);
+                });
+            }, 2000);
+        });
     };
-    const customList = (title: React.ReactNode, items: number[]) => (
+    const customList = (title: React.ReactNode, items: Child[]) => (
         <Card>
             <CardHeader
                 className={classes.cardHeader}
@@ -96,20 +105,26 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
             />
             <Divider />
             <List className={classes.list} dense component="div" role="list">
-                {items.map((value: number) => {
+                {items.map((value: Child) => {
                     const labelId = `transfer-list-all-item-${value}-label`;
 
                     return (
-                        <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+                        <ListItem
+                            key={value._id}
+                            role="listitem"
+                            button
+                            onClick={handleToggle(value)}
+                            disabled={isActionPending}
+                        >
                             <ListItemIcon>
                                 <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
+                                    checked={checked.indexOf(value._id) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} />
+                            <ListItemText id={labelId} primary={`${value.firstname} ${value.lastname}`} />
                         </ListItem>
                     );
                 })}
@@ -120,7 +135,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
 
     return (
         <Grid container spacing={2} justify="space-around" alignItems="center" className={classes.root}>
-            <Grid item>{customList(t('groupsModal.unassigned'), left)}</Grid>
+            <Grid item>{customList(t('groupsModal.unassigned'), getLeft(props.childrenList))}</Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
@@ -128,7 +143,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
                         size="small"
                         className={classes.button}
                         onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
+                        disabled={checked.length === 0 || getLeft(props.childrenList).length === 0 || isActionPending}
                         aria-label="move selected right"
                     >
                         &gt;
@@ -138,16 +153,52 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
                         size="small"
                         className={classes.button}
                         onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
+                        disabled={checked.length === 0 || getRight(props.childrenList).length === 0 || isActionPending}
                         aria-label="move selected left"
                     >
                         &lt;
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList(props.group.group, right)}</Grid>
+            <Grid item>{customList(props.group.group, getRight(props.childrenList))}</Grid>
         </Grid>
     );
+
+    function getRight(children: Child[]): Child[] {
+        return children.filter((c) => {
+            const result = props.results.find((r) => r.childId === c._id);
+
+            if (!result) return false;
+
+            if (result.firstMeasurementGroup === props.group.group) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    function getLeft(children: Child[]): Child[] {
+        return children.filter((c) => {
+            const result = props.results.find((r) => r.childId === c._id);
+
+            if (!result || result.firstMeasurementGroup === '') return true;
+
+            return false;
+        });
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+        const options = { kindergartenId: props.group.kindergartenId, assessmentId };
+
+        const childResult = props.results.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            return updateAssessmentResult({ _id: childResult._id, ...options, ...update });
+        }
+
+        return createAssessmentResult({ ...options, ...update });
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -13,6 +13,7 @@ export interface UpdatedAssessmentInput {
     childId: string;
     kindergartenId: string;
     assessmentId: string;
+    firstMeasurementGroup: string;
     firstMeasurementRunDate: Date;
     lastMeasurementRunDate: Date;
     firstMeasurementPendelumRunDate: Date;
