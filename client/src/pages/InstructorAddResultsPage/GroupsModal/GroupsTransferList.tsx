@@ -36,7 +36,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
     const [checked, setChecked] = React.useState<string[]>([]);
     const { createAssessmentResult } = useCreateAssessmentResult();
     const { updateAssessmentResult } = useUpdateAssessmentResult();
-    const { assessmentId } = props.results[0];
+    const assessmentId = props.results[0]?.assessmentId || '';
     const { refetchResults } = useAssessmentResults(props.group.kindergartenId, assessmentId);
     const [isActionPending, setIsActionPending] = React.useState(false);
 
