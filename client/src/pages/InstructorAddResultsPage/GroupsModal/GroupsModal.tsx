@@ -141,7 +141,6 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                 <Typography variant="subtitle1">
                     {t('groupsModal.kindergarten-groups', { count: groupsPerKindegarten.length })}
                 </Typography>
-                {/* <NoGroups /> */}
                 <GroupsList assessment={assessment} selectedKindergarten={selectedKindergarten} />
             </div>
         </TwoActionsModal>

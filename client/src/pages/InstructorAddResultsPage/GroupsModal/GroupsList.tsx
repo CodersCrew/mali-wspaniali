@@ -27,6 +27,8 @@ import { useUpdateAssessment } from '../../../operations/mutations/Assessment/up
 import { useAssessment } from '../../../operations/queries/Assessment/getAssessment';
 import { GroupWithTransferList } from './GroupWithTransferList';
 import { NoGroups } from './NoGroups';
+import { useAssessments } from '../../../operations/queries/Assessment/getAllAssessments';
+import { useAssessmentResults } from '../../../operations/queries/Results/getAssessmentResults';
 
 interface GroupsListProps {
     assessment: Assessment;
@@ -40,6 +42,7 @@ export function GroupsList(props: GroupsListProps) {
     const [groupTransferList, setGroupTransferList] = useState('');
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
     const { refetchAssessment } = useAssessment(props.assessment._id);
+    const { assessments } = useAssessments({ withChildren: true });
 
     const { t } = useTranslation();
 
@@ -56,6 +59,15 @@ export function GroupsList(props: GroupsListProps) {
     const sortedGroups = [...groupList]
         .filter((g) => g.kindergartenId === props.selectedKindergarten)
         .sort((a, b) => (a.group < b.group ? -1 : 1));
+
+    const currentAssessment = assessments.find((a) => a._id === props.assessment._id);
+
+    const currentChildren =
+        currentAssessment?.kindergartens
+            .filter((k) => !!k.kindergarten)
+            .find((k) => k.kindergarten?._id === props.selectedKindergarten)?.kindergarten!.children || [];
+
+    const { kindergartenResults } = useAssessmentResults(props.selectedKindergarten, props.assessment._id);
 
     if (sortedGroups.length === 0) return <NoGroups />;
 
@@ -120,7 +132,12 @@ export function GroupsList(props: GroupsListProps) {
                                 </Tooltip>
                             </Box>
                         ) : (
-                            <GroupWithTransferList isOpen={groupTransferList === group.group} group={group} />
+                            <GroupWithTransferList
+                                isOpen={groupTransferList === group.group}
+                                group={group}
+                                childrenList={currentChildren}
+                                results={kindergartenResults}
+                            />
                         )}
                         {editMode ? (
                             <div>
