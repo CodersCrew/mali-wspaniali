@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { ApolloQueryResult, gql, useLazyQuery } from '@apollo/client';
 import { AssessmentResult } from '../../../graphql/types';
 
 export interface AssessmentResponse {
@@ -9,6 +9,7 @@ export interface AssessmentResponse {
 interface UseAssessmentReturn {
     kindergartenResults: AssessmentResult[];
     areAssessmentsResultsLoading: boolean;
+    refetchResults: () => Promise<ApolloQueryResult<AssessmentResponse>> | undefined;
 }
 
 export const GET_ASSESSMENT_RESULTS = gql`
@@ -43,7 +44,7 @@ export const GET_ASSESSMENT_RESULTS = gql`
 `;
 
 export function useAssessmentResults(kindergartenId?: string, assessmentId?: string): UseAssessmentReturn {
-    const [getResults, { data, loading }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
+    const [getResults, { data, loading, refetch }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
 
     useEffect(() => {
         if (assessmentId?.length && kindergartenId?.length) {
@@ -54,5 +55,10 @@ export function useAssessmentResults(kindergartenId?: string, assessmentId?: str
     return {
         kindergartenResults: data?.kindergartenResults || [],
         areAssessmentsResultsLoading: loading,
+        refetchResults: () => {
+            if (!refetch) return;
+
+            return refetch({ variables: { kindergartenId, assessmentId } });
+        },
     };
 }
