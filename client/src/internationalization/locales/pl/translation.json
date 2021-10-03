@@ -1103,7 +1103,9 @@
         "delete-group": "Usuń grupę",
         "confirm": "Czy na pewno chcesz usunąć grupę {{name}}?",
         "edit-groups": "włącz edycję grup",
-        "edit": "edytuj"
+        "edit": "edytuj",
+        "group-with-children-message": "Kasowanie grupy z dziećmi jest niedozwolone. Wypisz wszystkie dzieci aby odblokować."
+
     },
     "add-article": {
         "basic-information-form": {

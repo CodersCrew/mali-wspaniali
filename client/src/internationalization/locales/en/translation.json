@@ -1100,7 +1100,8 @@
         "delete-group": "Delete a group",
         "confirm": "Are you sure you want to delete the group {{name}}?",
         "edit-groups": "edit groups",
-        "edit": "edit"
+        "edit": "edit",
+        "group-with-children-message": "The deleting group with children is not allowed. Please unassign children."
     },
     "add-article": {
         "basic-information-form": {

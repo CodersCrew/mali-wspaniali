@@ -153,14 +153,24 @@ export function GroupsList(props: GroupsListProps) {
                                             <EditIcon color={isUpdatePending ? 'disabled' : 'inherit'} />
                                         </IconButton>
                                     </Tooltip>
-                                    <Tooltip title={<>{t('groupsModal.delete')}</>}>
-                                        <IconButton
-                                            size="small"
-                                            disabled={isGroupDisabled}
-                                            onClick={() => onGroupDelete(group)}
-                                        >
-                                            <DeleteIcon color={isGroupDisabled ? 'disabled' : 'inherit'} />
-                                        </IconButton>
+                                    <Tooltip
+                                        title={
+                                            <>
+                                                {isGroupDisabled
+                                                    ? t('groupsModal.group-with-children-message')
+                                                    : t('groupsModal.delete')}
+                                            </>
+                                        }
+                                    >
+                                        <span>
+                                            <IconButton
+                                                size="small"
+                                                disabled={isGroupDisabled}
+                                                onClick={() => onGroupDelete(group)}
+                                            >
+                                                <DeleteIcon color={isGroupDisabled ? 'disabled' : 'inherit'} />
+                                            </IconButton>
+                                        </span>
                                     </Tooltip>
                                 </div>
                             ) : (
