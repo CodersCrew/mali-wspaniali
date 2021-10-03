@@ -28,6 +28,7 @@ interface GroupsTransferListProps {
     group: Group;
     childrenList: Child[];
     results: AssessmentResult[];
+    assessmentId: string;
 }
 
 export function GroupsTransferList(props: GroupsTransferListProps) {
@@ -36,8 +37,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
     const [checked, setChecked] = React.useState<string[]>([]);
     const { createAssessmentResult } = useCreateAssessmentResult();
     const { updateAssessmentResult } = useUpdateAssessmentResult();
-    const assessmentId = props.results[0]?.assessmentId || '';
-    const { refetchResults } = useAssessmentResults(props.group.kindergartenId, assessmentId);
+    const { refetchResults } = useAssessmentResults(props.group.kindergartenId, props.assessmentId);
     const [isActionPending, setIsActionPending] = React.useState(false);
 
     const handleToggle = (value: Child) => () => {
@@ -189,7 +189,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
     }
 
     function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
-        const options = { kindergartenId: props.group.kindergartenId, assessmentId };
+        const options = { kindergartenId: props.group.kindergartenId, assessmentId: props.assessmentId };
 
         const childResult = props.results.find((r) => r.childId === update.childId);
 

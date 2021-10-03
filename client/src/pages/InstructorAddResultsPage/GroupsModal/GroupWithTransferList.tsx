@@ -8,14 +8,16 @@ export function GroupWithTransferList({
     group,
     childrenList,
     results,
+    assessmentId,
 }: {
     isOpen: boolean;
     group: Group;
     childrenList: Child[];
     results: AssessmentResult[];
+    assessmentId: string;
 }) {
     return isOpen ? (
-        <GroupsTransferList group={group} childrenList={childrenList} results={results} />
+        <GroupsTransferList group={group} childrenList={childrenList} results={results} assessmentId={assessmentId} />
     ) : (
         <Typography>{group.group}</Typography>
     );

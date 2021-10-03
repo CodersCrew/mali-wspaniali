@@ -69,6 +69,8 @@ export function GroupsList(props: GroupsListProps) {
 
     const { kindergartenResults } = useAssessmentResults(props.selectedKindergarten, props.assessment._id);
 
+    if (!currentAssessment) return null;
+
     if (sortedGroups.length === 0) return <NoGroups />;
 
     return (
@@ -140,6 +142,7 @@ export function GroupsList(props: GroupsListProps) {
                                     group={group}
                                     childrenList={currentChildren}
                                     results={kindergartenResults}
+                                    assessmentId={currentAssessment._id}
                                 />
                             )}
                             {editMode ? (

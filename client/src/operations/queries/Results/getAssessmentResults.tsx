@@ -43,7 +43,7 @@ export const GET_ASSESSMENT_RESULTS = gql`
     }
 `;
 
-export function useAssessmentResults(kindergartenId?: string, assessmentId?: string): UseAssessmentReturn {
+export function useAssessmentResults(kindergartenId: string, assessmentId: string): UseAssessmentReturn {
     const [getResults, { data, loading, refetch }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
 
     useEffect(() => {
