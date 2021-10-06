@@ -34,7 +34,7 @@
         "already-have-account": "Already have an account?",
         "register-failure": "Registration failed",
         "register-failure-keycode": "Incorrect keycode provided",
-        "register-failure-description": "Something went wrong. This may be caused by mistyping the code received from the Foundation or by reusing the code or by providing an email that was not provided to the Foundation. Please, check it out again and contact us as a last resort.",
+        "register-failure-description": "Something went wrong. This may be caused by mistyping the code received from the Foundation or by reusing the code. Please, check it out again and contact us as a last resort.",
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And finally - the last step!",
         "register-success-content": "An email containing an activation link has been sent to your email address. Use the link to confirm your email address and finish the registration process.",
