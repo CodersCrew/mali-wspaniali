@@ -52,7 +52,7 @@ export class CreateConfirmationRequestHandler
     const greetingMessage =
       role === 'instructor'
         ? 'Już tylko jeden krok dzieli Cię od dołączenia do społeczności Małych Wspaniałych.'
-        : 'Już tylko jeden krok dzieli Cię od dołączenia do społeczności świadomych rodziców.';
+        : 'Już tylko jeden krok dzieli Cię od dołączenia do programu Mali Wspaniali.';
 
     return getTemplate({
       title:
