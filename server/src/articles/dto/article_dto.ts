@@ -30,4 +30,7 @@ export class ArticleDTO extends FieldCore {
 
   @Field({ nullable: true })
   publishedAt: Date;
+
+  @Field({ nullable: true })
+  views: number;
 }

@@ -30,7 +30,14 @@ export class ArticlesRepository {
       );
   }
 
-  update(id: string, updates: Partial<UpdateArticleInput>) {
+  increeseAttribute(id: string, field: string) {
+    this.update(id, { $inc: { [field]: 1 } });
+  }
+
+  update(
+    id: string,
+    updates: Partial<UpdateArticleInput> | { [key: string]: unknown },
+  ) {
     this.articleModel
       .findOneAndUpdate(
         { _id: id.toString() },

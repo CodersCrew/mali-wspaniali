@@ -1150,6 +1150,7 @@
             "publish": "Publikuj (Notyfikacje zostanę wysłane)",
             "unpublish": "Ukryj (W przypadku ponownego opublikowania, powiadomienia nie zostaną wysłane)",
             "delete": "Skasuj",
+            "views": "Otworzone",
             "delete-article-dialog": {
                 "title": "Skasować artykuł \"{{title}}\"?"
             },
