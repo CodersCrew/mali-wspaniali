@@ -25,6 +25,7 @@ type ArticleDTO {
   isPublished: Boolean
   videoUrl: String
   publishedAt: DateTime
+  views: Float
 }
 
 """
@@ -386,6 +387,7 @@ input UpdateArticleInput {
   _id: String!
   isDeleted: Boolean
   isPublished: Boolean
+  views: Float
 }
 
 input KindergartenInput {

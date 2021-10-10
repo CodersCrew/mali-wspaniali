@@ -13,4 +13,5 @@ export const ArticleSchema = new Schema({
   videoUrl: String,
   isPublished: Boolean,
   publishedAt: Date,
+  views: { default: 0, type: Number },
 });

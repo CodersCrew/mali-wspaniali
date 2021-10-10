@@ -43,6 +43,9 @@ export class ArticleCore extends CoreModel {
   pictureUrl: string;
 
   @Expose()
+  @Transform(value => value ?? 0)
+  views: number;
+  @Expose()
   @ValidateNested()
   redactor: Redactor;
 

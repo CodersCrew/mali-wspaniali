@@ -1,4 +1,4 @@
-import { InputType, Field, PartialType, ObjectType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 
 import { RedactorInput } from './redactor_input';
 
@@ -36,4 +36,7 @@ export class UpdateArticleInput extends PartialType(CreateArticleInput) {
 
   @Field(() => Boolean, { nullable: true })
   isPublished: boolean;
+
+  @Field(() => Number, { nullable: true })
+  views: number;
 }
