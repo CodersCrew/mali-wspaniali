@@ -15,6 +15,7 @@ export interface Article {
     deletedAt: string;
     modifiedAt: string;
     publishedAt: string;
+    views: number;
 }
 
 export interface Redactor {
