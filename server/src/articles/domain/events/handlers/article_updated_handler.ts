@@ -8,7 +8,11 @@ export class ArticleUpdatedHandler
   implements IEventHandler<ArticleUpdatedEvent> {
   constructor(private articleRepository: ArticlesRepository) {}
 
-  handle({ id, updates }: ArticleUpdatedEvent): void {
-    this.articleRepository.update(id, updates);
+  handle({ id, updates, options }: ArticleUpdatedEvent): void {
+    if (options.increeseField) {
+      this.articleRepository.increeseAttribute(id, options.increeseField);
+    } else {
+      this.articleRepository.update(id, updates);
+    }
   }
 }

@@ -45,6 +45,7 @@ export class ArticleCore extends CoreModel {
   @Expose()
   @Transform(value => value ?? 0)
   views: number;
+
   @Expose()
   @ValidateNested()
   redactor: Redactor;
@@ -128,12 +129,19 @@ export class Article extends AggregateRoot
     return this.props;
   }
 
-  update(updates: Partial<UpdateArticleInput>) {
+  read() {
+    this.update({}, { increeseField: 'views' });
+  }
+
+  update(
+    updates: Partial<UpdateArticleInput>,
+    options: { increeseField?: string } = {},
+  ) {
     const { extendedUpdate, props } = updateArticle(this, updates);
 
     this.props = props;
 
-    this.apply(new ArticleUpdatedEvent(this.id, extendedUpdate));
+    this.apply(new ArticleUpdatedEvent(this.id, extendedUpdate, options));
   }
 
   static create(props: ArticleCore): Article {
