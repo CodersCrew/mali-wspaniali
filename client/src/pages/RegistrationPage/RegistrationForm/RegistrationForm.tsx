@@ -281,7 +281,7 @@ export const RegistrationForm = () => {
 
         load(
             createUser({
-                mail: email,
+                mail: email.toLowerCase(),
                 password,
                 keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
                 agreements: agreements
