@@ -47,6 +47,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                                 .map((k) => k.kindergarten!) || []
                         }
                         selected={child._id}
+                        selectedGroup={resultCreator.selectedGroup}
                         measurement={measurement}
                         childList={resultCreator.selectedKindergarten?.children || []}
                         resultCreator={resultCreator}

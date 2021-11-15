@@ -129,6 +129,13 @@ export interface BaseChildInfo {
     age?: number;
 }
 
+interface CurrentParams {
+    run?: AssessmentParam;
+    pendelumRun?: AssessmentParam;
+    throw?: AssessmentParam;
+    jump?: AssessmentParam;
+}
+
 export interface Child extends BaseChildInfo {
     kindergarten: Kindergarten;
     birthYear: number;
@@ -136,12 +143,7 @@ export interface Child extends BaseChildInfo {
     age?: number;
     results: AssessmentResult[];
     createdAt: string;
-    currentParams?: {
-        run?: AssessmentParam;
-        pendelumRun?: AssessmentParam;
-        throw?: AssessmentParam;
-        jump?: AssessmentParam;
-    };
+    currentParams?: CurrentParams;
 }
 
 export type Sex = 'male' | 'female';

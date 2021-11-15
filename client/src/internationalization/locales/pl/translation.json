@@ -1058,6 +1058,8 @@
     "add-result-page": {
         "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
+        "select-group": "Wybierz grupę",
+        "all-groups": "Wszystkie",
         "first": "Początkowy",
         "last": "Końcowy",
         "no-result": "Brak wyniku",

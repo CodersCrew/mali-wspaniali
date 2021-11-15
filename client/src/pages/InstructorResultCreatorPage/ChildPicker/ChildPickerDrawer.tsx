@@ -23,6 +23,7 @@ interface Props {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
+    selectedGroup: string;
     measurement: string;
     resultCreator: ResultCreatorReturnProps;
     onClick: (type: string, value: string) => void;
@@ -62,6 +63,7 @@ export function ChildPickerDrawer(props: Props) {
                             </AppBar>
                         </Box>
                     }
+                    selectedGroup={props.selectedGroup}
                     selectedKindergarten={props.selectedKindergarten}
                     kindergartens={props.kindergartens}
                     selected={props.selected}

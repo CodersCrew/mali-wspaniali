@@ -1055,6 +1055,8 @@
     "add-result-page": {
         "kindergarten": "Kindergarten",
         "select-measurement": "Select measurement",
+        "select-group": "Select group",
+        "all-groups": "All",
         "first": "Initial",
         "last": "Final",
         "no-result": "No result",

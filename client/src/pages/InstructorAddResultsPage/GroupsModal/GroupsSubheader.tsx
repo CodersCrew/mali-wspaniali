@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { Grid, Typography, Box } from '@material-ui/core';
+
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import { useIsDevice } from '../../../queries/useBreakpoints';
@@ -14,21 +14,15 @@ import { GroupsChip } from './GroupsChip';
 interface GroupsSubheaderProps {
     selectedKindergarten: string;
     selectedAssessment: string;
+    selectedGroup: string;
     assessments: Assessment[];
     onChange: (type: string, value: string) => void;
 }
 export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
     const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
-    const [selectedGroup, setSelectedGroup] = useState('');
     const toggleOrSelect = (groupId: string) => {
-        if (selectedGroup === groupId) {
-            setSelectedGroup('');
-            props.onChange('group', '');
-        } else {
-            setSelectedGroup(groupId);
-            props.onChange('group', groupId);
-        }
+        props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
     };
 
     const { t } = useTranslation();
@@ -59,7 +53,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
                 <GroupsChip
                     label={t('groupsModal.unassigned')}
                     onClick={() => toggleOrSelect('unassigned')}
-                    selected={selectedGroup === 'unassigned'}
+                    selected={props.selectedGroup === 'unassigned'}
                 />
                 {activeGroups.map((group) => (
                     <Box key={group.group} display="inline">
@@ -68,7 +62,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
                                 key={group.group}
                                 label={group.group}
                                 onClick={() => toggleOrSelect(group.group)}
-                                selected={selectedGroup === group.group}
+                                selected={props.selectedGroup === group.group}
                             />
                         </Box>
                     </Box>
