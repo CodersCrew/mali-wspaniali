@@ -85,7 +85,6 @@ export function ChildPicker({
                         <Grid item>
                             <SelectList
                                 value={selectedGroup}
-                                disabled={isAssessmentDisabled()}
                                 label={t('add-result-page.select-group')}
                                 items={availableGroups.map((g) => (
                                     <MenuItem key={g.group} value={g.group}>
