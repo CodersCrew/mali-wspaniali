@@ -26,6 +26,7 @@ export function ResultCreator({ resultCreator, measurement, onClick, isLoading }
     const childList = resultCreator.selectedKindergarten.children ?? [];
     const selectedKindergarten = resultCreator.selectedKindergarten._id;
     const selectedChild = resultCreator.selectedChild._id;
+    const { selectedGroup } = resultCreator;
 
     return (
         <Paper>
@@ -35,6 +36,7 @@ export function ResultCreator({ resultCreator, measurement, onClick, isLoading }
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
+                            selectedGroup={selectedGroup}
                             kindergartens={kindergartens.filter((k) => !!k) as Kindergarten[]}
                             selected={selectedChild}
                             measurement={measurement}

@@ -77,109 +77,67 @@ export default function InstructorAddResultsPage() {
 
     return (
         <PageContainer>
-            {!device.isSmallMobile ? (
-                <>
-                    <CustomContainer
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        subheader={
-                            <AssessmentSubheader
-                                results={kindergartenResults}
-                                max={maxResults}
-                                assessment={currentAssessment}
-                            />
-                        }
-                        subsubheader={
-                            <GroupsSubheader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        container={
-                            <ChildListContainer
-                                assessment={currentAssessment}
-                                results={kindergartenResults}
-                                childList={childList}
-                                onClick={handleClick}
-                                fullNameSortType={fullNameSortType}
-                                selectedGroup={selectedGroup}
-                                ageSortType={ageSortType}
-                                creationDateSortType={creationDateSortType}
-                            />
-                        }
+            <CustomContainer
+                header={
+                    <ChildListHeader
+                        assessments={assessments}
+                        selectedAssessment={selectedAssessment}
+                        selectedKindergarten={selectedKindergarten}
+                        searchTerm={searchTerm}
+                        onChange={handleFilterChanged}
                     />
-                    {currentChildren[0] && (
-                        <SecondaryFab
-                            text={t('add-results-page.add-result')}
-                            icon={<BarChart />}
-                            onClick={onFabClick}
-                        />
-                    )}
-                </>
-            ) : (
-                <>
-                    <CustomContainer
-                        subheader={
-                            <AssessmentSubheader
-                                results={kindergartenResults}
-                                max={maxResults}
-                                assessment={currentAssessment}
-                            />
-                        }
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                                compact
-                                searchTerm={searchTerm}
-                            />
-                        }
-                        subsubheader={
-                            <GroupsSubheader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        container={
-                            <ChildListCompactContainer
-                                assessment={currentAssessment}
-                                childList={childList}
-                                results={kindergartenResults}
-                                onChange={handleFilterChanged}
-                                compact
-                                selectedGroup={selectedGroup}
-                                searchTerm={searchTerm}
-                                onClick={handleClick}
-                            />
-                        }
+                }
+                subheader={
+                    <AssessmentSubheader
+                        results={kindergartenResults}
+                        max={maxResults}
+                        assessment={currentAssessment}
                     />
-                    {currentChildren[0] && (
-                        <SecondaryFab
-                            text={t('add-results-page.add-result')}
-                            icon={<BarChart />}
-                            onClick={onFabClick}
+                }
+                subsubheader={
+                    <GroupsSubheader
+                        assessments={assessments}
+                        selectedAssessment={selectedAssessment}
+                        selectedKindergarten={selectedKindergarten}
+                        selectedGroup={selectedGroup}
+                        onChange={handleFilterChanged}
+                    />
+                }
+                container={
+                    device.isSmallMobile ? (
+                        <ChildListCompactContainer
+                            assessment={currentAssessment}
+                            childList={childList}
+                            results={kindergartenResults}
+                            onChange={handleFilterChanged}
+                            compact
+                            selectedGroup={selectedGroup}
+                            searchTerm={searchTerm}
+                            onClick={handleClick}
                         />
-                    )}
-                </>
+                    ) : (
+                        <ChildListContainer
+                            assessment={currentAssessment}
+                            results={kindergartenResults}
+                            childList={childList}
+                            onClick={handleClick}
+                            fullNameSortType={fullNameSortType}
+                            selectedGroup={selectedGroup}
+                            ageSortType={ageSortType}
+                            creationDateSortType={creationDateSortType}
+                        />
+                    )
+                }
+            />
+            {currentChildren[0] && (
+                <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} onClick={onFabClick} />
             )}
         </PageContainer>
     );
 
     function handleFilterChanged(type: string, value: string) {
         if (type === 'assessment') {
+            setSelectedGroup('');
             setSelectedAssessment(value);
 
             return;
@@ -197,16 +155,19 @@ export default function InstructorAddResultsPage() {
             return;
         }
 
-        setSelectedKindergarten(value);
+        if (type === 'kindergarten') {
+            setSelectedGroup('');
+            setSelectedKindergarten(value);
+        }
     }
 
     async function handleClick(type: string, value: string) {
         if (type === 'add-first-assessment-result') {
-            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
+            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/all/${value}`);
         }
 
         if (type === 'add-last-assessment-result') {
-            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
+            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/all/${value}`);
         }
 
         if (type === 'add-first-assessment-note') {
@@ -288,7 +249,7 @@ export default function InstructorAddResultsPage() {
 
     function onFabClick() {
         history.push(
-            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${currentChildren[0]._id}`,
+            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/all/${currentChildren[0]._id}`,
         );
     }
 

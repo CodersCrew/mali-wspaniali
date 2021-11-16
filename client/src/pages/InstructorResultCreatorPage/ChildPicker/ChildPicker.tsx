@@ -13,6 +13,7 @@ interface Props {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
+    selectedGroup: string;
     measurement: string;
     header: React.ReactNode;
     assessment: Assessment;
@@ -25,6 +26,7 @@ export function ChildPicker({
     childList,
     kindergartens,
     selectedKindergarten,
+    selectedGroup,
     selected,
     measurement,
     results,
@@ -35,6 +37,13 @@ export function ChildPicker({
     const classes = useStyles();
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
+
+    const availableGroups = [
+        { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: selectedKindergarten },
+        ...assessment.groups
+            .filter((g) => g.kindergartenId === selectedKindergarten)
+            .map((g) => ({ ...g, label: g.group })),
+    ];
 
     return (
         <CustomContainer
@@ -74,6 +83,18 @@ export function ChildPicker({
                             />
                         </Grid>
                         <Grid item>
+                            <SelectList
+                                value={selectedGroup}
+                                label={t('add-result-page.select-group')}
+                                items={availableGroups.map((g) => (
+                                    <MenuItem key={g.group} value={g.group}>
+                                        {g.label}
+                                    </MenuItem>
+                                ))}
+                                onSelect={(value) => onClick('group', value)}
+                            />
+                        </Grid>
+                        <Grid item>
                             <SearchChildField
                                 isCompact
                                 onChange={(value) => setSearchTerm(value)}
@@ -83,7 +104,7 @@ export function ChildPicker({
                     </Grid>
                     <List disablePadding>
                         <Divider />
-                        {getFilteredChildrenByFullName().map((c) => {
+                        {getFiltredChildren().map((c) => {
                             return (
                                 <ChildItem
                                     key={c._id}
@@ -101,12 +122,28 @@ export function ChildPicker({
         />
     );
 
-    function getFilteredChildrenByFullName() {
+    function getFiltredChildren() {
         return childList.filter((c) => {
-            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
-
-            return fullName.includes(searchTerm.toLowerCase());
+            return getFilteredChildrenByFullName(c) && getFiltredByGroup(c);
         });
+    }
+
+    function getFiltredByGroup(c: Child) {
+        const foundResult = results.find((r) => r.childId === c._id);
+
+        if (selectedGroup === 'all') return true;
+
+        if (foundResult) {
+            return foundResult.firstMeasurementGroup === selectedGroup;
+        }
+
+        return false;
+    }
+
+    function getFilteredChildrenByFullName(c: Child) {
+        const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+
+        return fullName.includes(searchTerm.toLowerCase());
     }
 
     function isAssessmentDisabled() {

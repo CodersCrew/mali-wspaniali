@@ -154,7 +154,7 @@ export function Root() {
                                             <InstructorWrapper>
                                                 <Route
                                                     exact
-                                                    path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:childId"
+                                                    path="/instructor/result/add/:measurement/:assessmentId/:kindergartenId/:groupId/:childId"
                                                     component={getRootLazyImports('InstructorResultCreatorPage')}
                                                 />
                                                 <Route

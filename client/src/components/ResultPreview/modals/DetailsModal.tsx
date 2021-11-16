@@ -12,9 +12,6 @@ const T_DETAILS_PREFIX = 'child-profile.details-modal';
 function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMoreClicked: boolean }>) {
     const { t } = useTranslation();
     const device = useIsDevice();
-
-    const percentile = 36;
-
     const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } =
         props.resultWrapper.getParam()!;
 
@@ -96,9 +93,6 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="subtitle2">
                                 {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
-                            </Typography>
-                            <Typography className={classes.typographySpacing} variant="body2">
-                                {t(`${T_DETAILS_PREFIX}.result-details.better-results`, { count: percentile })}
                             </Typography>
                         </Grid>
                     </Grid>

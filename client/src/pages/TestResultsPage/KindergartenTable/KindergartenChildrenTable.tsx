@@ -49,7 +49,7 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
         const actualState = history.location.state;
 
         history.push({
-            pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/${childId}`,
+            pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/all/${childId}`,
             state: {
                 ...actualState,
                 sourcePageInfo: {

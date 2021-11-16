@@ -62,7 +62,8 @@ export function ChildListContainer(props: Props) {
                     if (props.selectedGroup === '') {
                         isGroupActive = true;
                     } else if (props.selectedGroup === 'unassigned') {
-                        isGroupActive = result?.firstMeasurementGroup === '';
+                        isGroupActive =
+                            result?.firstMeasurementGroup === '' || result?.firstMeasurementGroup === undefined;
                     } else {
                         isGroupActive = result?.firstMeasurementGroup === props.selectedGroup;
                     }

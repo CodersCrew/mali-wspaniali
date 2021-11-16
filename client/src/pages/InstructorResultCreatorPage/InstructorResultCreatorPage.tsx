@@ -28,6 +28,7 @@ interface PageParams {
     assessmentId: string;
     kindergartenId: string;
     childId: string;
+    groupId: string;
     measurement: string;
 }
 interface HistoryResultCreatorParams {
@@ -38,7 +39,7 @@ interface HistoryResultCreatorParams {
 }
 
 export default function InstructorResultCreatorPage() {
-    const { assessmentId, kindergartenId, childId, measurement } = useParams<PageParams>();
+    const { assessmentId, kindergartenId, childId, groupId, measurement } = useParams<PageParams>();
     const { createAssessmentResult, isCreationPending } = useCreateAssessmentResult();
     const { updateAssessmentResult, isUpdateending: isUpdatePending } = useUpdateAssessmentResult();
 
@@ -56,6 +57,7 @@ export default function InstructorResultCreatorPage() {
         kindergartenId,
         childId,
         measurement,
+        groupId,
     });
 
     if (isResultCreatorErrorReturnProps(resultCreator)) {
@@ -86,12 +88,12 @@ export default function InstructorResultCreatorPage() {
 
         if (type === 'child') {
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${value}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${resultCreator.selectedGroup}/${value}`,
             );
         }
 
         if (type === 'measurement') {
-            pushHistory(`${value}/${assessmentId}/${kindergartenId}/${childId}`);
+            pushHistory(`${value}/${assessmentId}/${kindergartenId}/${resultCreator.selectedGroup}/${childId}`);
         }
 
         if (type === 'kindergarten') {
@@ -101,8 +103,12 @@ export default function InstructorResultCreatorPage() {
             const firstChildren = currentSelectedKindergarten?.children![0];
 
             if (firstChildren) {
-                pushHistory(`${measurement}/${resultCreator.selectedAssessment._id}/${value}/${firstChildren._id}`);
+                pushHistory(`${measurement}/${resultCreator.selectedAssessment._id}/${value}/all/${firstChildren._id}`);
             }
+        }
+
+        if (type === 'group') {
+            pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value}/${childId}`);
         }
 
         if (type === 'back-to-table') {
@@ -199,7 +205,7 @@ export default function InstructorResultCreatorPage() {
 
         if (foundNextChild) {
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${foundNextChild._id}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${resultCreator.selectedGroup}/${foundNextChild._id}`,
             );
         }
     }
