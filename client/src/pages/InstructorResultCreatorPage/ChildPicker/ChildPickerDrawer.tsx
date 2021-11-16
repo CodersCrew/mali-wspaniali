@@ -19,7 +19,7 @@ import { useSidebarState } from '../../../utils/useSidebar';
 import { ResultCreatorReturnProps } from '../useResultCreator';
 import { ChildPicker } from './ChildPicker';
 
-interface Props {
+interface ChildPickerDrawerProps {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
@@ -30,7 +30,7 @@ interface Props {
     selected?: string;
 }
 
-export function ChildPickerDrawer(props: Props) {
+export function ChildPickerDrawer(props: ChildPickerDrawerProps) {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
