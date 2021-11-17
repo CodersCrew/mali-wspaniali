@@ -1,6 +1,5 @@
 import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
-import { DataEntry } from 'react-minimal-pie-chart/types/commonTypes';
 import InfoIcon from '@material-ui/icons/Info';
 import { makeStyles } from '@material-ui/styles';
 
@@ -18,7 +17,7 @@ export const CircleChart = React.memo(
     ({ color, value, maxValue, label, enableInfoIcon, labelSuffix, disable }: Props) => {
         const classes = useStyles();
 
-        const dataEntry: DataEntry = { color, value: disable ? 0 : value };
+        const dataEntry = { color, value: disable ? 0 : value };
 
         return (
             <>

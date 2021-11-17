@@ -9,7 +9,7 @@ import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../grap
 import { countProgress } from '../countProgress';
 import { ChildItem } from './ChildItem';
 
-interface Props {
+interface ChildPickerProps {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
@@ -22,40 +22,29 @@ interface Props {
     selected?: string;
 }
 
-export function ChildPicker({
-    childList,
-    kindergartens,
-    selectedKindergarten,
-    selectedGroup,
-    selected,
-    measurement,
-    results,
-    header,
-    assessment,
-    onClick,
-}: Props) {
+export function ChildPicker(props: ChildPickerProps) {
     const classes = useStyles();
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
 
     const availableGroups = [
-        { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: selectedKindergarten },
-        ...assessment.groups
-            .filter((g) => g.kindergartenId === selectedKindergarten)
+        { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: props.selectedKindergarten },
+        ...props.assessment.groups
+            .filter((g) => g.kindergartenId === props.selectedKindergarten)
             .map((g) => ({ ...g, label: g.group })),
     ];
 
     return (
         <CustomContainer
-            header={header}
+            header={props.header}
             container={
-                <React.Fragment>
+                <>
                     <Grid container className={classes.container} spacing={2} direction="column">
                         <Grid item className={classes.fullWidth}>
                             <SelectList
-                                value={selectedKindergarten}
+                                value={props.selectedKindergarten}
                                 label={t('add-results-page.kindergarten-name')}
-                                items={kindergartens.map((k) => (
+                                items={props.kindergartens.map((k) => (
                                     <MenuItem value={k._id} key={k._id}>
                                         <div>
                                             {k.number}/{k.name}
@@ -63,12 +52,12 @@ export function ChildPicker({
                                         <div className={classes.helperLabel}>{k.address}</div>
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => onClick('kindergarten', value)}
+                                onSelect={(value) => props.onClick('kindergarten', value)}
                             />
                         </Grid>
                         <Grid item>
                             <SelectList
-                                value={measurement}
+                                value={props.measurement}
                                 disabled={isAssessmentDisabled()}
                                 label={t('add-result-page.select-measurement')}
                                 items={[
@@ -79,19 +68,19 @@ export function ChildPicker({
                                         {t('add-result-page.last')}
                                     </MenuItem>,
                                 ]}
-                                onSelect={(value) => onClick('measurement', value)}
+                                onSelect={(value) => props.onClick('measurement', value)}
                             />
                         </Grid>
                         <Grid item>
                             <SelectList
-                                value={selectedGroup}
+                                value={props.selectedGroup}
                                 label={t('add-result-page.select-group')}
                                 items={availableGroups.map((g) => (
                                     <MenuItem key={g.group} value={g.group}>
                                         {g.label}
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => onClick('group', value)}
+                                onSelect={(value) => props.onClick('group', value)}
                             />
                         </Grid>
                         <Grid item>
@@ -109,32 +98,32 @@ export function ChildPicker({
                                 <ChildItem
                                     key={c._id}
                                     child={c}
-                                    selected={c._id === selected}
+                                    selected={c._id === props.selected}
                                     progress={countResultProgress(c._id)}
-                                    onClick={() => onClick('child', c._id)}
+                                    onClick={() => props.onClick('child', c._id)}
                                 />
                             );
                         })}
                     </List>
-                </React.Fragment>
+                </>
             }
             disableShadow
         />
     );
 
     function getFiltredChildren() {
-        return childList.filter((c) => {
+        return props.childList.filter((c) => {
             return getFilteredChildrenByFullName(c) && getFiltredByGroup(c);
         });
     }
 
     function getFiltredByGroup(c: Child) {
-        const foundResult = results.find((r) => r.childId === c._id);
+        const foundResult = props.results.find((r) => r.childId === c._id);
 
-        if (selectedGroup === 'all') return true;
+        if (props.selectedGroup === 'all') return true;
 
         if (foundResult) {
-            return foundResult.firstMeasurementGroup === selectedGroup;
+            return foundResult.firstMeasurementGroup === props.selectedGroup;
         }
 
         return false;
@@ -147,14 +136,16 @@ export function ChildPicker({
     }
 
     function isAssessmentDisabled() {
-        return assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
+        return (
+            props.assessment.firstMeasurementStatus !== 'active' || props.assessment.lastMeasurementStatus !== 'active'
+        );
     }
 
     function countResultProgress(childId: string) {
-        const foundResult = results.find((r) => r.childId === childId);
+        const foundResult = props.results.find((r) => r.childId === childId);
 
         if (foundResult) {
-            return countProgress(measurement, foundResult);
+            return countProgress(props.measurement, foundResult);
         }
 
         return 0;
