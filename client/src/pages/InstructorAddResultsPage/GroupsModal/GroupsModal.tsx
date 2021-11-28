@@ -20,9 +20,6 @@ import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { Assessment } from '../../../graphql/types';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
-
-// import { GroupsTransferList } from './GroupsTransferList';
-// import { NoGroups } from './NoGroups';
 import { GroupsList } from './GroupsList';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import { useAssessment } from '../../../operations/queries/Assessment/getAssessment';
@@ -71,8 +68,6 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     const kindergartens = assessment.kindergartens || [];
     const groups = assessment.groups || [];
     const groupsPerKindegarten = groups.filter((g) => g.kindergartenId === selectedKindergarten);
-    const isTextfieldDisabled = isUpdatePending || groupsPerKindegarten.length >= 25;
-    const isAddingGroupDisabled = isTextfieldDisabled || providedName.length === 0;
 
     return (
         <TwoActionsModal
@@ -122,7 +117,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                             {...formik.getFieldProps('name')}
                             value={providedName}
                             onChange={({ target: { value } }) => setProvidedName(value)}
-                            disabled={isTextfieldDisabled}
+                            disabled={isTextfieldDisabled()}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -134,7 +129,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
                             innerText={t('groupsModal.add-group')}
                             onClick={onAddGroupClick}
                             className={classes.button}
-                            disabled={isAddingGroupDisabled}
+                            disabled={isAddingGroupDisabled()}
                         />
                     </Grid>
                 </Grid>
@@ -145,6 +140,18 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
             </div>
         </TwoActionsModal>
     );
+
+    function isAddingGroupDisabled() {
+        if (isTextfieldDisabled || providedName.length === 0) return true;
+
+        if (groups.find((g) => g.group === providedName && g.kindergartenId === selectedKindergarten)) return true;
+
+        return false;
+    }
+
+    function isTextfieldDisabled() {
+        return isUpdatePending || groupsPerKindegarten.length >= 25;
+    }
 
     function onAddGroupClick() {
         if (!assessment) return null;

@@ -94,7 +94,7 @@ export function GroupsList(props: GroupsListProps) {
                 const isGroupDisabled = isUpdatePending || areChildrenAssingedToGroup(group, kindergartenResults);
 
                 return (
-                    <Box key={group.group} width="100%">
+                    <Box key={group.group + group.kindergartenId} width="100%">
                         <Divider />
                         <Box
                             display="flex"
@@ -118,7 +118,6 @@ export function GroupsList(props: GroupsListProps) {
                                         onChange={(value: string) => setGroupName(group.group, value)}
                                         options={{ autoFocus: true }}
                                     />
-
                                     <Tooltip title={<>{t('groupsModal.save')}</>}>
                                         <IconButton size="small" onClick={onGroupChange}>
                                             <DoneIcon color="primary" className={classes.button} />
@@ -199,13 +198,17 @@ export function GroupsList(props: GroupsListProps) {
 
     function onGroupDelete(group: Group) {
         openGroupsDeleteModal(group).then((response) => {
-            if (response.decision?.accepted) {
-                updateAssessment(props.assessment._id, {
-                    groups: sortedGroups
-                        .filter((g) => g.group !== group.group)
-                        .map(({ group: name, kindergartenId }) => ({ group: name, kindergartenId })),
-                }).then(refetchAssessment);
-            }
+            if (!response.decision?.accepted) return;
+
+            updateAssessment(props.assessment._id, {
+                groups: props.assessment.groups
+                    .filter((g) => {
+                        if (g.group === group.group && g.kindergartenId === group.kindergartenId) return false;
+
+                        return true;
+                    })
+                    .map(({ group: name, kindergartenId }) => ({ group: name, kindergartenId })),
+            }).then(refetchAssessment);
         });
     }
 
