@@ -84,7 +84,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
         >
             <div className={classes.container}>
                 <Typography variant="h4" className={classes.title}>
-                    Grupy
+                    {t('groupsModal.title')}
                 </Typography>
                 <Box display="flex" flexDirection="row" width="50%">
                     <TextField

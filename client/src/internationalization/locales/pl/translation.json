@@ -1087,6 +1087,7 @@
         "run": "SZYBKOŚĆ"
     },
     "groupsModal": {
+        "title": "Grupy",
         "close": "zamknij",
         "save": "zapisz",
         "kindergarten-name": "Przedszkole",
