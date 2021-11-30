@@ -1140,7 +1140,10 @@
         },
         "events": {
             "created": "Article created",
-            "updated": "Article updated"
+            "updated": "Article updated",
+            "updated-wrong-title": "Wrong title. It should contain 10 - 100 characters",
+            "updated-wrong-description": "Wrong description. It should contain 30 - 300 characters",
+            "updated-unknown-error": "Update article error"
         }
     },
     "admin-article-list": {

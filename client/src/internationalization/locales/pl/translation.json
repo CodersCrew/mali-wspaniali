@@ -1144,7 +1144,10 @@
         },
         "events": {
             "created": "Utworzono artykuł",
-            "updated": "Artykuł zaktualizowany"
+            "updated": "Artykuł zaktualizowany",
+            "updated-wrong-title": "Nieprawidłowy tytuł. Powinien zawierać 10 - 100 znaków",
+            "updated-wrong-description": "Zły opis. Powinien zawierać 30 - 300 znaków",
+            "updated-unknown-error": "Błąd aktualizacji artykułu"
         }
     },
     "admin-article-list": {
