@@ -142,7 +142,7 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     );
 
     function isAddingGroupDisabled() {
-        if (isTextfieldDisabled || providedName.length === 0) return true;
+        if (isTextfieldDisabled() || providedName.length === 0) return true;
 
         if (groups.find((g) => g.group === providedName && g.kindergartenId === selectedKindergarten)) return true;
 
