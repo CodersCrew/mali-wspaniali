@@ -16,25 +16,27 @@ const AUTHORIZE_USER = gql`
 `;
 
 export function useAuthorizeMe(onAuthorized: (user: Me) => void, onError: (error: Error) => void) {
-    const [authorizeUser] = useMutation(AUTHORIZE_USER);
+    const [authorizeUser, { client }] = useMutation(AUTHORIZE_USER);
     const { refetch } = useGetMe();
 
     return {
         authorizeMe: (mail: string, password: string) => {
-            authorizeUser({
-                variables: { user: { mail: normalize(mail), password } },
-                update: (_, { data: { login } }) => {
-                    localStorage.setItem('token', login.token);
+            client.clearStore().then(() => {
+                authorizeUser({
+                    variables: { user: { mail: normalize(mail), password } },
+                    update: (_, { data: { login } }) => {
+                        localStorage.setItem('token', login.token);
 
-                    refetch()
-                        .then(({ data }) => {
-                            if (data) {
-                                onAuthorized(data.me);
-                            }
-                        })
-                        .catch((error) => onError(error));
-                },
-            }).catch((error) => onError(error));
+                        refetch()
+                            .then(({ data }) => {
+                                if (data) {
+                                    onAuthorized(data.me);
+                                }
+                            })
+                            .catch((error) => onError(error));
+                    },
+                }).catch((error) => onError(error));
+            });
         },
     };
 }
