@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik, FormikErrors, FormikTouched } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import { NewsletterFormValues, SpecificRecipient } from './types';
 import { NewsletterRecipent } from './NewsletterRecipient';
@@ -20,6 +21,7 @@ import { NewsletterContent } from './NewsletterContent';
 import { ButtonSecondary } from '../../components/Button';
 import { activePage } from '../../apollo_client';
 import { useCreateNewsletter } from '../../operations/mutations/Newsletter/createNewsletter';
+import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 const parser = new DOMParser();
 
@@ -27,6 +29,7 @@ export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const { createNewsletter } = useCreateNewsletter();
+    const history = useHistory();
 
     const formik = useFormik<NewsletterFormValues>({
         initialValues: {
@@ -38,7 +41,6 @@ export default function NewsletterPage() {
             message: '',
         },
         initialErrors: {
-            generalRecipientType: t('newsletter.general-recipient-helper-text'),
             specificRecipientType: t('newsletter.specific-recipient-helper-text'),
             recipients: t('newsletter.recipient-helper-text'),
             type: t('newsletter.type-helper-text'),
@@ -52,7 +54,20 @@ export default function NewsletterPage() {
                 recipients: values.recipients,
                 title: values.topic,
                 type: `${values.generalRecipientType} ${values.specificRecipientType} ${values.type}`,
-            });
+            })
+                .then(() => {
+                    openSnackbar({
+                        text: t('newsletter.created'),
+                    }).then(() => {
+                        history.push('/admin/archive');
+                    });
+                })
+                .catch(() => {
+                    openSnackbar({
+                        text: t('newsletter.created-error'),
+                        severity: 'error',
+                    });
+                });
         },
     });
 
@@ -172,11 +187,7 @@ const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: bo
 const validate = (values: NewsletterFormValues) => {
     const errors: FormikErrors<NewsletterFormValues> = {};
 
-    const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = values;
-
-    if (!generalRecipientType) {
-        errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
-    }
+    const { specificRecipientType, recipients, type, topic, message } = values;
 
     if (!specificRecipientType) {
         errors.specificRecipientType = 'newsletter.specific-recipient-helper-text';
@@ -255,7 +266,7 @@ const useStyles = makeStyles((theme: Theme) =>
             top: '70px',
             left: '46.5px',
             margin: 0,
-            height: '83%',
+            height: '70%',
         },
         lineVertical: {
             height: '100%',

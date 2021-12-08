@@ -550,7 +550,6 @@
         "content-heading": "Newsletter content",
         "general-recipient-label": "Select the recipient from list",
         "general-recipient-label-filled": "Select a recipient",
-        "general-recipient-helper-text": "No recipient was selected. This step is necessary to specify a recipient.",
         "specific-recipient-label": "Specify a recipient",
         "specific-recipient-value-labels": {
             "all-parents": "all parents",
@@ -559,6 +558,8 @@
             "selected-kindergartens": "selected kindergartens"
         },
         "specific-recipient-helper-text": "Recipient not specified. Fill in this field to send a message to the proper recipient.",
+        "created": "Newsletter created",
+        "created-error": "Failed to create newsletter",
         "recipient-single-parent-label": "To sent a message to a single parent, select him/her from the list",
         "recipient-single-parent-label-filled": "The message will be sent to parents of these children:",
         "recipient-single-kindergarten-label": "Select kindergartens from the list",
