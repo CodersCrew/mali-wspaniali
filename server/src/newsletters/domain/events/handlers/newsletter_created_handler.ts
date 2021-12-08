@@ -8,7 +8,8 @@ import { getTemplate } from '../../../../shared/services/send_mail/getTemplate';
 
 @EventsHandler(NewsletterCreatedEvent)
 export class NewsletterCreatedHandler
-  implements IEventHandler<NewsletterCreatedEvent> {
+  implements IEventHandler<NewsletterCreatedEvent>
+{
   constructor(
     private repository: NewslettersRepository,
     private sendMail: SendMail,
@@ -37,16 +38,20 @@ export class NewsletterCreatedHandler
     if (newsletter.type.includes('ALL')) {
       const users = await this.userRepository.getAll({ role: 'parent' });
 
-      await this.sendMail.send({
-        from: process.env.SENDER,
-        bcc: users.map(u => u.mail),
-        subject: newsletter.title,
-        html: getTemplate({
-          title: newsletter.title,
-          content: newsletter.message,
-        }),
-        text: '',
-      });
+      try {
+        await this.sendMail.send({
+          from: process.env.SENDER,
+          bcc: users.map((u) => u.mail),
+          subject: newsletter.title,
+          html: getTemplate({
+            title: newsletter.title,
+            content: newsletter.message,
+          }),
+          text: '',
+        });
+      } catch (error) {
+        console.log('error:', error);
+      }
     }
   }
 }

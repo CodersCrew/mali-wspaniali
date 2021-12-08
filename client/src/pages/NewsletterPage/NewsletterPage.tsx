@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import {
     Typography,
@@ -27,6 +27,38 @@ export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const { createNewsletter } = useCreateNewsletter();
+
+    const validate = useCallback((values: NewsletterFormValues) => {
+        const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = values;
+
+        const errors: FormikErrors<NewsletterFormValues> = {};
+
+        if (!generalRecipientType) {
+            errors.generalRecipientType = t('newsletter.general-recipient-helper-text');
+        }
+
+        if (!specificRecipientType) {
+            errors.specificRecipientType = t('newsletter.specific-recipient-helper-text');
+        }
+
+        if (areSpecificRecipientsRequired(specificRecipientType) && recipients.length === 0) {
+            errors.recipients = t('newsletter.recipient-helper-text');
+        }
+
+        if (!type) {
+            errors.type = t('newsletter.type-helper-text');
+        }
+
+        if (!topic) {
+            errors.topic = t('newsletter.topic-helper-text');
+        }
+
+        if (isEmptyMessage(message)) {
+            errors.message = t('newsletter.message-helper-text');
+        }
+
+        return errors;
+    }, []);
 
     const formik = useFormik<NewsletterFormValues>({
         initialValues: {
@@ -167,38 +199,6 @@ const setSecondStepLabel = (firstStepCompleted: boolean, secondStepCompleted: bo
     }
 
     return 'newsletter.sidebar.fill';
-};
-
-const validate = (values: NewsletterFormValues) => {
-    const errors: FormikErrors<NewsletterFormValues> = {};
-
-    const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = values;
-
-    if (!generalRecipientType) {
-        errors.generalRecipientType = 'newsletter.general-recipient-helper-text';
-    }
-
-    if (!specificRecipientType) {
-        errors.specificRecipientType = 'newsletter.specific-recipient-helper-text';
-    }
-
-    if (areSpecificRecipientsRequired(specificRecipientType) && recipients.length === 0) {
-        errors.recipients = 'newsletter.recipient-helper-text';
-    }
-
-    if (!type) {
-        errors.type = 'newsletter.type-helper-text';
-    }
-
-    if (!topic) {
-        errors.topic = 'newsletter.topic-helper-text';
-    }
-
-    if (isEmptyMessage(message)) {
-        errors.message = 'newsletter.message-helper-text';
-    }
-
-    return errors;
 };
 
 // Given message is a stringify DOM element.
