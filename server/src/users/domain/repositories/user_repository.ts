@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, UpdateQuery } from 'mongoose';
 
 import { UserCore, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
@@ -145,7 +145,7 @@ export class UserRepository {
       { _id: userId, isConfirmed: true },
       {
         $addToSet: { children: childId },
-      },
+      } as UpdateQuery<UserDocument>,
       { new: true, useFindAndModify: false },
     );
   }
@@ -166,7 +166,7 @@ export class UserRepository {
       { _id: userId },
       {
         $addToSet: { agreements: agreementId },
-      },
+      } as UpdateQuery<UserDocument>,
       {
         useFindAndModify: false,
       },
@@ -181,7 +181,7 @@ export class UserRepository {
       { _id: userId },
       {
         $pull: { agreements: agreementId },
-      },
+      } as UpdateQuery<UserDocument>,
       {
         useFindAndModify: false,
       },
