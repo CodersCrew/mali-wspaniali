@@ -28,8 +28,10 @@ const parser = new DOMParser();
 export default function NewsletterPage() {
     const classes = useStyles();
     const { t } = useTranslation();
-    const { createNewsletter } = useCreateNewsletter();
+    const { createNewsletter, createNewsletterPending } = useCreateNewsletter();
     const history = useHistory();
+    const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) =>
+        Object.keys(errors).length !== 0 || createNewsletterPending;
 
     const formik = useFormik<NewsletterFormValues>({
         initialValues: {
@@ -156,8 +158,6 @@ export default function NewsletterPage() {
 }
 
 const areSpecificRecipientsRequired = (value: SpecificRecipient | '') => value === 'KINDERGARTEN' || value === 'SINGLE';
-
-const isSubmitButtonDisabled = (errors: FormikErrors<NewsletterFormValues>) => Object.keys(errors).length !== 0;
 
 const isFirstStepCompleted = (errors: FormikErrors<NewsletterFormValues>) =>
     !errors.generalRecipientType && !errors.specificRecipientType && !errors.recipients;
