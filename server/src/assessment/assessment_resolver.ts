@@ -40,7 +40,7 @@ import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model'
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
 import { User } from '@users/domain/models';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
-import { UserMapper } from '@users/domain/mappers/user_mapper';
+import { UserMapper } from '../users/domain/mappers/user_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
