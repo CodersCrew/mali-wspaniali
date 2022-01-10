@@ -7,6 +7,8 @@ import {
   Parent,
   Int,
   Context,
+  Root,
+  Info,
 } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
@@ -32,6 +34,13 @@ import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 import { GetResultsQuery } from '../users/domain/queries/impl/get_results_query';
 import { GetChildrenFromKindergartenQuery } from '../users/domain/queries/impl/get_children_from_kindergarten_query';
 import { countResults } from '../shared/utils/count_results';
+import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
+import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
+import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
+import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
+import { User } from '@users/domain/models';
+import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
+import { UserMapper } from '../users/domain/mappers/user_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -134,5 +143,30 @@ export class AssessmentResolver {
     context.req.assessmentId = assessment.id;
 
     return AssessmentMapper.toPlain(assessment);
+  }
+
+  @ResolveField(() => KindergartenWithInstructorDTO)
+  async kindergartens(@Parent() assessment: AssessmentDTO) {
+    const kindergartens: Kindergarten[] = await this.queryBus.execute(
+      new GetKindergartensQuery(
+        assessment.kindergartens.map(k => k.kindergartenId),
+      ),
+    );
+
+    const instructors: User[] = await this.queryBus.execute(
+      new GetUsersQuery(assessment.kindergartens.map(k => k.instructorId)),
+    );
+
+    return assessment.kindergartens.map(col => {
+      const kindergarten = kindergartens.find(k => k.id === col.kindergartenId);
+      const instructor = instructors.find(i => i.id === col.instructorId);
+
+      return {
+        kindergarten: kindergarten
+          ? KindergartenMapper.toPlain(kindergarten)
+          : null,
+        instructor: instructor ? UserMapper.toPlain(instructor) : null,
+      };
+    });
   }
 }
