@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useGetMe } from '../../../operations/mutations/User/useGetMe';
 import { openSendMessageModal } from '../../../components/AccountDeletionPanel/SendMessageModal';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-
 import { ButtonSendMessage } from '../ChangePasswordPanel/ChangepasswordPanelFormControls/ButtonSendMessage';
 import { useCreateNewsletter } from '../../../operations/mutations/Newsletter/createNewsletter';
 

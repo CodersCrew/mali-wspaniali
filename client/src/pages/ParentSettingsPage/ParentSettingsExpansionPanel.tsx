@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React from 'react';
+
 import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';
 import { LegalNotesPanel } from './LegalNotesPanel/LegalNotesPanel';
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export function ParentSettingsExpansionPanel({ user }: Props) {
-    const [expandedPanel, setExpandedPanel] = useState<string>('');
+    const [expandedPanel, setExpandedPanel] = React.useState<string>('');
 
     const togglePanelExpansion = (name: string) => {
         setExpandedPanel(name !== expandedPanel ? name : '');

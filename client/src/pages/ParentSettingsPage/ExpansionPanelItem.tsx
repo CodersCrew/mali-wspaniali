@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ export interface Props {
     onTogglePanelExpansion: (name: string) => void;
     expanded: boolean;
     title: string;
-    panel: FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
+    panel: React.FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
 }
 
 export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: Props) {
