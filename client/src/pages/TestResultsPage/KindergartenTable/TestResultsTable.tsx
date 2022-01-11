@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 import { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { BaseChildInfo, KindergartenWithChildren } from '../../../graphql/types';
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';

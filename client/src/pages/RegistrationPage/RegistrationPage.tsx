@@ -1,5 +1,4 @@
 import { AuthTemplate } from '../AuthTemplate/AuthTemplate';
-
 import { RegistrationForm } from './RegistrationForm';
 
 export default function RegistrationPage() {

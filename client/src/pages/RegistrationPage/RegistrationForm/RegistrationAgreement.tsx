@@ -19,7 +19,6 @@ import parse from 'html-react-parser';
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
 import { AgreementExtended } from '../types';
-
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
 

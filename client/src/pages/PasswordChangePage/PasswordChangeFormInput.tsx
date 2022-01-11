@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     createStyles,
     FormControl,
@@ -9,14 +10,13 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { ChangeEvent, useState } from 'react';
 
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { Theme } from '../../theme';
 
 export type PasswordChangeFormInputProps = {
     value: string;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     error: boolean;
     id: string;
     label: string;
@@ -33,7 +33,7 @@ export const PasswordChangeFormInput: React.FC<PasswordChangeFormInputProps> = (
     const { isDesktop } = useIsDevice();
     const classes = useStyles();
 
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
 
     return (
         <FormControl variant="outlined" fullWidth className={clsx({ [classes.formItem]: !isDesktop })}>

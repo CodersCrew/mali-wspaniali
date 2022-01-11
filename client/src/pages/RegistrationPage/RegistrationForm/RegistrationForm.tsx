@@ -14,7 +14,6 @@ import { useIsDevice } from '../../../queries/useBreakpoints';
 import { AgreementExtended } from '../types';
 import { AGREEMENTS } from '../agreements';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
 import { RegistrationEmail } from './RegistrationEmail';
