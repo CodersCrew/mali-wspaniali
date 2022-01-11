@@ -4,7 +4,6 @@ import React from 'react';
 
 import { emailTest } from '../../../utils/emailTest';
 import { ButtonSecondary } from '../../../components/Button';
-
 import { RegistrationEmailProps } from './types';
 
 export const RegistrationEmail = ({

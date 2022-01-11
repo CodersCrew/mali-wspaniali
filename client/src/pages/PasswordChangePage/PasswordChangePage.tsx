@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/core/';
 import clsx from 'clsx';
@@ -9,7 +9,6 @@ import SuccessImage from '../../assets/forgotPassword/success.png';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
 import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';
@@ -44,10 +43,10 @@ export default function PasswordChangePage() {
             }),
     );
 
-    const [form, setForm] = useState(initialState);
-    const [onSuccess, setOnSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [form, setForm] = React.useState(initialState);
+    const [onSuccess, setOnSuccess] = React.useState(false);
+    const [error, setError] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const { password, passwordConfirm } = form;
 
@@ -107,7 +106,7 @@ export default function PasswordChangePage() {
         </>
     );
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
         if (!passwordStrengthTest(password)) {
@@ -129,7 +128,7 @@ export default function PasswordChangePage() {
         }
     }
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));

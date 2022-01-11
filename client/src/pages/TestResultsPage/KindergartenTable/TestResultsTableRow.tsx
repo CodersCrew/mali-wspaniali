@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, alpha } from '@material-ui/core';
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
+
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
 import { KindergartenWithChildren } from '../../../graphql/types';
 import { ProgressBar } from '../../../components/ProgressBar';
