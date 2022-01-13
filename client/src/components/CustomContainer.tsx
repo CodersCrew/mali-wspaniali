@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import { createStyles, Divider, makeStyles, Paper, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface Props {
-    header?: ReactNode;
-    container: ReactNode;
-    subheader?: ReactNode;
-    subsubheader?: ReactNode;
+    header?: React.ReactNode;
+    container: React.ReactNode;
+    subheader?: React.ReactNode;
+    subsubheader?: React.ReactNode;
     disableShadow?: boolean;
 }
 

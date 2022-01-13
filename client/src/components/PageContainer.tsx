@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-export const PageContainer: FC = ({ children }) => {
+export const PageContainer: React.FC = ({ children }) => {
     const classes = useStyles();
 
     return <div className={classes.container}>{children}</div>;
