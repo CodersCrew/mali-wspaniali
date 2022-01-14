@@ -1,10 +1,10 @@
-import { useState, useRef, ReactNode } from 'react';
+import React from 'react';
 import { Button, ButtonGroup, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 
 interface ActionMenuButtonSecondaryProps {
     label: string;
-    options: ReactNode[];
+    options: React.ReactNode[];
     onClick: () => void;
     isDisabled?: boolean;
     size?: 'small' | 'medium' | 'large';
@@ -13,8 +13,8 @@ interface ActionMenuButtonSecondaryProps {
 }
 
 export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps) {
-    const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
-    const anchorRef = useRef<HTMLDivElement>(null);
+    const [isActionMenuOpen, setIsActionMenuOpen] = React.useState(false);
+    const anchorRef = React.useRef<HTMLDivElement>(null);
 
     return (
         <Grid container direction="column" alignItems="center">

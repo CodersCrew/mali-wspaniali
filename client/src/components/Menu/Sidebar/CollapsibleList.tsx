@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { Collapse, List, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { SingleItemProps, SingleItem } from './SingleItem';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
-    const [isOpen, setIsOpen] = useState(mainItem.active);
+    const [isOpen, setIsOpen] = React.useState(mainItem.active);
     const classes = useStyles();
 
     return (

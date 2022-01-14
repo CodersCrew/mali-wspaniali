@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { Box, Grid, IconButton, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon } from '@material-ui/icons';
@@ -13,7 +13,7 @@ interface SearchChildFieldProps {
 
 export function SearchChildField(props: SearchChildFieldProps) {
     const { t } = useTranslation();
-    const [isSearchFieldOpen, setIsSearchFieldOpen] = useState(false);
+    const [isSearchFieldOpen, setIsSearchFieldOpen] = React.useState(false);
 
     if (props.isCompact && !isSearchFieldOpen) {
         return <SearchFieldLabel onClick={() => setIsSearchFieldOpen((prev) => !prev)} />;
