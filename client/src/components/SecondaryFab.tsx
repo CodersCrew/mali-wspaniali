@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import { createStyles, makeStyles, Theme, Fab } from '@material-ui/core';
 
 interface Props {
     text: string;
     onClick: () => void;
-    icon?: ReactNode;
+    icon?: React.ReactNode;
 }
 
 export function SecondaryFab({ icon, text, onClick }: Props) {

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { Button, ButtonProps, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import clsx from 'clsx';
 
@@ -8,7 +8,7 @@ export type CustomButtonProps = ButtonProps & {
     variant?: string;
 };
 
-export const ButtonBase: FC<CustomButtonProps> = ({ innerText, icon, className, children, ...props }) => {
+export const ButtonBase: React.FC<CustomButtonProps> = ({ innerText, icon, className, children, ...props }) => {
     const classes = useStyles();
 
     let content;
