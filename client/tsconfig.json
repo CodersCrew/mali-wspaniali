@@ -22,12 +22,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": "."
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src",
-    "functions/src/database/utils.ts",
-    "src/custom.d.ts"
-  ]
+  "include": ["src", "functions/src/database/utils.ts", "src/custom.d.ts"]
 }
