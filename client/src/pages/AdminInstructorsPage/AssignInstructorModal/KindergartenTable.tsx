@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
     TextField,
     InputAdornment,
@@ -25,7 +25,7 @@ interface Props {
 
 export const KindergartenTable = ({ defaultKindergartens, selected, onSelect }: Props) => {
     const { t } = useTranslation();
-    const [searchPhrase, setSearchPhrase] = useState('');
+    const [searchPhrase, setSearchPhrase] = React.useState('');
     const classes = useStyles();
 
     return (

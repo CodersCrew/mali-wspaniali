@@ -1,5 +1,5 @@
+import React from 'react';
 import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
-import { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -21,8 +21,8 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const [inputValue, setInputValue] = useState('');
-    const [isError, setIsError] = useState(false);
+    const [inputValue, setInputValue] = React.useState('');
+    const [isError, setIsError] = React.useState(false);
 
     return (
         <div className={classes.container}>

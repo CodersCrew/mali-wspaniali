@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { InstructorRelation } from './types';
 import { Toolbar } from './Toolbar';
@@ -21,7 +21,7 @@ const T_PREFIX_SNACKBAR = 'admin-instructors-page.snackbars';
 export default function AdminInstructorsPage() {
     const { t } = useTranslation();
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.tests.instructors']);
     }, []);
 
@@ -29,10 +29,10 @@ export default function AdminInstructorsPage() {
     const { assessments, areAssessmentsLoading, refetchAssessments } = useAssessments();
     const { updateAssessment } = useUpdateAssessment();
 
-    const [selectedAssessment, setSelectedAssessment] = useState<string | null>(null);
-    const [selectedInstructor, setSelectedInstructor] = useState<PrivilegedUser[]>([]);
+    const [selectedAssessment, setSelectedAssessment] = React.useState<string | null>(null);
+    const [selectedInstructor, setSelectedInstructor] = React.useState<PrivilegedUser[]>([]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (assessments.length > 0) {
             setSelectedAssessment(getAvailableAssessments()[0]?._id);
         }

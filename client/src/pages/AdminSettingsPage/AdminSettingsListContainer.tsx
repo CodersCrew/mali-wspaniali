@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TableBody, TableCell, Table, TableHead, TableRow, TablePagination } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -15,8 +15,8 @@ interface AdminSettingsListContainersProps {
 export const AdminSettingsListContainers = React.memo(function AdminSettingsListContainers(
     props: AdminSettingsListContainersProps,
 ) {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const { users, isUserListLoading, refetchUser } = useUsers({ ...props, page: page.toString() });
 
     const isParent = props.role === 'parent';

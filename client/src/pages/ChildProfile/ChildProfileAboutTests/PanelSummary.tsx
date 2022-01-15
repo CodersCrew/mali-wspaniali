@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles, AccordionSummary, Typography } from '@material-ui/core';
 
-export const PanelSummary: FC = ({ children }) => {
+export const PanelSummary: React.FC = ({ children }) => {
     const classes = useStyles();
 
     return (
