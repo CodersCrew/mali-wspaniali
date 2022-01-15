@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -18,7 +18,7 @@ export interface Props {
 
 export const TestSummary = ({ prefix }: Props) => {
     const { t } = useTranslation();
-    const result = React.useContext(ResultContext);
+    const result = useContext(ResultContext);
 
     const classes = useStyles();
 

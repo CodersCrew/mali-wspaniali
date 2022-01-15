@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,7 @@ import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
 
-export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
+export const AuthTemplate: FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();

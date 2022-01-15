@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -68,14 +68,14 @@ function EditorPanel(props: EditorPanelProps) {
 
     const { selectedChild: child } = props.resultCreator;
 
-    const [localResult, setLocalResult] = React.useState(props.resultCreator.values);
-    const [localNote, setLocalNote] = React.useState(getCurrentNote());
+    const [localResult, setLocalResult] = useState(props.resultCreator.values);
+    const [localNote, setLocalNote] = useState(getCurrentNote());
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLocalResult(props.resultCreator.values);
     }, [props.resultCreator.values]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 

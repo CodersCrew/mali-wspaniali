@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -34,11 +34,11 @@ interface GroupsTransferListProps {
 export function GroupsTransferList(props: GroupsTransferListProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [checked, setChecked] = React.useState<string[]>([]);
+    const [checked, setChecked] = useState<string[]>([]);
     const { createAssessmentResult } = useCreateAssessmentResult();
     const { updateAssessmentResult } = useUpdateAssessmentResult();
     const { refetchResults } = useAssessmentResults(props.group.kindergartenId, props.assessmentId);
-    const [isActionPending, setIsActionPending] = React.useState(false);
+    const [isActionPending, setIsActionPending] = useState(false);
 
     const handleToggle = (value: Child) => () => {
         if (checked.includes(value._id)) {

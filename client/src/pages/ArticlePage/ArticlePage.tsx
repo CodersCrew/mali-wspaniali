@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme, CardMedia } from '@material-ui/core';
 import clsx from 'clsx';
@@ -22,11 +22,11 @@ export default observer(function ArticlePage() {
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.blog']);
     }, [articleId]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!articleStore.article && article) {
             articleStore.setArticle(article);
         }

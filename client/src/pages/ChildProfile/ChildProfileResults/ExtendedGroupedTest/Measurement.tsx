@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function Measurement(props: Props) {
-    const result = React.useContext(ResultContext);
+    const result = useContext(ResultContext);
     const { t } = useTranslation();
     const classes = useStyles();
     const history = useHistory();

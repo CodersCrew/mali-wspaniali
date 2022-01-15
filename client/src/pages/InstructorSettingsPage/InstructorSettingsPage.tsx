@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import pick from 'lodash.pick';
@@ -16,11 +16,11 @@ export default function InstructorSettingsPage() {
     const { t } = useTranslation();
     const user = useMe();
     const { updateUser } = useUpdateUser();
-    const [editedUser, setEditedUser] = React.useState<UpdatedUserInput>(
+    const [editedUser, setEditedUser] = useState<UpdatedUserInput>(
         pick(user, ['firstname', 'lastname']) as UpdatedUserInput,
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['instructor-menu.settings']);
     }, []);
 

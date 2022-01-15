@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,7 @@ interface Props {
 
 export const Workspace = ({ value, error, onChange }: Props) => {
     const { t } = useTranslation();
-    const [isTouched, setIsTouched] = React.useState(false);
+    const [isTouched, setIsTouched] = useState(false);
     const classes = useStyles();
 
     return (

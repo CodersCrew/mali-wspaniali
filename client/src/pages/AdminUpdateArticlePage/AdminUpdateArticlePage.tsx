@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
-import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';
@@ -13,15 +13,15 @@ import { ContentCreator } from './ContentCreator/ContentCreator';
 import { articleStore } from './ArticleCreator/ArticleCreatorStore';
 
 export default observer(() => {
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.articles.title']);
     }, []);
     const params = useParams<{ articleId: string }>();
-    const [isPreview, setIsPreview] = React.useState(false);
+    const [isPreview, setIsPreview] = useState(false);
 
     const { article } = useArticleWithId(params.articleId);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (article) {
             articleStore.setArticle(article);
         }

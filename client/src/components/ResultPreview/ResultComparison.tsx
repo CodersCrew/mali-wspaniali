@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
@@ -18,7 +18,7 @@ export const ResultComparison = () => {
 
     const classes = useStyles();
 
-    const result = React.useContext(ResultContext);
+    const result = useContext(ResultContext);
 
     if (!result) return null;
 

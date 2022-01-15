@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Typography, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useDebounce } from 'use-debounce';
@@ -15,9 +15,9 @@ const T_PREFIX = 'user-settings';
 
 export function AdminSettingsList() {
     const { kindergartenList } = useKindergartens();
-    const [selectedKindergaraden, setSelectedKindergarden] = React.useState<string>('');
-    const [selectedRole, setSelectedRole] = React.useState<string>('parent');
-    const [search, setSearch] = React.useState<string>('');
+    const [selectedKindergaraden, setSelectedKindergarden] = useState<string>('');
+    const [selectedRole, setSelectedRole] = useState<string>('parent');
+    const [search, setSearch] = useState<string>('');
     const [debouncedSearch] = useDebounce(search, 500);
 
     return (

@@ -1,11 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { parseBirthQuarter } from '../../utils/parseBirthQuarter';
 
 export interface Option {
     value: string;
-    label: React.ReactNode;
+    label: ReactNode;
     helperLabel?: string;
 }
 

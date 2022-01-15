@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
     Box,
     createStyles,
@@ -31,7 +31,7 @@ interface ChildPickerDrawerProps {
 }
 
 export function ChildPickerDrawer(props: ChildPickerDrawerProps) {
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
     const sidebarState = useSidebarState();

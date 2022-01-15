@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
@@ -21,7 +21,7 @@ export function Root() {
 
     dayjs.locale(i18n.language);
 
-    React.useEffect(() => {
+    useEffect(() => {
         getRootLazyImports('RegistrationPage').preload();
         getRootLazyImports('ForgotPasswordPage').preload();
     }, []);
@@ -30,7 +30,7 @@ export function Root() {
         <StylesProvider generateClassName={generateClassName}>
             <ThemeProvider>
                 <CssBaseline />
-                <React.Suspense fallback={null}>
+                <Suspense fallback={null}>
                     <Router>
                         <CookieModal />
                         <Switch>
@@ -223,7 +223,7 @@ export function Root() {
                             </Route>
                         </Switch>
                     </Router>
-                </React.Suspense>
+                </Suspense>
             </ThemeProvider>
         </StylesProvider>
     );

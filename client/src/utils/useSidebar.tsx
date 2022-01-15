@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode, createContext, useState } from 'react';
 
 interface SidebarState {
     isOpen: boolean;
@@ -7,15 +7,15 @@ interface SidebarState {
     closeSidebar: () => void;
 }
 
-export const SidebarContext = React.createContext<SidebarState>({
+export const SidebarContext = createContext<SidebarState>({
     isOpen: false,
     toggleSidebar: () => null,
     openSidebar: () => null,
     closeSidebar: () => null,
 });
 
-export function SidebarStateProvider(props: { children: React.ReactNode }) {
-    const [isOpen, setIsOpen] = React.useState(false);
+export function SidebarStateProvider(props: { children: ReactNode }) {
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <SidebarContext.Provider

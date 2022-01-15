@@ -1,4 +1,4 @@
-import React from 'react';
+import { KeyboardEvent } from 'react';
 import { createStyles, makeStyles, TextField, Typography } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -66,7 +66,7 @@ export const RegistrationCode = ({
         });
     }
 
-    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+    function handleKeyPress(event: KeyboardEvent<HTMLDivElement>) {
         if (event.key !== 'Enter') return;
 
         event.preventDefault();
