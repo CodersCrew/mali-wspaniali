@@ -5,7 +5,7 @@ import { AgreementKindergartenFilter, AgreementKindergartenFilters } from './mod
 import { AgreementSortStatus, AgreementSortType } from './models/AgreementSortStatus';
 
 const link = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_SERVER,
+    uri: process.env.VITE_APP_GRAPHQL_SERVER as string,
     credentials: 'include',
 });
 
