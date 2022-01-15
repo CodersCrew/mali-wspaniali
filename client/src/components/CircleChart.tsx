@@ -1,4 +1,3 @@
-import React from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 import InfoIcon from '@material-ui/icons/Info';
 import { makeStyles } from '@material-ui/styles';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, Theme, makeStyles, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../../queries/useBreakpoints';

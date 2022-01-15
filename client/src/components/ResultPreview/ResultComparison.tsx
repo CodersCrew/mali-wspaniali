@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Grid, MenuItem } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';

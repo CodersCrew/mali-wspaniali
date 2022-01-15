@@ -1,4 +1,3 @@
-import React from 'react';
 import { Collapse, List, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { SingleItemProps, SingleItem } from './SingleItem';

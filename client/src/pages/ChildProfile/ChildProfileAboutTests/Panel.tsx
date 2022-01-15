@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Accordion, AccordionDetails } from '@material-ui/core';
 import { PanelSummary } from './PanelSummary';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core';
 
 export const Clickable: React.FC = ({ children }: { children?: React.ReactNode }) => {

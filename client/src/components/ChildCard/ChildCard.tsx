@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Typography, Paper, Theme, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 

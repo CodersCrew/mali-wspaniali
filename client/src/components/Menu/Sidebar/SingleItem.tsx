@@ -1,4 +1,3 @@
-import React from 'react';
 import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 

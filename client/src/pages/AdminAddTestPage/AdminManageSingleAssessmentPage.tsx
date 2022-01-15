@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';

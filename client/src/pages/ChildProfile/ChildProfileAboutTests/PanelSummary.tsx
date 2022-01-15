@@ -1,4 +1,3 @@
-import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles, AccordionSummary, Typography } from '@material-ui/core';
 

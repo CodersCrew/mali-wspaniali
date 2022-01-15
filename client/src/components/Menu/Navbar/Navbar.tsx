@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';

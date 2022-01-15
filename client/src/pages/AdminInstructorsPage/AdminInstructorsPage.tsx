@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { InstructorRelation } from './types';
 import { Toolbar } from './Toolbar';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 interface Props {

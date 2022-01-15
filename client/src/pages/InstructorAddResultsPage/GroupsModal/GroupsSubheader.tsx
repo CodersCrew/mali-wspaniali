@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, Typography, Box } from '@material-ui/core';
 

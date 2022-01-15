@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import React from 'react';
+
 import * as ReactDOM from 'react-dom';
 import { ThemeProvider } from '../theme';
 import { client } from '../apollo_client';

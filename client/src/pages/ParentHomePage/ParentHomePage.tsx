@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, createStyles, Grid, Link, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';

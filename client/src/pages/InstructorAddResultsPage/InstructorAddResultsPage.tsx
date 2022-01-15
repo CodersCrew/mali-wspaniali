@@ -1,4 +1,3 @@
-import React from 'react';
 import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';

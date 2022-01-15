@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';

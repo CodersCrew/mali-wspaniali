@@ -1,5 +1,5 @@
 import { Box, Typography } from '@material-ui/core';
-import React from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { activePage } from '../../apollo_client';
 import { ButtonSecondary } from '../../components/Button';

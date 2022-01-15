@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

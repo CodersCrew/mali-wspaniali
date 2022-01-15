@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { activePage } from '../../apollo_client';
 import { AdminSettingsList } from './AdminSettingsList';
 import { PageContainer } from '../../components/PageContainer';

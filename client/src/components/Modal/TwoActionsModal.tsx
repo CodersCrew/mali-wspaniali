@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 
 import { ButtonDefault, ButtonPrimary } from '../Button';

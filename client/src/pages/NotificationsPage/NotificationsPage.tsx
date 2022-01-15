@@ -1,4 +1,3 @@
-import React from 'react';
 import { NotificationPageList } from './NotificationPageList';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';

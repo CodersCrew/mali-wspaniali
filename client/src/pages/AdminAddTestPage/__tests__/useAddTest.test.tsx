@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { useAssessmentManager } from '../useAssessmentManager';

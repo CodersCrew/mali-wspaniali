@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles, createStyles, Grid, Theme, CardMedia } from '@material-ui/core';
 import clsx from 'clsx';

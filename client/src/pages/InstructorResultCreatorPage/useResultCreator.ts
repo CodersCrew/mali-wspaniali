@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment, Kindergarten, Child, AssessmentResult } from '../../graphql/types';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';

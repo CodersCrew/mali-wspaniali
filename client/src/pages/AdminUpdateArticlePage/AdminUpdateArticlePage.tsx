@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core';
-import React from 'react';
+
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { activePage } from '../../apollo_client';

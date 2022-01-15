@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function useOnClickOutside(ref: React.MutableRefObject<HTMLElement | null>, handler: (event: Event) => void) {
     React.useEffect(() => {
         const listener = (event: MouseEvent | TouchEvent) => {

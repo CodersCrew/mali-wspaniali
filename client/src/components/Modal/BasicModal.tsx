@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';

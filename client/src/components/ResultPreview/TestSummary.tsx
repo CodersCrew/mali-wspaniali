@@ -1,8 +1,8 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+
 import { ButtonSecondary } from '../Button';
 import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import { openSnackbar } from '../Snackbar/openSnackbar';
@@ -19,7 +19,6 @@ export interface Props {
 export const TestSummary = ({ prefix }: Props) => {
     const { t } = useTranslation();
     const result = React.useContext(ResultContext);
-
     const classes = useStyles();
 
     if (!result) return null;
@@ -114,11 +113,12 @@ export const TestSummary = ({ prefix }: Props) => {
         openAdviceModal({
             resultKey: chartDetails.key!,
             result: resultWrapper,
-        }).then((res) => {
-            if (!res.close)
-                openSnackbar({
-                    text: t('user-settings.modal-edit-account.success-message'),
-                });
+        }).then((dialogResult) => {
+            if (dialogResult.close) return;
+
+            openSnackbar({
+                text: t('user-settings.modal-edit-account.success-message'),
+            });
         });
     }
 };

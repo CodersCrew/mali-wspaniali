@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
 

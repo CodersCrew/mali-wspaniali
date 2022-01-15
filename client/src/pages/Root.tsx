@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';

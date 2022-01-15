@@ -1,4 +1,3 @@
-import React from 'react';
 import { Drawer, SwipeableDrawer, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { getMenuWidth } from './getMenuWidth';

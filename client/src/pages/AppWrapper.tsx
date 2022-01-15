@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

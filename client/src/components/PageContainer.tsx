@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 export const PageContainer: React.FC = ({ children }) => {

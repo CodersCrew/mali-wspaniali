@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles, Typography, Paper, Theme } from '@material-ui/core';
 
 interface Props {

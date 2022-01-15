@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';

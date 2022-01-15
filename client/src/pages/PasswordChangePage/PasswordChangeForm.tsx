@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';

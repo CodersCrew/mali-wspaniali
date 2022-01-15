@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 

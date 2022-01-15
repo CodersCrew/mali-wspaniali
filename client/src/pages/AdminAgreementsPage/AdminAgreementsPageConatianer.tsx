@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';

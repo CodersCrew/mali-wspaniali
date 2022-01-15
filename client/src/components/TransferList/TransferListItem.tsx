@@ -1,4 +1,3 @@
-import React from 'react';
 import { ListItem, ListItemIcon, ListItemText, Checkbox, makeStyles } from '@material-ui/core';
 
 interface TransferListItemProps {
