@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -47,8 +47,8 @@ function GroupsModal(props: ModalProps & ActionDialog<{ groupAdded: string }>) {
     const { t } = useTranslation();
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
     const { assessment, refetchAssessment } = useAssessment(props.selectedAssessment);
-    const [providedName, setProvidedName] = React.useState('');
-    const [selectedKindergarten, setSelectedKinderten] = React.useState(props.selectedKindergarten);
+    const [providedName, setProvidedName] = useState('');
+    const [selectedKindergarten, setSelectedKinderten] = useState(props.selectedKindergarten);
 
     const initialValues = {
         kindergarten: props.selectedKindergarten,

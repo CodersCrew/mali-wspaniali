@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, createStyles, Grid, Link, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -26,7 +26,7 @@ export default function ParentHomePage() {
     const history = useHistory();
     const { isMobile } = useIsDevice();
     const classes = useStyles();
-    const [isInfoComponentVisible, setIsInfoComponentVisible] = React.useState(
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
         () => localStorage.getItem('infoNote') !== 'closed',
     );
 
@@ -37,7 +37,7 @@ export default function ParentHomePage() {
 
     const { kindergartenList } = useKindergartens();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.home']);
     }, []);
 

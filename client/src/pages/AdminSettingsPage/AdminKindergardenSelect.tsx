@@ -1,12 +1,12 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 interface Props {
     label: string;
     options: {
         value: string;
-        label: React.ReactNode;
-        helperLabel: React.ReactNode;
+        label: ReactNode;
+        helperLabel: ReactNode;
     }[];
     value: string;
     onChange: (value: string) => void;

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { Assessment, Kindergarten, Child, AssessmentResult } from '../../graphql/types';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
@@ -48,7 +48,7 @@ export function useResultCreator({
 }: Props): ResultCreatorReturnProps | ResultCreatorErrorReturnProps {
     const { assessments } = useAssessments({ withChildren: true });
     const { kindergartenResults } = useAssessmentResults(kindergartenId, assessmentId);
-    const [edited, setEdited] = React.useState(() => localStorage.getItem('edited') || '');
+    const [edited, setEdited] = useState(() => localStorage.getItem('edited') || '');
 
     const { selectedAssessment, selectedKindergarten, selectedChild } = getSelected({
         assessments,

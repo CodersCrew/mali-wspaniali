@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Typography,
@@ -48,9 +48,9 @@ export const AdminAgreementsPage = ({
 }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [isFiltersListOpen, setIsFilterListOpen] = React.useState(false);
+    const [isFiltersListOpen, setIsFilterListOpen] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.agreements']);
     }, []);
 

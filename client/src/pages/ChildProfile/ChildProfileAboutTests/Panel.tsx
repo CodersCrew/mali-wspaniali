@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { makeStyles, Accordion, AccordionDetails } from '@material-ui/core';
 import { PanelSummary } from './PanelSummary';
 
@@ -6,7 +6,7 @@ interface Props {
     title: string;
 }
 
-export const Panel: React.FC<Props> = ({ title, children }) => {
+export const Panel: FC<Props> = ({ title, children }) => {
     const classes = useStyles();
 
     return (

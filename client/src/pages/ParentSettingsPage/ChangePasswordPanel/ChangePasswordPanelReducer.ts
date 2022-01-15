@@ -1,4 +1,4 @@
-import React from 'react';
+import { Dispatch } from 'react';
 
 export const CHANGE_OLD_PASSWORD = 'CHANGE_OLD_PASWORD';
 export const EMAIL_IS_CORRECT = 'EMAIL_IS_CORRECT';
@@ -26,7 +26,7 @@ export const ChangePasswordPanelInitialState: ChangePasswordPanelState = {
 
 export interface ChangePasswordPanelComponentsProps {
     state: ChangePasswordPanelState;
-    dispatch: React.Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
 }
 export const ChangePasswordPanelReducer = (
     state: ChangePasswordPanelState,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogProps, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -18,7 +18,7 @@ interface Props {
     dialogProps?: Partial<DialogProps>;
 }
 
-export const BasicModal: React.FC<Props> = ({
+export const BasicModal: FC<Props> = ({
     isOpen,
     actionName,
     onAction,

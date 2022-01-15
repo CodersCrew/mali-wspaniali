@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Container,
@@ -17,10 +17,10 @@ import { getAllUsers } from '../../graphql/userRepository';
 import { User } from '../../graphql/types';
 
 export default function UsersPage() {
-    const [users, setUsers] = React.useState<User[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const { t } = useTranslation();
 
-    React.useEffect(() => {
+    useEffect(() => {
         getAllUsers().then(({ data }) => setUsers(data!.users));
     }, []);
 

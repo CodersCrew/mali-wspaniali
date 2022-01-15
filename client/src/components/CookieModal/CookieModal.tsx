@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
@@ -11,7 +11,7 @@ import { Theme } from '../../theme';
 
 export const CookieModal = () => {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = React.useState(() => !getCookie('cookies'));
+    const [isOpen, setIsOpen] = useState(() => !getCookie('cookies'));
     const { t } = useTranslation();
 
     if (!isOpen) return null;

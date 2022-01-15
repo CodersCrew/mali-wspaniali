@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { useAssessmentManager } from '../useAssessmentManager';
@@ -306,7 +306,7 @@ describe('useAddTest', () => {
 });
 
 const renderPage =
-    (mocks: MockedResponse[]): React.FC =>
+    (mocks: MockedResponse[]): FC =>
     ({ children }) => {
         return (
             <MockedProvider mocks={mocks} addTypename={false}>

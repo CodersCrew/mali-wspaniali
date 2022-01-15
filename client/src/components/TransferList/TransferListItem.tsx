@@ -1,9 +1,9 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { ListItem, ListItemIcon, ListItemText, Checkbox, makeStyles } from '@material-ui/core';
 
 interface TransferListItemProps {
     checked: boolean;
-    label: React.ReactNode;
+    label: ReactNode;
     disabled: boolean;
     onChange: () => void;
 }

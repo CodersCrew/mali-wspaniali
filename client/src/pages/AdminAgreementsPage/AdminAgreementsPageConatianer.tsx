@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
 import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
@@ -47,7 +47,7 @@ export default function AdminAgreementsPageContainer() {
     const sortStatusQuery = useQuery(GET_AGREEMENTS_SORT_STATUS);
     const { agreementsSortStatus } = sortStatusQuery.data;
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (kindergartenList) {
             AgreementsTypeFilterMutations.addAgreementsKindergartenFilters([
                 AgreementKindergartenFilters.SHOW_ALL,

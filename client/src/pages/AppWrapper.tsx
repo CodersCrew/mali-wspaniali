@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ import dayjs from '../localizedMoment';
 import { UserContext } from '../utils/useMe';
 import { SidebarStateProvider } from '../utils/useSidebar';
 
-export const AppWrapper: React.FC = ({ children }) => {
+export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const { user } = useGetMe();
     const { i18n } = useTranslation();

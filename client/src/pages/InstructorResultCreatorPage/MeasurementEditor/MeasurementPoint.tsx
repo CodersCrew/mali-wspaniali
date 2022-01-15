@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import {
     createStyles,
     Grid,
@@ -33,7 +33,7 @@ interface Props {
     onClick: () => void;
 }
 
-export const MeasurementPoint = React.memo((props: Props) => {
+export const MeasurementPoint = memo((props: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useIsDevice();

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useReducer } from 'react';
 import { createStyles, Theme, makeStyles, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
@@ -15,7 +15,7 @@ export function ChangePasswordPanel() {
     const device = useBreakpoints();
     const classes = useStyles();
     const { t } = useTranslation();
-    const [state, dispatch] = React.useReducer(ChangePasswordPanelReducer, ChangePasswordPanelInitialState);
+    const [state, dispatch] = useReducer(ChangePasswordPanelReducer, ChangePasswordPanelInitialState);
     const { createNewsletter } = useCreateNewsletter();
     const user = useMe();
 

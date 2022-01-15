@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme, Typography, Paper, Button, Box } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
@@ -13,7 +13,7 @@ export const HomePageInfo = ({ toggleInfoComponent, childrenCount }: HomePageInf
     const { t } = useTranslation();
     const { isTablet } = useIsDevice();
 
-    const [readMore, setReadMore] = React.useState(false);
+    const [readMore, setReadMore] = useState(false);
 
     const toggleReadMore = () => {
         setReadMore((prevState) => !prevState);

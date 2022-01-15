@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Drawer, SwipeableDrawer, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { getMenuWidth } from './getMenuWidth';
@@ -7,7 +7,7 @@ import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {
     device: Device;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export function MenuDrawer({ device, children }: Props) {

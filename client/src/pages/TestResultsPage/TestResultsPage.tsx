@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Grid, MenuItem } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ export default function TestResultsPage() {
     const { t } = useTranslation();
 
     const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId);
-    const [SearchedValue, setSearchedValue] = React.useState('');
+    const [SearchedValue, setSearchedValue] = useState('');
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -40,7 +40,7 @@ export default function TestResultsPage() {
             },
         });
     };
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
 

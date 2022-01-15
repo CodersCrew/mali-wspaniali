@@ -1,4 +1,4 @@
-import React from 'react';
+import { FocusEvent } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField, IconButton, Card, CardHeader, CardContent, Divider, Grid } from '@material-ui/core';
@@ -12,7 +12,7 @@ import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface Props {
     onChange: (name: string, value: string) => void;
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     type: NewsletterType | '';
     topic: string;
     message: string;

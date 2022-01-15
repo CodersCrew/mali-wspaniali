@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
@@ -47,10 +47,10 @@ export const RegistrationPassword = ({
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const [showPassword, setShowPassword] = React.useState(false);
-    const [passwordValidation, setPasswordValidation] = React.useState(initialPasswordValidation);
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setPasswordValidation({
             length: passwordLengthTest(password),
             capital: passwordCapitalTest(password),

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +48,7 @@ export default function InstructorResultCreatorPage() {
     const device = useIsDevice();
     const { t } = useTranslation();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['instructor-menu.result-creator']);
     }, []);
 

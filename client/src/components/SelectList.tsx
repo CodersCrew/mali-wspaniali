@@ -1,10 +1,10 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { TextField } from '@material-ui/core';
 
 interface Props {
     value: string;
     label: string;
-    items: React.ReactNode[];
+    items: ReactNode[];
     disabled?: boolean;
     onSelect: (value: string) => void;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import {
     createStyles,
     FormControl,
@@ -16,13 +16,13 @@ import { Theme } from '../../theme';
 
 export type PasswordChangeFormInputProps = {
     value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     error: boolean;
     id: string;
     label: string;
 };
 
-export const PasswordChangeFormInput: React.FC<PasswordChangeFormInputProps> = ({
+export const PasswordChangeFormInput: FC<PasswordChangeFormInputProps> = ({
     children,
     value,
     onChange,
@@ -33,7 +33,7 @@ export const PasswordChangeFormInput: React.FC<PasswordChangeFormInputProps> = (
     const { isDesktop } = useIsDevice();
     const classes = useStyles();
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <FormControl variant="outlined" fullWidth className={clsx({ [classes.formItem]: !isDesktop })}>

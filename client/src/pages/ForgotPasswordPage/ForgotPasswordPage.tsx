@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import clsx from 'clsx';
@@ -28,8 +28,8 @@ export default function ForgotPasswordPage() {
         () => setImageState('ERROR'),
     );
 
-    const [email, setEmail] = React.useState('');
-    const [imageState, setImageState] = React.useState<ImageState>('ERROR');
+    const [email, setEmail] = useState('');
+    const [imageState, setImageState] = useState<ImageState>('ERROR');
 
     return (
         <div className={classes.container}>

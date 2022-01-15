@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import {
     Grid,
     InputAdornment,
@@ -43,10 +43,10 @@ interface KindergartenTransferListProps {
 }
 
 export function KindergartenTransferList({ defaultKindergartens, onSelect, labels }: KindergartenTransferListProps) {
-    const [selectableKindergartens, setSelectableKindergartens] = React.useState(defaultKindergartens);
-    const [pickedItems, setPickedItems] = React.useState<string[]>([]);
+    const [selectableKindergartens, setSelectableKindergartens] = useState(defaultKindergartens);
+    const [pickedItems, setPickedItems] = useState<string[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         onSelect(selectableKindergartens);
     }, [selectableKindergartens]);
 
@@ -120,7 +120,7 @@ function KindergartenPicker(props: {
 }) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [searchKindergarten, setSearchKindergarten] = React.useState('');
+    const [searchKindergarten, setSearchKindergarten] = useState('');
 
     const searchableItems = props.selectableKindergartens.filter(({ kindergarten }) => {
         if (searchKindergarten.length === 0) return true;

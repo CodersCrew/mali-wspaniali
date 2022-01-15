@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import clsx from 'clsx';
@@ -27,7 +27,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
     const { kindergartenList } = useKindergartens();
     const { isMobile } = useIsDevice();
 
-    const [isInfoComponentVisible, setIsInfoComponentVisible] = React.useState(
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
         () => localStorage.getItem('infoNote') !== 'closed',
     );
 

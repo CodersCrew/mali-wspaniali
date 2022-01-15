@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 
 import { IconButton, makeStyles, Theme, createStyles, Box, AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
@@ -62,9 +62,9 @@ export function Navbar({ device, language, notifications, activePage, onLanguage
 }
 
 function NotificationPopup({ notifications }: { notifications: Notification[] }) {
-    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = React.useState(false);
+    const [isNotificationPopupOpen, setIsNotificationPopupOpen] = useState(false);
     const { readNotification } = useReadNotification();
-    const popupRef = React.useRef<HTMLElement | null>(null);
+    const popupRef = useRef<HTMLElement | null>(null);
     useOnClickOutside(popupRef, () => setIsNotificationPopupOpen(false));
 
     return (

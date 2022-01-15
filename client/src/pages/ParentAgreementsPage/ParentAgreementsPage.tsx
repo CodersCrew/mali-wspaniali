@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { activePage } from '../../apollo_client';
 import { Agreements } from './Agreements';
 import { useMe } from '../../utils/useMe';
@@ -6,7 +6,7 @@ import { useMe } from '../../utils/useMe';
 export default function ParentAgreementsPage() {
     const user = useMe();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.agreements']);
     }, []);
 

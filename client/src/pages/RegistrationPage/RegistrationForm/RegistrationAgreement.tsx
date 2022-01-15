@@ -1,4 +1,4 @@
-import React from 'react';
+import { Dispatch, SetStateAction, ChangeEvent, useState } from 'react';
 import {
     Checkbox,
     AccordionDetails,
@@ -30,7 +30,7 @@ export interface Props {
     classButton: string;
     classNextBtn: string;
     agreements: AgreementExtended[];
-    setAgreements: React.Dispatch<React.SetStateAction<AgreementExtended[]>>;
+    setAgreements: Dispatch<SetStateAction<AgreementExtended[]>>;
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
@@ -111,10 +111,10 @@ export const RegistrationAgreement = ({
     const classes = useStyles();
 
     // TODO: length of initialState should follow the length of agreements; hardcoded '5' is only a temporary solution
-    const [boxChecked, setBoxChecked] = React.useState([false, false, false, false, false]);
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [expanded, setExpanded] = React.useState('panel1');
-    const [allRequiredChecked, setAllRequiredChecked] = React.useState(false);
+    const [boxChecked, setBoxChecked] = useState([false, false, false, false, false]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [expanded, setExpanded] = useState('panel1');
+    const [allRequiredChecked, setAllRequiredChecked] = useState(false);
 
     return (
         <>
@@ -227,12 +227,12 @@ export const RegistrationAgreement = ({
     }
 
     function handleMoreContent(panel: string) {
-        return (event: React.ChangeEvent<Record<string, unknown>>, newExpanded: boolean) => {
+        return (event: ChangeEvent<Record<string, unknown>>, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : '');
         };
     }
 
-    function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+    function handleChange({ target }: ChangeEvent<HTMLInputElement>) {
         const { id, checked } = target;
         const checks = [...boxChecked];
         const agreementState = [...agreements];

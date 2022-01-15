@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, Box, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { NoResults } from './NoResults';
@@ -23,17 +23,17 @@ export default function AdminKindergartensPage() {
     const { updateKindergarten } = useUpdateKindergarten();
     const { kindergartenList } = useKindergartens();
 
-    const [kindergartenModalStatus, setKindergartenModalStatus] = React.useState<{
+    const [kindergartenModalStatus, setKindergartenModalStatus] = useState<{
         isOpen?: boolean;
         kindergarten: Kindergarten | null;
     }>({
         kindergarten: null,
     });
-    const [deleteModalStatus, setDeleteModalStatus] = React.useState<{ kindergarten: Kindergarten | null }>({
+    const [deleteModalStatus, setDeleteModalStatus] = useState<{ kindergarten: Kindergarten | null }>({
         kindergarten: null,
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.kindergartens.title']);
     }, []);
 

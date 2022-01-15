@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 
 import { activePage } from '../../apollo_client';
@@ -8,7 +8,7 @@ import { PageContainer } from '../../components/PageContainer';
 export default function AdminCodesPage() {
     const classes = useStyles();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.keycodes']);
     }, []);
 

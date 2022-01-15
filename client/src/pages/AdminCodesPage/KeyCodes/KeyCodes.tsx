@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -19,9 +19,9 @@ export function KeyCodes() {
     const classes = useStyles();
     const { keyCodeSeries } = useKeyCodeSeries();
     const { createKeyCodes, created, resetCreated } = useCreateKeyCodes();
-    const [keyCodesToGenerate, setKeyCodesToGenerate] = React.useState(INITIAL_KEY_CODE_AMOUNT);
-    const [target, setTarget] = React.useState('parent');
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [keyCodesToGenerate, setKeyCodesToGenerate] = useState(INITIAL_KEY_CODE_AMOUNT);
+    const [target, setTarget] = useState('parent');
+    const [isLoading, setIsLoading] = useState(false);
     const { generateExcel } = useGenerateExcel((filename) => {
         openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
     });

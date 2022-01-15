@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,7 @@ interface ButtonSendMessageProps {
     handleClick: () => void;
 }
 
-export const ButtonSendMessage: React.FC<ButtonSendMessageProps> = ({ handleClick }) => {
+export const ButtonSendMessage: FC<ButtonSendMessageProps> = ({ handleClick }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

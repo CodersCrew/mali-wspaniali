@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
     Checkbox,
     createStyles,
@@ -27,8 +27,8 @@ interface Props {
 
 export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Props) {
     const { t } = useTranslation();
-    const [searchPhrase, setSearchPhrase] = React.useState('');
-    const [selectedAll, setSelectedAll] = React.useState(false);
+    const [searchPhrase, setSearchPhrase] = useState('');
+    const [selectedAll, setSelectedAll] = useState(false);
 
     const classes = useStyles();
 

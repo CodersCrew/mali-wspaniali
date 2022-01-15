@@ -1,14 +1,14 @@
-import React from 'react';
+import { FC, useEffect } from 'react';
 
 import { useMe } from '../utils/useMe';
 import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
 import { useUpdateUser } from '../operations/mutations/User/useUpdateUser';
 
-export const InstructorWrapper: React.FC = ({ children }) => {
+export const InstructorWrapper: FC = ({ children }) => {
     const user = useMe();
     const { updateUser } = useUpdateUser();
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (user?.role !== 'instructor') return;
 
         const { firstname, lastname, mail } = user;

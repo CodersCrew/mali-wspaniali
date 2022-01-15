@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { TFunction } from 'i18next';
 import {
     Assessment,
@@ -46,7 +46,7 @@ interface MenuItemFactoryProps {
     name: string;
     t: TFunction;
     active: string[];
-    rightIcon?: React.ReactNode;
+    rightIcon?: ReactNode;
 }
 
 interface CollapsibleMenuItemFactoryProps {

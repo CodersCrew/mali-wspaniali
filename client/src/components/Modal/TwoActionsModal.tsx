@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent as ReactMouseEvent, FC } from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 
 import { ButtonDefault, ButtonPrimary } from '../Button';
@@ -6,13 +6,13 @@ import { ButtonDefault, ButtonPrimary } from '../Button';
 interface Props {
     isOpen: boolean;
     onClose?: () => void;
-    upperButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    upperButtonOnClick: (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
     upperButtonText: string;
-    lowerButtonOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    lowerButtonOnClick: (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
     lowerButtonText: string;
 }
 
-export const TwoActionsModal: React.FC<Props> = ({
+export const TwoActionsModal: FC<Props> = ({
     isOpen,
     onClose,
     children,

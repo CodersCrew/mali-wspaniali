@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { makeStyles } from '@material-ui/core/';
 
 import { Sex } from '../../../graphql/types';
@@ -16,7 +16,7 @@ export function ChildAvatar({ sex }: { sex: Sex }) {
     );
 }
 
-export function Icon({ icon }: { icon: React.ReactNode }) {
+export function Icon({ icon }: { icon: ReactNode }) {
     const classes = useStyles();
 
     return <div className={classes.avatarWrapper}>{icon}</div>;

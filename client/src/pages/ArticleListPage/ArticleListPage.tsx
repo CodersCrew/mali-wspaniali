@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles, Grid, Typography, createStyles, Theme } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -20,10 +20,10 @@ export default function ArticleListPage() {
     const { t } = useTranslation();
     const { isSmallMobile } = useIsDevice();
 
-    const [currentPage, setCurrentPage] = React.useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const { paginatedArticles, fetchMore } = useArticles(currentPage, params.category);
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage([`blog-categories.${params.category}`, 'parent-menu.blog']);
         setCurrentPage(1);
     }, [params.category]);
