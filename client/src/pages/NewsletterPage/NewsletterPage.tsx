@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {
     Typography,
@@ -76,7 +76,7 @@ export default function NewsletterPage() {
     const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = formik.values;
     const { errors, touched, handleSubmit, handleBlur, setFieldValue } = formik;
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.new-message']);
     }, []);
 

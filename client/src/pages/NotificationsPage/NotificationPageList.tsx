@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import React from 'react';
 import {
     TableContainer,
     Table,
@@ -31,8 +31,8 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     return (
         <TableContainer component={Paper}>
@@ -87,7 +87,7 @@ export const NotificationPageList = ({ notifications, onClick }: Props) => {
         setPage(newPage);
     }
 
-    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement>) {
+    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }

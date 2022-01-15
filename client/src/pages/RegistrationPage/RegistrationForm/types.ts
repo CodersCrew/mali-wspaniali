@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
@@ -17,7 +17,7 @@ export type PasswordValidation = {
 };
 
 export interface RegistrationCodeProps {
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleNext(): void;
     code: string;
     classForm: string;
@@ -28,7 +28,7 @@ export interface RegistrationCodeProps {
 }
 
 export interface RegistrationEmailProps {
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleNext(): void;
     handleBack(): void;
     email: string;
@@ -40,7 +40,7 @@ export interface RegistrationEmailProps {
 }
 
 export type RegistrationPasswordProps = {
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleBack(): void;
     activeStep: number;
     password: string;
@@ -49,7 +49,7 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
-    skip?: Dispatch<SetStateAction<boolean>>;
+    skip?: React.Dispatch<React.SetStateAction<boolean>>;
     loading: boolean;
     error: boolean;
     setError: React.Dispatch<React.SetStateAction<boolean>>;
