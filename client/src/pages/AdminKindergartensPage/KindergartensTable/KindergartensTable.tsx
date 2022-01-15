@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -20,8 +20,8 @@ interface Props {
 
 export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
     const { t } = useTranslation();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     return (
         <TableContainer component={Box}>

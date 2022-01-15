@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
@@ -45,9 +45,9 @@ export function PasswordChangeForm({
     const classes = useStyles();
     const { isDesktop } = useIsDevice();
 
-    const [passwordValidation, setPasswordValidation] = React.useState(initialPasswordValidation);
+    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setPasswordValidation({
             length: passwordLengthTest(password),
             capital: passwordCapitalTest(password),

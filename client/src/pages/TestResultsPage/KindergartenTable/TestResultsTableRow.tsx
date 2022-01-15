@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, alpha } from '@material-ui/core';
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
@@ -15,7 +15,7 @@ interface Props {
 
 export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const classes = useStyles({ open });
 
     const { name, maxResultCount, children: childrenInfo, address } = kindergarten.kindergarten;
