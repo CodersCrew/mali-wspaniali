@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode, FC } from 'react';
 import { Button, ButtonProps, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import clsx from 'clsx';
 

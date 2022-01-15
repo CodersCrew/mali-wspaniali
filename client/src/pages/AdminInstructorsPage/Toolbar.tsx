@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Typography, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';

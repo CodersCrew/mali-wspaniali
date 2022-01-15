@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import {
     createStyles,
     FormControl,

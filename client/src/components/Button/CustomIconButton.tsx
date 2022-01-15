@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 
 interface Props {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Dispatch } from 'react';
 
 export const CHANGE_OLD_PASSWORD = 'CHANGE_OLD_PASWORD';
 export const EMAIL_IS_CORRECT = 'EMAIL_IS_CORRECT';

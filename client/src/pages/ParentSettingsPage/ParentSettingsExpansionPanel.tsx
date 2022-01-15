@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { ChangePasswordPanel } from './ChangePasswordPanel/ChangePasswordPanel';
 import { ExpansionPanelItem } from './ExpansionPanelItem';

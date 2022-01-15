@@ -1,3 +1,4 @@
+import { MouseEvent as ReactMouseEvent, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -15,7 +16,7 @@ export const NewsletterSentModal: FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleButtonClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleButtonClick = (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (event.currentTarget.id === 'homePageButton') {
             goToAdminPage();
             onClose();

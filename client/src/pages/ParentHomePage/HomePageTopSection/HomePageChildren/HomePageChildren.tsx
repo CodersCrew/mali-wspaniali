@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import clsx from 'clsx';

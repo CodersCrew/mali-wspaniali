@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent as ReactMouseEvent, ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -145,7 +145,7 @@ export const TestResultsTable = ({
         </TableContainer>
     );
 
-    function handleChangePage(event: MouseEvent<HTMLButtonElement> | null, newPage: number) {
+    function handleChangePage(event: ReactMouseEvent<HTMLButtonElement> | null, newPage: number) {
         setPage(newPage);
     }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';

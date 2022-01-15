@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles, Grid, Typography, createStyles, Theme } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

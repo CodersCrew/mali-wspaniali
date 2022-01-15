@@ -1,3 +1,4 @@
+import { MouseEvent as ReactMouseEvent } from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, alpha, Tooltip } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -54,7 +55,7 @@ export function AssessmentItem({ value, onClick }: Props) {
         onClick('details', value._id);
     }
 
-    function handleEditClick(e: MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleEditClick(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) {
         e.stopPropagation();
 
         onClick('edit', value._id);

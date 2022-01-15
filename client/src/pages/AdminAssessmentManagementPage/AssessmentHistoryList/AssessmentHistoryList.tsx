@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent as ReactMouseEvent, ChangeEvent, useState } from 'react';
 import {
     Table,
     TableBody,
@@ -24,7 +24,7 @@ export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
-    const handleChangePage = (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    const handleChangePage = (event: ReactMouseEvent<HTMLButtonElement> | null, newPage: number) => {
         setPage(newPage);
     };
 

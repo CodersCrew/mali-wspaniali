@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';

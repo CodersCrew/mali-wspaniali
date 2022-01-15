@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import clsx from 'clsx';

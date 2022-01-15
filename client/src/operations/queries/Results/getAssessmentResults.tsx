@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { ApolloQueryResult, gql, useLazyQuery } from '@apollo/client';
 import { AssessmentResult } from '../../../graphql/types';
 

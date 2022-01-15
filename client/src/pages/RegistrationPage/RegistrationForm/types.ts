@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 import { RoleBasedKeyCodeObject } from './RoleBasedKeyCode.valueobject';
 
