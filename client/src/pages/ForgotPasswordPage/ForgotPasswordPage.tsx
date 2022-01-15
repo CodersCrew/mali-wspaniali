@@ -28,8 +28,8 @@ export default function ForgotPasswordPage() {
         () => setImageState('ERROR'),
     );
 
-    const [email, setEmail] = React.useState('');
-    const [imageState, setImageState] = React.useState<ImageState>('ERROR');
+    const [email, setEmail] = useState('');
+    const [imageState, setImageState] = useState<ImageState>('ERROR');
 
     return (
         <div className={classes.container}>

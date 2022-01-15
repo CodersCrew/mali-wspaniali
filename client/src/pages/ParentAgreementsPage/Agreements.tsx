@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Box,
@@ -27,10 +27,10 @@ export const Agreements = ({ agreements }: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { updateAgreements } = useUpdateAgreements();
-    const [agreementsArray, setAgreementsArray] = React.useState(agreements);
-    const [agreementIds, setAgreementIds] = React.useState<string[]>([]);
+    const [agreementsArray, setAgreementsArray] = useState(agreements);
+    const [agreementIds, setAgreementIds] = useState<string[]>([]);
 
-    function changeAgreement(e: React.ChangeEvent<HTMLInputElement>, id: string) {
+    function changeAgreement(e: ChangeEvent<HTMLInputElement>, id: string) {
         const agreementIndex = agreementsArray.findIndex((agreement) => agreement._id === id);
         const newArray = [...agreementsArray];
 

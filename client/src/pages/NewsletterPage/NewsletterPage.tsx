@@ -76,7 +76,7 @@ export default function NewsletterPage() {
     const { generalRecipientType, specificRecipientType, recipients, type, topic, message } = formik.values;
     const { errors, touched, handleSubmit, handleBlur, setFieldValue } = formik;
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.new-message']);
     }, []);
 

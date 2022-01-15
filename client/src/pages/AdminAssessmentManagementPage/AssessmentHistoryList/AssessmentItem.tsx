@@ -54,7 +54,7 @@ export function AssessmentItem({ value, onClick }: Props) {
         onClick('details', value._id);
     }
 
-    function handleEditClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleEditClick(e: MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.stopPropagation();
 
         onClick('edit', value._id);

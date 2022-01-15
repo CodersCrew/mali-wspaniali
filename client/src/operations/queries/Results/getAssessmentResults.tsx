@@ -46,7 +46,7 @@ export const GET_ASSESSMENT_RESULTS = gql`
 export function useAssessmentResults(kindergartenId: string, assessmentId: string): UseAssessmentReturn {
     const [getResults, { data, loading, refetch }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (assessmentId?.length && kindergartenId?.length) {
             getResults({ variables: { kindergartenId, assessmentId } });
         }

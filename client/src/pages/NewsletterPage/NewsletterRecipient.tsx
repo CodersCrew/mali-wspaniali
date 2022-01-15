@@ -48,7 +48,7 @@ interface Props {
     specificRecipientType: SpecificRecipient | '';
     recipients: string[];
     onChange: (name: string, value: string | string[]) => void;
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
 }

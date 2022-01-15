@@ -13,7 +13,7 @@ export const HomePageInfo = ({ toggleInfoComponent, childrenCount }: HomePageInf
     const { t } = useTranslation();
     const { isTablet } = useIsDevice();
 
-    const [readMore, setReadMore] = React.useState(false);
+    const [readMore, setReadMore] = useState(false);
 
     const toggleReadMore = () => {
         setReadMore((prevState) => !prevState);

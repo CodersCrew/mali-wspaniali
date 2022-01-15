@@ -48,7 +48,7 @@ export function useResultCreator({
 }: Props): ResultCreatorReturnProps | ResultCreatorErrorReturnProps {
     const { assessments } = useAssessments({ withChildren: true });
     const { kindergartenResults } = useAssessmentResults(kindergartenId, assessmentId);
-    const [edited, setEdited] = React.useState(() => localStorage.getItem('edited') || '');
+    const [edited, setEdited] = useState(() => localStorage.getItem('edited') || '');
 
     const { selectedAssessment, selectedKindergarten, selectedChild } = getSelected({
         assessments,

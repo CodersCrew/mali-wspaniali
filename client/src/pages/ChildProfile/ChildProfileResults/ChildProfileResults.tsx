@@ -6,7 +6,7 @@ import { GroupedTests } from './GroupedTest';
 import { Child } from '../../../graphql/types';
 
 export function ChildProfileResults({ child }: { child: Child }) {
-    const [activeItem, setActiveItem] = React.useState('');
+    const [activeItem, setActiveItem] = useState('');
 
     if (child.results.length === 0) return <EmptyPanel />;
 

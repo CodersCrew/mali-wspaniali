@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function CollapsibleList({ mainItem, subItems, onClick }: Props) {
-    const [isOpen, setIsOpen] = React.useState(mainItem.active);
+    const [isOpen, setIsOpen] = useState(mainItem.active);
     const classes = useStyles();
 
     return (

@@ -8,7 +8,7 @@ interface ButtonSendMessageProps {
     handleClick: () => void;
 }
 
-export const ButtonSendMessage: React.FC<ButtonSendMessageProps> = ({ handleClick }) => {
+export const ButtonSendMessage: FC<ButtonSendMessageProps> = ({ handleClick }) => {
     const classes = useStyles();
     const { t } = useTranslation();
 

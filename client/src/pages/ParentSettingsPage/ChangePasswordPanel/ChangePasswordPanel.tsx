@@ -15,7 +15,7 @@ export function ChangePasswordPanel() {
     const device = useBreakpoints();
     const classes = useStyles();
     const { t } = useTranslation();
-    const [state, dispatch] = React.useReducer(ChangePasswordPanelReducer, ChangePasswordPanelInitialState);
+    const [state, dispatch] = useReducer(ChangePasswordPanelReducer, ChangePasswordPanelInitialState);
     const { createNewsletter } = useCreateNewsletter();
     const user = useMe();
 

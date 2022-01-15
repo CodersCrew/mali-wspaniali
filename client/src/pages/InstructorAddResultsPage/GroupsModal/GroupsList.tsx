@@ -36,17 +36,17 @@ interface GroupsListProps {
 }
 
 export function GroupsList(props: GroupsListProps) {
-    const [groupList, setGroupList] = React.useState<Group[]>([]);
-    const [editMode, setEditMode] = React.useState(false);
-    const [currentlyEdited, setCurrentlyEdited] = React.useState('');
-    const [groupTransferList, setGroupTransferList] = React.useState('');
+    const [groupList, setGroupList] = useState<Group[]>([]);
+    const [editMode, setEditMode] = useState(false);
+    const [currentlyEdited, setCurrentlyEdited] = useState('');
+    const [groupTransferList, setGroupTransferList] = useState('');
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
     const { refetchAssessment } = useAssessment(props.assessment._id);
     const { assessments } = useAssessments({ withChildren: true });
 
     const { t } = useTranslation();
 
-    React.useEffect(() => {
+    useEffect(() => {
         setGroupList(props.assessment.groups);
     }, [props.assessment, props.selectedKindergarten]);
     const classes = useStyles();

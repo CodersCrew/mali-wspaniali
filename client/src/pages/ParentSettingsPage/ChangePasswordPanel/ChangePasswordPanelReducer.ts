@@ -26,7 +26,7 @@ export const ChangePasswordPanelInitialState: ChangePasswordPanelState = {
 
 export interface ChangePasswordPanelComponentsProps {
     state: ChangePasswordPanelState;
-    dispatch: React.Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
+    dispatch: Dispatch<{ type: string; payload?: { [p: string]: string | boolean } | undefined }>;
 }
 export const ChangePasswordPanelReducer = (
     state: ChangePasswordPanelState,

@@ -10,7 +10,7 @@ export interface Props {
     onTogglePanelExpansion: (name: string) => void;
     expanded: boolean;
     title: string;
-    panel: React.FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
+    panel: FC<{ user: Me; onToggle: (name: string) => void; name: string }>;
 }
 
 export function ExpansionPanelItem({ user, name, onTogglePanelExpansion, expanded, title, panel }: Props) {

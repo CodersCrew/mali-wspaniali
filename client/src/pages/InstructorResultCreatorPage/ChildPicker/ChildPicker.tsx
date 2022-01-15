@@ -25,7 +25,7 @@ interface ChildPickerProps {
 export function ChildPicker(props: ChildPickerProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [searchTerm, setSearchTerm] = React.useState('');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const availableGroups = [
         { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: props.selectedKindergarten },

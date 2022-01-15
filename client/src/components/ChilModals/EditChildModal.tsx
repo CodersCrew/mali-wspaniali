@@ -20,8 +20,8 @@ export const openAdminSettingsEditModal = (props: ChildModalProps) => {
     return openDialog<ChildModalProps, { child: UpdatedChildInput }>(function AdminSettingsEditModal(
         dialogProps: ChildModalProps & ActionDialog<{ child: UpdatedChildInput }>,
     ) {
-        const [updateInitialChildValues, setInitialValues] = React.useState<AddChildResult>(initialValues);
-        const [selectedChild, setSelectedChild] = React.useState<string>('');
+        const [updateInitialChildValues, setInitialValues] = useState<AddChildResult>(initialValues);
+        const [selectedChild, setSelectedChild] = useState<string>('');
 
         const formik = useFormik({
             enableReinitialize: true,

@@ -306,7 +306,7 @@ describe('useAddTest', () => {
 });
 
 const renderPage =
-    (mocks: MockedResponse[]): React.FC =>
+    (mocks: MockedResponse[]): FC =>
     ({ children }) => {
         return (
             <MockedProvider mocks={mocks} addTypename={false}>

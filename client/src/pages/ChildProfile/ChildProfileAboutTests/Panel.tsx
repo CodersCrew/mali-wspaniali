@@ -6,7 +6,7 @@ interface Props {
     title: string;
 }
 
-export const Panel: React.FC<Props> = ({ title, children }) => {
+export const Panel: FC<Props> = ({ title, children }) => {
     const classes = useStyles();
 
     return (

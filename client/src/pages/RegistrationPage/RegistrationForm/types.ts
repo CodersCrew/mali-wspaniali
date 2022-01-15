@@ -17,7 +17,7 @@ export type PasswordValidation = {
 };
 
 export interface RegistrationCodeProps {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleNext(): void;
     code: string;
     classForm: string;
@@ -28,7 +28,7 @@ export interface RegistrationCodeProps {
 }
 
 export interface RegistrationEmailProps {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleNext(): void;
     handleBack(): void;
     email: string;
@@ -40,7 +40,7 @@ export interface RegistrationEmailProps {
 }
 
 export type RegistrationPasswordProps = {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleBack(): void;
     activeStep: number;
     password: string;
@@ -49,10 +49,10 @@ export type RegistrationPasswordProps = {
     classButton: string;
     classNextBtn: string;
     classFormItem: string;
-    skip?: React.Dispatch<React.SetStateAction<boolean>>;
+    skip?: Dispatch<SetStateAction<boolean>>;
     loading: boolean;
     error: boolean;
-    setError: React.Dispatch<React.SetStateAction<boolean>>;
+    setError: Dispatch<SetStateAction<boolean>>;
 };
 
 export type RegistrationFeedbackProps = {

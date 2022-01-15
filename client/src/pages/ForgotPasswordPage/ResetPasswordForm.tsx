@@ -21,8 +21,8 @@ export function ResetPasswordForm({ onChange, onSubmit, email }: Props) {
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const [inputValue, setInputValue] = React.useState('');
-    const [isError, setIsError] = React.useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const [isError, setIsError] = useState(false);
 
     return (
         <div className={classes.container}>

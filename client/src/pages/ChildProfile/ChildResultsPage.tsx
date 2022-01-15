@@ -21,7 +21,7 @@ export default function ChildResultsPage() {
     const user = useMe();
     const child = user?.children.find((_child) => _child._id === childId);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (child) {
             activePage([child.firstname, `/parent/child/${child._id}/${category}`, `parent-menu.child.${category}`]);
         }

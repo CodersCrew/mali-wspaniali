@@ -9,7 +9,7 @@ import { ResultPreview } from '../../components/ResultPreview/ResultPreview';
 export default function InstructorResultPage() {
     const params = useParams<{ resultId: string }>();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['instructor-menu.child.results']);
     }, [params.resultId]);
 

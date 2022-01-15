@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function ParentSettingsExpansionPanel({ user }: Props) {
-    const [expandedPanel, setExpandedPanel] = React.useState<string>('');
+    const [expandedPanel, setExpandedPanel] = useState<string>('');
 
     const togglePanelExpansion = (name: string) => {
         setExpandedPanel(name !== expandedPanel ? name : '');

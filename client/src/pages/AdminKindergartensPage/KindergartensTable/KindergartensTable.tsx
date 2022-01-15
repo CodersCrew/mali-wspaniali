@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent as ReactMouseEvent, ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -60,11 +60,11 @@ export const KindergartensTable = ({ kindergartens, onEditClick }: Props) => {
         </TableContainer>
     );
 
-    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
+    function handleChangePage(event: ReactMouseEvent<HTMLButtonElement> | null, newPage: number) {
         setPage(newPage);
     }
 
-    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }

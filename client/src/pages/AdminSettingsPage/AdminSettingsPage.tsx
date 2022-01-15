@@ -5,7 +5,7 @@ import { AdminSettingsList } from './AdminSettingsList';
 import { PageContainer } from '../../components/PageContainer';
 
 export default function AdminSettingsPage() {
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.settings.title']);
     }, []);
 

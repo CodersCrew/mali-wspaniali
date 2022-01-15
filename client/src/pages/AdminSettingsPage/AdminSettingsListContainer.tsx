@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 import { TableBody, TableCell, Table, TableHead, TableRow, TablePagination } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -50,7 +50,7 @@ export const AdminSettingsListContainers = memo(function AdminSettingsListContai
         setPage(newPage);
     }
 
-    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement>) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }

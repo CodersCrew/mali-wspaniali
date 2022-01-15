@@ -9,7 +9,7 @@ export default function NotificationsPage() {
     const user = useMe();
     const { readNotification } = useReadNotification();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.notifications', 'parent-menu.notifications', 'instructor-menu.notifications']);
     }, []);
 

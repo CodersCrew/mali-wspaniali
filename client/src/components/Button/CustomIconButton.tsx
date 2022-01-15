@@ -1,7 +1,7 @@
 import { createStyles, IconButton, makeStyles, Theme } from '@material-ui/core';
 
 interface Props {
-    icon: React.ReactNode;
+    icon: ReactNode;
     size?: 'small' | 'medium';
     color?: 'success' | 'success-dark' | 'primary' | 'secondary' | 'default';
     disabled?: boolean;

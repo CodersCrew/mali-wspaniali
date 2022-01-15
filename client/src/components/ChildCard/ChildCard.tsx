@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 interface Props {
     firstName: string;
-    PictureComponent: React.ReactElement;
+    PictureComponent: ReactElement;
     onClick: () => void;
     isActive?: boolean;
 }

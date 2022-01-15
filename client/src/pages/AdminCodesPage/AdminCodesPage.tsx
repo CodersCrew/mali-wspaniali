@@ -8,7 +8,7 @@ import { PageContainer } from '../../components/PageContainer';
 export default function AdminCodesPage() {
     const classes = useStyles();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.keycodes']);
     }, []);
 

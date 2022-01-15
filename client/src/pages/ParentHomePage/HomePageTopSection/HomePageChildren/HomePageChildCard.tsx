@@ -3,7 +3,7 @@ import { makeStyles, Typography, Paper, Theme } from '@material-ui/core';
 
 interface Props {
     firstName: string;
-    PictureComponent: React.ReactElement;
+    PictureComponent: ReactElement;
     onClick: () => void;
 }
 

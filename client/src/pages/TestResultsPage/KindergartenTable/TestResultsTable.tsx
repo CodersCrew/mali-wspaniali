@@ -45,9 +45,9 @@ export const TestResultsTable = ({
 }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [searchOpened, setSearchOpened] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [searchOpened, setSearchOpened] = useState(false);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [selectedKindergartens, selectedSortableCell, cellParameters] = useArrowedCell(kindergartens);
 
     const searchChildren = (child: BaseChildInfo) =>
@@ -145,11 +145,11 @@ export const TestResultsTable = ({
         </TableContainer>
     );
 
-    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
+    function handleChangePage(event: MouseEvent<HTMLButtonElement> | null, newPage: number) {
         setPage(newPage);
     }
 
-    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }

@@ -12,7 +12,7 @@ import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface Props {
     onChange: (name: string, value: string) => void;
-    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
     type: NewsletterType | '';
     topic: string;
     message: string;

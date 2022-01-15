@@ -48,7 +48,7 @@ export default function InstructorResultCreatorPage() {
     const device = useIsDevice();
     const { t } = useTranslation();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['instructor-menu.result-creator']);
     }, []);
 

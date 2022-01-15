@@ -6,7 +6,7 @@ import { textColor } from '../../colors';
 import { Theme } from '../../theme';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 
-export const NewsletterSentModal: React.FC<{
+export const NewsletterSentModal: FC<{
     isOpen: boolean;
     onClose: () => void;
     goToAdminPage: () => void;
@@ -15,7 +15,7 @@ export const NewsletterSentModal: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleButtonClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (event.currentTarget.id === 'homePageButton') {
             goToAdminPage();
             onClose();

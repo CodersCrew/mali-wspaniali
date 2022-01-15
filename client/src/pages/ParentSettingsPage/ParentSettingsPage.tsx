@@ -8,7 +8,7 @@ import { PageContainer } from '../../components/PageContainer';
 export default function ParentSettingsPage() {
     const user = useMe();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.settings']);
     }, []);
 

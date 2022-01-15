@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -87,7 +87,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
             }, 2000);
         });
     };
-    const customList = (title: React.ReactNode, items: Child[]) => (
+    const customList = (title: ReactNode, items: Child[]) => (
         <Card>
             <CardHeader
                 className={classes.cardHeader}

@@ -19,7 +19,7 @@ interface GroupsSubheaderProps {
     onChange: (type: string, value: string) => void;
 }
 export function GroupsSubheader(props: GroupsSubheaderProps) {
-    const [groups, setGroups] = React.useState<Group[]>([]);
+    const [groups, setGroups] = useState<Group[]>([]);
     const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const toggleOrSelect = (groupId: string) => {
         props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
@@ -27,7 +27,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
 
     const { t } = useTranslation();
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (currentAssessment) {
             setGroups(currentAssessment.groups);
         }

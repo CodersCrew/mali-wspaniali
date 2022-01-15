@@ -5,8 +5,8 @@ import { InfoOutlined as InfoIcon } from '@material-ui/icons';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 interface ToolbarProps {
-    AssessmentsSelect: React.ReactNode;
-    InstructorsSelect: React.ReactNode;
+    AssessmentsSelect: ReactNode;
+    InstructorsSelect: ReactNode;
     count: number;
 }
 

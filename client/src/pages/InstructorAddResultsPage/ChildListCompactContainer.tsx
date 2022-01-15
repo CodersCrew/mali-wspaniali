@@ -45,7 +45,7 @@ export function ChildListCompactContainer({
 }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [selectedChild, setSelectedChild] = React.useState(childList[0]?._id);
+    const [selectedChild, setSelectedChild] = useState(childList[0]?._id);
     const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
     const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
     const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;

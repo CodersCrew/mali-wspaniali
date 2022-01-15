@@ -25,7 +25,7 @@ interface Props {
 
 export const KindergartenTable = ({ defaultKindergartens, selected, onSelect }: Props) => {
     const { t } = useTranslation();
-    const [searchPhrase, setSearchPhrase] = React.useState('');
+    const [searchPhrase, setSearchPhrase] = useState('');
     const classes = useStyles();
 
     return (

@@ -27,7 +27,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
     const { kindergartenList } = useKindergartens();
     const { isMobile } = useIsDevice();
 
-    const [isInfoComponentVisible, setIsInfoComponentVisible] = React.useState(
+    const [isInfoComponentVisible, setIsInfoComponentVisible] = useState(
         () => localStorage.getItem('infoNote') !== 'closed',
     );
 

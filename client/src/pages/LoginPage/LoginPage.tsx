@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import {
     TextField,
     makeStyles,
@@ -49,13 +49,13 @@ export default function LoginPage() {
     const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
     const params = useParams<{ confirm?: string }>();
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [loginError, setLoginError] = React.useState(initialError);
-    const [loading, setLoading] = React.useState(false);
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(initialError);
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (params.confirm) {
             confirmUser(params.confirm);
         }
@@ -161,7 +161,7 @@ export default function LoginPage() {
         </div>
     );
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         setLoading(() => true);
         authorizeMe(email, password);

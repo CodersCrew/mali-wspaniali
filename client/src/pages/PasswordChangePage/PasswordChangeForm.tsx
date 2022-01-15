@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, ChangeEvent, SetStateAction, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
@@ -24,11 +24,11 @@ const initialPasswordValidation: PasswordValidation = {
 };
 
 interface PasswordChangeProps {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
     password: string;
     passwordConfirm: string;
     error: boolean;
-    setError: React.Dispatch<React.SetStateAction<boolean>>;
+    setError: Dispatch<SetStateAction<boolean>>;
     loading?: boolean;
 }
 

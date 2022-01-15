@@ -13,7 +13,7 @@ type ThemeProviderProps = {
     theme: ThemeObject;
 };
 
-export const PureThemeProvider: React.FC<ThemeProviderProps> = ({ children, language }) => {
+export const PureThemeProvider: FC<ThemeProviderProps> = ({ children, language }) => {
     const languageObject = languages[language];
     const muiTheme = createTheme(theme, languageObject);
 
@@ -25,7 +25,7 @@ export const PureThemeProvider: React.FC<ThemeProviderProps> = ({ children, lang
     );
 };
 
-export const ThemeProvider: React.FC = ({ children }) => {
+export const ThemeProvider: FC = ({ children }) => {
     return (
         <PureThemeProvider language="pl" theme={theme}>
             {children}

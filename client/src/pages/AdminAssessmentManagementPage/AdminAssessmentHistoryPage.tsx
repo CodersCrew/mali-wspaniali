@@ -16,7 +16,7 @@ export default function AdminAssessmentHistoryPage() {
     const history = useHistory();
     const { assessments, areAssessmentsLoading } = useAssessments();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.test-management']);
     }, []);
 

@@ -37,7 +37,7 @@ export const InstructorsSelect = (props: InstructorsSelectProps) => {
         return props.values.map((value) => value.mail);
     }
 
-    function onSelect(e: React.ChangeEvent<{ name?: string | undefined; value: unknown }>) {
+    function onSelect(e: ChangeEvent<{ name?: string | undefined; value: unknown }>) {
         props.onChange(e.target.value as string[]);
     }
 };

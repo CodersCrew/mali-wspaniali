@@ -9,7 +9,7 @@ interface Props {
         label: string;
     }[];
     onChange: (name: string, value: string) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;

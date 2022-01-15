@@ -6,7 +6,7 @@ import { useMe } from '../../utils/useMe';
 export default function ParentAgreementsPage() {
     const user = useMe();
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.agreements']);
     }, []);
 

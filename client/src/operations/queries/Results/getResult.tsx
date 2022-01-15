@@ -138,7 +138,7 @@ export const GET_ASSESSMENT_RESULTS = gql`
 export function useResult(id: string): UseAssessmentReturn {
     const [getResults, { data, loading }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
 
-    React.useEffect(() => {
+    useEffect(() => {
         getResults({ variables: { id } });
     }, [id, getResults]);
 

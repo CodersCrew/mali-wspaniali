@@ -18,7 +18,7 @@ interface Props {
     dialogProps?: Partial<DialogProps>;
 }
 
-export const BasicModal: React.FC<Props> = ({
+export const BasicModal: FC<Props> = ({
     isOpen,
     actionName,
     onAction,

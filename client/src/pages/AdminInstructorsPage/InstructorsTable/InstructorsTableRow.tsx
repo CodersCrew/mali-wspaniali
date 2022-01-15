@@ -40,8 +40,8 @@ export function InstructorsTableRow(props: InstructorRowProps) {
     const { t } = useTranslation();
     const { refetchAssessments } = useAssessments();
 
-    const [open, setOpen] = React.useState(false);
-    const [showAddButton, setShowAddButton] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [showAddButton, setShowAddButton] = useState(false);
 
     const { updateAssessment } = useUpdateAssessment();
 
