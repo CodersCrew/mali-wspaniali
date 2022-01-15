@@ -1,4 +1,4 @@
-import { FocusEvent } from 'react';
+import React from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core';
@@ -48,7 +48,7 @@ interface Props {
     specificRecipientType: SpecificRecipient | '';
     recipients: string[];
     onChange: (name: string, value: string | string[]) => void;
-    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
     errors: FormikErrors<NewsletterFormValues>;
     touched: FormikTouched<NewsletterFormValues>;
 }

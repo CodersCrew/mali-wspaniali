@@ -1,4 +1,4 @@
-import { FocusEvent, ReactNode } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, Checkbox, ListItemText, FormHelperText } from '@material-ui/core';
 
@@ -9,12 +9,12 @@ interface Props {
         label: string;
     }[];
     onChange: (name: string, value: string[]) => void;
-    onBlur: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;
     disabled?: boolean;
-    renderValue: (value: unknown) => ReactNode;
+    renderValue: (value: unknown) => React.ReactNode;
     error?: string | string[];
     touched?: boolean;
 }

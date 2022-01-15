@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { activePage } from '../../apollo_client';
@@ -9,7 +9,7 @@ import { ResultPreview } from '../../components/ResultPreview/ResultPreview';
 export default function InstructorResultPage() {
     const params = useParams<{ resultId: string }>();
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['instructor-menu.child.results']);
     }, [params.resultId]);
 

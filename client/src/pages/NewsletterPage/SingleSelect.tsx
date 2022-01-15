@@ -1,4 +1,4 @@
-import { FocusEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@material-ui/core';
 
@@ -9,7 +9,7 @@ interface Props {
         label: string;
     }[];
     onChange: (name: string, value: string) => void;
-    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
     id: string;
     label: string;
     name: string;
