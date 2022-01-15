@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import React from 'react';
 import { Table, TableBody, TableContainer, Paper } from '@material-ui/core';
 import { InstructorsTableHead } from './InstructorsTableHead';
 
-export const InstructorsTableContainer: FC = ({ children }) => {
+export const InstructorsTableContainer: React.FC = ({ children }) => {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="instructors table">

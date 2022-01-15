@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -25,7 +25,7 @@ interface ChildPickerProps {
 export function ChildPicker(props: ChildPickerProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = React.useState('');
 
     const availableGroups = [
         { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: props.selectedKindergarten },

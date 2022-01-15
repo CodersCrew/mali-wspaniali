@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import React from 'react';
 
 import { activePage } from '../../apollo_client';
 import { AdminSettingsList } from './AdminSettingsList';
 import { PageContainer } from '../../components/PageContainer';
 
 export default function AdminSettingsPage() {
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.settings.title']);
     }, []);
 
