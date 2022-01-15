@@ -2,7 +2,8 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom/extend-expect';
+import 'cross-fetch/polyfill';
+import '@testing-library/jest-dom';
 
 import MutationObserver from '@sheerun/mutationobserver-shim';
 

@@ -22,7 +22,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"]
+    },
+    "types": ["vite/client", "@types/jest"],
   },
   "include": ["src", "functions/src/database/utils.ts", "src/custom.d.ts"]
 }
