@@ -1,5 +1,6 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useHistory } from 'react-router-dom';
+
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { NoResults } from './NoResults';
 

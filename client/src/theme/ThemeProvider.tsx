@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { enUS, Localization, plPL } from '@material-ui/core/locale';
 import { ThemeProvider as MuiThemeProvider, createTheme, CssBaseline } from '@material-ui/core';
 import { ThemeObject } from './types';
@@ -13,7 +13,7 @@ type ThemeProviderProps = {
     theme: ThemeObject;
 };
 
-export const PureThemeProvider: FC<ThemeProviderProps> = ({ children, language }) => {
+export const PureThemeProvider: React.FC<ThemeProviderProps> = ({ children, language }) => {
     const languageObject = languages[language];
     const muiTheme = createTheme(theme, languageObject);
 
@@ -25,7 +25,7 @@ export const PureThemeProvider: FC<ThemeProviderProps> = ({ children, language }
     );
 };
 
-export const ThemeProvider: FC = ({ children }) => {
+export const ThemeProvider: React.FC = ({ children }) => {
     return (
         <PureThemeProvider language="pl" theme={theme}>
             {children}

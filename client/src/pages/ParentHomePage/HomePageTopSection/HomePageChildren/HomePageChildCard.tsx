@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
+import React from 'react';
 import { makeStyles, Typography, Paper, Theme } from '@material-ui/core';
 
 interface Props {
     firstName: string;
-    PictureComponent: ReactElement;
+    PictureComponent: React.ReactElement;
     onClick: () => void;
 }
 

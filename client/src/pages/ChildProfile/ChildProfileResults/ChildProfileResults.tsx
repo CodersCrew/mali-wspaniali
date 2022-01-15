@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { Typography, Box, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
@@ -6,7 +6,7 @@ import { GroupedTests } from './GroupedTest';
 import { Child } from '../../../graphql/types';
 
 export function ChildProfileResults({ child }: { child: Child }) {
-    const [activeItem, setActiveItem] = useState('');
+    const [activeItem, setActiveItem] = React.useState('');
 
     if (child.results.length === 0) return <EmptyPanel />;
 

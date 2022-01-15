@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Theme } from '@material-ui/core';
+
 import { BasicModal } from '../../../components/Modal/BasicModal';
 
 interface Props {

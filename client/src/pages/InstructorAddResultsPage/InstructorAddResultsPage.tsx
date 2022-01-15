@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -27,13 +27,13 @@ import { GroupsSubheader } from './GroupsModal/GroupsSubheader';
 
 export default function InstructorAddResultsPage() {
     const { assessments, areAssessmentsLoading } = useAssessments({ withChildren: true });
-    const [selectedAssessment, setSelectedAssessment] = useState('');
-    const [selectedKindergarten, setSelectedKindergarten] = useState('');
-    const [selectedGroup, setSelectedGroup] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [fullNameSortType, setFullNameSortType] = useState('asc');
-    const [ageSortType, setAgeSortType] = useState('');
-    const [creationDateSortType, setCreationDateSortType] = useState('');
+    const [selectedAssessment, setSelectedAssessment] = React.useState('');
+    const [selectedKindergarten, setSelectedKindergarten] = React.useState('');
+    const [selectedGroup, setSelectedGroup] = React.useState('');
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const [fullNameSortType, setFullNameSortType] = React.useState('asc');
+    const [ageSortType, setAgeSortType] = React.useState('');
+    const [creationDateSortType, setCreationDateSortType] = React.useState('');
     const { t } = useTranslation();
     const history = useHistory();
     const device = useIsDevice();
@@ -48,11 +48,11 @@ export default function InstructorAddResultsPage() {
             .filter((k) => !!k.kindergarten)
             .find((k) => k.kindergarten?._id === selectedKindergarten)?.kindergarten!.children || []; // we need intersection with selectedGroup.children
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['instructor-menu.results-table']);
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const [assessment] = assessments;
 
         if (assessment) {

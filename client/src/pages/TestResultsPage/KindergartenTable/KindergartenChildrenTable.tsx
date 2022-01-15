@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { InsertChart as InsertChartIcon, Edit as EditIcon } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
+
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
 import { BaseChildInfo } from '../../../graphql/types';
 import { ResultParametersInfo } from './ResultParametersInfo';

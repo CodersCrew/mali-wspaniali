@@ -5,7 +5,6 @@ import { useTranslation, Trans } from 'react-i18next';
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
-
 import { RegistrationCodeProps } from './types';
 
 export const RegistrationCode = ({

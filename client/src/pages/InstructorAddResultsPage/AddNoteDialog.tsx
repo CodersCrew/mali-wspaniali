@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
     createStyles,
     makeStyles,
@@ -37,7 +37,7 @@ function AddNoteDialog({
     const { t } = useTranslation();
     const classes = useStyles();
     const device = useIsDevice();
-    const [note, setNote] = useState(initialNote);
+    const [note, setNote] = React.useState(initialNote);
     const LENGTH_LIMIT = 500;
 
     const onAccepted = () => {

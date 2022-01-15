@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Dialog, DialogActions, DialogContent, makeStyles, createStyles } from '@material-ui/core';
 
 import { ButtonDefault, ButtonPrimary } from '../Button';
@@ -12,7 +12,7 @@ interface Props {
     lowerButtonText: string;
 }
 
-export const TwoActionsModal: FC<Props> = ({
+export const TwoActionsModal: React.FC<Props> = ({
     isOpen,
     onClose,
     children,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
@@ -59,8 +59,8 @@ export function useAssessmentManager(
     assessmentId: string | undefined,
     onSubmit: (state: SuccessState | ErrorState) => void,
 ) {
-    const [updatedLocalAssessment, setUpdateLocalAssessment] = useState(defaultAssessment);
-    const [reasonForBeingDisabled, setReasonForBeingDisabled] = useState<string | undefined>(undefined);
+    const [updatedLocalAssessment, setUpdateLocalAssessment] = React.useState(defaultAssessment);
+    const [reasonForBeingDisabled, setReasonForBeingDisabled] = React.useState<string | undefined>(undefined);
     const { kindergartenList } = useKindergartens();
     const { t } = useTranslation();
     const { assessments } = useAssessments();
@@ -70,7 +70,7 @@ export function useAssessmentManager(
 
     const { assessment } = useAssessment(assessmentId!);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!assessment) return;
 
         setUpdateLocalAssessment({
@@ -90,7 +90,7 @@ export function useAssessmentManager(
         });
     }, [assessment]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         validate(state)
             .then(() => {
                 const assessmentWithUsedName = assessments.find((a) => a.title === state.title);

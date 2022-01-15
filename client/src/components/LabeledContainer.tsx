@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import React from 'react';
 import { createStyles, Divider, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 
 interface Props {
     title: string;
 }
 
-export const LabeledContainer: FC<Props> = ({ title, children }) => {
+export const LabeledContainer: React.FC<Props> = ({ title, children }) => {
     const classes = useStyles();
 
     return (

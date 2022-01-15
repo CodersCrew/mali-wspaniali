@@ -1,3 +1,4 @@
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Table,
@@ -15,8 +16,8 @@ import {
     IconButton,
     Tooltip,
 } from '@material-ui/core';
-import { useState } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { BaseChildInfo, KindergartenWithChildren } from '../../../graphql/types';
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
@@ -44,9 +45,9 @@ export const TestResultsTable = ({
 }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [page, setPage] = useState(0);
-    const [searchOpened, setSearchOpened] = useState(false);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = React.useState(0);
+    const [searchOpened, setSearchOpened] = React.useState(false);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [selectedKindergartens, selectedSortableCell, cellParameters] = useArrowedCell(kindergartens);
 
     const searchChildren = (child: BaseChildInfo) =>

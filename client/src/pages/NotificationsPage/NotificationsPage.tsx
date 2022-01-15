@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { NotificationPageList } from './NotificationPageList';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
@@ -9,7 +9,7 @@ export default function NotificationsPage() {
     const user = useMe();
     const { readNotification } = useReadNotification();
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.notifications', 'parent-menu.notifications', 'instructor-menu.notifications']);
     }, []);
 

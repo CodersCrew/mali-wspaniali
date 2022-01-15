@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { ApolloQueryResult, gql, useLazyQuery } from '@apollo/client';
 import { AssessmentResult } from '../../../graphql/types';
 
@@ -46,7 +46,7 @@ export const GET_ASSESSMENT_RESULTS = gql`
 export function useAssessmentResults(kindergartenId: string, assessmentId: string): UseAssessmentReturn {
     const [getResults, { data, loading, refetch }] = useLazyQuery<AssessmentResponse>(GET_ASSESSMENT_RESULTS);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (assessmentId?.length && kindergartenId?.length) {
             getResults({ variables: { kindergartenId, assessmentId } });
         }

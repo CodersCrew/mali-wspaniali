@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { emailTest } from '../../../utils/emailTest';
 import { ButtonSecondary } from '../../../components/Button';
-
 import { RegistrationEmailProps } from './types';
 
 export const RegistrationEmail = ({

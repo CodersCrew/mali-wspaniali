@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import {
     Typography,
     InputAdornment,
@@ -21,7 +21,6 @@ import {
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
-
 import { RegistrationPasswordProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
 
@@ -48,10 +47,10 @@ export const RegistrationPassword = ({
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [passwordValidation, setPasswordValidation] = useState(initialPasswordValidation);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [passwordValidation, setPasswordValidation] = React.useState(initialPasswordValidation);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setPasswordValidation({
             length: passwordLengthTest(password),
             capital: passwordCapitalTest(password),

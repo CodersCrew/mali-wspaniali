@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import React from 'react';
 import { ButtonBase, CustomButtonProps } from './ButtonBase';
 
-export const ButtonPrimary: FC<CustomButtonProps> = (props) => {
+export const ButtonPrimary: React.FC<CustomButtonProps> = (props) => {
     return <ButtonBase {...props} color="primary" />;
 };

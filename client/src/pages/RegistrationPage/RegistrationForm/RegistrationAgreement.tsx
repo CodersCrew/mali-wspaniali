@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Checkbox,
     AccordionDetails,
@@ -19,7 +19,6 @@ import parse from 'html-react-parser';
 import { ButtonSecondary } from '../../../components/Button';
 import { Theme } from '../../../theme';
 import { AgreementExtended } from '../types';
-
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
 
@@ -112,10 +111,10 @@ export const RegistrationAgreement = ({
     const classes = useStyles();
 
     // TODO: length of initialState should follow the length of agreements; hardcoded '5' is only a temporary solution
-    const [boxChecked, setBoxChecked] = useState([false, false, false, false, false]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [expanded, setExpanded] = useState('panel1');
-    const [allRequiredChecked, setAllRequiredChecked] = useState(false);
+    const [boxChecked, setBoxChecked] = React.useState([false, false, false, false, false]);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [expanded, setExpanded] = React.useState('panel1');
+    const [allRequiredChecked, setAllRequiredChecked] = React.useState(false);
 
     return (
         <>

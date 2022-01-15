@@ -7,7 +7,6 @@ import { Theme } from '../../theme';
 import { ButtonSecondary } from '../../components/Button';
 import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
 import { useIsDevice } from '../../queries/useBreakpoints';
-
 import { PasswordValidation } from './types';
 import {
     passwordLengthTest,

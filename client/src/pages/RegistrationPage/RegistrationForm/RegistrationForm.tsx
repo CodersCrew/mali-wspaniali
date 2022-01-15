@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import React from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
@@ -14,7 +14,6 @@ import { useIsDevice } from '../../../queries/useBreakpoints';
 import { AgreementExtended } from '../types';
 import { AGREEMENTS } from '../agreements';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
 import { RegistrationEmail } from './RegistrationEmail';
@@ -37,12 +36,12 @@ export const RegistrationForm = () => {
     const { isDesktop } = useIsDevice();
     const history = useHistory();
 
-    const [form, setForm] = useState(initialState);
-    const [activeStep, setActiveStep] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
-    const [agreements, setAgreements] = useState<AgreementExtended[]>([]);
+    const [form, setForm] = React.useState(initialState);
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(false);
+    const [roleBasedKeyCode, setRoleBasedKeyCode] = React.useState<RoleBasedKeyCodeObject | undefined>(undefined);
+    const [agreements, setAgreements] = React.useState<AgreementExtended[]>([]);
 
     const { code, email, password, passwordConfirm } = form;
 
@@ -54,7 +53,7 @@ export const RegistrationForm = () => {
         t('registration-page.confirmation'),
     ];
 
-    useEffect(() => {
+    React.useEffect(() => {
         getAgreements()
             .then(({ data }) => {
                 const agreementList = AGREEMENTS.map((item) => {
@@ -73,7 +72,7 @@ export const RegistrationForm = () => {
             });
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setRoleBasedKeyCode(RoleBasedKeyCodeObject.from(code));
     }, [code]);
 
@@ -246,7 +245,7 @@ export const RegistrationForm = () => {
         });
     }
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         setLoading(() => true);
 
@@ -303,7 +302,7 @@ export const RegistrationForm = () => {
             });
     }
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         setError(false);
         const { id, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [id]: value }));

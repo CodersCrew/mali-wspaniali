@@ -1,10 +1,10 @@
-import { ReactElement } from 'react';
+import React from 'react';
 import { makeStyles, Typography, Paper, Theme, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 
 interface Props {
     firstName: string;
-    PictureComponent: ReactElement;
+    PictureComponent: React.ReactElement;
     onClick: () => void;
     isActive?: boolean;
 }
