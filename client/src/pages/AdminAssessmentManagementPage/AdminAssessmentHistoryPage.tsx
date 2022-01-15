@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
@@ -16,7 +16,7 @@ export default function AdminAssessmentHistoryPage() {
     const history = useHistory();
     const { assessments, areAssessmentsLoading } = useAssessments();
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.test-management']);
     }, []);
 

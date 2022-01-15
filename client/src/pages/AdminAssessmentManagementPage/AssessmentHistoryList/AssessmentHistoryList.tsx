@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
     Table,
     TableBody,
@@ -21,8 +21,8 @@ interface Props {
 
 export function AssessmentHistoryList({ assessments, onTestClick }: Props) {
     const { t } = useTranslation();
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         setPage(newPage);

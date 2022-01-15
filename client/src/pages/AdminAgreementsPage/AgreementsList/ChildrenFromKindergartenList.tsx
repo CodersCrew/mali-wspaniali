@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
     TableRow,
     TableCell,
@@ -33,7 +33,7 @@ interface AgreementResult {
 type AgreementStatus = 'RECIEVED' | 'NOT_RECIEVED';
 
 export function ChildrenFromKindergartenList({ kindergarten, viewAgreement, marketingAgreement }: Props) {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
     const classes = useStyles();
 
     return (
