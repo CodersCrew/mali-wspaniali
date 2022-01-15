@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext, useState, useContext } from 'react';
 
 interface SidebarState {
     isOpen: boolean;
@@ -38,5 +38,5 @@ export function SidebarStateProvider(props: { children: ReactNode }) {
 }
 
 export function useSidebarState() {
-    return React.useContext(SidebarContext);
+    return useContext(SidebarContext);
 }
