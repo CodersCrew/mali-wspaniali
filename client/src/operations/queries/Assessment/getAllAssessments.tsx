@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
 import { Assessment } from '../../../graphql/types';
 
@@ -147,7 +147,7 @@ export function useAssessments(options?: Options): UseAssessmentReturn {
 
     const [refetchAssessments, { data, loading }] = useLazyQuery<GetAllAssessmentsResponse>(query);
 
-    useEffect(() => {
+    React.useEffect(() => {
         refetchAssessments();
     }, []);
 

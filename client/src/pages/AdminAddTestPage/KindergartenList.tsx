@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import {
     createStyles,
     makeStyles,
@@ -24,7 +24,7 @@ interface Props {
 
 export function KindergartenList({ kindergartens }: Props) {
     const { t } = useTranslation();
-    const [searchPhrase, setSearchPhrase] = useState('');
+    const [searchPhrase, setSearchPhrase] = React.useState('');
 
     const classes = useStyles();
 

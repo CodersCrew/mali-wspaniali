@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, Typography, Grid } from '@material-ui/core';
@@ -21,11 +21,11 @@ export default function AdminArticlesPage() {
     const { isSmallMobile } = useIsDevice();
     const { createArticle } = useCreateArticle();
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = React.useState(1);
 
     const { paginatedArticles, loading, fetchMore, refetch } = useArticles(currentPage);
 
-    useEffect(() => {
+    React.useEffect(() => {
         activePage(['admin-menu.articles.title']);
         setCurrentPage(1);
     }, []);
