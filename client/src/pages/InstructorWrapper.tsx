@@ -14,11 +14,13 @@ export const InstructorWrapper: FC = ({ children }) => {
         const { firstname, lastname, mail } = user;
 
         if (!firstname || !lastname) {
-            openUpdateInstructorNameModal({ lastname, firstname, mail }).then((result) => {
-                if (result.decision && result.decision.accepted) {
-                    updateUser(result.decision.name);
-                }
-            });
+            openUpdateInstructorNameModal({ lastname, firstname, mail })
+                .then((result) => {
+                    if (result.decision && result.decision.accepted) {
+                        updateUser(result.decision.name);
+                    }
+                })
+                .catch(() => console.log('Modal result error'));
         }
     }, [user?.firstname, user?.lastname]);
 

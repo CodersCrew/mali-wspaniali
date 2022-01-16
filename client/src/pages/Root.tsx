@@ -22,8 +22,12 @@ export function Root() {
     dayjs.locale(i18n.language);
 
     useEffect(() => {
-        getRootLazyImports('RegistrationPage').preload();
-        getRootLazyImports('ForgotPasswordPage').preload();
+        getRootLazyImports('RegistrationPage')
+            .preload()
+            .catch(() => console.log('Load error'));
+        getRootLazyImports('ForgotPasswordPage')
+            .preload()
+            .catch(() => console.log('Load error'));
     }, []);
 
     return (

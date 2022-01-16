@@ -31,6 +31,9 @@ i18n.use(LanguageDetector)
             caches: ['localStorage', 'cookie'],
             excludeCacheFor: ['cimode'],
         },
+    })
+    .catch(() => {
+        console.log('I18n error');
     });
 
 export const translation = i18n;
