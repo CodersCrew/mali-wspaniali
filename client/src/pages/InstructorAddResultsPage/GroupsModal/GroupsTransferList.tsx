@@ -16,7 +16,7 @@ import {
     Grid,
     Button,
 } from '@material-ui/core';
-import { AssessmentResult, Child, Group } from '@app/graphql/types';
+import { AssessmentResult, Child, Group } from '../../../graphql/types';
 import {
     UpdatedAssessmentInput,
     useUpdateAssessmentResult,

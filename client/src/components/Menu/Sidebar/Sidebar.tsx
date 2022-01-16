@@ -1,7 +1,7 @@
 import { AdminSidebar } from './AdminSidebar';
 import { InstructorSidebar } from './InstructorSidebar';
 import { ParentSidebar } from './ParentSidebar';
-import { Me } from '@app/graphql/types';
+import { Me } from '../../../graphql/types';
 import { useSidebarState } from '../../../utils/useSidebar';
 
 interface Props {

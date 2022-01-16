@@ -11,7 +11,7 @@ import {
     TablePagination,
 } from '@material-ui/core';
 import { KindergartensTableRow } from './KindergartensTableRow';
-import { Kindergarten } from '@app/graphql/types';
+import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     kindergartens: Kindergarten[];

@@ -1,6 +1,6 @@
 import { makeStyles, createStyles, List, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Me } from '@app/graphql/types';
+import { Me } from '../../../graphql/types';
 import { getAdminMenuItemFactory, getNewsletterMenuItemFactory, getResultsMenuItemFactory } from './menuItemFactory';
 import { SingleItem } from './SingleItem';
 import { SecondaryLabel } from '../../Label';

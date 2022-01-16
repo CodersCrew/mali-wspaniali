@@ -17,7 +17,7 @@ import {
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { Assessment } from '@app/graphql/types';
+import { Assessment } from '../../../graphql/types';
 import { openDialog, ActionDialog } from '../../../utils/openDialog';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { GroupsList } from './GroupsList';

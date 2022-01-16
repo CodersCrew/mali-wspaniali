@@ -19,7 +19,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 
 import { TestResultsTableRow } from './TestResultsTableRow';
-import { BaseChildInfo, KindergartenWithChildren } from '@app/graphql/types';
+import { BaseChildInfo, KindergartenWithChildren } from '../../../graphql/types';
 import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
 import { MeasurementType } from '../TestToggleButton';
 import { Input } from '../../../components/ChildForm/Input';

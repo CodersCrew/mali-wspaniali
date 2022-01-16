@@ -2,7 +2,7 @@ import { Accordion, AccordionSummary, AccordionDetails, makeStyles, Theme, creat
 import clsx from 'clsx';
 
 import { SummarisedGroupedTest } from './SummarisedGroupedTest/SummarisedGroupedTest';
-import { AssessmentResult, Child } from '@app/graphql/types';
+import { AssessmentResult, Child } from '../../../graphql/types';
 import { ResultPreview } from '../../../components/ResultPreview/ResultPreview';
 
 export function GroupedTests(props: {

@@ -2,7 +2,7 @@ import { Typography, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { BasicModal } from '../../components/Modal/BasicModal';
-import { openDialog, ActionDialog } from '../../utils/openDialog';
+import { openDialog, ActionDialog } from '@app/utils/openDialog';
 import { User } from '@app/graphql/types';
 
 export interface SettingsMessageModalProps {

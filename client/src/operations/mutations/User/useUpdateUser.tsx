@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 
-import { UpdatedUserInput } from '@app/graphql/types';
+import { UpdatedUserInput } from '../../../graphql/types';
 import { useGetMe } from './useGetMe';
 
 export const UPDATE_USER = gql`

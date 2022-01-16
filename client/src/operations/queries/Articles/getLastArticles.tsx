@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Article } from '@app/graphql/types';
+import { Article } from '../../../graphql/types';
 
 const LAST_ARTICLES = gql`
     query Articles($count: Int!) {

@@ -14,7 +14,7 @@ import {
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-import { KindergartenWithUsers, User } from '@app/graphql/types';
+import { KindergartenWithUsers, User } from '../../../graphql/types';
 import { ArrowTooltip } from '../../../components/Tooltip/ArrowTooltip';
 import { KindergartenAgreementsList, Parent } from './KindergartenAgreementsList';
 import { Status } from '../../../components/Icons/Status';

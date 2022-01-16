@@ -20,7 +20,7 @@ import {
 } from '@material-ui/icons';
 
 import { InstructorRelation } from '../types';
-import { Assessment, Kindergarten, User } from '@app/graphql/types';
+import { Assessment, Kindergarten, User } from '../../../graphql/types';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import { openQuestionDialog } from '../../../components/QuestionDialog';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';

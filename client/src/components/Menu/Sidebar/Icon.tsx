@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { makeStyles } from '@material-ui/core/';
 
-import { Sex } from '@app/graphql/types';
+import { Sex } from '../../../graphql/types';
 import BoyAvatar from '../../../assets/boy.svg';
 import GirlAvatar from '../../../assets/girl.svg';
 

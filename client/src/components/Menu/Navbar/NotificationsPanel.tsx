@@ -3,7 +3,7 @@ import { MenuList, Paper, createStyles, makeStyles, Theme, Typography } from '@m
 import { Notifications } from '@material-ui/icons/';
 
 import { NotificationItem } from './NotificationItem';
-import { Notification } from '@app/graphql/types';
+import { Notification } from '../../../graphql/types';
 import { useNotificationContent } from '../../../pages/NotificationsPage/useNotificationContent';
 
 export type NotificationListProps = {

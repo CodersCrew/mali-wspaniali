@@ -3,7 +3,7 @@ import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
-import { Group } from '@app/graphql/types';
+import { Group } from '../../../graphql/types';
 
 interface Props {
     onClose: () => void;

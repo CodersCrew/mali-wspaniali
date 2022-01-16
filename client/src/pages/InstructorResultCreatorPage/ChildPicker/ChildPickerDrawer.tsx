@@ -14,7 +14,7 @@ import { ArrowBack, ArrowForward } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../../components/Button';
-import { Child, Kindergarten } from '@app/graphql/types';
+import { Child, Kindergarten } from '../../../graphql/types';
 import { useSidebarState } from '../../../utils/useSidebar';
 import { ResultCreatorReturnProps } from '../useResultCreator';
 import { ChildPicker } from './ChildPicker';

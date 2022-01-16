@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 
-import { ReturnedStatus } from '@app/graphql/types';
+import { ReturnedStatus } from '../../../graphql/types';
 
 export interface ReadNotificationResponse {
     readNotification: ReturnedStatus;

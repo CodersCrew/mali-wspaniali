@@ -5,7 +5,7 @@ import { TextField, Grid, makeStyles, createStyles, Typography, Theme } from '@m
 import { Delete } from '@material-ui/icons';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { Kindergarten, AddKindergartenInput } from '@app/graphql/types';
+import { Kindergarten, AddKindergartenInput } from '../../../graphql/types';
 
 interface Props {
     onClose: () => void;

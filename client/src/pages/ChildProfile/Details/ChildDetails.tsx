@@ -5,7 +5,7 @@ import { EditChildPanel } from './EditChildPanel';
 import { Theme } from '@app/theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Loader } from '../../../components/Loader';
-import { Child } from '@app/graphql/types';
+import { Child } from '../../../graphql/types';
 import { useEditChild } from '../../../operations/mutations/User/editChild';
 
 interface ChildDetailsProps {

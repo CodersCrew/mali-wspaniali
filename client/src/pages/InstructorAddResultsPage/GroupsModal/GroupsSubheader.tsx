@@ -5,7 +5,7 @@ import { Grid, Typography, Box } from '@material-ui/core';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import { useIsDevice } from '../../../queries/useBreakpoints';
-import { Assessment, Group } from '@app/graphql/types';
+import { Assessment, Group } from '../../../graphql/types';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 
 import { openGroupsModal } from './GroupsModal';

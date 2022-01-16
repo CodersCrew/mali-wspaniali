@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { KeyCode } from '@app/graphql/types';
+import { KeyCode } from '../../../graphql/types';
 
 export interface CreateKeyCodeSeriesResponse {
     createKeyCodeBulk: KeyCode[];

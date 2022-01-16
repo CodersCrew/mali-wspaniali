@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 
-import { KindergartenWithChildren } from '@app/graphql/types';
+import { KindergartenWithChildren } from '../../../graphql/types';
 
 export interface KindergartenListResponse {
     assessment: {

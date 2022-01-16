@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { Kindergarten } from '@app/graphql/types';
+import { Kindergarten } from '../../../graphql/types';
 
 interface Props {
     onClose: () => void;

@@ -19,7 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { Assessment, AssessmentResult, Group } from '@app/graphql/types';
+import { Assessment, AssessmentResult, Group } from '../../../graphql/types';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 import { openGroupsDeleteModal } from './GroupsDeleteModal';

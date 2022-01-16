@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
 import { useSelectOptions } from '../../../components/ChildForm/useSelectValues';
-import { Child, Kindergarten } from '@app/graphql/types';
+import { Child, Kindergarten } from '../../../graphql/types';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 
 import { Input } from '../../../components/ChildForm/Input';

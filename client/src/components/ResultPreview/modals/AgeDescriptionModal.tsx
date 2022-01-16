@@ -1,7 +1,7 @@
 import { DialogContent, DialogTitle, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
-import { ChildInput } from '@app/graphql/types';
+import { ChildInput } from '../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
 
 const T_GROUP_PREFIX = 'child-profile.age-group-description';

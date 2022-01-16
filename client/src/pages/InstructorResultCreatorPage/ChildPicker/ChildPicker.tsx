@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../../../components/CustomContainer';
 import { SelectList } from '../../../components/SelectList';
 import { SearchChildField } from '../../../components/SearchChildField';
-import { Assessment, Child, Kindergarten, AssessmentResult } from '@app/graphql/types';
+import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
 import { countProgress } from '../countProgress';
 import { ChildItem } from './ChildItem';
 

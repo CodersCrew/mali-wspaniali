@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { NewsletterInput } from '@app/graphql/types';
+import { NewsletterInput } from '../../../graphql/types';
 
 export interface CreateNewsletterResponse {
     createNewsletter: { status: boolean };

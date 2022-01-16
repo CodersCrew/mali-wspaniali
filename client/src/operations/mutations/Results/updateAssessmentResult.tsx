@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { AssessmentResult } from '@app/graphql/types';
+import { AssessmentResult } from '../../../graphql/types';
 
 export interface Test {
     title: string;

@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { CircleChart } from '../../../components/CircleChart';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { useIsDevice } from '../../../queries/useBreakpoints';
-import { AssessmentParam } from '@app/graphql/types';
+import { AssessmentParam } from '../../../graphql/types';
 
 interface Props {
     label: string;

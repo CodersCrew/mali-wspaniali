@@ -1,7 +1,7 @@
 import XLSX from 'xlsx';
 import dayjs from 'dayjs';
 
-import { KeyCode } from '@app/graphql/types';
+import { KeyCode } from '../../../graphql/types';
 
 const WORKSHEET_NAME = 'KeyCodes';
 

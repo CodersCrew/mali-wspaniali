@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { UpdatedAssessmentInput } from '../../../operations/mutations/Assessment/updateAssessment';
 import { TwoActionsModal } from '../../../components/Modal/TwoActionsModal';
-import { Kindergarten, Assessment } from '@app/graphql/types';
+import { Kindergarten, Assessment } from '../../../graphql/types';
 import { InstructorRelation } from '../types';
 import {
     KindergartenTransferList,

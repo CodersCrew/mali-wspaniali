@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-import { Article } from '@app/graphql/types';
+import { Article } from '../../../graphql/types';
 import { useArticles } from '../../queries/Articles/getArticles';
 
 export interface CreatedArticleInput {

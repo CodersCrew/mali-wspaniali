@@ -1,6 +1,6 @@
 import { TableContainer, Paper, Table, TableHead, TableBody, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { ChildrenFromKindergartenList } from './ChildrenFromKindergartenList';
-import { KindergartenWithUsers } from '@app/graphql/types';
+import { KindergartenWithUsers } from '../../../graphql/types';
 import { SortableHeader } from './SortableHeader';
 import { ChildrenFromKindergartenListLoading } from './ChildrenFromKindergartenListLoading';
 

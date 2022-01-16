@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
-import { AssessmentResult } from '@app/graphql/types';
+import { AssessmentResult } from '../../../graphql/types';
 
 export interface AssessmentResponse {
     result: AssessmentResult | null;
