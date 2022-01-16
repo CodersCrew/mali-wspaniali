@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 
 import utc from 'dayjs/plugin/utc';
 
-import { StatusChip } from '../../../components/StatusChip';
-import { Assessment } from '../../../graphql/types';
+import { StatusChip } from '@app/components/StatusChip';
+import { Assessment } from '@app/graphql/types';
 
 dayjs.extend(utc);
 
