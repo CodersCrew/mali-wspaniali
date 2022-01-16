@@ -21,11 +21,13 @@ export const ParentWrapper: FC = ({ children }) => {
         openAddChildModal({
             kindergartens: kindergartenList,
             preventClose: true,
-        }).then((results) => {
-            if (results.decision && results.decision.accepted) {
-                addChild(results.decision.child);
-            }
-        });
+        })
+            .then((results) => {
+                if (results.decision && results.decision.accepted) {
+                    addChild(results.decision.child);
+                }
+            })
+            .catch(() => console.log('Modal result error'));
     }
 
     return <>{children}</>;

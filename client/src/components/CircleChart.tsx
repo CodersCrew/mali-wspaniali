@@ -27,7 +27,7 @@ export const CircleChart = memo(({ color, value, maxValue, label, enableInfoIcon
                 label={() => {
                     if (value === 0 || label === '0' || disable) return '-';
 
-                    return labelSuffix ? `${label} ${labelSuffix}` : label;
+                    return labelSuffix ? `${label || ''} ${labelSuffix}` : label;
                 }}
                 labelPosition={0}
                 labelStyle={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: 'bold' }}

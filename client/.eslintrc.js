@@ -1,17 +1,26 @@
 module.exports = {
-    plugins: ['i18next', 'react-hooks'],
+    plugins: ['i18next', 'react-hooks', '@typescript-eslint', 'import'],
     settings: {
         react: {
             version: 'detect',
         },
+        'import/resolver': {
+            typescript: { project: './' },
+        },
     },
     parser: '@typescript-eslint/parser',
+    parserOptions: {
+        project: 'tsconfig.json',
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+    },
     extends: [
         'airbnb-base',
         'plugin:import/typescript',
-        'plugin:@typescript-eslint/recommended',
         'prettier',
         'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
     ],
     root: true,
     env: {

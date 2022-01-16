@@ -18,7 +18,7 @@ export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const { user } = useGetMe();
     const { i18n } = useTranslation();
-    const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
+    const { data: ActivePageState } = useQuery<{ activePage: string[] }>(ACTIVE_PAGE);
     const device = useBreakpoints();
 
     const history = useHistory();
@@ -32,12 +32,12 @@ export const AppWrapper: FC = ({ children }) => {
                 <Box display="flex">
                     <Navbar
                         device={device}
-                        activePage={ActivePageState.activePage}
+                        activePage={ActivePageState!.activePage}
                         language={language}
                         notifications={user.notifications}
                         onLanguageChange={handleLanguageChange}
                     />
-                    <Sidebar user={user} activePage={ActivePageState.activePage} onClick={handleClick} />
+                    <Sidebar user={user} activePage={ActivePageState!.activePage} onClick={handleClick} />
 
                     <main className={classes.content}>
                         <div className={classes.toolbar}>{children}</div>
