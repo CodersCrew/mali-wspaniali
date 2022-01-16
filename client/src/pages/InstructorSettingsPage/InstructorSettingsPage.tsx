@@ -10,7 +10,7 @@ import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationP
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 import { useMe } from '../../utils/useMe';
 import { useUpdateUser } from '../../operations/mutations/User/useUpdateUser';
-import { UpdatedUserInput } from '../../graphql/types';
+import { UpdatedUserInput } from '@app/graphql/types';
 
 export default function InstructorSettingsPage() {
     const { t } = useTranslation();

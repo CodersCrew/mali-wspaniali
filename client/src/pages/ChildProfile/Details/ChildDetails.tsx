@@ -2,10 +2,10 @@ import { createStyles, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { EditChildPanel } from './EditChildPanel';
-import { Theme } from '../../../theme';
+import { Theme } from '@app/theme';
 import { useKindergartens } from '../../../operations/queries/Kindergartens/getKindergartens';
 import { Loader } from '../../../components/Loader';
-import { Child } from '../../../graphql/types';
+import { Child } from '@app/graphql/types';
 import { useEditChild } from '../../../operations/mutations/User/editChild';
 
 interface ChildDetailsProps {

@@ -1,6 +1,6 @@
 import { gql, useLazyQuery } from '@apollo/client';
 
-import { KeyCode } from '../../../graphql/types';
+import { KeyCode } from '@app/graphql/types';
 
 interface KeyCodeResponse {
     keyCodes: KeyCode[];

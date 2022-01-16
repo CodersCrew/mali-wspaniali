@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useTranslation } from 'react-i18next';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
 
-import { ThemeProvider } from '../theme';
+import { ThemeProvider } from '@app/theme';
 import createGenerateClassName from '../classNameGenerator';
 import dayjs from '../localizedMoment';
 import { CookieModal } from '../components/CookieModal/CookieModal';

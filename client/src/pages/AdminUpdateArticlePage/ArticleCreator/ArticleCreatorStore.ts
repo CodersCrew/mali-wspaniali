@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { Article, Redactor } from '../../../graphql/types';
+import { Article, Redactor } from '@app/graphql/types';
 
 class ArticleStore {
     article: Article | null = null;

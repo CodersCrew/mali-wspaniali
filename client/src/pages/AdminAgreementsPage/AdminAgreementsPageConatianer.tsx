@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
-import { Kindergarten, KindergartenWithUsers } from '../../graphql/types';
-import { KINDERGARTEN_WITH_USERS } from '../../graphql/kindergartensRepository';
+import { Kindergarten, KindergartenWithUsers } from '@app/graphql/types';
+import { KINDERGARTEN_WITH_USERS } from '@app/graphql/kindergartensRepository';
 import { AdminAgreementsPage } from './AdminAgreementsPage';
 import { AgreementsTypeFilterMutations } from '../../operations/mutations/agreementsTypeFilterMutations';
 import { AgreementKindergartenFilters } from '../../models/AgreementKindergartenFilters';

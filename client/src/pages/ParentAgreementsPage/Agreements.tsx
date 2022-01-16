@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 
 import { ButtonSecondary } from '../../components/Button';
-import { Agreement } from '../../graphql/types';
+import { Agreement } from '@app/graphql/types';
 import { useUpdateAgreements } from '../../operations/mutations/Agreements/useUpdateAgreements';
 import { PageContainer } from '../../components/PageContainer';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';

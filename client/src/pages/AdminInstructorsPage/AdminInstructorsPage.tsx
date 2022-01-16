@@ -10,7 +10,7 @@ import { openAssignInstructorModal } from './AssignInstructorModal/AssignInstruc
 import { activePage } from '../../apollo_client';
 import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { PrivilegedUser, Kindergarten } from '../../graphql/types';
+import { PrivilegedUser, Kindergarten } from '@app/graphql/types';
 import { PageContainer } from '../../components/PageContainer';
 import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';

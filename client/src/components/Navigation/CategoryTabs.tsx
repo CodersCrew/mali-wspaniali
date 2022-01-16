@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { CategoryItem } from '../../pages/ArticleListPage/BlogCategories';
 import { Tabs } from '../Tabs/Tabs';
-import { theme } from '../../theme/theme';
+import { theme } from '@app/theme/theme';
 import { ChildProfileCategoryItem } from '../../pages/ChildProfile/ChildProfileCategory';
 
 interface Props<T extends CategoryItem | ChildProfileCategoryItem> {

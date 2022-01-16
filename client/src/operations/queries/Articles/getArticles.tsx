@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { PaginatedArticles } from '../../../graphql/types';
+import { PaginatedArticles } from '@app/graphql/types';
 
 export const ARTICLES_PER_PAGE = 6;
 

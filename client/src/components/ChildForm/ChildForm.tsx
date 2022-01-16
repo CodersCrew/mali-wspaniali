@@ -5,7 +5,7 @@ import { FormikProps } from 'formik';
 import { useSelectOptions } from './useSelectValues';
 import { Input } from './Input';
 import { Select } from './Select';
-import { Kindergarten, AddChildResult } from '../../graphql/types';
+import { Kindergarten, AddChildResult } from '@app/graphql/types';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { mapKindergartenToOption } from './utils';
 

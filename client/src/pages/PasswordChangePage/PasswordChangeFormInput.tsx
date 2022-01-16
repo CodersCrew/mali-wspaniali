@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 export type PasswordChangeFormInputProps = {
     value: string;

@@ -5,7 +5,7 @@ import { Notifications, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { NotificationsPanel } from './NotificationsPanel';
-import { Notification } from '../../../graphql/types';
+import { Notification } from '@app/graphql/types';
 import { Device } from '../../../queries/useBreakpoints';
 import { LanguageSelector } from '../../LanguageSelector';
 import { AppLogo } from '../../AppLogo';

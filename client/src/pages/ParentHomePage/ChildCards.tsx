@@ -4,7 +4,7 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import { ChildCard } from '../../components/ChildCard/ChildCard';
 import BoyAvatar from '../../assets/boy.svg';
 import GirlAvatar from '../../assets/girl.svg';
-import { Child, ChildInput } from '../../graphql/types';
+import { Child, ChildInput } from '@app/graphql/types';
 import { HomePageAddChildButton } from './HomePageTopSection/HomePageAddChildButton/HomePageAddChildButton';
 import { openAddChildModal } from '../../components/ChilModals/AddChildModal';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';

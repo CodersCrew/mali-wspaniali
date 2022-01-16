@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { createStyles, Grid, makeStyles, MenuItem, TextField, Theme } from '@material-ui/core';
 
-import { Assessment } from '../../graphql/types';
+import { Assessment } from '@app/graphql/types';
 import { SearchChildField } from '../../components/SearchChildField';
 
 interface Props {

@@ -3,7 +3,7 @@ import { Box, createStyles, Grid, Link, makeStyles, Typography } from '@material
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { activePage } from '../../apollo_client';
 import { useMe } from '../../utils/useMe';
 import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';

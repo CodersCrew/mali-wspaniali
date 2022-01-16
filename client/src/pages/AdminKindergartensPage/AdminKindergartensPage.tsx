@@ -11,7 +11,7 @@ import { useKindergartens } from '../../operations/queries/Kindergartens/getKind
 import { useCreateKindergarten } from '../../operations/mutations/Kindergartens/createKindergarten';
 import { useDeleteKindergarten } from '../../operations/mutations/Kindergartens/deleteKindergarten';
 import { useUpdateKindergarten } from '../../operations/mutations/Kindergartens/updateKindergarten';
-import { Kindergarten, AddKindergartenInput } from '../../graphql/types';
+import { Kindergarten, AddKindergartenInput } from '@app/graphql/types';
 import { PageContainer } from '../../components/PageContainer';
 
 export default function AdminKindergartensPage() {

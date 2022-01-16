@@ -1,4 +1,4 @@
-import { User, Kindergarten } from '../../graphql/types';
+import { User, Kindergarten } from '@app/graphql/types';
 
 export interface ChildModalProps {
     preventClose?: boolean;

@@ -9,7 +9,7 @@ import { BasicModal } from '../Modal/BasicModal';
 
 import { openDialog } from '../../utils/openDialog';
 import { useParentsSelectOptions } from './useParentsSelectOption';
-import { Me } from '../../graphql/types';
+import { Me } from '@app/graphql/types';
 
 interface FormValues {
     email: string;

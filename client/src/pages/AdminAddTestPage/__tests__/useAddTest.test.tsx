@@ -6,7 +6,7 @@ import { CREATE_ASSESSMENT } from '../../../operations/mutations/Assessment/crea
 import { awaitForHookResponse } from '../../../utils/testing/awaitForResponse';
 import { translationOf } from '../../../utils/testing/isTranslationOf';
 import { KINDERGARTENS } from '../../../operations/queries/Kindergartens/getKindergartens';
-import { Kindergarten } from '../../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 import { GET_ALL_ASSESSMENTS } from '../../../operations/queries/Assessment/getAllAssessments';
 
 describe('useAddTest', () => {

@@ -1,5 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
-import { Me } from '../../../graphql/types';
+import { Me } from '@app/graphql/types';
 
 export const GET_ME = gql`
     {

@@ -20,7 +20,7 @@ import {
     passwordCapitalTest,
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
-import { Theme } from '../../../theme';
+import { Theme } from '@app/theme';
 import { RegistrationPasswordProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
 

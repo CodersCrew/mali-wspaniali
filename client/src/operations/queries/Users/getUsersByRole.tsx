@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { PrivilegedUser, User } from '../../../graphql/types';
+import { PrivilegedUser, User } from '@app/graphql/types';
 
 interface UsersListReponse {
     users: PrivilegedUser[];

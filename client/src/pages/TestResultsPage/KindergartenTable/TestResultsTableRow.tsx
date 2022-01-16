@@ -4,7 +4,7 @@ import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, alpha } fr
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
 
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
-import { KindergartenWithChildren } from '../../../graphql/types';
+import { KindergartenWithChildren } from '@app/graphql/types';
 import { ProgressBar } from '../../../components/ProgressBar';
 import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 import { ResultParametersInfo } from './ResultParametersInfo';

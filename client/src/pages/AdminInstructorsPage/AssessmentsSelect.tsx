@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { Assessment } from '../../graphql/types';
+import { Assessment } from '@app/graphql/types';
 
 interface Props {
     label: string;

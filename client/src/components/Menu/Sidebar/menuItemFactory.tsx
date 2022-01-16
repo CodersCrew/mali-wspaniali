@@ -26,7 +26,7 @@ import {
     School,
 } from '@material-ui/icons';
 
-import { Child } from '../../../graphql/types';
+import { Child } from '@app/graphql/types';
 import { SingleItemProps } from './SingleItem';
 import { ChildAvatar, Icon } from './Icon';
 import { getRootLazyImports } from '../../../pages/rootLazyImports';

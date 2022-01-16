@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
-import { Kindergarten } from '../../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 interface Props {
     kindergarten: Kindergarten;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import * as ReactDOM from 'react-dom';
-import { ThemeProvider } from '../theme';
+import { ThemeProvider } from '@app/theme';
 import { client } from '../apollo_client';
 
 export type Decision<T = {}> = {

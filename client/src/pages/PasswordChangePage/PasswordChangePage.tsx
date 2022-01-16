@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/co
 import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
 
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import SuccessImage from '../../assets/forgotPassword/success.png';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';

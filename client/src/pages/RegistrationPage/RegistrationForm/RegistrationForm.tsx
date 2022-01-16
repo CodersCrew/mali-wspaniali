@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
 
 import { createUser } from '../../../queries/userQueries';
-import { getAgreements } from '../../../graphql/agreementRepository';
+import { getAgreements } from '@app/graphql/agreementRepository';
 import { load } from '../../../utils/load';
 import { openAlertDialog } from '../../../components/AlertDialog';
 import { passwordStrengthTest } from '../passwordStrengthTest';

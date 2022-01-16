@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildModalProps } from './ChildModalTypes';
-import { Child, UpdatedChildInput } from '../../graphql/types';
+import { Child, UpdatedChildInput } from '@app/graphql/types';
 import { ChangeKindergartenModal } from '../ChildForm/ChangeKindergartenForm';
 import { normalizeChild } from './utils';
 

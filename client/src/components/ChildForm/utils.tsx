@@ -1,4 +1,4 @@
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 export const mapKindergartenToOption = (kindergarten: Kindergarten) => {
     return {

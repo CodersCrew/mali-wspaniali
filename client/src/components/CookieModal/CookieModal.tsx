@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, IconButton, Typography, Paper } from '@material-ui/core';
 import { createStyles } from '@material-ui/styles';
 import { getCookie, setCookie } from '../../utils/cookies';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 export const CookieModal = () => {
     const classes = useStyles();

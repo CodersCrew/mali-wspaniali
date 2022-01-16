@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import PasswordChangeSuccess from '../../assets/forgotPassword/password-change-success.svg';
 import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PasswordSuccessfullyChanged = () => {

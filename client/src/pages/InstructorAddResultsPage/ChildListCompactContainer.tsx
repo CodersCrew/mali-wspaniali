@@ -15,7 +15,7 @@ import {
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { Assessment, Child, AssessmentResult } from '../../graphql/types';
+import { Assessment, Child, AssessmentResult } from '@app/graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { SearchChildField } from '../../components/SearchChildField';
 import { Clickable } from '../../components/Clickable';

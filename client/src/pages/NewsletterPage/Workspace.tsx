@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, FormControl, FormHelperText } from '@material-ui/core';
 
 import { modules, formats } from './workspaceConfig';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 interface Props {
     value: string;

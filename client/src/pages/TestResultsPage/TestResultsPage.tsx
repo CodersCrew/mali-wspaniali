@@ -12,11 +12,11 @@ import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { activePage } from '../../apollo_client';
 import { useKindergartensWithChildren } from '../../operations/queries/Kindergartens/getKindergartensWithChildren';
 import { PageContainer } from '../../components/PageContainer';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { SelectList } from '../../components/SelectList';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
 import { ButtonSecondary } from '../../components/Button';
-import { Assessment } from '../../graphql/types';
+import { Assessment } from '@app/graphql/types';
 
 export default function TestResultsPage() {
     const history = useHistory<{ assessment: Assessment[] }>();

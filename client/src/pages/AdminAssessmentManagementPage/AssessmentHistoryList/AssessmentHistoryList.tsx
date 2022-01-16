@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { AssessmentItem } from './AssessmentItem';
-import { Assessment } from '../../../graphql/types';
+import { Assessment } from '@app/graphql/types';
 
 interface Props {
     assessments: Assessment[];

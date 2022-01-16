@@ -2,7 +2,7 @@ import { makeStyles, Typography, Grid, Theme } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { useTranslation } from 'react-i18next';
 
-import { Article } from '../../../graphql/types';
+import { Article } from '@app/graphql/types';
 import { BlogArticleCard } from '../../../components/Blog/BlogArticleCard';
 import { getChunks } from '../../../utils/chunkArray';
 import { useIsDevice } from '../../../queries/useBreakpoints';

@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { Me } from '../../../graphql/types';
+import { Me } from '@app/graphql/types';
 import { useGetMe } from './useGetMe';
 
 export interface LoginInput {

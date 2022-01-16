@@ -1,7 +1,7 @@
 import { Box, createStyles, alpha, Grid, ListItem, makeStyles, Theme, Typography } from '@material-ui/core';
 import { BarChart, KeyboardArrowRight } from '@material-ui/icons';
 import clsx from 'clsx';
-import { Child } from '../../../graphql/types';
+import { Child } from '@app/graphql/types';
 import { CountIcon } from '../../../components/CountIcon';
 
 interface Props {

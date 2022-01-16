@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { Create, Delete, Public, Visibility } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Article } from '../../graphql/types';
+import { Article } from '@app/graphql/types';
 import { openQuestionDialog } from '../QuestionDialog';
 import { useUpdateArticle } from '../../operations/mutations/Articles/updateArticle';
 import { useArticles } from '../../operations/queries/Articles/getArticles';

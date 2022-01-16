@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 
-import { Agreement } from '../../../graphql/types';
+import { Agreement } from '@app/graphql/types';
 
 const AGREEMENTS_MUTATION = gql`
     mutation signAgreement($agreementId: String!) {

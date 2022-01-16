@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useUsers } from '../../operations/queries/Users/getUsersByRole';
 import { AdminSettingsItem, AdminSettingsLoadingItem } from './AdminSettingsItem';
-import { User } from '../../graphql/types';
+import { User } from '@app/graphql/types';
 
 interface AdminSettingsListContainersProps {
     role: string;

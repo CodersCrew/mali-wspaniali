@@ -13,8 +13,8 @@ import {
 import { UsersTableRow } from './UsersTableRow';
 import { UserPagePagination } from './UserPagePagination';
 import { NoResults } from './NoResults';
-import { getAllUsers } from '../../graphql/userRepository';
-import { User } from '../../graphql/types';
+import { getAllUsers } from '@app/graphql/userRepository';
+import { User } from '@app/graphql/types';
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);

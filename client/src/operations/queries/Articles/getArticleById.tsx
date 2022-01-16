@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-import { Article } from '../../../graphql/types';
+import { Article } from '@app/graphql/types';
 
 const ARTICLE_BY_ID = gql`
     query Article($articleId: String!) {

@@ -14,7 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { KeyCodeSeries } from '../../../graphql/types';
+import { KeyCodeSeries } from '@app/graphql/types';
 import { FilenameButton } from './FilenameButton';
 import dayjs from '../../../localizedMoment';
 

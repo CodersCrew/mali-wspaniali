@@ -1,4 +1,4 @@
-import { Agreement } from '../../graphql/types';
+import { Agreement } from '@app/graphql/types';
 
 export type RegistrationUser = {
     email: string;

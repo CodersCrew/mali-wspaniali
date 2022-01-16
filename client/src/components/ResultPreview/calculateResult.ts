@@ -1,5 +1,5 @@
 import { resultColors } from '../../colors';
-import { AssessmentParam } from '../../graphql/types';
+import { AssessmentParam } from '@app/graphql/types';
 import { countInvertedPoints, countPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
 
 export interface Calculation {

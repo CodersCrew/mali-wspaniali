@@ -2,7 +2,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../../../components/Button';
-import { Me } from '../../../../graphql/types';
+import { Me } from '@app/graphql/types';
 import { useAuthorizeMe } from '../../../../operations/mutations/User/authorizeMe';
 import {
     ChangePasswordPanelComponentsProps,
