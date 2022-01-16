@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { TransferListItem } from './TransferListItem';
 import { ButtonBase } from '../Button/ButtonBase';
 import { addOrDeleteFromArray } from '../../utils/addOrDeleteFromArray';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 export interface SelectableKindergarten {
     kindergarten: Kindergarten;

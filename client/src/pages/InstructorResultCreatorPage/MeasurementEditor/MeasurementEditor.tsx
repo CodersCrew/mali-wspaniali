@@ -5,7 +5,7 @@ import dayjs from '../../../localizedMoment';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 import { AssessmentParam } from '../../../graphql/types';
-import { theme } from '../../../theme/theme';
+import { theme } from '@app/theme/theme';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 interface MeasurementValues {

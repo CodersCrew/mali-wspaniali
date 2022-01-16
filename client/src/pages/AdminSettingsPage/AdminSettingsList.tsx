@@ -9,7 +9,7 @@ import { AdminKindergardenSelect } from './AdminKindergardenSelect';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { mapKindergartenToOption } from '../../components/ChildForm/utils';
 import { SearchInput } from './SearchInput';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 const T_PREFIX = 'user-settings';
 

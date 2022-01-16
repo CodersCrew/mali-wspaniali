@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';

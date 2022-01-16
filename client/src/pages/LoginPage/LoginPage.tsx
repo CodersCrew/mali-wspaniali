@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';

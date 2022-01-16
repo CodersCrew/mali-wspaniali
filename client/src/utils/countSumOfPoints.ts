@@ -1,4 +1,4 @@
-import { AssessmentResult } from '../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
 export function countSumOfPoints(result: AssessmentResult) {
     const {

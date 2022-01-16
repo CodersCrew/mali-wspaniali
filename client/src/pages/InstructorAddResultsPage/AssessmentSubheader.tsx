@@ -1,7 +1,7 @@
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { Assessment, AssessmentResult } from '../../graphql/types';
+import { Assessment, AssessmentResult } from '@app/graphql/types';
 import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';

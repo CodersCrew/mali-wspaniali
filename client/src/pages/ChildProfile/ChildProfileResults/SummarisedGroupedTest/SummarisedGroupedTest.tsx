@@ -5,7 +5,7 @@ import { AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography } f
 
 import { ButtonSecondary } from '../../../../components/Button';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
-import { AssessmentResult } from '../../../../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
 interface Props {
     onClick: () => void;

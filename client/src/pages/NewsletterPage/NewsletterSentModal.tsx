@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import { textColor } from '../../colors';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 
 export const NewsletterSentModal: FC<{

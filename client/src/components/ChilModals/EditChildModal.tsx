@@ -3,7 +3,7 @@ import { makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { Child, AddChildResult, UpdatedChildInput } from '../../graphql/types';
+import { Child, AddChildResult, UpdatedChildInput } from '@app/graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { ChildCard } from '../ChildCard/ChildCard';
 import BoyAvatar from '../../assets/boy.svg';

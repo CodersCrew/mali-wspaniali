@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogActions, DialogTitle, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { openDialog, ActionDialog } from '../utils/openDialog';
+import { openDialog, ActionDialog } from '@app/utils/openDialog';
 import { ButtonDefault } from './Button';
 
 type QuestionDialogProps = {

@@ -2,7 +2,7 @@ import { makeStyles, createStyles, Box, Typography, Paper, Button, Link } from '
 import { useTranslation } from 'react-i18next';
 
 import CCLogo from '../../../assets/authTemplateLogos/maker/coders-crew.svg';
-import { Theme } from '../../../theme';
+import { Theme } from '@app/theme';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 
 import { openContactModal } from './ContactModal';

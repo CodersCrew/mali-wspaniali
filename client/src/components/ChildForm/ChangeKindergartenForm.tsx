@@ -1,7 +1,7 @@
 import { Typography, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FieldArray, FormikProps } from 'formik';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 import { Select } from './Select';
 import { mapKindergartenToOption } from './utils';

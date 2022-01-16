@@ -1,4 +1,4 @@
-import { AssessmentParam } from '../../../../graphql/types';
+import { AssessmentParam } from '@app/graphql/types';
 
 export type MeasurementProps = {
     value: number;

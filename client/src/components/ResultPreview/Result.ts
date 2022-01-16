@@ -1,4 +1,4 @@
-import { AssessmentParam, AssessmentResult } from '../../graphql/types';
+import { AssessmentParam, AssessmentResult } from '@app/graphql/types';
 import { Calculation, getResultColorAndLabel, testResults } from './calculateResult';
 
 export class Result {

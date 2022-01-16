@@ -4,15 +4,16 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
 
-import { Theme } from '../theme/types';
+import { Theme } from '@app/theme/types';
+import { ACTIVE_PAGE } from '@app/graphql/localFields';
+import { UserContext } from '@app/utils/useMe';
+import { SidebarStateProvider } from '@app/utils/useSidebar';
+
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
-import { ACTIVE_PAGE } from '../graphql/localFields';
 import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
 import { useGetMe } from '../operations/mutations/User/useGetMe';
 import dayjs from '../localizedMoment';
-import { UserContext } from '../utils/useMe';
-import { SidebarStateProvider } from '../utils/useSidebar';
 
 export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();

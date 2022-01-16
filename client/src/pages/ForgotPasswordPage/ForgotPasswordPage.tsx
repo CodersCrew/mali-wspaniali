@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import DefaultImage from '../../assets/forgotPassword/default.png';
 import ErrorImage from '../../assets/forgotPassword/error.png';
 import SuccessImage from '../../assets/forgotPassword/success.png';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';

@@ -7,7 +7,7 @@ import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 import { openAdminSettingsDeleteParent } from './AdminSettingsDeleteParentModal';
 import { openAdminSettingsEditModal } from '../../components/ChilModals/EditChildModal';
 import { openChanageChildrenKindergarten } from '../../components/ChilModals/ChangeChildKindergarten';
-import { User } from '../../graphql/types';
+import { User } from '@app/graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 import { useAnonymizeUser } from '../../operations/mutations/User/anonymizeUser';
 import { useEditChild } from '../../operations/mutations/User/editChild';

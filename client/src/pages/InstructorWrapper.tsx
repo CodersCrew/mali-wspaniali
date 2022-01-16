@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { useMe } from '../utils/useMe';
+import { useMe } from '@app/utils/useMe';
 import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
 import { useUpdateUser } from '../operations/mutations/User/useUpdateUser';
 

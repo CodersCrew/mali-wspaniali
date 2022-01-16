@@ -1,7 +1,7 @@
 import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../../graphql/types';
-import { theme as customTheme } from '../../../theme/theme';
+import { theme as customTheme } from '@app/theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 
 interface Props {

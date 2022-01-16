@@ -4,7 +4,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import clsx from 'clsx';
 
-import { Theme } from '../theme';
+import { Theme } from '@app/theme';
 
 interface ArrowedCellProps {
     text: string;

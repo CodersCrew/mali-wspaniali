@@ -7,7 +7,7 @@ import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
 import { parentsRecipients, kindergartensRecipients } from './data';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 const setLabel = (

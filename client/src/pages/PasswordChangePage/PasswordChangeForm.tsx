@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, Typography, Box, FormHelperText, CircularProgress } from '@material-ui/core';
 import clsx from 'clsx';
 
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { ButtonSecondary } from '../../components/Button';
 import { PasswordStrengthChips } from '../RegistrationPage/RegistrationForm/PasswordStrengthChips';
 import { useIsDevice } from '../../queries/useBreakpoints';

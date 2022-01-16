@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { ChildInput } from '../../graphql/types';
+import { ChildInput } from '@app/graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { openDialog, ActionDialog } from '../../utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
