@@ -23,9 +23,9 @@ export default function TestResultsPage() {
     const { assessmentId, measurementType } = useParams<{ assessmentId: string; measurementType: MeasurementType }>();
     const classes = useStyles();
     const { t } = useTranslation();
+    const [page, setPage] = useState(0);
 
-    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId);
-    const [SearchedValue, setSearchedValue] = useState('');
+    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -103,8 +103,8 @@ export default function TestResultsPage() {
                         assessmentId={assessmentId}
                         measurementType={measurementType}
                         kindergartens={kindergartenList}
-                        searchedValue={SearchedValue}
-                        onSearchChange={setSearchedValue}
+                        page={page}
+                        setPage={setPage}
                     />
                 )}
             </Box>

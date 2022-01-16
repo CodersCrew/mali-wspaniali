@@ -285,7 +285,7 @@ type AssessmentDTO {
   lastMeasurementEndDate: DateTime!
   firstMeasurementStatus: String!
   lastMeasurementStatus: String!
-  kindergartens: [KindergartenWithInstructorDTO!]!
+  kindergartens(page: Int): [KindergartenWithInstructorDTO!]!
   groups: [GroupDTO!]!
   firstMeasurementResultCount: Int!
   lastMeasurementResultCount: Int!

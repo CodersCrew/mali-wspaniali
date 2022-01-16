@@ -7,8 +7,6 @@ import {
   Parent,
   Int,
   Context,
-  Root,
-  Info,
 } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
@@ -146,18 +144,26 @@ export class AssessmentResolver {
   }
 
   @ResolveField(() => KindergartenWithInstructorDTO)
-  async kindergartens(@Parent() assessment: AssessmentDTO) {
+  async kindergartens(
+    @Parent() assessment: AssessmentDTO,
+    @Args('page', { nullable: true, type: () => Int }) page: number | undefined,
+  ) {
+    const paginatedKindergartens =
+      page !== undefined
+        ? assessment.kindergartens.slice(page * 10, (page + 1) * 10)
+        : assessment.kindergartens;
+
     const kindergartens: Kindergarten[] = await this.queryBus.execute(
       new GetKindergartensQuery(
-        assessment.kindergartens.map(k => k.kindergartenId),
+        paginatedKindergartens.map(k => k.kindergartenId),
       ),
     );
 
     const instructors: User[] = await this.queryBus.execute(
-      new GetUsersQuery(assessment.kindergartens.map(k => k.instructorId)),
+      new GetUsersQuery(paginatedKindergartens.map(k => k.instructorId)),
     );
 
-    return assessment.kindergartens.map(col => {
+    return paginatedKindergartens.map(col => {
       const kindergarten = kindergartens.find(k => k.id === col.kindergartenId);
       const instructor = instructors.find(i => i.id === col.instructorId);
 
