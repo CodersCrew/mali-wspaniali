@@ -7,16 +7,17 @@ import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 import { useHistory, useParams } from 'react-router-dom';
 import { Skeleton } from '@material-ui/lab';
 
-import { NoResults } from './NoResults';
-import { TestResultsTable } from './KindergartenTable/TestResultsTable';
-import { activePage } from '../../apollo_client';
-import { useKindergartensWithChildren } from '../../operations/queries/Kindergartens/getKindergartensWithChildren';
-import { PageContainer } from '../../components/PageContainer';
-import { Theme } from '@app/theme';
-import { SelectList } from '../../components/SelectList';
-import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
-import { ButtonSecondary } from '../../components/Button';
+import { activePage } from '@app/apollo_client';
+import { ButtonSecondary } from '@app/components/Button';
+import { PageContainer } from '@app/components/PageContainer';
+import { SelectList } from '@app/components/SelectList';
 import { Assessment } from '@app/graphql/types';
+import { useKindergartensWithChildren } from '@app/operations/queries/Kindergartens/getKindergartensWithChildren';
+import { Theme } from '@app/theme';
+
+import { TestResultsTable } from './KindergartenTable/TestResultsTable';
+import { NoResults } from './NoResults';
+import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
 
 export default function TestResultsPage() {
     const history = useHistory<{ assessment: Assessment[] }>();
