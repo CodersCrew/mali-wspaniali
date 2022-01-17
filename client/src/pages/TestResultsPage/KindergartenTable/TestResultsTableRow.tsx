@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, alpha } from '@material-ui/core';
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
 
+import { ProgressBar } from '@app/components/ProgressBar';
+import { KindergartenWithChildren } from '@app/graphql/types';
+import { getMeasurementResult } from '@app/utils/getMeasurementResult';
+
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
-import { KindergartenWithChildren } from '../../../graphql/types';
-import { ProgressBar } from '../../../components/ProgressBar';
-import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 import { ResultParametersInfo } from './ResultParametersInfo';
 
 interface Props {
