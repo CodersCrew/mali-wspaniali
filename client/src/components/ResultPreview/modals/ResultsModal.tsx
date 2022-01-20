@@ -1,5 +1,5 @@
-import { createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
+import { Trans, useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
 import { ChildInput } from '../../../graphql/types';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
@@ -30,35 +30,57 @@ function ResultsModal(props: ResultsModalProps & ActionDialog<{ child: ChildInpu
             <Box mb={2}>
                 <Typography variant="subtitle2">{t(`${RESULTS_PREFIX}.${props.progressKey}.subtitle`)}</Typography>
             </Box>
-            <Box mb={2}>
-                <Typography gutterBottom variant={'body2'}>
-                    {t(`${RESULTS_PREFIX}.${props.progressKey}.text-1`)}
-                </Typography>
-            </Box>
             {props.progressKey !== 'progress' && (
                 <Typography gutterBottom variant="subtitle2">
-                    {' '}
-                    <a href={`/parent/child/${props.result.getChildId()}/tests-information`}>
-                        <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${props.progressKey}.text-1-1`)}</strong>
-                    </a>
-                    {t(`${RESULTS_PREFIX}.${props.progressKey}.text-1-2`)}
+                    <Trans
+                        i18nKey={`${RESULTS_PREFIX}.${props.progressKey}.text-1`}
+                        components={{
+                            Link: (
+                                <Link
+                                    className={classes.link}
+                                    href={`/parent/child/${props.result.getChildId()}/tests-information`}
+                                    underline="none"
+                                />
+                            ),
+                        }}
+                    />
                 </Typography>
             )}
             <Typography gutterBottom variant={props.progressKey === 'regress' ? 'subtitle2' : 'body2'}>
-                {t(`${RESULTS_PREFIX}.${props.progressKey}.text-2`)}{' '}
-                <a href={`/parent/child/${props.result.getChildId()}/recommendations`}>
-                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${props.progressKey}.text-2-1`)} </strong>
-                </a>{' '}
-                {props.progressKey !== 'regress' && t(`${RESULTS_PREFIX}.${props.progressKey}.text-2-2`)}
-                {props.progressKey === 'constant' && (
-                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${props.progressKey}.text-2-3`)} </strong>
-                )}
+                <Trans
+                    i18nKey={`${RESULTS_PREFIX}.${props.progressKey}.text-2`}
+                    components={{
+                        Link: (
+                            <Link
+                                className={classes.link}
+                                href={`/parent/child/${props.result.getChildId()}/recommendations`}
+                                underline="none"
+                            />
+                        ),
+                        OtherLink: (
+                            <Link
+                                className={classes.link}
+                                href={`/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4`}
+                                underline="none"
+                            />
+                        ),
+                    }}
+                />
             </Typography>
-
             {props.progressKey === 'regress' && (
                 <Typography gutterBottom variant="subtitle2">
-                    {t(`${RESULTS_PREFIX}.${props.progressKey}.text-3`)}{' '}
-                    <strong className={classes.link}>{t(`${RESULTS_PREFIX}.${props.progressKey}.text-3-1`)} </strong>{' '}
+                    <Trans
+                        i18nKey={`${RESULTS_PREFIX}.${props.progressKey}.text-3`}
+                        components={{
+                            Link: (
+                                <Link
+                                    className={classes.link}
+                                    href={`/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4`}
+                                    underline="none"
+                                />
+                            ),
+                        }}
+                    />
                 </Typography>
             )}
         </BasicModal>
