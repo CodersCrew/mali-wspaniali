@@ -17,10 +17,11 @@ import {
 import { InsertChart as InsertChartIcon, Edit as EditIcon } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 
-import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
-import { BaseChildInfo } from '../../../graphql/types';
+import ArrowedCell, { useArrowedCell } from '@app/components/ArrowedCell';
+import { BaseChildInfo } from '@app/graphql/types';
+import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
+
 import { ResultParametersInfo } from './ResultParametersInfo';
-import { useAssessmentResults } from '../../../operations/queries/Results/getAssessmentResults';
 
 interface Props {
     open: boolean;

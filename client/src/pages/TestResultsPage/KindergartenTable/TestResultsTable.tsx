@@ -13,8 +13,10 @@ import {
     Theme,
     createStyles,
 } from '@material-ui/core';
+
+import { KindergartenWithChildren } from '@app/graphql/types';
+
 import { TestResultsTableRow } from './TestResultsTableRow';
-import { KindergartenWithChildren } from '../../../graphql/types';
 import { MeasurementType } from '../TestToggleButton';
 
 interface Props {
