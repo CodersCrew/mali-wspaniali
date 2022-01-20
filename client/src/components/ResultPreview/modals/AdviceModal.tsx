@@ -1,5 +1,5 @@
 import { createStyles, Link, makeStyles, Theme, Typography, Box } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { BasicModal } from '../../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../../utils/openDialog';
 import { Result } from '../Result';
@@ -36,21 +36,34 @@ function AdviceModal(props: AdviceModalProps & ActionDialog<{ result: Result }>)
             </Box>
             <Box mb={2}>
                 <Typography variant={props.resultKey === 'medium' ? 'subtitle2' : 'body2'}>
-                    {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-2`)}{' '}
-                    <Link
-                        className={classes.link}
-                        href={`/parent/child/${props.result.getChildId()}/tests-information`}
-                        underline="none"
-                    >
-                        {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-2-1`)}{' '}
-                    </Link>
-                    {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-2-2`)}
+                    <Trans
+                        i18nKey={`${T_ADVICE_PREFIX}.${props.resultKey}.text-2`}
+                        components={{
+                            Link: (
+                                <Link
+                                    className={classes.link}
+                                    href={`/parent/child/${props.result.getChildId()}/tests-information`}
+                                    underline="none"
+                                />
+                            ),
+                        }}
+                    />
                 </Typography>
             </Box>
             {(props.resultKey === 'bad' || props.resultKey === 'medium') && (
                 <Typography variant={props.resultKey === 'bad' ? 'subtitle2' : 'body2'}>
-                    {t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-3`)}{' '}
-                    <strong className={classes.link}>{t(`${T_ADVICE_PREFIX}.${props.resultKey}.text-3-1`)} </strong>{' '}
+                    <Trans
+                        i18nKey={`${T_ADVICE_PREFIX}.${props.resultKey}.text-3`}
+                        components={{
+                            Link: (
+                                <Link
+                                    className={classes.link}
+                                    href={`/parent/child/${props.result.getChildId()}/tests-information`}
+                                    underline="none"
+                                />
+                            ),
+                        }}
+                    />
                 </Typography>
             )}
         </BasicModal>
