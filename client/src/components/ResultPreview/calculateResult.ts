@@ -1,6 +1,6 @@
-import { resultColors } from '../../colors';
+import { resultColors } from '@app/colors';
 import { AssessmentParam } from '@app/graphql/types';
-import { countInvertedPoints, countPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
+import { countInvertedPoints, countPoints } from '@app/pages/InstructorResultCreatorPage/countPoints';
 
 export interface Calculation {
     color: string;
