@@ -10,4 +10,5 @@ export default {
     moduleNameMapper: {
         '^@app(.*)$': '<rootDir>/src$1',
     },
+    collectCoverage: true,
 };
