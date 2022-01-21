@@ -7,4 +7,7 @@ export default {
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
+    moduleNameMapper: {
+        '^@app(.*)$': '<rootDir>/src$1',
+    },
 };
