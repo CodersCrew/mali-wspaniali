@@ -1,7 +1,9 @@
 import { createStyles, Link, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { Trans, useTranslation } from 'react-i18next';
-import { BasicModal } from '../../Modal/BasicModal';
-import { ActionDialog, openDialog } from '../../../utils/openDialog';
+
+import { BasicModal } from '@app/components/Modal/BasicModal';
+import { ActionDialog, openDialog } from '@app/utils/openDialog';
+
 import { Result } from '../Result';
 
 const T_ADVICE_PREFIX = 'child-profile.advice-modal-content';

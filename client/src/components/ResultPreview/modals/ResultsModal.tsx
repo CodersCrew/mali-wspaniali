@@ -1,8 +1,10 @@
 import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
 import { Trans, useTranslation } from 'react-i18next';
-import { BasicModal } from '../../Modal/BasicModal';
-import { ChildInput } from '../../../graphql/types';
-import { ActionDialog, openDialog } from '../../../utils/openDialog';
+
+import { BasicModal } from '@app/components/Modal/BasicModal';
+import { ChildInput } from '@app/graphql/types';
+import { ActionDialog, openDialog } from '@app/utils/openDialog';
+
 import { Result } from '../Result';
 
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
