@@ -33,7 +33,6 @@
         "react-minimal-pie-chart": "8.2.0",
         "react-quill": "2.0.0-beta.4",
         "react-router-dom": "5.2.0",
-        "react-scripts": "4.0.3",
         "use-debounce": "^7.0.0",
         "xlsx": "0.17.0",
         "yup": "0.32.9"
@@ -87,7 +86,6 @@
         "start": "vite preview --port 3000",
         "test": "jest -env=jsdom",
         "test:watch": "jest -env=jsdom --watchAll",
-        "eject": "react-scripts eject",
         "test:coverage": "jest -env=jsdom --collectCoverage --watchAll=false",
         "lint": "eslint ./src/**/*.ts ./src/**/*.tsx",
         "prettier": "prettier --write ./src/**/*.{js,ts,tsx}",
