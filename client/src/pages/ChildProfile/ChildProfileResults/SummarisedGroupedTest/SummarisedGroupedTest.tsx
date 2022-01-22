@@ -17,8 +17,8 @@ export function SummarisedGroupedTest({ onClick, isExpanded, test }: Props) {
     const classes = useStyles();
 
     return (
-        <Grid direction="row" justify="space-between" alignItems="center" className={classes.wrapper} container>
-            <Grid direction="row" justify="flex-start" alignItems="center" item xs={8} container>
+        <Grid direction="row" justifyContent="space-between" alignItems="center" className={classes.wrapper} container>
+            <Grid direction="row" justifyContent="flex-start" alignItems="center" item xs={8} container>
                 <Grid item>
                     <Typography className={classes.title} variant="subtitle2">
                         {test.assessment.title}

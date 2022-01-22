@@ -134,7 +134,7 @@ export function GroupsTransferList(props: GroupsTransferListProps) {
     );
 
     return (
-        <Grid container spacing={2} justify="space-around" alignItems="center" className={classes.root}>
+        <Grid container spacing={2} justifyContent="space-around" alignItems="center" className={classes.root}>
             <Grid item>{customList(t('groupsModal.unassigned'), getLeft(props.childrenList))}</Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">

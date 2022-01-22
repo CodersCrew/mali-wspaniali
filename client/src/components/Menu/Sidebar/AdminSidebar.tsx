@@ -47,7 +47,7 @@ export const AdminSidebar = ({ onClick, user, active }: Props) => {
         <Grid
             container
             direction="column"
-            justify={device === 'DESKTOP' ? 'space-between' : 'flex-start'}
+            justifyContent={device === 'DESKTOP' ? 'space-between' : 'flex-start'}
             classes={{ root: classes.container }}
         >
             <Grid item>

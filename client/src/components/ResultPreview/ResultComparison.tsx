@@ -79,7 +79,7 @@ export const ResultComparison = () => {
                     <Grid
                         container
                         direction={isSmallMobile ? 'column-reverse' : 'row'}
-                        justify="flex-start"
+                        justifyContent="flex-start"
                         alignItems={isSmallMobile ? 'flex-start' : 'center'}
                         spacing={5}
                     >

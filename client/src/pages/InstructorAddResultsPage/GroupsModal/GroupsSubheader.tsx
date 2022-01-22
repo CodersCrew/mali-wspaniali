@@ -42,7 +42,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
             direction="row"
             alignItems="center"
             wrap="wrap"
-            justify={device.isSmallMobile ? 'flex-start' : 'space-between'}
+            justifyContent={device.isSmallMobile ? 'flex-start' : 'space-between'}
         >
             {device.isDesktop && (
                 <Grid item xs={1}>

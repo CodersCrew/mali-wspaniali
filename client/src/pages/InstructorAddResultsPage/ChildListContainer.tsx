@@ -78,7 +78,7 @@ export function ChildListContainer(props: Props) {
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
                             <TableCell align="center">{dayjs(c.createdAt).format('L')}</TableCell>
                             <TableCell align="center">
-                                <Grid container alignItems="center" justify="space-evenly">
+                                <Grid container alignItems="center" justifyContent="space-evenly">
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center">
                                             <Grid container alignItems="center">
@@ -115,7 +115,7 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <Grid container justify="space-evenly">
+                                <Grid container justifyContent="space-evenly">
                                     <Grid item sm={6} md={4}>
                                         <Box display="flex" alignItems="center">
                                             <Grid container alignItems="center">

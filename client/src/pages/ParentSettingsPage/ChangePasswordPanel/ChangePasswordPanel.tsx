@@ -25,7 +25,7 @@ export function ChangePasswordPanel() {
         <Grid
             container
             direction={device === 'MOBILE' ? 'column' : 'row'}
-            justify="space-between"
+            justifyContent="space-between"
             className={classes.container}
         >
             <Grid item className={device === 'MOBILE' ? classes.gridItemMobile : classes.gridItem}>

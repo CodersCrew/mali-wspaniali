@@ -132,7 +132,7 @@ function EditorPanel(props: EditorPanelProps) {
                 <Divider />
             </Grid>
             <Grid item className={classes.footerContainer}>
-                <Grid container justify="flex-end">
+                <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Box mr={2}>
                             <ButtonSecondary onClick={() => props.onClick('back-to-table', '')} variant="text">
