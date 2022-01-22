@@ -18,7 +18,12 @@ export function ChildHeader({ description, selectedChild, points, maxPoints }: P
     return (
         <Grid container className={classes.container}>
             <Grid item xs={8}>
-                <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="space-between"
+                    className={classes.childPersonalInformation}
+                >
                     <Grid item>
                         <Typography variant="h4">
                             {selectedChild.firstname} {selectedChild.lastname}

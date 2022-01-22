@@ -57,7 +57,12 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <Grid container direction="column" justify="flex-end" className={classes.progressBarContainer}>
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="flex-end"
+                            className={classes.progressBarContainer}
+                        >
                             <Grid item>
                                 <Typography variant="body2">
                                     {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}

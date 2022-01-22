@@ -75,7 +75,7 @@ export default function AdminManageSingleAssessmentPage() {
                 </Grid>
                 <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                     {!isViewOnly && (
-                        <Grid container justify="space-between">
+                        <Grid container justifyContent="space-between">
                             <Grid item xs={6}>
                                 {
                                     <ButtonSecondary
@@ -98,8 +98,8 @@ export default function AdminManageSingleAssessmentPage() {
                                 }
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container justify="flex-end" spacing={2}>
-                                    <Grid container justify="flex-end" spacing={3}>
+                                <Grid container justifyContent="flex-end" spacing={2}>
+                                    <Grid container justifyContent="flex-end" spacing={3}>
                                         <Grid item>
                                             <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
                                                 {t('add-test-view.cancel')}

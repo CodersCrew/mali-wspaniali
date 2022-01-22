@@ -8,7 +8,7 @@ export function NoGroups() {
     const { t } = useTranslation();
 
     return (
-        <Grid container direction="row" justify="center">
+        <Grid container direction="row" justifyContent="center">
             <Grid item xs={8}>
                 <Box display="flex" flexDirection="column" alignItems="center">
                     <PermIdentityIcon className={classes.icon} />

@@ -77,7 +77,7 @@ export function ChildPickerDrawer(props: ChildPickerDrawerProps) {
                     }}
                 />
             </SwipeableDrawer>
-            <Grid container justify="flex-end" className={classes.backButtonContainer}>
+            <Grid container justifyContent="flex-end" className={classes.backButtonContainer}>
                 <Grid item>
                     <ButtonSecondary onClick={() => setIsDrawerOpen(true)}>
                         <Box mr={1}>{t('add-result-page.select-child')}</Box> <ArrowForward />

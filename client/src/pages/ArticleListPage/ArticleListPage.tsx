@@ -60,7 +60,7 @@ export default function ArticleListPage() {
                 >
                     {t('blog-main-page.header')}
                 </Typography>
-                <Grid container justify="flex-start" spacing={isSmallMobile ? 2 : 3}>
+                <Grid container justifyContent="flex-start" spacing={isSmallMobile ? 2 : 3}>
                     {articles.map((article) => (
                         <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
                             <BlogArticleCard article={article} readOnly />

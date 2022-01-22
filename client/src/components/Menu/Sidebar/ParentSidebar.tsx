@@ -45,7 +45,7 @@ export const ParentSidebar = ({ onClick, user, active }: Props) => {
         <Grid
             container
             direction="column"
-            justify={device === 'DESKTOP' ? 'space-between' : 'flex-start'}
+            justifyContent={device === 'DESKTOP' ? 'space-between' : 'flex-start'}
             className={classes.container}
         >
             <Grid item>

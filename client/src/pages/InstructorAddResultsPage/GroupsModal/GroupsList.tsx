@@ -75,7 +75,7 @@ export function GroupsList(props: GroupsListProps) {
 
     return (
         <Grid container direction="column" alignItems="center" xs={12}>
-            <Grid container direction="row" justify="space-between" alignItems="center" xs={12}>
+            <Grid container direction="row" justifyContent="space-between" alignItems="center" xs={12}>
                 <Typography variant="subtitle2">{t('groupsModal.group-name')}</Typography>
                 <Tooltip title={<>{t('groupsModal.edit-groups')}</>}>
                     <IconButton

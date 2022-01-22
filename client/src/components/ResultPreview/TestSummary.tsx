@@ -45,7 +45,7 @@ export const TestSummary = ({ prefix }: Props) => {
                     </Typography>
                 </Box>
                 <Divider />
-                <Grid direction="row" justify="flex-start" alignItems="center" container>
+                <Grid direction="row" justifyContent="flex-start" alignItems="center" container>
                     <Grid item>
                         <Typography variant="body1">
                             {t('child-profile.age-group')}:&nbsp;

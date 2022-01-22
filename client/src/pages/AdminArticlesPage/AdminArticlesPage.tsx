@@ -47,7 +47,7 @@ export default function AdminArticlesPage() {
                 <AddIcon className={classes.addIcon} />
                 {t('admin-articles.add-article')}
             </ButtonSecondary>
-            <Grid container justify="center" spacing={isSmallMobile ? 2 : 4}>
+            <Grid container justifyContent="center" spacing={isSmallMobile ? 2 : 4}>
                 {articles.map((article) => (
                     <Grid key={article._id} item xs={12} sm={6} md={4} zeroMinWidth>
                         <BlogArticleCard article={article} />

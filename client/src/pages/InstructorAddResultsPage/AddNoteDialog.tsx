@@ -77,7 +77,7 @@ function AddNoteDialog({
                             value={note}
                             onChange={({ target: { value } }) => setNote(value)}
                         />
-                        <Grid container justify="flex-end">
+                        <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Box mt={1}>
                                     <Typography variant="caption" color="textSecondary">

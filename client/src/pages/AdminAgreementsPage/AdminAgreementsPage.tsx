@@ -57,7 +57,12 @@ export const AdminAgreementsPage = ({
     return (
         <PageContainer>
             <Paper elevation={0}>
-                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    classes={{ root: classes.filterHeader }}
+                >
                     <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                     <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
                         <FilterListIcon />
