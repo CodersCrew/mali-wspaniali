@@ -8,7 +8,9 @@ import { isProduction } from './shared/utils/is_production';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(helmet());
+  if (isProduction()) {
+    app.use(helmet());
+  }
 
   Sentry.init({
     dsn: process.env.SENTRY_API_KEY,
