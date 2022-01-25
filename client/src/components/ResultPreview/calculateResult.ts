@@ -49,11 +49,11 @@ export function getResultColorAndLabel(value: number, param: AssessmentParam, na
 
     let result: Partial<Calculation>;
 
-    const scale39InPoints = count(param?.scale39 || 0, param);
-    const scale49InPoints = count(param?.scale49 || 0, param);
-    const scale59InPoints = count(param?.scale59 || 0, param);
-    const minScaleInPoints = count(param?.minScale || 0, param);
-    const maxScaleInPoints = count(param?.maxScale || 0, param);
+    const scale39InPoints = count(param.scale39, param);
+    const scale49InPoints = count(param.scale49, param);
+    const scale59InPoints = count(param.scale59, param);
+    const minScaleInPoints = count(param.minScale, param);
+    const maxScaleInPoints = count(param.maxScale, param);
 
     if (valueInPoints < scale39InPoints) {
         result = testResults.bad;
