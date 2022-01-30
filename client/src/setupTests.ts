@@ -2,18 +2,21 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import { isTranslationOf } from './utils/testing/isTranslationOf';
+import { isTranslationOf, translationOf } from './utils/testing/isTranslationOf';
 import { client } from './apollo_client';
 import { server } from './mocks/server';
 
 expect.extend({
-    async toHaveTranslation(text: string, value: string) {
-        const isTranslation = isTranslationOf(value, text);
+    toBeTranslationOf(translatedText: string, localizeString: string) {
+        const isTranslation = isTranslationOf(localizeString, translatedText);
 
         if (!isTranslation) {
             return {
                 pass: false,
-                message: () => 'There is no such translation',
+                message: () =>
+                    `Error: "${translatedText}" is not the translation of "${localizeString}" key ("${translationOf(
+                        localizeString,
+                    )}")`,
             };
         }
 
