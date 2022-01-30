@@ -8,6 +8,7 @@ import { formatDate } from '../../utils/formatDate';
 import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
 import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
+import { MeasurementStage } from '@app/graphql/types';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -27,8 +28,8 @@ export interface AssessmentManagerState {
     title: string;
     isOutdated: boolean;
     isDeleted: boolean;
-    firstMeasurementStatus: string;
-    lastMeasurementStatus: string;
+    firstMeasurementStatus: MeasurementStage;
+    lastMeasurementStatus: MeasurementStage;
     firstMeasurementStartDate: string;
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;

@@ -8,6 +8,7 @@ import { LabeledContainer } from '../../components/LabeledContainer';
 import { AssessmentManagerState } from './useAssessmentManager';
 import { SelectList } from '../../components/SelectList';
 import { OutlinedDateField } from '../../components/OutlinedDateField';
+import { MeasurementStage } from '@app/graphql/types';
 
 dayjs.extend(utc);
 
@@ -65,7 +66,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                             <Grid item xs={12}>
                                 <SelectList
                                     items={[
-                                        <MenuItem key="active" value="not-planned">
+                                        <MenuItem key="not-planned" value="not-planned">
                                             {t('add-test-view.basic-information-form.not-planned')}
                                         </MenuItem>,
                                         <MenuItem key="done" value="planned">
@@ -82,7 +83,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                     label={t('add-test-view.basic-information-form.status')}
                                     value={assessment.firstMeasurementStatus}
                                     onSelect={(status) => {
-                                        onChange({ ...assessment, firstMeasurementStatus: status });
+                                        onChange({ ...assessment, firstMeasurementStatus: status as MeasurementStage });
                                     }}
                                 />
                             </Grid>
@@ -127,7 +128,7 @@ export function EditableBasicInformationForm({ isDisabled, assessment, onChange 
                                     label={t('add-test-view.basic-information-form.status')}
                                     value={assessment.lastMeasurementStatus}
                                     onSelect={(status) => {
-                                        onChange({ ...assessment, lastMeasurementStatus: status });
+                                        onChange({ ...assessment, lastMeasurementStatus: status as MeasurementStage });
                                     }}
                                 />
                             </Grid>
