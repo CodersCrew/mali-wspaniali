@@ -235,13 +235,15 @@ export interface KeyCodeSeries {
     count: number;
 }
 
+export type MeasurementStage = 'not-planned' | 'planned' | 'active' | 'done';
+
 export interface Assessment {
     _id: string;
     isOutdated: boolean;
     isDeleted: boolean;
     title: string;
-    firstMeasurementStatus: string;
-    lastMeasurementStatus: string;
+    firstMeasurementStatus: MeasurementStage;
+    lastMeasurementStatus: MeasurementStage;
     firstMeasurementStartDate: string;
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;

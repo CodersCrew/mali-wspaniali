@@ -6,5 +6,6 @@ export function getAssessmentMock(options: Partial<Assessment> = {}): Partial<As
         title: '',
         firstMeasurementStatus: 'done',
         lastMeasurementStatus: 'done',
+        ...options,
     };
 }

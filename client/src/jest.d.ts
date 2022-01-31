@@ -1,7 +1,7 @@
 declare global {
     namespace jest {
         interface Matchers<R> {
-            toHaveTranslation(expected: string): R;
+            toBeTranslationOf(expected: string): R;
         }
     }
 }
