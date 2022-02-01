@@ -9,6 +9,14 @@ export const handlers = [
     graphql.query('Result', (req: GraphQLRequest<{ id: string }>, res, ctx) => {
         const reqVariables = req.body!.variables as { id: string };
 
+        if (reqVariables.id === 'only-not-found') {
+            return res(
+                ctx.data({
+                    result: null,
+                }),
+            );
+        }
+
         return res(
             ctx.data({
                 result: {
@@ -23,12 +31,20 @@ export const handlers = [
 ];
 
 function getAssessmentChange(id: string): Partial<Assessment> {
+    if (id === 'only-not-done') {
+        return { firstMeasurementStatus: 'active', lastMeasurementStatus: 'active' };
+    }
+
     if (id === 'only-first-done') {
         return { firstMeasurementStatus: 'done', lastMeasurementStatus: 'active' };
     }
 
     if (id === 'only-last-done') {
         return { firstMeasurementStatus: 'active', lastMeasurementStatus: 'done' };
+    }
+
+    if (id === 'only-done') {
+        return { firstMeasurementStatus: 'done', lastMeasurementStatus: 'done' };
     }
 
     return { firstMeasurementStatus: 'done', lastMeasurementStatus: 'done' };
