@@ -2,6 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
+import { cleanup } from '@testing-library/react';
 import { isTranslationOf, translationOf } from './utils/testing/isTranslationOf';
 import { client } from './apollo_client';
 import { server } from './mocks/server';
@@ -37,15 +38,11 @@ beforeAll(() => {
     server.listen();
 });
 
-beforeEach(() => {
-    // Ensure Apollo cache is cleared between tests.
-    // https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.clearStore
-    return client.clearStore();
-});
-
 afterEach(() => {
     // Reset any runtime handlers tests may use.
     server.resetHandlers();
+    cleanup();
+    client.clearStore();
 });
 
 afterAll(() => {
