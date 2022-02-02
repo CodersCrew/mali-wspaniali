@@ -1,7 +1,8 @@
 import { Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { OutlinedTextField } from '../../../components/OutlinedTextField';
-import { UpdatedUserInput } from '../../../graphql/types';
+
+import { OutlinedTextField } from '@app/components/OutlinedTextField';
+import { UpdatedUserInput } from '@app/graphql/types';
 
 interface BasicInformationPanelProps {
     user: UpdatedUserInput;
