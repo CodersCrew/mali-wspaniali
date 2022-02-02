@@ -3,14 +3,15 @@ import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import pick from 'lodash.pick';
 
-import { activePage } from '../../apollo_client';
-import { CustomContainer } from '../../components/CustomContainer';
-import { PageContainer } from '../../components/PageContainer';
-import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
-import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
-import { useMe } from '../../utils/useMe';
-import { useUpdateUser } from '../../operations/mutations/User/useUpdateUser';
+import { activePage } from '@app/apollo_client';
+import { CustomContainer } from '@app/components/CustomContainer';
+import { PageContainer } from '@app/components/PageContainer';
+import { ButtonSecondary } from '@app/components/Button/ButtonSecondary';
 import { UpdatedUserInput } from '@app/graphql/types';
+import { useUpdateUser } from '@app/operations/mutations/User/useUpdateUser';
+import { useMe } from '@app/utils/useMe';
+
+import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
 
 export default function InstructorSettingsPage() {
     const { t } = useTranslation();

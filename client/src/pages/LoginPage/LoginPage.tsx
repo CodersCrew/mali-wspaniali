@@ -17,13 +17,14 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-import { ButtonSecondary } from '../../components/Button';
+import { ButtonSecondary } from '@app/components/Button';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
 import { Theme } from '@app/theme';
-import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
-import { useIsDevice } from '../../queries/useBreakpoints';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { useAuthorizeMe } from '@app/operations/mutations/User/authorizeMe';
+import { useConfirmUser } from '@app/operations/mutations/User/confirmUser';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
-import { useConfirmUser } from '../../operations/mutations/User/confirmUser';
 
 const initialError: Error = {
     name: '',
