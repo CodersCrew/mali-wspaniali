@@ -2,13 +2,10 @@ import * as UserEvents from '../../events/impl';
 import { User, UserCore } from '../user_model';
 import { UserMapper } from '../../mappers/user_mapper';
 
-jest.mock('../../events/impl');
-
 describe('UserModel', () => {
   let user: User;
 
   beforeEach(() => {
-    jest.clearAllMocks();
     user = createUser();
   });
 
@@ -19,10 +16,10 @@ describe('UserModel', () => {
     });
 
     it('applies user created event', () => {
-      expect(UserEvents.UserCreatedEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserCreatedEvent).toHaveBeenCalledWith(
-        'my-id',
-        'my-keycode',
+      const [createEvent] = user.getUncommittedEvents();
+
+      expect(createEvent).toEqual(
+        new UserEvents.UserCreatedEvent('my-id', 'my-keycode'),
       );
     });
 
@@ -41,8 +38,9 @@ describe('UserModel', () => {
     });
 
     it('applies user confirmed event', () => {
-      expect(UserEvents.UserConfirmedEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserConfirmedEvent).toHaveBeenCalledWith('my-id');
+      const [, updateEvent] = user.getUncommittedEvents();
+
+      expect(updateEvent).toEqual(new UserEvents.UserConfirmedEvent('my-id'));
     });
   });
 
@@ -58,14 +56,16 @@ describe('UserModel', () => {
     });
 
     it('applies user updated and user anonimized event', () => {
-      expect(UserEvents.UserUpdatedEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserUpdatedEvent).toHaveBeenCalledWith('my-id', {
-        isDeleted: true,
-        mail: '',
-        password: '',
-      });
-      expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserAnonymizedEvent).toHaveBeenCalledWith(user.id);
+      const [, updateEvent, deleteEvent] = user.getUncommittedEvents();
+
+      expect(updateEvent).toEqual(
+        new UserEvents.UserUpdatedEvent('my-id', {
+          isDeleted: true,
+          mail: '',
+          password: '',
+        }),
+      );
+      expect(deleteEvent).toEqual(new UserEvents.UserAnonymizedEvent('my-id'));
     });
   });
 
@@ -81,10 +81,10 @@ describe('UserModel', () => {
     it('applies user signed event', () => {
       user.signAgreement('new-agreement');
 
-      expect(UserEvents.UserSignedAgreementEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserSignedAgreementEvent).toHaveBeenCalledWith(
-        user.id,
-        'new-agreement',
+      const [, agreementEvent] = user.getUncommittedEvents();
+
+      expect(agreementEvent).toEqual(
+        new UserEvents.UserSignedAgreementEvent('my-id', 'new-agreement'),
       );
     });
   });
@@ -113,10 +113,18 @@ describe('UserModel', () => {
 
       user.unsignAgreement('new-agreement');
 
-      expect(UserEvents.UserUnsignedAgreementEvent).toHaveBeenCalledTimes(1);
-      expect(UserEvents.UserUnsignedAgreementEvent).toHaveBeenCalledWith(
-        user.id,
-        'new-agreement',
+      const [
+        ,
+        signedAgreementEvent,
+        unSignedAgreementEvent,
+      ] = user.getUncommittedEvents();
+
+      expect(signedAgreementEvent).toEqual(
+        new UserEvents.UserSignedAgreementEvent('my-id', 'new-agreement'),
+      );
+
+      expect(unSignedAgreementEvent).toEqual(
+        new UserEvents.UserSignedAgreementEvent('my-id', 'new-agreement'),
       );
     });
   });
