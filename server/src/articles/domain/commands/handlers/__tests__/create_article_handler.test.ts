@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { CreateArticleHandler } from '@articles/domain/commands/handlers/create_article_handler';
 import { CreateArticleCommand } from '@articles/domain/commands/impl';
 import { CreateArticleInput } from '@articles/inputs/article_input';
@@ -10,10 +9,6 @@ import { getApp } from '../../../../../../setupTests';
 jest.setTimeout(10000);
 
 describe('CreateArticleHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     describe('with correct data', () => {
       it('returns article instance', async () => {

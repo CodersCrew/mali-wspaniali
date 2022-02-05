@@ -1,39 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
-
-import * as dbHandler from '@app/db_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { UsersModule } from '../../../../users_module';
-import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
-import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/commands/impl/create_bulk_key_code_command';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
-import { UserInput } from '../../../../inputs/user_input';
-import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { GetAllUsersHandler } from '../get_all_users_handler';
 import { GetAllUsersQuery } from '../../impl/get_all_users_query';
-import { CreateUserHandler } from '../../../commands/handlers/create_user_handler';
-import { CreateUserCommand } from '../../../commands/impl/create_user_command';
+import { getApp } from '../../../../../../setupTests';
 import {
   anonymizeUser,
   createParent,
 } from '../../../../../test/helpers/app_mock';
 
 describe('GetAllUsersHandler', () => {
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeAll(async () => {
-    app = await setup();
-  });
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     let fetchedUsers: User[];
 
@@ -76,24 +50,8 @@ describe('GetAllUsersHandler', () => {
   });
 
   function getAllUsers() {
-    return app.get(GetAllUsersHandler).execute(new GetAllUsersQuery({}));
+    return getApp()
+      .get(GetAllUsersHandler)
+      .execute(new GetAllUsersQuery({}));
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      CqrsModule,
-      UsersModule,
-      AgreementsModule,
-      KeyCodesModule,
-      KindergartenModule,
-    ],
-    providers: [CreateKeyCodeHandler, CreateUserHandler],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}

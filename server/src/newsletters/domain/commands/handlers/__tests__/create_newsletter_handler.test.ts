@@ -4,17 +4,13 @@ import { CreateNewsletterHandler } from '../create_newsletter_handler';
 import { CreateNewsletterCommand } from '../../impl/create_newsletter_command';
 import { NewsletterInput } from '../../../../inputs/newsletter_input';
 
-import * as dbHandler from '@app/db_handler';
 import { GetAllNewsletterHandler } from '../../../queries/handlars/get_all_newsletters_handler';
 import { SendMail } from '../../../../../shared/services/send_mail/send_mail';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('CreateNewsletterHandler', () => {
   let sendMail: SendMail;
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
 
   describe('when executed', () => {
     beforeEach(async () => {
@@ -74,7 +70,3 @@ describe('CreateNewsletterHandler', () => {
       .execute();
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

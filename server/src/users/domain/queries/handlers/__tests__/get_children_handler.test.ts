@@ -6,17 +6,12 @@ import {
   createParent,
   anonymizeUser,
 } from '../../../../../test/helpers/app_mock';
-import * as dbHandler from '@app/db_handler';
 import { GetChildrenQuery } from '@users/domain/queries/impl';
 import { GetChildrenHandler } from '@users/domain/queries/handlers';
 import { Child, User } from '@users/domain/models';
 import { getApp } from '../../../../../../setupTests';
 
 describe('GetChildrenHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     let parent2: User;
     let child1: Child;

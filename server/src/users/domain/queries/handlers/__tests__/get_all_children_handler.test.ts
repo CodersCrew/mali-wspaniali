@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { User } from '@users/domain/models';
 import {
   GetAllChildrenHandler,
@@ -14,10 +13,6 @@ import {
 } from '../../../../../test/helpers/app_mock';
 
 describe('GetAllChildrenHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     let parent1: User;
     let parent2: User;

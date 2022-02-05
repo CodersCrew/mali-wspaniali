@@ -1,7 +1,6 @@
 import MockDate from 'mockdate';
 import waitForExpect from 'wait-for-expect';
 
-import * as dbHandler from '@app/db_handler';
 import { User } from '../../../models/user_model';
 import { GetChildrenFromKindergartenHandler } from '../get_children_from_kindergarten_handler';
 import {
@@ -22,10 +21,6 @@ describe('GetChildrenFromKindergartenHandler', () => {
 
   beforeAll(async () => {
     MockDate.set('2010-10-31');
-  });
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
   });
 
   describe('when executed', () => {
