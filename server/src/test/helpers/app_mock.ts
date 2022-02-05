@@ -1,10 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
-import { KeyCodesModule } from '../../key_codes/key_codes_module';
-import { KindergartenModule } from '../../kindergartens/kindergarten_module';
-import { AgreementsModule } from '../../agreements/agreements_module';
-import { UsersModule } from '../../users/users_module';
-import * as dbHandler from '../../db_handler';
 import { CreateKeyCodeHandler } from '../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { CreateUserHandler } from '../../users/domain/commands/handlers/create_user_handler';
 import { UserInput } from '../../users/inputs/user_input';
@@ -19,10 +12,8 @@ import { CreateKindergartenCommand } from '../../kindergartens/domain/commands/i
 import { GetAllChildrenHandler } from '../../users/domain/queries/handlers/get_all_children_handler';
 import { GetKindergartenHandler } from '../../kindergartens/domain/queries/handlers/get_kindergarten_handler';
 import { GetKindergartenQuery } from '../../kindergartens/domain/queries/impl/get_kindergarten_query';
-import { NotificationsModule } from '../../notifications/notifications.module';
 import { GetNotificationsByUserHandler } from '../../notifications/domain/queries/handlers/get_notifications_by_user_handler';
 import { GetNotificationsByUserQuery } from '../../notifications/domain/queries/impl/get_notifications_by_user_query';
-import { ArticlesModule } from '../../articles/articles_module';
 import { GetAllUsersHandler } from '../../users/domain/queries/handlers/get_all_users_handler';
 import { GetAllUsersQuery } from '../../users/domain/queries/impl/get_all_users_query';
 import { GetAllArticlesHandler } from '../../articles/domain/queries/handlers/get_all_articles_handler';
@@ -34,52 +25,25 @@ import { CreateAssessmentCommand } from '../../assessment/domain/commands/impl/c
 import { AssessmentInput } from '../../assessment/inputs/assessment_input';
 import { GetAssessmentHandler } from '../../assessment/domain/queries/handlers/get_assessments_handler';
 import { GetAssessmentsQuery } from '../../assessment/domain/queries/impl/get_assessment_query';
-import { AssessmentModule } from '../../assessment/assessment_module';
-
-let app: TestingModule;
-
-export async function setupTestApp() {
-  const module = await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      CqrsModule,
-      UsersModule,
-      AgreementsModule,
-      KeyCodesModule,
-      KindergartenModule,
-      NotificationsModule,
-      ArticlesModule,
-      AssessmentModule,
-    ],
-    providers: [CreateKeyCodeHandler, CreateUserHandler],
-  }).compile();
-
-  app = await module.init();
-}
-
-export async function closeTestApp() {
-  await app.close();
-}
+import { getApp } from '../../../setupTests';
 
 export async function createParent(
   options: Partial<UserInput> = {},
 ): Promise<User> {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  const keyCodeResult = await app
+  const keyCodeResult = await getApp()
     .get(CreateKeyCodeHandler)
     .execute(new CreateKeyCodeCommand('admin', 'parent'));
 
-  const parent = await app.get(CreateUserHandler).execute(
-    new CreateUserCommand({
-      mail: 'my-mail@mail.com',
-      password: 'my-password',
-      keyCode: keyCodeResult.keyCode,
-      ...options,
-    }),
-  );
+  const parent = await getApp()
+    .get(CreateUserHandler)
+    .execute(
+      new CreateUserCommand({
+        mail: 'my-mail@mail.com',
+        password: 'my-password',
+        keyCode: keyCodeResult.keyCode,
+        ...options,
+      }),
+    );
 
   await confirmUser(parent.mail);
 
@@ -87,19 +51,15 @@ export async function createParent(
 }
 
 export async function anonymizeUser(id: string) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.get(AnonymizeUserHandler).execute(new AnonymizeUserCommand(id));
+  return getApp()
+    .get(AnonymizeUserHandler)
+    .execute(new AnonymizeUserCommand(id));
 }
 
 export async function confirmUser(mail: string) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.get(UserRepository).confirmUser(mail);
+  return getApp()
+    .get(UserRepository)
+    .confirmUser(mail);
 }
 
 export async function addChild(
@@ -119,15 +79,13 @@ export async function addChild(
     kindergartenId: 'my-kindergartenId',
   };
 
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(AddChildHandler).then(handler => {
-    return handler.execute(
-      new AddChildCommand({ ...validChildOptions, ...options }, parentId),
-    );
-  });
+  return getApp()
+    .resolve(AddChildHandler)
+    .then(handler => {
+      return handler.execute(
+        new AddChildCommand({ ...validChildOptions, ...options }, parentId),
+      );
+    });
 }
 
 export async function createKindergartenWith(options: { name?: string } = {}) {
@@ -138,92 +96,74 @@ export async function createKindergartenWith(options: { name?: string } = {}) {
     city: 'my-city',
   };
 
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(CreateKindergartenHandler).then(handler =>
-    handler.execute(
-      new CreateKindergartenCommand({
-        ...validKindergartenOptions,
-        ...options,
-      }),
-    ),
-  );
+  return getApp()
+    .resolve(CreateKindergartenHandler)
+    .then(handler =>
+      handler.execute(
+        new CreateKindergartenCommand({
+          ...validKindergartenOptions,
+          ...options,
+        }),
+      ),
+    );
 }
 
 export async function getKindergarten(id: string) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app
+  return getApp()
     .resolve(GetKindergartenHandler)
     .then(handler => handler.execute(new GetKindergartenQuery(id)));
 }
 
 export async function getAllChildren() {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(GetAllChildrenHandler).then(handler => {
-    return handler.execute();
-  });
+  return getApp()
+    .resolve(GetAllChildrenHandler)
+    .then(handler => {
+      return handler.execute();
+    });
 }
 
 export async function getNotificationsForUser(user: string) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(GetNotificationsByUserHandler).then(handler => {
-    return handler.execute(new GetNotificationsByUserQuery(user));
-  });
+  return getApp()
+    .resolve(GetNotificationsByUserHandler)
+    .then(handler => {
+      return handler.execute(new GetNotificationsByUserQuery(user));
+    });
 }
 
 export async function getUsers(role = 'parent') {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(GetAllUsersHandler).then(handler => {
-    return handler.execute(new GetAllUsersQuery({ role }));
-  });
+  return getApp()
+    .resolve(GetAllUsersHandler)
+    .then(handler => {
+      return handler.execute(new GetAllUsersQuery({ role }));
+    });
 }
 
 export async function getAllArticles(page = 1, perPage = 6) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(GetAllArticlesHandler).then(handler => {
-    return handler.execute(
-      new GetAllArticlesQuery(page, perPage, {
-        mail: 'admin@admin.com',
-        role: 'admin',
-        userId: '',
-      }),
-    );
-  });
+  return getApp()
+    .resolve(GetAllArticlesHandler)
+    .then(handler => {
+      return handler.execute(
+        new GetAllArticlesQuery(page, perPage, {
+          mail: 'admin@admin.com',
+          role: 'admin',
+          userId: '',
+        }),
+      );
+    });
 }
 
 export async function createAssessment(options: AssessmentInput) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(CreateAssessmentHandler).then(handler => {
-    return handler.execute(new CreateAssessmentCommand(options));
-  });
+  return getApp()
+    .resolve(CreateAssessmentHandler)
+    .then(handler => {
+      return handler.execute(new CreateAssessmentCommand(options));
+    });
 }
 
 export async function getAssessment(id: string) {
-  if (!app) {
-    await setupTestApp();
-  }
-
-  return app.resolve(GetAssessmentHandler).then(handler => {
-    return handler.execute(new GetAssessmentsQuery(id));
-  });
+  return getApp()
+    .resolve(GetAssessmentHandler)
+    .then(handler => {
+      return handler.execute(new GetAssessmentsQuery(id));
+    });
 }
