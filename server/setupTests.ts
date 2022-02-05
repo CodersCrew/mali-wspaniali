@@ -93,6 +93,10 @@ afterAll(async () => {
   await app.close();
 });
 
+beforeEach(async () => {
+  await dbHandler.clearDatabase();
+});
+
 export function getApp() {
   return app;
 }
