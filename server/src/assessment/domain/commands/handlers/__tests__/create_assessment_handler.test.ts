@@ -1,13 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as dbHandler from '@app/db_handler';
-import { AssessmentModule } from '../../../../assessment_module';
 import { CreateAssessmentCommand } from '../../impl/create_assessment_command';
 import { CreateAssessmentHandler } from '../create_assessment_handler';
 import { Assessment } from '../../../models/assessment_model';
+import { getApp } from '../../../../../../setupTests';
 
 describe('CreateAssessmentHandler', () => {
   let createdAssessment: Assessment;
-  let app: TestingModule;
 
   const validAssessmentOptions = {
     title: 'my-title',
@@ -20,13 +18,7 @@ describe('CreateAssessmentHandler', () => {
     kindergartenIds: ['5f88ea2c6d80f367f66a1692'],
   };
 
-  afterEach(async () => {
-    await app.close();
-  });
-
   beforeEach(async () => {
-    app = await setup();
-
     await dbHandler.clearDatabase();
   });
 
@@ -63,23 +55,15 @@ describe('CreateAssessmentHandler', () => {
   });
 
   function createAssessmentWith() {
-    return app.resolve(CreateAssessmentHandler).then(handler => {
-      return handler.execute(
-        new CreateAssessmentCommand(validAssessmentOptions),
-      );
-    });
+    return getApp()
+      .resolve(CreateAssessmentHandler)
+      .then(handler => {
+        return handler.execute(
+          new CreateAssessmentCommand(validAssessmentOptions),
+        );
+      });
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [dbHandler.rootMongooseTestModule(), AssessmentModule],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}
 
 function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));

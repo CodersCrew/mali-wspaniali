@@ -1,21 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import waitForExpect from 'wait-for-expect';
+
 import { AddChildHandler } from '../add_child_handler';
 import { AddChildCommand } from '../../impl';
 import * as dbHandler from '@app/db_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { UsersModule } from '../../../../users_module';
 import { User } from '../../../../../users/domain/models/user_model';
 import { Child } from '../../../models/child_model';
-import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
-import { NotificationsModule } from '../../../../../notifications/notifications.module';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import {
   createKindergartenWith,
   createParent,
 } from '../../../../../test/helpers/app_mock';
 import { ChildInput } from '../../../../inputs/child_input';
+import { getApp } from '../../../../../../setupTests';
 
 jest.setTimeout(10000);
 
@@ -33,15 +30,7 @@ describe('AddChildHandler', () => {
     kindergartenId: 'my-kindergartenId',
   };
 
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
   beforeEach(async () => {
-    app = await setup();
-
     await dbHandler.clearDatabase();
 
     await awaitForResponse();
@@ -243,33 +232,21 @@ describe('AddChildHandler', () => {
     options: Partial<ChildInput>,
     parentId: string,
   ) {
-    return app.resolve(AddChildHandler).then(handler => {
-      return handler.execute(
-        new AddChildCommand({ ...validChildOptions, ...options }, parentId),
-      );
-    });
+    return getApp()
+      .resolve(AddChildHandler)
+      .then(handler => {
+        return handler.execute(
+          new AddChildCommand({ ...validChildOptions, ...options }, parentId),
+        );
+      });
   }
 
   function getNotificationsForUser(user: string) {
-    return app.get(NotificationRepository).getAll(user);
+    return getApp()
+      .get(NotificationRepository)
+      .getAll(user);
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      UsersModule,
-      KeyCodesModule,
-      NotificationsModule,
-      KindergartenModule,
-    ],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}
 
 function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));

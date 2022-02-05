@@ -1,23 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as dbHandler from '@app/db_handler';
-import { KindergartenModule } from '../../../../kindergarten_module';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { CreateKindergartenHandler } from '../../../commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../commands/impl/create_kindergarten_command';
 import { GetKindergartensQuery } from '../../impl/get_kindergartens_query';
 import { GetKindergartensHandler } from '../get_kindergartens_handler';
+import { getApp } from '../../../../../../setupTests';
 
 describe('GetKindergartensHandler', () => {
-  let module: TestingModule;
-
-  afterAll(async () => {
-    await module.close();
-  });
-
-  beforeAll(async () => {
-    module = await setup();
-  });
-
   beforeEach(async () => {
     await dbHandler.clearDatabase();
   });
@@ -85,32 +74,24 @@ describe('GetKindergartensHandler', () => {
   });
 
   function createKindergarten(name: string, number: number) {
-    return module.get(CreateKindergartenHandler).execute(
-      new CreateKindergartenCommand({
-        name,
-        address: 'my-address',
-        city: 'my-city',
-        number,
-      }),
-    );
+    return getApp()
+      .get(CreateKindergartenHandler)
+      .execute(
+        new CreateKindergartenCommand({
+          name,
+          address: 'my-address',
+          city: 'my-city',
+          number,
+        }),
+      );
   }
 
   function getKindergartens(ids: string[]) {
-    return module
+    return getApp()
       .get(GetKindergartensHandler)
       .execute(new GetKindergartensQuery(ids));
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [dbHandler.rootMongooseTestModule(), KindergartenModule],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}
 
 function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));

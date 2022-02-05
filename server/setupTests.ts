@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as dbHandler from '@app/db_handler';
 import { CqrsModule } from '@nestjs/cqrs';
+
+import * as dbHandler from './src/db_handler';
 import { UsersModule } from './src/users/users_module';
 import { AgreementsModule } from './src/agreements/agreements_module';
 import { KeyCodesModule } from './src/key_codes/key_codes_module';
@@ -10,6 +11,7 @@ import { CreateKeyCodeHandler } from './src/key_codes/domain/commands/handlers/c
 import { CreateUserHandler } from './src/users/domain/commands/handlers/create_user_handler';
 import { NotificationsModule } from './src/notifications/notifications.module';
 import { ArticlesModule } from './src/articles/articles_module';
+import { AssessmentModule } from './src/assessment/assessment_module';
 
 expect.extend({
   async toHaveValidationError(received, error): Promise<any> {
@@ -65,6 +67,7 @@ async function setup() {
       dbHandler.rootMongooseTestModule(),
       AgreementsModule,
       ArticlesModule,
+      AssessmentModule,
       CqrsModule,
       KeyCodesModule,
       KindergartenModule,

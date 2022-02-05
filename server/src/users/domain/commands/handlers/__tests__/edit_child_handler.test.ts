@@ -1,10 +1,4 @@
-import { CqrsModule } from '@nestjs/cqrs';
-import { Test, TestingModule } from '@nestjs/testing';
-
 import * as dbHandler from '@app/db_handler';
-import { UsersModule } from '../../../../users_module';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import { AddChildHandler } from '../add_child_handler';
 import { User } from '../../../models/user_model';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
@@ -18,9 +12,9 @@ import { EditChildHandler } from '../edit_child_handler';
 import { EditChildCommand } from '../../impl/edit_child_command';
 import { Child } from '../../../models/child_model';
 import { AddChildCommand } from '../../impl';
+import { getApp } from '../../../../../../setupTests';
 
 describe('EditChildHandler', () => {
-  let module: TestingModule;
   let parent: User;
   let kindergarten: Kindergarten;
   let updatedChild: Child;
@@ -37,8 +31,6 @@ describe('EditChildHandler', () => {
   };
 
   beforeEach(async () => {
-    module = await setup();
-
     await dbHandler.clearDatabase();
 
     parent = await createParent();
@@ -47,10 +39,6 @@ describe('EditChildHandler', () => {
     newKindergarten = await createKindergarten();
 
     validChildOptions.kindergartenId = kindergarten.id;
-  });
-
-  afterEach(async () => {
-    await module.close();
   });
 
   describe('when executed', () => {
@@ -136,66 +124,56 @@ describe('EditChildHandler', () => {
   });
 
   function editChildCommandWith(options, parentId) {
-    return module.resolve(EditChildHandler).then(handler => {
-      return handler.execute(
-        new EditChildCommand({ ...validChildOptions, ...options }, parentId),
-      );
-    });
+    return getApp()
+      .resolve(EditChildHandler)
+      .then(handler => {
+        return handler.execute(
+          new EditChildCommand({ ...validChildOptions, ...options }, parentId),
+        );
+      });
   }
 
   function addChildCommandWith(options, parentId) {
-    return module.resolve(AddChildHandler).then(handler => {
-      return handler.execute(
-        new AddChildCommand({ ...validChildOptions, ...options }, parentId),
-      );
-    });
+    return getApp()
+      .resolve(AddChildHandler)
+      .then(handler => {
+        return handler.execute(
+          new AddChildCommand({ ...validChildOptions, ...options }, parentId),
+        );
+      });
   }
 
   async function createParent(): Promise<User> {
-    const keyCode = await module
+    const keyCode = await getApp()
       .get(CreateKeyCodeHandler)
       .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
-    const parent = await module.get(CreateUserHandler).execute(
-      new CreateUserCommand({
-        mail: 'my-mail@mail.com',
-        password: 'my-password',
-        keyCode: keyCode.keyCode,
-      }),
-    );
+    const parent = await getApp()
+      .get(CreateUserHandler)
+      .execute(
+        new CreateUserCommand({
+          mail: 'my-mail@mail.com',
+          password: 'my-password',
+          keyCode: keyCode.keyCode,
+        }),
+      );
 
     return parent;
   }
 
   function createKindergarten() {
-    return module.get(CreateKindergartenHandler).execute(
-      new CreateKindergartenCommand({
-        number: 1,
-        name: 'my-name',
-        address: 'my-address',
-        city: 'my-city',
-      }),
-    );
+    return getApp()
+      .get(CreateKindergartenHandler)
+      .execute(
+        new CreateKindergartenCommand({
+          number: 1,
+          name: 'my-name',
+          address: 'my-address',
+          city: 'my-city',
+        }),
+      );
   }
 });
-
-async function setup() {
-  return await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      CqrsModule,
-      UsersModule,
-      KeyCodesModule,
-      KindergartenModule,
-    ],
-    providers: [
-      AddChildHandler,
-      EditChildHandler,
-      CreateUserHandler,
-      CreateKeyCodeHandler,
-    ],
-  }).compile();
-}
 
 function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));

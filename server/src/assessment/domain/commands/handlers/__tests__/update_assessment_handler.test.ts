@@ -1,16 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import * as dbHandler from '@app/db_handler';
 
 import { Assessment } from '../../../models/assessment_model';
-import { AssessmentModule } from '../../../../assessment_module';
 import { createAssessment, getAssessment } from '@app/test/helpers/app_mock';
 import { UpdateAssessmentHandler } from '../update_assessment_handler';
 import { UpdateAssessmentCommand } from '../../impl';
 import { UpdatedAssessmentInput } from '../../../../inputs/assessment_input';
+import { getApp } from '../../../../../../setupTests';
 
 describe('CreateAssessmentHandler', () => {
   let assessment: Assessment;
-  let app: TestingModule;
 
   const validAssessmentOptions = {
     title: 'my-title',
@@ -23,13 +21,7 @@ describe('CreateAssessmentHandler', () => {
     kindergartenIds: ['5f88ea2c6d80f367f66a1692'],
   };
 
-  afterEach(async () => {
-    await app.close();
-  });
-
   beforeEach(async () => {
-    app = await setup();
-
     await dbHandler.clearDatabase();
 
     assessment = await createAssessment(validAssessmentOptions);
@@ -56,18 +48,10 @@ describe('CreateAssessmentHandler', () => {
     id: string,
     assessment: UpdatedAssessmentInput,
   ) {
-    return app.resolve(UpdateAssessmentHandler).then(handler => {
-      return handler.execute(new UpdateAssessmentCommand(id, assessment));
-    });
-  }
-
-  async function setup() {
-    const module = await Test.createTestingModule({
-      imports: [dbHandler.rootMongooseTestModule(), AssessmentModule],
-    }).compile();
-
-    await module.init();
-
-    return module;
+    return getApp()
+      .resolve(UpdateAssessmentHandler)
+      .then(handler => {
+        return handler.execute(new UpdateAssessmentCommand(id, assessment));
+      });
   }
 });
