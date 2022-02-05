@@ -167,3 +167,6 @@ export async function getAssessment(id: string) {
       return handler.execute(new GetAssessmentsQuery(id));
     });
 }
+export function awaitForResponse(): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, 0));
+}
