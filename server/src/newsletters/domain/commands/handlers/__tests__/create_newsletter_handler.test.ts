@@ -56,19 +56,19 @@ describe('CreateNewsletterHandler', () => {
         expect(newsletters[0].title).toBe('My title');
         expect(newsletters[0].message).toBe('My message');
         expect(newsletters[0].recipients).toEqual([]);
+
+        await awaitForResponse();
+
+        expect(sendSpy).toBeCalledWith(
+          expect.objectContaining({
+            bcc: [],
+            from: 'my-admin@admin.com',
+            subject: 'My title',
+          }),
+        );
+        expect(sendSpy.mock.calls[0][0].html).toMatch('My title');
+        expect(sendSpy.mock.calls[0][0].html).toMatch('My message');
       });
-
-      await awaitForResponse();
-
-      expect(sendSpy).toBeCalledWith(
-        expect.objectContaining({
-          bcc: [],
-          from: 'izabela.demczuk@mali-wspaniali.pl',
-          subject: 'My title',
-        }),
-      );
-      expect(sendSpy.mock.calls[0][0].html).toMatch('My title');
-      expect(sendSpy.mock.calls[0][0].html).toMatch('My message');
     });
   });
 
