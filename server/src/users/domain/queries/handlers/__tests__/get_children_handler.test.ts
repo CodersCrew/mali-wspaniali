@@ -1,5 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
 import waitForExpect from 'wait-for-expect';
 import {
   getAllChildren,
@@ -9,27 +7,12 @@ import {
   anonymizeUser,
 } from '../../../../../test/helpers/app_mock';
 import * as dbHandler from '@app/db_handler';
-import { KeyCodesModule } from '@keyCodes/key_codes_module';
-import { CreateKeyCodeHandler } from '@keyCodes/domain/commands/handlers';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
-import { KindergartenModule } from '@kindergartens/kindergarten_module';
-import { UsersModule } from '@users/users_module';
-import { CreateUserHandler } from '@users/domain/commands/handlers';
 import { GetChildrenQuery } from '@users/domain/queries/impl';
 import { GetChildrenHandler } from '@users/domain/queries/handlers';
 import { Child, User } from '@users/domain/models';
+import { getApp } from '../../../../../../setupTests';
 
 describe('GetChildrenHandler', () => {
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeAll(async () => {
-    app = await setup();
-  });
-
   beforeEach(async () => {
     await dbHandler.clearDatabase();
   });
@@ -93,26 +76,10 @@ describe('GetChildrenHandler', () => {
   });
 
   function getChildren(ids: string[]) {
-    return app.resolve(GetChildrenHandler).then(handler => {
-      return handler.execute(new GetChildrenQuery(ids));
-    });
-  }
-
-  async function setup() {
-    const module = await Test.createTestingModule({
-      imports: [
-        dbHandler.rootMongooseTestModule(),
-        CqrsModule,
-        UsersModule,
-        AgreementsModule,
-        KeyCodesModule,
-        KindergartenModule,
-      ],
-      providers: [CreateKeyCodeHandler, CreateUserHandler],
-    }).compile();
-
-    await module.init();
-
-    return module;
+    return getApp()
+      .resolve(GetChildrenHandler)
+      .then(handler => {
+        return handler.execute(new GetChildrenQuery(ids));
+      });
   }
 });
