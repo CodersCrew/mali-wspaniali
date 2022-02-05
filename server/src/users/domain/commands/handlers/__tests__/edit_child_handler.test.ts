@@ -12,6 +12,7 @@ import { EditChildCommand } from '../../impl/edit_child_command';
 import { Child } from '../../../models/child_model';
 import { AddChildCommand } from '../../impl';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('EditChildHandler', () => {
   let parent: User;
@@ -171,7 +172,3 @@ describe('EditChildHandler', () => {
       );
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

@@ -7,6 +7,7 @@ import { NewsletterInput } from '../../../../inputs/newsletter_input';
 import { GetAllNewsletterHandler } from '../../../queries/handlars/get_all_newsletters_handler';
 import { SendMail } from '../../../../../shared/services/send_mail/send_mail';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('CreateNewsletterHandler', () => {
   let sendMail: SendMail;
@@ -69,7 +70,3 @@ describe('CreateNewsletterHandler', () => {
       .execute();
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

@@ -4,6 +4,7 @@ import { CreateKindergartenCommand } from '../../../commands/impl/create_kinderg
 import { GetKindergartensQuery } from '../../impl/get_kindergartens_query';
 import { GetKindergartensHandler } from '../get_kindergartens_handler';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('GetKindergartensHandler', () => {
   describe('when there is no kindergartens', () => {
@@ -87,7 +88,3 @@ describe('GetKindergartensHandler', () => {
       .execute(new GetKindergartensQuery(ids));
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

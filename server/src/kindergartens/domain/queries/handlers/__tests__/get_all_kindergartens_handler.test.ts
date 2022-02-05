@@ -3,6 +3,7 @@ import { Kindergarten } from '../../../models/kindergarten_model';
 import { CreateKindergartenHandler } from '../../../commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../commands/impl/create_kindergarten_command';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('GetAllKindergartensHandler', () => {
   describe('when there is no kindergartens', () => {
@@ -64,7 +65,3 @@ describe('GetAllKindergartensHandler', () => {
       .execute();
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

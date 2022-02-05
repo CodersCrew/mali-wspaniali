@@ -12,6 +12,7 @@ import {
 } from '../../../../../test/helpers/app_mock';
 import { ChildInput } from '../../../../inputs/child_input';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 jest.setTimeout(10000);
 
@@ -244,7 +245,3 @@ describe('AddChildHandler', () => {
       .getAll(user);
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}

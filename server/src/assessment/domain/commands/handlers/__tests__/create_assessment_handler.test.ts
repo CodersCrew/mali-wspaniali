@@ -2,6 +2,7 @@ import { CreateAssessmentCommand } from '../../impl/create_assessment_command';
 import { CreateAssessmentHandler } from '../create_assessment_handler';
 import { Assessment } from '../../../models/assessment_model';
 import { getApp } from '../../../../../../setupTests';
+import { awaitForResponse } from '../../../../../test/helpers/app_mock';
 
 describe('CreateAssessmentHandler', () => {
   let createdAssessment: Assessment;
@@ -59,7 +60,3 @@ describe('CreateAssessmentHandler', () => {
       });
   }
 });
-
-function awaitForResponse(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
-}
