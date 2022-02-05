@@ -2,7 +2,6 @@ import waitForExpect from 'wait-for-expect';
 
 import { AddChildHandler } from '../add_child_handler';
 import { AddChildCommand } from '../../impl';
-import * as dbHandler from '@app/db_handler';
 import { User } from '../../../../../users/domain/models/user_model';
 import { Child } from '../../../models/child_model';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
@@ -31,8 +30,6 @@ describe('AddChildHandler', () => {
   };
 
   beforeEach(async () => {
-    await dbHandler.clearDatabase();
-
     await awaitForResponse();
 
     parent = await createParent();

@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { CreateKindergartenHandler } from '../../../commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../commands/impl/create_kindergarten_command';
@@ -7,10 +6,6 @@ import { GetKindergartenQuery } from '../../impl';
 import { getApp } from '../../../../../../setupTests';
 
 describe('GetKindergartenHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when there is no kindergartens', () => {
     let kindergarten: Kindergarten | null;
 

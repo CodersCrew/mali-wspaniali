@@ -6,7 +6,6 @@ import {
   getKindergarten,
 } from '../../../../../test/helpers/app_mock';
 import { Kindergarten } from '@kindergartens/domain/models';
-import * as dbHandler from '@app/db_handler';
 import { DeleteKindergartenHandler } from '../delete_kindergarten_handler';
 import { DeleteKindergartenCommand } from '../../impl';
 import { getApp } from '../../../../../../setupTests';
@@ -18,8 +17,6 @@ describe('DeleteKindergartenHandler', () => {
 
   beforeEach(async () => {
     MockDate.set('2010-10-31');
-
-    await dbHandler.clearDatabase();
   });
 
   describe('if executed', () => {

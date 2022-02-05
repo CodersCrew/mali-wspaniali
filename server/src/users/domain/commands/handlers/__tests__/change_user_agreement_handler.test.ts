@@ -1,5 +1,4 @@
 import { CreateUserCommand } from '../../impl';
-import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
@@ -18,10 +17,6 @@ describe('CreateUserHandler', () => {
   let parent: User;
   let viewAgreement: Agreement;
   let marketingAgreement: Agreement;
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
 
   describe('when executed', () => {
     describe('and user does not signed any agreement', () => {

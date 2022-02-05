@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { User } from '../../../models/user_model';
 import { GetAllUsersHandler } from '../get_all_users_handler';
 import { GetAllUsersQuery } from '../../impl/get_all_users_query';
@@ -9,10 +8,6 @@ import {
 } from '../../../../../test/helpers/app_mock';
 
 describe('GetAllUsersHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     let fetchedUsers: User[];
 

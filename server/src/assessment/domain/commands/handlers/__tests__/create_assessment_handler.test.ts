@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { CreateAssessmentCommand } from '../../impl/create_assessment_command';
 import { CreateAssessmentHandler } from '../create_assessment_handler';
 import { Assessment } from '../../../models/assessment_model';
@@ -17,10 +16,6 @@ describe('CreateAssessmentHandler', () => {
     lastMeasurementEndDate: new Date(2020, 10, 20),
     kindergartenIds: ['5f88ea2c6d80f367f66a1692'],
   };
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
 
   describe('when executed', () => {
     describe('with correct data', () => {

@@ -1,5 +1,4 @@
 import { AddChildCommand } from '../../impl';
-import * as dbHandler from '@app/db_handler';
 import { User } from '../../../models/user_model';
 import { GetUserQuery } from '../../../queries/impl/get_user_query';
 import { GetUserHandler } from '../../../queries/handlers/get_user_handler';
@@ -15,10 +14,6 @@ import { createParent } from '../../../../../test/helpers/app_mock';
 import { getApp } from '../../../../../../setupTests';
 
 describe('AnonymizeUserHandler', () => {
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed on parent without children', () => {
     let user: User;
     let anonymizedUser: User;

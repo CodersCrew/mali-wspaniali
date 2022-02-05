@@ -2,7 +2,6 @@ import waitForExpect from 'wait-for-expect';
 
 import { CreateKindergartenCommand } from '../../impl';
 import { CreateKindergartenHandler } from '../create_kindergarten_handler';
-import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { UserRepository } from '../../../../../users/domain/repositories/user_repository';
@@ -21,10 +20,6 @@ describe('CreatKindergartenHandler', () => {
   };
 
   let createdKindergarten: Kindergarten;
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
 
   describe('when executed with correct data', () => {
     beforeEach(async () => {

@@ -1,5 +1,4 @@
 import { CreateUserCommand } from '../../impl';
-import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
@@ -12,10 +11,6 @@ import { getApp } from '../../../../../../setupTests';
 
 describe('CreateUserHandler', () => {
   let parent: User;
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
 
   describe('when executed', () => {
     describe('with correct data', () => {

@@ -1,4 +1,3 @@
-import * as dbHandler from '@app/db_handler';
 import { AddChildHandler } from '../add_child_handler';
 import { User } from '../../../models/user_model';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
@@ -31,8 +30,6 @@ describe('EditChildHandler', () => {
   };
 
   beforeEach(async () => {
-    await dbHandler.clearDatabase();
-
     parent = await createParent();
 
     kindergarten = await createKindergarten();

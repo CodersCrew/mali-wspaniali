@@ -1,5 +1,3 @@
-import * as dbHandler from '@app/db_handler';
-
 import { Assessment } from '../../../models/assessment_model';
 import { createAssessment, getAssessment } from '@app/test/helpers/app_mock';
 import { UpdateAssessmentHandler } from '../update_assessment_handler';
@@ -22,8 +20,6 @@ describe('CreateAssessmentHandler', () => {
   };
 
   beforeEach(async () => {
-    await dbHandler.clearDatabase();
-
     assessment = await createAssessment(validAssessmentOptions);
   });
 
