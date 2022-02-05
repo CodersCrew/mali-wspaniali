@@ -1,14 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
-
 import { AddChildCommand } from '../../impl';
 import * as dbHandler from '@app/db_handler';
-import { CreateUserHandler } from '../create_user_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { UsersModule } from '../../../../users_module';
-import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
 import { GetUserQuery } from '../../../queries/impl/get_user_query';
 import { GetUserHandler } from '../../../queries/handlers/get_user_handler';
 import { AnonymizeUserCommand } from '../../impl/anonymize_user_command';
@@ -16,23 +8,13 @@ import { AnonymizeUserHandler } from '../anonymize_user_handler';
 import { AddChildHandler } from '../add_child_handler';
 import { CreateKindergartenHandler } from '../../../../../kindergartens/domain/commands/handlers/create_kindergarten_handler';
 import { CreateKindergartenCommand } from '../../../../../kindergartens/domain/commands/impl/create_kindergarten_command';
-import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
 import waitForExpect from 'wait-for-expect';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { ChildRepository } from '../../../repositories/child_repository';
 import { createParent } from '../../../../../test/helpers/app_mock';
+import { getApp } from '../../../../../../setupTests';
 
 describe('AnonymizeUserHandler', () => {
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeAll(async () => {
-    app = await setup();
-  });
-
   beforeEach(async () => {
     await dbHandler.clearDatabase();
   });
@@ -108,7 +90,9 @@ describe('AnonymizeUserHandler', () => {
   });
 
   async function getParentById(userId: string) {
-    const parent = app.get(GetUserHandler).execute(new GetUserQuery(userId));
+    const parent = getApp()
+      .get(GetUserHandler)
+      .execute(new GetUserQuery(userId));
 
     return parent;
   }
@@ -125,18 +109,20 @@ describe('AnonymizeUserHandler', () => {
 
     const kindergarten = await createKindergarten();
 
-    const child = app.resolve(AddChildHandler).then(handler => {
-      return handler.execute(
-        new AddChildCommand(
-          {
-            ...validChildOptions,
-            kindergartenId: kindergarten.id,
-            ...options,
-          },
-          parentId,
-        ),
-      );
-    });
+    const child = getApp()
+      .resolve(AddChildHandler)
+      .then(handler => {
+        return handler.execute(
+          new AddChildCommand(
+            {
+              ...validChildOptions,
+              kindergartenId: kindergarten.id,
+              ...options,
+            },
+            parentId,
+          ),
+        );
+      });
 
     await waitForExpect(
       async () => {
@@ -155,49 +141,39 @@ describe('AnonymizeUserHandler', () => {
   }
 
   function getNotificationsForUser(user: string) {
-    return app.get(NotificationRepository).getAll(user);
+    return getApp()
+      .get(NotificationRepository)
+      .getAll(user);
   }
 
   function getChildren(ids: string[]) {
-    return app.get(ChildRepository).get(ids);
+    return getApp()
+      .get(ChildRepository)
+      .get(ids);
   }
 
   function getAllChildren() {
-    return app.get(ChildRepository).getAll();
+    return getApp()
+      .get(ChildRepository)
+      .getAll();
   }
 
   function createKindergarten() {
-    return app.get(CreateKindergartenHandler).execute(
-      new CreateKindergartenCommand({
-        number: 1,
-        name: 'my-name',
-        address: 'my-address',
-        city: 'my-city',
-      }),
-    );
+    return getApp()
+      .get(CreateKindergartenHandler)
+      .execute(
+        new CreateKindergartenCommand({
+          number: 1,
+          name: 'my-name',
+          address: 'my-address',
+          city: 'my-city',
+        }),
+      );
   }
 
   async function anonymizeUser(id: string) {
-    return await app
+    return await getApp()
       .get(AnonymizeUserHandler)
       .execute(new AnonymizeUserCommand(id));
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      CqrsModule,
-      UsersModule,
-      AgreementsModule,
-      KeyCodesModule,
-      KindergartenModule,
-    ],
-    providers: [CreateKeyCodeHandler, CreateUserHandler],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}

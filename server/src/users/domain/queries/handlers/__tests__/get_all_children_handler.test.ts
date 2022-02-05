@@ -1,19 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
-
 import * as dbHandler from '@app/db_handler';
-import { KeyCodesModule } from '@keyCodes/key_codes_module';
-import { CreateKeyCodeHandler } from '@keyCodes/domain/commands/handlers';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
-import { KindergartenModule } from '@kindergartens/kindergarten_module';
 import { User } from '@users/domain/models';
-import { UsersModule } from '@users/users_module';
-import { CreateUserHandler } from '@users/domain/commands/handlers';
 import {
   GetAllChildrenHandler,
   ChildWithKindergarten,
 } from '@users/domain/queries/handlers/get_all_children_handler';
 import waitForExpect from 'wait-for-expect';
+import { getApp } from '../../../../../../setupTests';
 import {
   createParent,
   anonymizeUser,
@@ -22,16 +14,6 @@ import {
 } from '../../../../../test/helpers/app_mock';
 
 describe('GetAllChildrenHandler', () => {
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeAll(async () => {
-    app = await setup();
-  });
-
   beforeEach(async () => {
     await dbHandler.clearDatabase();
   });
@@ -151,26 +133,10 @@ describe('GetAllChildrenHandler', () => {
   });
 
   function getAllChildren() {
-    return app.resolve(GetAllChildrenHandler).then(handler => {
-      return handler.execute();
-    });
-  }
-
-  async function setup() {
-    const module = await Test.createTestingModule({
-      imports: [
-        dbHandler.rootMongooseTestModule(),
-        CqrsModule,
-        UsersModule,
-        AgreementsModule,
-        KeyCodesModule,
-        KindergartenModule,
-      ],
-      providers: [CreateKeyCodeHandler, CreateUserHandler],
-    }).compile();
-
-    await module.init();
-
-    return module;
+    return getApp()
+      .resolve(GetAllChildrenHandler)
+      .then(handler => {
+        return handler.execute();
+      });
   }
 });

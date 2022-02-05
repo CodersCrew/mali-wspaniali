@@ -1,16 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
-
 import { CreateUserCommand } from '../../impl';
 import * as dbHandler from '@app/db_handler';
 import { CreateUserHandler } from '../create_user_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { UsersModule } from '../../../../users_module';
 import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
 import { User } from '../../../models/user_model';
 import { CreateBulkKeyCodeCommand } from '../../../../../key_codes/domain/commands/impl/create_bulk_key_code_command';
-import { NotificationsModule } from '../../../../../notifications/notifications.module';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
 import { CreateAgreementHandler } from '../../../../../agreements/domain/commands/handlers/create_agreement_handler';
 import { CreateAgreementCommand } from '../../../../../agreements/domain/commands/impl/create_agreement_command';
 import { UserInput } from '../../../../../users/inputs/user_input';
@@ -19,20 +12,14 @@ import { ChangeUserAgreementHandler } from '../change_user_agreement_handler';
 import { GetUserQuery } from '../../../queries/impl/get_user_query';
 import { GetUserHandler } from '../../../queries/handlers/get_user_handler';
 import { Agreement } from '@app/agreements/domain/models/agreement';
+import { getApp } from '../../../../../../setupTests';
 
 describe('CreateUserHandler', () => {
   let parent: User;
   let viewAgreement: Agreement;
   let marketingAgreement: Agreement;
-  let app: TestingModule;
-
-  afterEach(async () => {
-    await app.close();
-  });
 
   beforeEach(async () => {
-    app = await setup();
-
     await dbHandler.clearDatabase();
   });
 
@@ -128,7 +115,7 @@ describe('CreateUserHandler', () => {
     userId: string,
     agreementId: string,
   ): Promise<Agreement> {
-    const agreement = app
+    const agreement = getApp()
       .get(ChangeUserAgreementHandler)
       .execute(new ChangeUserAgreementCommand(userId, agreementId));
 
@@ -136,49 +123,39 @@ describe('CreateUserHandler', () => {
   }
 
   async function createParent(options: Partial<UserInput> = {}): Promise<User> {
-    const keyCode = await app
+    const keyCode = await getApp()
       .get(CreateKeyCodeHandler)
       .execute(new CreateBulkKeyCodeCommand('admin', 1, 'parent'));
 
-    const parent = app.get(CreateUserHandler).execute(
-      new CreateUserCommand({
-        mail: 'my-mail@mail.com',
-        password: 'my-password',
-        keyCode: keyCode.keyCode,
-        ...options,
-      }),
-    );
+    const parent = getApp()
+      .get(CreateUserHandler)
+      .execute(
+        new CreateUserCommand({
+          mail: 'my-mail@mail.com',
+          password: 'my-password',
+          keyCode: keyCode.keyCode,
+          ...options,
+        }),
+      );
 
     return parent;
   }
 
   async function getParentById(userId: string) {
-    const parent = app.get(GetUserHandler).execute(new GetUserQuery(userId));
+    const parent = getApp()
+      .get(GetUserHandler)
+      .execute(new GetUserQuery(userId));
 
     return parent;
   }
 
   async function createAgreement(name: string = 'my-name'): Promise<Agreement> {
-    return await app.get(CreateAgreementHandler).execute(
-      new CreateAgreementCommand({
-        text: name,
-      }),
-    );
+    return await getApp()
+      .get(CreateAgreementHandler)
+      .execute(
+        new CreateAgreementCommand({
+          text: name,
+        }),
+      );
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [
-      dbHandler.rootMongooseTestModule(),
-      CqrsModule,
-      UsersModule,
-      AgreementsModule,
-      KeyCodesModule,
-      NotificationsModule,
-    ],
-    providers: [CreateKeyCodeHandler, CreateUserHandler],
-  }).compile();
-
-  return await module.init();
-}

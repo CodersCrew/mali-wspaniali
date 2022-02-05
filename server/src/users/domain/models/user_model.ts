@@ -1,13 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import {
-  UserConfirmedEvent,
-  UserCreatedEvent,
-  UserSignedAgreementEvent,
-  UserUnsignedAgreementEvent,
-  UserUpdatedEvent,
-  UserAnonymizedEvent,
-} from '../events/impl';
+import * as UserEvent from '../events/impl';
 import { CoreModel } from '../../../shared/utils/core_model';
 import { Expose, Transform } from 'class-transformer';
 
@@ -94,8 +87,10 @@ export class User extends AggregateRoot {
   confirm(): void {
     this.props.isConfirmed = true;
 
-    this.apply(new UserConfirmedEvent(this.props._id));
-    this.apply(new UserUpdatedEvent(this.props._id, { isConfirmed: true }));
+    this.apply(new UserEvent.UserConfirmedEvent(this.props._id));
+    this.apply(
+      new UserEvent.UserUpdatedEvent(this.props._id, { isConfirmed: true }),
+    );
   }
 
   delete(): void {
@@ -104,14 +99,14 @@ export class User extends AggregateRoot {
     this.props = { ...props, isDeleted: true, mail: '', password: '' };
 
     this.apply(
-      new UserUpdatedEvent(props._id, {
+      new UserEvent.UserUpdatedEvent(props._id, {
         isDeleted: true,
         mail: '',
         password: '',
       }),
     );
 
-    this.apply(new UserAnonymizedEvent(this.id));
+    this.apply(new UserEvent.UserAnonymizedEvent(this.id));
   }
 
   isDeleted(): boolean {
@@ -121,7 +116,10 @@ export class User extends AggregateRoot {
   signAgreement(potentialAgreementId: string) {
     this.setAgreements([...this.agreements, potentialAgreementId]);
     this.apply(
-      new UserSignedAgreementEvent(this.props._id, potentialAgreementId),
+      new UserEvent.UserSignedAgreementEvent(
+        this.props._id,
+        potentialAgreementId,
+      ),
     );
   }
 
@@ -130,20 +128,23 @@ export class User extends AggregateRoot {
       this.agreements.filter(agreement => agreement !== potentialAgreementId),
     );
     this.apply(
-      new UserUnsignedAgreementEvent(this.props._id, potentialAgreementId),
+      new UserEvent.UserUnsignedAgreementEvent(
+        this.props._id,
+        potentialAgreementId,
+      ),
     );
   }
 
   setFullname(options: { firstname: string; lastname: string }) {
     this.props = { ...this.props, ...options };
 
-    this.apply(new UserUpdatedEvent(this.props._id, options));
+    this.apply(new UserEvent.UserUpdatedEvent(this.props._id, options));
   }
 
   static create(props: UserCore, keyCode: string): User {
     const user = new User(props);
 
-    user.apply(new UserCreatedEvent(user.props._id, keyCode));
+    user.apply(new UserEvent.UserCreatedEvent(user.props._id, keyCode));
 
     return user;
   }
