@@ -26,6 +26,7 @@ import { AssessmentInput } from '../../assessment/inputs/assessment_input';
 import { GetAssessmentHandler } from '../../assessment/domain/queries/handlers/get_assessments_handler';
 import { GetAssessmentsQuery } from '../../assessment/domain/queries/impl/get_assessment_query';
 import { getApp } from '../../../setupTests';
+import { GetAllNewsletterHandler } from '../../newsletters/domain/queries/handlars/get_all_newsletters_handler';
 
 export async function createParent(
   options: Partial<UserInput> = {},
@@ -169,4 +170,10 @@ export async function getAssessment(id: string) {
 }
 export function awaitForResponse(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));
+}
+
+export function getNewsletters() {
+  return getApp()
+    .get(GetAllNewsletterHandler)
+    .execute();
 }
