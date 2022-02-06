@@ -7,6 +7,8 @@ import { UserRepository } from '../../../../users/domain/repositories/user_repos
 import { getTemplate } from '../../../../shared/services/send_mail/getTemplate';
 import { ChildRepository } from '../../../../users/domain/repositories/child_repository';
 import { Child } from '../../../../users/domain/models';
+import { User } from '../../../../users/domain/models/user_model';
+import { NewsletterCore } from '../../models/newsletter_model';
 
 @EventsHandler(NewsletterCreatedEvent)
 export class NewsletterCreatedHandler
@@ -25,35 +27,19 @@ export class NewsletterCreatedHandler
       newsletter.recipients.length === 1 &&
       newsletter.recipients[0] === 'fundacja@mali-wspaniali.pl'
     ) {
-      await this.sendMail.send({
-        from: process.env.SENDER,
-        bcc: newsletter.recipients,
-        subject: newsletter.title,
-        html: getTemplate({
-          title: newsletter.title,
-          content: newsletter.message,
-        }),
-        text: '',
-      });
+      await this.sendMailWith(newsletter, newsletter.recipients);
     }
 
     if (newsletter.type.includes('ALL')) {
       const users = await this.userRepository.getAll({ role: 'parent' });
 
-      await this.sendMail.send({
-        from: process.env.SENDER,
-        bcc: users.map(u => u.mail),
-        subject: newsletter.title,
-        html: getTemplate({
-          title: newsletter.title,
-          content: newsletter.message,
-        }),
-        text: '',
-      });
+      await this.sendMailWith(
+        newsletter,
+        users.map(u => u.mail),
+      );
     }
 
     if (newsletter.type.includes('SINGLE')) {
-      console.log(newsletter);
       const children = await this.getUserFromKindergartens(
         newsletter.recipients,
       );
@@ -62,17 +48,24 @@ export class NewsletterCreatedHandler
         children.map(c => c.id),
       );
 
-      await this.sendMail.send({
-        from: process.env.SENDER,
-        bcc: parents.map(u => u.mail),
-        subject: newsletter.title,
-        html: getTemplate({
-          title: newsletter.title,
-          content: newsletter.message,
-        }),
-        text: '',
-      });
+      await this.sendMailWith(
+        newsletter,
+        parents.map(u => u.mail),
+      );
     }
+  }
+
+  sendMailWith(newsletter: NewsletterCore, bcc: string[]) {
+    return this.sendMail.send({
+      from: process.env.SENDER,
+      bcc,
+      subject: newsletter.title,
+      html: getTemplate({
+        title: newsletter.title,
+        content: newsletter.message,
+      }),
+      text: '',
+    });
   }
 
   getUserFromKindergartens(kindergartenIds: string[]) {
