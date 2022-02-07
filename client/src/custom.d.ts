@@ -3,7 +3,7 @@ declare module '*.svg' {
     export default content;
 }
 
-declare module '*.jpg' {
-    const content: any;
+declare module '*.png' {
+    const content: string;
     export default content;
 }
