@@ -407,8 +407,8 @@
             "conditions": {
                 "panelTitle": "W jaki sposób wykonujemy test przedszkolaka oraz obliczamy jego wyniki?",
                 "title": "Test sprawności przedszkolaka wykonywany jest raz w semestrze.",
-                "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
-                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów. Dzieci oceniane są według skali, przygotowanej przez międzynarodowych ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy.",
+                "text1": "Składa się z dwóch prób: próba początkowa (pomiar w miesiącach jesiennych roku szkolnego) oraz próba końcowa (pomiar w miesiącach wiosennych). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
+                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów, ustaloną według norm opracowanych w wyniku wieloletnich pomiarów i analiz prowadzonych we współpracy między innymi z naukowcami Katedry Nauk o Człowieku Uniwersytetu Rzeszowskiego. Dzieci oceniane są według zaktualizowanej skali przygotowanej przez ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy.",
                 "text3": "Suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka (niski, średni, dobry lub bardzo dobry). Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości zobaczenia ogólnej sprawności dziecka.",
                 "test1-name": "Zwinność",
                 "test1-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
@@ -440,16 +440,17 @@
                 "panelTitle": "Jakie czynniki mogą mieć wpływ na niski wynik testu",
                 "title1": "Czynniki ogólne mogące wpłynąć na niski wynik testu:",
                 "title2": "Indywidualne czynniki mogące wpłynąć na niski wynik testu:",
-                "text1": "Brak motywacji u uczestników testu lub w otoczeniu",
-                "text2": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
-                "text3": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
-                "text4": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
-                "text5": "Choroba dziecka (np. przeziębienie, biegunka)",
-                "text6": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
-                "text7": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
-                "text8": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
-                "text9": "Dziecko jest wcześniakiem",
-                "text10": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
+                "text1": "Brak jednej lub więcej prób testu",
+                "text2": "Brak motywacji u uczestników testu lub w otoczeniu",
+                "text3": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
+                "text4": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
+                "text5": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
+                "text6": "Choroba dziecka (np. przeziębienie, biegunka)",
+                "text7": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
+                "text8": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
+                "text9": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
+                "text10": "Dziecko jest wcześniakiem",
+                "text11": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
             }
         },
         "recommendations": {

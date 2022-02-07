@@ -296,16 +296,17 @@
                 "panelTitle": "What factors can contribute to a low test result",
                 "title1": "General factors that can contribute to a low test result:",
                 "title2": "Individual factors that can contribute to a low test result:",
-                "text1": "Lack of motivation among participants or in the environment",
-                "text2": "Conditions inside and outside the facility (not necessarily unfavorable)",
-                "text3": "Daytime (e.g. after a meal, resting or other activities)",
-                "text4": "External difficulties (e.g. behavior of other children)",
-                "text5": "Child's disease (e.g. cold, diarrhea)",
-                "text6": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
-                "text7": "Serious illness of the child requiring hospitalization within the last 6 months",
-                "text8": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
-                "text9": "The child is premature",
-                "text10": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
+                "text1": "",
+                "text2": "Lack of motivation among participants or in the environment",
+                "text3": "Conditions inside and outside the facility (not necessarily unfavorable)",
+                "text4": "Daytime (e.g. after a meal, resting or other activities)",
+                "text5": "External difficulties (e.g. behavior of other children)",
+                "text6": "Child's disease (e.g. cold, diarrhea)",
+                "text7": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
+                "text8": "Serious illness of the child requiring hospitalization within the last 6 months",
+                "text9": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
+                "text10": "The child is premature",
+                "text11": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
             }
         },
         "recommendations": {
