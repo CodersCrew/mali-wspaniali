@@ -38,7 +38,7 @@ export const Interpretation = () => {
                     <ul className={classes.ul}>
                         {[...Array(6)].map((_, index: number) => (
                             <li key={index}>
-                                <Typography variant="body1">{t(`${T_PREFIX}.text${index + 5}`)}</Typography>
+                                <Typography variant="body1">{t(`${T_PREFIX}.text${index + 6}`)}</Typography>
                             </li>
                         ))}
                     </ul>
