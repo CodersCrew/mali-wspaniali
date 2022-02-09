@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
 
 import { Theme } from '@app/theme';
-import SuccessImage from '../../assets/forgotPassword/success.png';
+import SuccessImage from '@app/assets/forgotPassword/success.png';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';

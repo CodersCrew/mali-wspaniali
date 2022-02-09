@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme, Grid } from '@material-ui/core';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import clsx from 'clsx';
 
-import BoyAvatar from '../../../../assets/boy.svg';
-import GirlAvatar from '../../../../assets/girl.svg';
+import BoyAvatar from '@app/assets/boy.svg';
+import GirlAvatar from '@app/assets/girl.svg';
 import { Child, ChildInput } from '@app/graphql/types';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
 import { openAddChildModal } from '../../../../components/ChilModals/AddChildModal';

@@ -1,11 +1,12 @@
 import { createStyles, makeStyles, Theme, Typography, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import CodersCrew from '../../assets/authTemplateLogos/maker/coders-crew.svg';
-import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu.png';
-import Wroclaw from '../../assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
-import { useIsDevice } from '../../queries/useBreakpoints';
+import CodersCrew from '@app/assets/authTemplateLogos/maker/coders-crew.svg';
+import Ecm from '@app/assets/authTemplateLogos/partners/e-cm-grey.png';
+import MinisterstwoSportu from '@app/assets/authTemplateLogos/partners/ministerstwo-sportu.png';
+import Wroclaw from '@app/assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
+
+import { useIsDevice } from '@app/queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
     const classes = useStyles();

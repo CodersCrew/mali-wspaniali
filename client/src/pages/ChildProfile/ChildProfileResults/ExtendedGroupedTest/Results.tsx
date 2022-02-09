@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import { Trans, useTranslation } from 'react-i18next';
-import Girl from '../../../../assets/girl.svg';
-import Boy from '../../../../assets/boy.svg';
+import Girl from '@app/assets/girl.svg';
+import Boy from '@app/assets/boy.svg';
 
 type ResultsData = {
     minScale: number;

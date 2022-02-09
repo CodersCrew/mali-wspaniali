@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import NoResultImg from '../../assets/family.png';
+import NoResultImg from '@app/assets/family.png';
 import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
 
 interface Props {
