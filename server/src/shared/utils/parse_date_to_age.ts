@@ -1,10 +1,10 @@
 export function parseDateToAge(
   birthYear: number,
   birthQuarter: number,
-  date: Date = new Date(),
+  comparatorDate: Date = new Date(),
 ): number {
-  const currentQuarter = getQuarter(date);
-  const currentYear = new Date().getFullYear();
+  const currentQuarter = getQuarter(comparatorDate);
+  const currentYear = comparatorDate.getFullYear();
   const yearsInQuarters = (currentYear - birthYear) * 4;
   const yearFragmentInQuarters = currentQuarter - birthQuarter;
   const totalQuarters = yearsInQuarters + yearFragmentInQuarters;
