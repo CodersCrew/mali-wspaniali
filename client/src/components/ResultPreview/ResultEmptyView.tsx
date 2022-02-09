@@ -2,7 +2,7 @@ import { createStyles, makeStyles, Theme, Grid, Box, Typography } from '@materia
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import NoResultsImage from '../../assets/testInformation/Results/no-data.svg';
+import NoResultsImage from '@app/assets/testInformation/Results/no-data.svg';
 
 export function ResultEmptyView({ childId }: { childId: string }) {
     const { t } = useTranslation();

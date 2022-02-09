@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import PasswordChangeSuccess from '../../assets/forgotPassword/password-change-success.svg';
+import PasswordChangeSuccess from '@app/assets/forgotPassword/password-change-success.svg';
 import { ButtonSecondary } from '../../components/Button';
 import { Theme } from '@app/theme';
 import { useIsDevice } from '../../queries/useBreakpoints';

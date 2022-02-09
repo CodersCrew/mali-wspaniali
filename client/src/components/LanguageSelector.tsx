@@ -1,7 +1,7 @@
 import { IconButton, createStyles, makeStyles } from '@material-ui/core';
 
-import PlFlag from '../assets/pl.svg';
-import EnFlag from '../assets/en.svg';
+import PlFlag from '@app/assets/pl.svg';
+import EnFlag from '@app/assets/en.svg';
 
 interface Props {
     language: string | null;

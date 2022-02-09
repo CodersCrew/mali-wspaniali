@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { makeStyles } from '@material-ui/core/';
 
 import { Sex } from '../../../graphql/types';
-import BoyAvatar from '../../../assets/boy.svg';
-import GirlAvatar from '../../../assets/girl.svg';
+import BoyAvatar from '@app/assets/boy.svg';
+import GirlAvatar from '@app/assets/girl.svg';
 
 export function ChildAvatar({ sex }: { sex: Sex }) {
     const classes = useStyles();

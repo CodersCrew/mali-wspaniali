@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Logo from '../../assets/MW_logo_with_characters.svg';
+import Logo from '@app/assets/MW_logo_with_characters.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelectorLoginFlow as LanguageSelector } from '../../components/LanguageSelectorLoginFlow';
 
