@@ -2,6 +2,8 @@ import { AssessmentParam, AssessmentResult } from '@app/graphql/types';
 
 import { Calculation, getResultColorAndLabel, testResults } from './calculateResult';
 
+export const ARTICLE_LINK = '/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4';
+
 export class Result {
     constructor(
         private props: {

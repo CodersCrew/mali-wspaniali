@@ -5,7 +5,7 @@ import { BasicModal } from '@app/components/Modal/BasicModal';
 import { ChildInput } from '@app/graphql/types';
 import { ActionDialog, openDialog } from '@app/utils/openDialog';
 
-import { Result } from '../Result';
+import { Result, ARTICLE_LINK } from '../Result';
 
 const RESULTS_PREFIX = 'child-profile.results-modal-content';
 
@@ -59,13 +59,7 @@ function ResultsModal(props: ResultsModalProps & ActionDialog<{ child: ChildInpu
                                 underline="none"
                             />
                         ),
-                        OtherLink: (
-                            <Link
-                                className={classes.link}
-                                href={`/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4`}
-                                underline="none"
-                            />
-                        ),
+                        OtherLink: <Link className={classes.link} href={ARTICLE_LINK} underline="none" />,
                     }}
                 />
             </Typography>
@@ -74,13 +68,7 @@ function ResultsModal(props: ResultsModalProps & ActionDialog<{ child: ChildInpu
                     <Trans
                         i18nKey={`${RESULTS_PREFIX}.${props.progressKey}.text-3`}
                         components={{
-                            Link: (
-                                <Link
-                                    className={classes.link}
-                                    href={`/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4`}
-                                    underline="none"
-                                />
-                            ),
+                            Link: <Link className={classes.link} href={ARTICLE_LINK} underline="none" />,
                         }}
                     />
                 </Typography>
