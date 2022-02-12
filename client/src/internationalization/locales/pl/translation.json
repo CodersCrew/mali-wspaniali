@@ -251,7 +251,7 @@
         "advice-modal-content": {
             "scale39": {
                 "title": "Porada - Niski poziom sprawności",
-                "subtitle": "Coś poszło nie tak!",
+                "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Wynik testu sprawności fizycznej Twojego dziecka jest na niskim poziomie. Nie należy tego bagatelizować. ",
                 "text-2": "Mogły na to wpłynąć różne <Link>czynniki</Link> jednak warto sprawdzić przyczynę słabszego wyniku i pracować z dzieckiem nad poprawą sprawności ruchowej, by mogło się zdrowo rozwijać.",
                 "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego <Link>zestawu ćwiczeń.</Link>"
@@ -995,7 +995,7 @@
         }
     },
     "add-results-page": {
-        "test-name": "Nazwa roku",
+        "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
         "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",

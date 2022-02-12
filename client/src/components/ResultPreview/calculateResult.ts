@@ -2,11 +2,13 @@ import { resultColors } from '@app/colors';
 import { AssessmentParam } from '@app/graphql/types';
 import { countInvertedPoints, countPoints } from '@app/pages/InstructorResultCreatorPage/countPoints';
 
+export type ResultKeys = 'scale39' | 'scale49' | 'scale59' | 'maxScale';
+
 export interface Calculation {
     color: string;
     lightColor: string;
-    key: string;
-    nextKey: string | null;
+    key: ResultKeys;
+    nextKey: ResultKeys | null;
     maxValueInPoints: number;
     valueInPoints: number;
     scale39InPoints: number;
@@ -16,7 +18,7 @@ export interface Calculation {
     maxScaleInPoints: number;
 }
 
-export const testResults = {
+export const testResults: Record<string, Partial<Calculation>> = {
     bad: {
         color: resultColors.red,
         lightColor: resultColors.lightRed,
