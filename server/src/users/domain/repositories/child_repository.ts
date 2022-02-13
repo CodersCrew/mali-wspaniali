@@ -62,7 +62,7 @@ export class ChildRepository {
     return results.filter(c => {
       const age = parseDateToAge(c.birthYear, c.birthQuarter);
 
-      return age >= 3 && age <= 7 && !c.isDeleted;
+      return age >= 2 && age <= 7 && !c.isDeleted;
     });
   }
 

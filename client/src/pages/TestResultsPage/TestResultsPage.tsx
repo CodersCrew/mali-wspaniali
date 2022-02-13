@@ -3,7 +3,6 @@ import { Box, Grid, MenuItem } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
-import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 import { useHistory, useParams } from 'react-router-dom';
 import { Skeleton } from '@material-ui/lab';
 
@@ -74,13 +73,6 @@ export default function TestResultsPage() {
                         <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
                     </Box>
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
-                        <ButtonSecondary
-                            onClick={() => {
-                                console.log('publikuj wyniki');
-                            }}
-                            icon={<ReplyAllIcon />}
-                            innerText={t('test-results.publish-result')}
-                        />
                         <ButtonSecondary
                             onClick={() => {
                                 console.log('pobierz wyniki');
