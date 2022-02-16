@@ -22,7 +22,7 @@ export const Interpretation = () => {
                         </Typography>
                     </Box>
                     <ul className={classes.ul}>
-                        {[...Array(4)].map((_, index: number) => (
+                        {[...Array(5)].map((_, index: number) => (
                             <li key={index}>
                                 <Typography color="textPrimary" variant="body1">
                                     {t(`${T_PREFIX}.text${index + 1}`)}
@@ -38,7 +38,7 @@ export const Interpretation = () => {
                     <ul className={classes.ul}>
                         {[...Array(6)].map((_, index: number) => (
                             <li key={index}>
-                                <Typography variant="body1">{t(`${T_PREFIX}.text${index + 5}`)}</Typography>
+                                <Typography variant="body1">{t(`${T_PREFIX}.text${index + 6}`)}</Typography>
                             </li>
                         ))}
                     </ul>

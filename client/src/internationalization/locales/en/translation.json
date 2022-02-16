@@ -263,8 +263,8 @@
             "conditions": {
                 "panelTitle": "How do we perform the preschool agility test and calculate its results?",
                 "title": "The preschool agility test is performed once a semester.",
-                "text1": "It consists of two measurements: the initial measurement (at the turn of October and November) and the final measurement (at the turn of April and May). Each measurement has four attempts, the sum of which makes up the total score. This result gives an indication of your child's fitness level.",
-                "text2": "A certain number of points is assigned for each attempt. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength attempts (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility attempts (speed and agility), more points will be awarded to the child with shorter execution time.",
+                "text1": "It consists of two measurements: the initial measurement (in the fall months of the school year) and the final measurement (in the spring months of the school year). Each measurement has four attempts, the sum of which makes up the total score. This result gives an indication of your child's fitness level.",
+                "text2": "A certain number of points is assigned for each attempt. The scoring scale corresponds to the standards developed as a result of many years of measurements and analyzes conducted in cooperation with, among others, scientists and researchers from the the University of Rzeszów. Children are assessed according to a scale updated by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength attempts (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility attempts (speed and agility), more points will be awarded to the child with shorter execution time. Sometimes the slightest differences in the results of attempts can significantly impact the score discrepancies. Also apparently large differences in the child's scores may not change the score. The scoring method resulted from many years of detailed research conducted by scientists from Polish academic centers among preschoolers.",
                 "text3": "The sum of points makes up the total score. This result signifies your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to participate in the Mali Wspaniali classes held by the Instructor. A missing attempt result may be due to child's absence that day or to non-participation in a given attempt. In this case, you receive individual test results without insights into child's overall fitness.",
                 "test1-name": "Agility",
                 "test1-description": "4 x 5 m shuttle run while carrying a block",
@@ -296,16 +296,17 @@
                 "panelTitle": "What factors can contribute to a low test result",
                 "title1": "General factors that can contribute to a low test result:",
                 "title2": "Individual factors that can contribute to a low test result:",
-                "text1": "Lack of motivation among participants or in the environment",
-                "text2": "Conditions inside and outside the facility (not necessarily unfavorable)",
-                "text3": "Daytime (e.g. after a meal, resting or other activities)",
-                "text4": "External difficulties (e.g. behavior of other children)",
-                "text5": "Child's disease (e.g. cold, diarrhea)",
-                "text6": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
-                "text7": "Serious illness of the child requiring hospitalization within the last 6 months",
-                "text8": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
-                "text9": "The child is premature",
-                "text10": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
+                "text1": "Omitted one or more attempts in test",
+                "text2": "Lack of motivation among participants or in the environment",
+                "text3": "Conditions inside and outside the facility (not necessarily unfavorable)",
+                "text4": "Daytime (e.g. after a meal, resting or other activities)",
+                "text5": "External difficulties (e.g. behavior of other children)",
+                "text6": "Child's disease (e.g. cold, diarrhea)",
+                "text7": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
+                "text8": "Serious illness of the child requiring hospitalization within the last 6 months",
+                "text9": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
+                "text10": "The child is premature",
+                "text11": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
             }
         },
         "recommendations": {
