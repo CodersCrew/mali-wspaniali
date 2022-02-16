@@ -1,10 +1,8 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, createStyles, Grid, IconButton, Theme, Typography, Box, Divider } from '@material-ui/core';
+import { Card, createStyles, Theme, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { ButtonSecondary } from '../Button';
-import { openAgeDescriptionModal } from './modals/AgeDescriptionModal';
 import { openSnackbar } from '../Snackbar/openSnackbar';
 import { openAdviceModal } from './modals/AdviceModal';
 import { CircleChart } from '../CircleChart';
@@ -45,21 +43,14 @@ export const TestSummary = ({ prefix }: Props) => {
                     </Typography>
                 </Box>
                 <Divider />
-                <Grid direction="row" justifyContent="flex-start" alignItems="center" container>
-                    <Grid item>
-                        <Typography variant="body1">
-                            {t('child-profile.age-group')}:&nbsp;
-                            <strong>
-                                {age} {t('years', { count: age })}
-                            </strong>
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <IconButton aria-label="notifications" onClick={onDescriptionButtonClick}>
-                            <InfoOutlinedIcon />
-                        </IconButton>
-                    </Grid>
-                </Grid>
+                <Box my={2}>
+                    <Typography variant="body1">
+                        {t('child-profile.age-group')}:&nbsp;
+                        <strong>
+                            {age} {t('years', { count: age })}
+                        </strong>
+                    </Typography>
+                </Box>
                 <Divider />
                 <Box display="flex" flexDirection="column" alignItems="center" px={4} py={2}>
                     <Typography variant="body1" className={classes.fitnessLevelLabel}>
@@ -98,16 +89,6 @@ export const TestSummary = ({ prefix }: Props) => {
 
     function getDescription() {
         return prefix === 'first' ? t('child-profile.initial-fitness-level') : t('child-profile.final-fitness-level');
-    }
-
-    function onDescriptionButtonClick() {
-        openAgeDescriptionModal().then((dialogResult) => {
-            if (dialogResult.close) return;
-
-            openSnackbar({
-                text: t('user-settings.modal-edit-account.success-message'),
-            });
-        });
     }
 
     function onAdviceButtonClick() {
