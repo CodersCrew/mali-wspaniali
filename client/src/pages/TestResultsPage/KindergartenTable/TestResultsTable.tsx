@@ -14,20 +14,28 @@ import {
     createStyles,
 } from '@material-ui/core';
 
-import { KindergartenWithChildren } from '@app/graphql/types';
+import { KindergartenWithChildren, Assessment } from '@app/graphql/types';
 
 import { TestResultsTableRow } from './TestResultsTableRow';
 import { MeasurementType } from '../TestToggleButton';
 
 interface Props {
     assessmentId: string;
+    assessment: Assessment;
     measurementType: MeasurementType;
     kindergartens: KindergartenWithChildren[];
     page: number;
     setPage: (value: number) => void;
 }
 
-export const TestResultsTable = ({ assessmentId, measurementType, kindergartens, page, setPage }: Props) => {
+export const TestResultsTable = ({
+    assessmentId,
+    measurementType,
+    kindergartens,
+    page,
+    assessment,
+    setPage,
+}: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -59,6 +67,7 @@ export const TestResultsTable = ({ assessmentId, measurementType, kindergartens,
                                 measurementType,
                                 assessmentId,
                                 kindergartenId: kindergarten._id,
+                                assessment,
                             }}
                         />
                     ))}

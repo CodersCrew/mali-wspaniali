@@ -183,7 +183,13 @@
         "last-measurement": "PK",
         "download-result": "Pobierz wyniki",
         "status-result": "Status wyników",
-        "filter-children-label": "Szukaj po dziecku"
+        "filter-children-label": "Szukaj po dziecku",
+        "age-description": {
+            "age-in-test": "Wiek w teście: {{age}}l. {{q}} kw.",
+            "current-age": "Aktualny wiek: {{age}}l. {{q}} kw.",
+            "dob": "Data urodzenia: {{year}} {{q}} kw.",
+            "current-date": "Aktualna data: {{year}}  {{q}} kw."
+        }
     },
     "kindergarten-modal": {
         "city": "Miasto",

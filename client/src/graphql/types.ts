@@ -126,6 +126,8 @@ export interface BaseChildInfo {
     firstname: string;
     lastname: string;
     sex: Sex;
+    birthYear: number;
+    birthQuarter: number;
     age?: number;
 }
 
