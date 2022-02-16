@@ -170,17 +170,6 @@
         "info-about-test": "Information about the test",
         "carries-out-on": "carried out {{date}}",
         "age-group": "Child's age",
-        "age-group-description": {
-            "title": "How we assign a child to an age group",
-            "subtitle": "When assigning the child to the age group, we calculate the child's metric age on the day of testing (with an accuracy of one month).",
-            "text-1": "If a child is, for example, 4 years and 10 months old we classify him/her as a 5 year old. The group of ",
-            "age-1": "children aged 5",
-            "text-2": " includes all children who on the day of the survey were ",
-            "age-2": "4 years and 6 months,",
-            "text-3": " but no more than ",
-            "age-3": "5 years and 5 months.",
-            "text-4": " A similar principle applies to the qualification of children in other age groups."
-        },
         "empty-view": "There is no test assigned to your child",
         "initial-fitness-level": "Total result of initial measurement",
         "final-fitness-level": "Total result of final measurement",

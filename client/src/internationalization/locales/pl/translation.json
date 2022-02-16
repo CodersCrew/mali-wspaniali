@@ -232,17 +232,6 @@
         "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony {{date}}",
         "age-group": "Wiek dziecka",
-        "age-group-description": {
-            "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
-            "subtitle": "Przypisując dziecko do grupy wiekowej obliczamy w dniu testów jego wiek metrykalny (z dokładnością do jednego miesiąca).",
-            "text-1": "Jeśli dziecko ma np. 4 lata i 10 miesięcy to kwalifikujemy je jako 5-latka. Do grupy ",
-            "age-1": "dzieci w wieku 5 lat",
-            "text-2": " zalicza się wszystkie dzieci, które w dniu badania miały ukończone ",
-            "age-2": "4 lata i 6 miesięcy,",
-            "text-3": " ale nie przekroczyły ",
-            "age-3": "5 lat i 5 miesięcy.",
-            "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
-        },
         "empty-view": "Żaden test nie jest dostępny dla Twojego dziecka",
         "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
         "final-fitness-level": "Łączny wynik z pomiaru końcowego",
