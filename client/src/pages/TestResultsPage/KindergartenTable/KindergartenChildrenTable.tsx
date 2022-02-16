@@ -22,6 +22,7 @@ import { BaseChildInfo } from '@app/graphql/types';
 import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
 
 import { ResultParametersInfo } from './ResultParametersInfo';
+import { getQuarter, parseToDetailedAge } from '@app/utils/parseDateToAge';
 
 interface Props {
     open: boolean;
@@ -88,6 +89,15 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                             <TableBody>
                                 {children.map((child) => {
                                     const result = kindergartenResults.find((r) => r.childId === child._id);
+                                    const realAge = parseToDetailedAge(child.birthYear, child.birthQuarter);
+                                    const assessmentStartDate =
+                                        parameterInfo.assessment.firstMeasurementStartDate ||
+                                        parameterInfo.assessment.lastMeasurementStartDate;
+                                    const assessmentAge = parseToDetailedAge(
+                                        child.birthYear,
+                                        child.birthQuarter,
+                                        new Date(assessmentStartDate),
+                                    );
 
                                     return (
                                         <TableRow className={classes.row} key={child._id}>
@@ -100,7 +110,40 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                                 {child.firstname} {child.lastname}
                                             </TableCell>
                                             <TableCell className={classes.cell}>
-                                                {child.age} {t('years_1')}
+                                                <Tooltip
+                                                    title={
+                                                        <div>
+                                                            <div>
+                                                                {t('test-results.age-description.age-in-test', {
+                                                                    age: assessmentAge[0],
+                                                                    q: assessmentAge[1],
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.current-age', {
+                                                                    age: realAge[0],
+                                                                    q: realAge[1],
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.dob', {
+                                                                    year: child.birthYear,
+                                                                    q: child.birthQuarter,
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.current-date', {
+                                                                    year: new Date().getFullYear(),
+                                                                    q: getQuarter(),
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                >
+                                                    <span>
+                                                        {child.age} {t('years_1')}
+                                                    </span>
+                                                </Tooltip>
                                             </TableCell>
                                             <TableCell className={classes.iconCell} align="right">
                                                 <Tooltip title={t('test-results.edit').toString()}>

@@ -31,6 +31,8 @@ export const KINDERGARTENS_WITH_CHILDREN = gql`
                         firstname
                         lastname
                         age
+                        birthYear
+                        birthQuarter
                     }
                 }
             }

@@ -98,6 +98,7 @@ export default function TestResultsPage() {
                         kindergartens={kindergartenList}
                         page={page}
                         setPage={setPage}
+                        assessment={selectedAssessment}
                     />
                 )}
             </Box>

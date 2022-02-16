@@ -460,7 +460,13 @@
         "last-measurement": "LM",
         "download-result": "Download result",
         "status-result": "result status",
-        "filter-children-label": "Search by children"
+        "filter-children-label": "Search by children",
+        "age-description": {
+            "age-in-test": "Age in test: {{age}}Y {{q}}Q",
+            "current-age": "Current age: {{age}}Y {{q}}Q",
+            "dob": "Date of birth: {{year}} {{q}}Q",
+            "current-date": "Curent date: {{year}} {{q}}Q"
+        }
     },
     "kindergarten-modal": {
         "city": "City",
