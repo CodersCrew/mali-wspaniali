@@ -2,7 +2,16 @@ export function parseDateToAge(birthYear: number, birthQuarter: number, compareD
     return Math.floor(getAgeInQuarters(birthYear, birthQuarter, compareDate) / 4);
 }
 
-export function parseToDetailedAge(birthYear: number, birthQuarter: number, compareDate: Date = new Date()) {
+type Age = number;
+type Quarter = number;
+
+type DetailedAge = [Age, Quarter];
+
+export function parseToDetailedAge(
+    birthYear: number,
+    birthQuarter: number,
+    compareDate: Date = new Date(),
+): DetailedAge {
     const age = getAgeInQuarters(birthYear, birthQuarter, compareDate) / 4;
 
     const roundedAge = Math.floor(age);
@@ -21,7 +30,7 @@ function getAgeInQuarters(birthYear: number, birthQuarter: number, compareDate: 
     return totalQuarters;
 }
 
-export function getQuarter(date: Date = new Date()) {
+export function getQuarter(date: Date = new Date()): number {
     const quarters = [0, 1, 2, 3];
 
     return quarters[Math.floor(date.getMonth() / 3)];
