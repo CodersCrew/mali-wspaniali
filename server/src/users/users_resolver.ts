@@ -49,7 +49,6 @@ import {
   AgreementCore,
 } from '@app/agreements/domain/models/agreement';
 import { Notification } from '../notifications/domain/models/notification_model';
-import { logger } from '../logger';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -148,8 +147,6 @@ export class UsersResolver {
     const payload = await this.commandBus.execute(
       new LoginUserCommand(user.mail, user.password),
     );
-
-    logger.info('User logged!');
 
     if (new RegExp(process.env.SERVER_HOST).test(context.req.headers.origin)) {
       context.res.header(
