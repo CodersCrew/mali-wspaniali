@@ -101,6 +101,9 @@
       ".spec.ts$",
       "(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
     ],
+    "modulePathIgnorePatterns": [
+      "e2e"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
