@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { LoginUserCommand } from '../impl/login_user_command';
 import { UserRepository } from '../../repositories/user_repository';
-import { logger } from '../../../../logger';
+import { logger } from '@app/logger';
 
 @CommandHandler(LoginUserCommand)
 export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
