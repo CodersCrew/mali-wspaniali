@@ -4,8 +4,8 @@ import * as request from 'supertest';
 import * as bcrypt from 'bcrypt';
 import waitForExpect from 'wait-for-expect';
 
-import { AppModule } from './../src/app.module';
-import { UserRepository } from '../src/users/domain/repositories/user_repository';
+import { AppModule } from '@app/app.module';
+import { UserRepository } from '../users/domain/repositories/user_repository';
 
 jest.setTimeout(10000);
 

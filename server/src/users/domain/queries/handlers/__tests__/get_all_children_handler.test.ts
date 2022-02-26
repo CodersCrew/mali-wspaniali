@@ -1,8 +1,8 @@
-import { User } from '@users/domain/models';
+import { User } from '@app/users/domain/models';
 import {
   GetAllChildrenHandler,
   ChildWithKindergarten,
-} from '@users/domain/queries/handlers/get_all_children_handler';
+} from '@app/users/domain/queries/handlers/get_all_children_handler';
 import waitForExpect from 'wait-for-expect';
 import { getApp } from '../../../../../../setupTests';
 import {

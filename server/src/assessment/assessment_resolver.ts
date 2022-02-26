@@ -36,7 +36,7 @@ import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructo
 import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
 import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
 import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
-import { User } from '@users/domain/models';
+import { User } from '@app/users/domain/models';
 import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
 import { UserMapper } from '../users/domain/mappers/user_mapper';
 

@@ -6,9 +6,9 @@ import {
   createParent,
   anonymizeUser,
 } from '../../../../../test/helpers/app_mock';
-import { GetChildrenQuery } from '@users/domain/queries/impl';
-import { GetChildrenHandler } from '@users/domain/queries/handlers';
-import { Child, User } from '@users/domain/models';
+import { GetChildrenQuery } from '@app/users/domain/queries/impl';
+import { GetChildrenHandler } from '@app/users/domain/queries/handlers';
+import { Child, User } from '@app/users/domain/models';
 import { getApp } from '../../../../../../setupTests';
 
 describe('GetChildrenHandler', () => {

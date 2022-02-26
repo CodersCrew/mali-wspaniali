@@ -1,4 +1,4 @@
-import { CreateArticleInput } from '@articles/inputs/article_input';
+import { CreateArticleInput } from '@app/articles/inputs/article_input';
 
 export class ArticleUpdatedEvent {
   constructor(

@@ -14,10 +14,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "paths": {
-      "@users/*": ["src/users/*"],
-      "@kindergartens/*": ["src/kindergartens/*"],
-      "@keyCodes/*": ["src/key_codes/*"],
-      "@articles/*": ["src/articles/*"],
       "@app/*": ["src/*"]
     }
   }

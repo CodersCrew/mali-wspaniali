@@ -1,6 +1,6 @@
-import { CreateArticleHandler } from '@articles/domain/commands/handlers/create_article_handler';
-import { CreateArticleCommand } from '@articles/domain/commands/impl';
-import { CreateArticleInput } from '@articles/inputs/article_input';
+import { CreateArticleHandler } from '@app/articles/domain/commands/handlers/create_article_handler';
+import { CreateArticleCommand } from '@app/articles/domain/commands/impl';
+import { CreateArticleInput } from '@app/articles/inputs/article_input';
 import { Article } from '@app/articles/domain/models/article_model';
 import { getAllArticles } from '@app/test/helpers/app_mock';
 import waitForExpect from 'wait-for-expect';

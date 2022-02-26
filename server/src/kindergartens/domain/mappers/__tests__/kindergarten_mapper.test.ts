@@ -1,4 +1,4 @@
-import { KindergartenInput } from '@kindergartens/inputs/kindergarten_input';
+import { KindergartenInput } from '@app/kindergartens/inputs/kindergarten_input';
 import { KindergartenMapper } from '../kindergarten_mapper';
 import { Kindergarten } from '../../models/kindergarten_model';
 describe('KindergartenMapper', () => {
