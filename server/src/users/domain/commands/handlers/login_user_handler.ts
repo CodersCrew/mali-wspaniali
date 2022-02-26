@@ -24,14 +24,14 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       if (isValidPassword) {
         if (!user.isConfirmed) {
           logger.info('Login unconfirmed account', {
-            id: user.id,
+            userId: user.id,
             event: 'user_login_unconfirmed',
           });
 
           throw new Error('confirmation-failed');
         }
 
-        logger.info('User logged', { id: user.id, event: 'user_logged' });
+        logger.info('User logged', { userId: user.id, event: 'user_logged' });
 
         const payload = this.jwtService.sign({
           role: user.role,
