@@ -5,7 +5,7 @@ import {
   createParent,
   getKindergarten,
 } from '../../../../../test/helpers/app_mock';
-import { Kindergarten } from '@kindergartens/domain/models';
+import { Kindergarten } from '@app/kindergartens/domain/models';
 import { DeleteKindergartenHandler } from '../delete_kindergarten_handler';
 import { DeleteKindergartenCommand } from '../../impl';
 import { getApp } from '../../../../../../setupTests';

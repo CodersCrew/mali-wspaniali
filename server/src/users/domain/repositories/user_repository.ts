@@ -7,7 +7,7 @@ import { UserDocument } from '../../schemas/user_schema';
 import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
 import { UserMapper } from '../mappers/user_mapper';
 import { UserDTO } from '../../dto/user_dto';
-import { UserPagination } from '@users/params/user_pagination';
+import { UserPagination } from '@app/users/params/user_pagination';
 
 @Injectable()
 export class UserRepository {
