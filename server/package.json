@@ -110,10 +110,6 @@
     "globalSetup": "./setup.ts",
     "globalTeardown": "./teardown.ts",
     "moduleNameMapper": {
-      "^@users/(.*)$": "<rootDir>/users/$1",
-      "^@kindergartens/(.*)$": "<rootDir>/kindergartens/$1",
-      "^@keyCodes/(.*)$": "<rootDir>/key_codes/$1",
-      "^@articles/(.*)$": "<rootDir>/articles/$1",
       "^@app/(.*)$": "<rootDir>/$1"
     },
     "setupFilesAfterEnv": [
@@ -121,10 +117,6 @@
     ]
   },
   "_moduleAliases": {
-    "@users": "dist/users",
-    "@kindergartens": "dist/kindergartens",
-    "@keyCodes": "dist/key_codes",
-    "@articles": "dist/articles",
     "@app": "dist"
   }
 }
