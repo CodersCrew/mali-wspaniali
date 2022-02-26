@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 
-import { AppModule } from './../src/app.module';
-import { KeyCodeRepository } from '../src/key_codes/domain/repositories/key_codes_repository';
-import { UserRepository } from '../src/users/domain/repositories/user_repository';
+import { AppModule } from '@app/app.module';
+import { KeyCodeRepository } from '../key_codes/domain/repositories/key_codes_repository';
+import { UserRepository } from '../users/domain/repositories/user_repository';
 import * as bcrypt from 'bcrypt';
 
 jest.setTimeout(10000);
