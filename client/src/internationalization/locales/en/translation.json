@@ -383,7 +383,7 @@
                 "title": "Tip - Average level of efficiency",
                 "subtitle": "We have something to work on!",
                 "text-1": "Basics of fitness have been reached, but for your child to develop better, you need to work on improvements. Here are here to help!",
-                "text-2": "Prepared by our experts <Link>exercises</Link> will definitely help to improve your child's fitness.",
+                "text-2": "Prepared by our experts exercises will definitely help to improve your child's fitness.",
                 "text-3": "This is not everything we have prepared for you! Check out what else you can do to improve your child's fitness thanks to our expert <Link>article</Link>"
             },
             "scale59": {
@@ -1142,8 +1142,8 @@
     "instructor-settings-page": {
         "basic-information-panel": {
             "title": "Basic information",
-            "first-name":"First name",
-            "last-name":"Last name"
+            "first-name": "First name",
+            "last-name": "Last name"
         },
         "save": "Save"
     },
