@@ -254,7 +254,7 @@
                 "title": "Porada - Średni poziom sprawności",
                 "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Podstawy sprawności są, ale by Twoje dziecko mogło lepiej się rozwijać, trzeba popracować nad jej poprawą. Tu z pomocą przychodzimy my! ",
-                "text-2": "Przygotowane przez naszych ekspertów <Link>ćwiczenia</Link> na pewno pomogą w poprawie sprawności Twojego dziecka.",
+                "text-2": "Przygotowane przez naszych ekspertów ćwiczenia na pewno pomogą w poprawie sprawności Twojego dziecka.",
                 "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów <Link>artykułowi</Link>"
             },
             "scale59": {
@@ -1083,7 +1083,6 @@
         "edit-groups": "włącz edycję grup",
         "edit": "edytuj",
         "group-with-children-message": "Kasowanie grupy z dziećmi jest niedozwolone. Wypisz wszystkie dzieci aby odblokować."
-
     },
     "add-article": {
         "basic-information-form": {
@@ -1146,8 +1145,8 @@
     "instructor-settings-page": {
         "basic-information-panel": {
             "title": "Podstawowe informacje",
-            "first-name":"Imie",
-            "last-name":"Nazwisko"
+            "first-name": "Imie",
+            "last-name": "Nazwisko"
         },
         "save": "Zapisz"
     },
