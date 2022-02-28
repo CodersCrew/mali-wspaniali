@@ -1,7 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
 import { Trans, useTranslation } from 'react-i18next';
+
 import Girl from '@app/assets/girl.svg';
 import Boy from '@app/assets/boy.svg';
+import { AssessmentResult } from '@app/graphql/types';
+import { paramOf } from '@app/components/ResultPreview/calculateResult';
 
 type ResultsData = {
     minScale: number;
@@ -20,19 +23,27 @@ type ResultsData = {
     firstName?: string;
 };
 
-export interface Props {
+export interface ResultsProps {
     resultsData: ResultsData;
+    result: AssessmentResult;
     displayHistoricalResults?: boolean;
     unit: string;
 }
 
-export function Results(props: Props) {
-    const { result, resultStart, sex, firstName, minScale, maxScale, scale39, scale49, scale59 } = props.resultsData;
+export function Results(props: ResultsProps) {
+    const { result, resultStart, sex, minScale, maxScale, scale39, scale49, scale59 } = props.resultsData;
 
     const range = minScale - maxScale;
     const calculatePercent = (value: number) => {
         return (value / range) * 100;
     };
+
+    const paramRun = paramOf(props.result, 'Run');
+    const paramPendelumRun = paramOf(props.result, 'PendelumRun');
+    const paramJump = paramOf(props.result, 'Jump');
+    const paramThrow = paramOf(props.result, 'Throw');
+
+    if (!paramRun || !paramPendelumRun || !paramJump || !paramThrow) return null;
 
     const rangeRed = calculatePercent(minScale - scale39);
     const rangeYellow = calculatePercent(scale39 - scale49);
@@ -45,6 +56,8 @@ export function Results(props: Props) {
         resultMarkShift,
         resultStartShift,
     });
+
+    console.log(props);
 
     return (
         <div className={classes.wrapper}>
@@ -68,7 +81,7 @@ export function Results(props: Props) {
             <ValueLabel label={scale59.toString()} x={rangeRed + rangeYellow + rangeLightGreen} width="50" />
             <ValueLabel label={`${maxScale} ${props.unit}`} x={100} width="55" />
             {props.displayHistoricalResults && <HistoricalLine x={resultStartShift} />}
-            <CurrentResultLine sex={sex} x={resultMarkShift} firstName={firstName} />
+            <CurrentResultLine sex={sex} x={resultMarkShift} firstName={props.result.child.firstname} />
         </div>
     );
 }

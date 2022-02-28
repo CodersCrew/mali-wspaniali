@@ -2,15 +2,17 @@ import { makeStyles } from '@material-ui/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useTranslation } from 'react-i18next';
 import { darkGray } from '../../../../../colors';
+import { localizeName } from '@app/components/ResultPreview/calculateResult';
 
-export const NoResultsBlock = ({ translationKey }: { translationKey: string }) => {
+export const NoResultsBlock = (props: { name: string }) => {
+    // todo: skasoewac
     const classes = useStyles();
     const { t } = useTranslation();
 
     return (
         <div className={classes.wrapper}>
             <InfoOutlinedIcon className={classes.icon} />
-            {t(`child-profile.tests-in-block.${translationKey}`)} {t('child-profile.no-result-block-text')}
+            {t(`child-profile.tests-in-block.${localizeName(props.name)}`)} {t('child-profile.no-result-block-text')}
         </div>
     );
 };

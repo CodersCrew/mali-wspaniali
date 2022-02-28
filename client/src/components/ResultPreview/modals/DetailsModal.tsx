@@ -8,14 +8,26 @@ import { useIsDevice } from '@app/queries/useBreakpoints';
 import { ActionDialog, openDialog } from '@app/utils/openDialog';
 
 import { Result } from '../Result';
+import { AssessmentResult } from '@app/graphql/types';
+import { interprateResult, MeasurementName, nextInterpretation, unitOf } from '../calculateResult';
+import { measurementResult } from '@app/components/ResultPreview/calculateResult';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
 
-function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMoreClicked: boolean }>) {
+function DetailsModal(
+    props: {
+        name: MeasurementName;
+        assessmentPeriod: string;
+        resultWrapper: Result;
+        result: AssessmentResult;
+    } & ActionDialog<{
+        readMoreClicked: boolean;
+    }>,
+) {
     const { t } = useTranslation();
     const device = useIsDevice();
-    const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } =
-        props.resultWrapper.getParam()!;
+    const param = props.resultWrapper.getParam();
+    const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } = param;
 
     const rangeMax = Math.min(countValue(maxScale), lowerLimitPoints!);
 
@@ -42,6 +54,11 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
         ? (resultsData[chartDetails.key as keyof typeof resultsData] as number)
         : null;
 
+    const value = measurementResult(props.name, props.assessmentPeriod, props.result);
+    const resultInterpretation = interprateResult(value, param, props.name);
+    const nextResultInterpretation = nextInterpretation(resultInterpretation);
+    const unit = unitOf(props.name);
+
     return (
         <BasicModal
             actionName={t('close')}
@@ -59,7 +76,10 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                 <Box minWidth="176" px={2} pb={2} width={device.isSmallMobile ? '50%' : 'unset'} display="flex">
                     <Box display="flex" flexDirection="column" justifyContent="space-between">
                         <DetailsMeasurement
-                            result={props.resultWrapper}
+                            name={props.name}
+                            assessmentPeriod={props.assessmentPeriod}
+                            param={param}
+                            result={props.result}
                             onReadMoreClick={() => props.makeDecision({ accepted: true, readMoreClicked: true })}
                         />
                         {props.resultWrapper.isLastMeasurementFinished() && <NextMeasurement />}
@@ -76,7 +96,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                     </Typography>
                     <Box pl={4} pr={4}>
-                        <Results resultsData={resultsData} unit={props.resultWrapper.unit || ''} />
+                        <Results resultsData={resultsData} unit={unit} result={props.result} />
                     </Box>
                     <Grid container>
                         <Grid item>
@@ -88,22 +108,15 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                                 className={classes.typographySpacing}
                                 variant="body2"
                                 component="span"
-                            >{`${resultsData.result}  ${props.resultWrapper.unit}`}</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item>
-                            <Typography className={classes.typographySpacing} variant="subtitle2">
-                                {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
-                            </Typography>
+                            >{`${value} ${unit}`}</Typography>
                         </Grid>
                     </Grid>
                     {nextLimit && (
                         <NextFeatureLevel
-                            unit={props.resultWrapper.unit || ''}
+                            unit={unit}
                             nextLimit={nextLimit}
-                            nextKey={chartDetails.nextKey!}
-                            valueToNextLimit={Math.round((props.resultWrapper.getValue() - nextLimit) * 100) / 100}
+                            nextKey={nextResultInterpretation}
+                            valueToNextLimit={Math.abs(Math.round((value - nextLimit) * 100) / 100)}
                         />
                     )}
                 </Box>
@@ -116,20 +129,35 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
     }
 }
 
-export function openDetailsModal(resultWrapper: Result) {
-    return openDialog<{ resultWrapper: Result }, { readMoreClicked: boolean }>(DetailsModal, { resultWrapper });
+export function openDetailsModal(
+    name: MeasurementName,
+    assessmentPeriod: string,
+    resultWrapper: Result,
+    result: AssessmentResult,
+) {
+    return openDialog<
+        { name: MeasurementName; assessmentPeriod: string; resultWrapper: Result; result: AssessmentResult },
+        { readMoreClicked: boolean }
+    >(DetailsModal, {
+        name,
+        assessmentPeriod,
+        resultWrapper,
+        result,
+    });
 }
 
 interface NextFeatureLevelProps {
     unit: string;
     nextLimit: number;
     valueToNextLimit: number;
-    nextKey: string;
+    nextKey: string | null;
 }
 
 function NextFeatureLevel(props: NextFeatureLevelProps) {
     const classes = useStyles();
     const { t } = useTranslation();
+
+    if (!props.nextKey) return null;
 
     return (
         <>
@@ -141,7 +169,7 @@ function NextFeatureLevel(props: NextFeatureLevelProps) {
                     nextLevel: t(`child-profile.result-levels.${props.nextKey}`),
                     value: props.nextLimit,
                     unit: props.unit,
-                    valueToNextLevel: Math.abs(props.valueToNextLimit),
+                    valueToNextLevel: props.valueToNextLimit,
                 })}
             </Typography>
         </>

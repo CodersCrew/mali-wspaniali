@@ -301,28 +301,28 @@
             "maxScale": "BARDZO DOBRY POZIOM SPRAWNOŚCI FIZYCZNEJ"
         },
         "result-levels": {
-            "scale39": "niski",
-            "scale49": "słaby",
-            "scale59": "dobry",
-            "maxScale": "bardzo dobry"
+            "bad": "niski",
+            "weak": "słaby",
+            "good": "dobry",
+            "veryGood": "bardzo dobry"
         },
         "tests": {
-            "strength": "Siła",
-            "power": "Moc",
-            "speed": "Szybkość",
-            "agility": "Zwinność"
+            "throw": "Siła",
+            "jump": "Moc",
+            "run": "Szybkość",
+            "pendelumRun": "Zwinność"
         },
         "tests-in-block": {
-            "strength": "Próba siły",
-            "power": "Próba mocy",
-            "speed": "Próba szybkości",
-            "agility": "Próba zwinności"
+            "throw": "Próba siły",
+            "jump": "Próba mocy",
+            "run": "Próba szybkości",
+            "pendelumRun": "Próba zwinności"
         },
         "test-description": {
-            "agility": "Bieg wahadłowy 4x5 metrów",
-            "power": "Skok w dal obunóż z miejsca",
-            "strength": "Rzut piłką lekarską znad głowy",
-            "speed": "Bieg na odległość 20 metrów"
+            "throw": "Rzut piłką lekarską znad głowy",
+            "jump": "Skok w dal obunóż z miejsca",
+            "run": "Bieg na odległość 20 metrów",
+            "pendelumRun": "Bieg wahadłowy 4x5 metrów"
         },
         "no-result-block-text": "nie odbyła się lub dziecko nie było w stanie uczestniczyć tego dnia w teście.",
         "scale": "Skala",
@@ -373,7 +373,6 @@
             "result-details": {
                 "title": "Szczegóły wyniku",
                 "child-result": "Wynik dziecka: ",
-                "better-results-title": "Znaczenie wyniku na tle całej grupy wiekowej:",
                 "better-results": "{{count}} dzieci uzyskało wynik równy lub lepszy od Twojego dziecka.",
                 "next-level": {
                     "title": "Następny poziom cechy:",

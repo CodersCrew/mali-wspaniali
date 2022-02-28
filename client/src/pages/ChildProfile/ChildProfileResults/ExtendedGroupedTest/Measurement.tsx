@@ -9,14 +9,23 @@ import { openDetailsModal } from '../../../../components/ResultPreview/modals/De
 import { ResultContext } from '../../../../components/ResultPreview/context';
 import { Result } from '../../../../components/ResultPreview/Result';
 
-interface Props {
-    name: string;
+import {
+    interprateResult,
+    localizeName,
+    MeasurementName,
+    measurementResult,
+    paramOf,
+    unitOf,
+} from '@app/components/ResultPreview/calculateResult';
+
+interface MeasurementProps {
+    name: MeasurementName;
     prefix: string;
-    unitOfMeasure: string;
+    unitOfMeasure: string; // to delete
     translationKey: string;
 }
 
-export function Measurement(props: Props) {
+export function Measurement(props: MeasurementProps) {
     const result = useContext(ResultContext);
     const { t } = useTranslation();
     const classes = useStyles();
@@ -28,12 +37,19 @@ export function Measurement(props: Props) {
 
     const resultWrapper = new Result({
         result,
-        unit: props.unitOfMeasure,
+        unit: props.unitOfMeasure, // to delete
         name: props.name,
         prefix: props.prefix,
         translationKey: props.translationKey,
     });
     const chartDetails = resultWrapper.getChartDetails();
+    const param = paramOf(result, props.name);
+
+    if (!param) return null;
+
+    const unit = unitOf(props.name);
+    const value = measurementResult(props.name, props.prefix, result);
+    const resultInterpretation = interprateResult(value, param, props.name);
 
     return (
         <div className={classes.container}>
@@ -43,21 +59,21 @@ export function Measurement(props: Props) {
                     value={resultWrapper.getChartValue()}
                     maxValue={resultWrapper.getMaxValue() - resultWrapper.getMinValue()}
                     label={String(resultWrapper.getValue())}
-                    labelSuffix={props.unitOfMeasure}
+                    labelSuffix={unit}
                     disable={!resultWrapper.getValue()}
                 />
             </Box>
             <Typography variant="h4" className={classes.testName}>
-                {t(`child-profile.tests-in-block.${props.translationKey}`)}
+                {t(`child-profile.tests-in-block.${localizeName(props.name)}`)}
             </Typography>
             <Typography variant="body2" className={classes.description}>
-                {t(`child-profile.test-description.${props.translationKey}`)}
+                {t(`child-profile.test-description.${localizeName(props.name)}`)}
             </Typography>
             <Typography variant="subtitle2" className={classes.levelLabel}>
                 {t('child-profile.result-level')}
             </Typography>
             <Typography variant="subtitle2" className={classes.level} style={{ color: chartDetails.color }}>
-                {t(`child-profile.result-levels.${chartDetails.key}`)}
+                {t(`child-profile.result-levels.${resultInterpretation}`)}
             </Typography>
             <Typography variant="subtitle1" className={classes.pointsHeader}>
                 {t('child-profile.received-points')}:
@@ -70,14 +86,15 @@ export function Measurement(props: Props) {
                 variant="text"
                 className={classes.detailsButton}
                 innerText={t('child-profile.details')}
-                disabled={!chartDetails.valueInPoints}
                 onClick={onDetailsButtonClick}
             />
         </div>
     );
 
     function onDetailsButtonClick() {
-        openDetailsModal(resultWrapper).then(({ decision }) => {
+        if (!result) return;
+
+        openDetailsModal(props.name, props.prefix, resultWrapper, result).then(({ decision }) => {
             if (decision && decision.accepted && decision.readMoreClicked) {
                 history.push(`/parent/child/${childId}/tests-information`);
             }

@@ -88,6 +88,7 @@ export const ResultComparison = () => {
                                 unit="pkt"
                                 resultsData={resultsData}
                                 displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
+                                result={result}
                             />
                         </Grid>
                         <Grid item xs={12} sm={3} className={classes.info}>

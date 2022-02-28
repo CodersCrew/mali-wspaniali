@@ -184,28 +184,28 @@
             "maxScale": "VERY GOOD FITNESS LEVEL"
         },
         "result-levels": {
-            "scale39": "bad",
-            "scale49": "weak",
-            "scale59": "good",
-            "maxScale": "very good"
+            "bad": "bad",
+            "weak": "weak",
+            "good": "good",
+            "veryGood": "very good"
         },
         "tests": {
-            "strength": "Strength",
-            "power": "Power",
-            "speed": "Speed",
-            "agility": "Agility"
+            "throw": "Strength",
+            "jump": "Power",
+            "run": "Speed",
+            "pendelumRun": "Agility"
         },
         "tests-in-block": {
-            "strength": "Strength test",
-            "power": "Power test",
-            "speed": "Speed test",
-            "agility": "Agility test"
+            "throw": "Strength test",
+            "jump": "Power test",
+            "run": "Speed test",
+            "pendelumRun": "Agility test"
         },
         "test-description": {
-            "agility": "4 x 5 meter shuttle run",
-            "power": "Standing long jump",
-            "strength": "Medicine ball overhead slam",
-            "speed": "20 meter run"
+            "throw": "Medicine ball overhead slam",
+            "jump": "Standing long jump",
+            "run": "20 meter run",
+            "pendelumRun": "4 x 5 meter shuttle run"
         },
         "no-result-block-text": "did not take place or the child was unable to participate in the test that day.",
         "scale": "Scale",
@@ -355,7 +355,6 @@
             "result-details": {
                 "title": "Result details",
                 "child-result": "Child's result:",
-                "better-results-title": "Meaning of the result in comparison to the whole age group:",
                 "better-results": "{{count}} children were equal to or better than your child.",
                 "next-level": {
                     "title": "Next feature level:",

@@ -6,6 +6,7 @@ import { TESTS } from './constants';
 import { Measurement } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Measurement';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import { MeasurementName } from './calculateResult';
 
 export const TestDetails = (props: { prefix: string }) => {
     const classes = useStyles();
@@ -31,7 +32,7 @@ export const TestDetails = (props: { prefix: string }) => {
                             <Slide index={index} key={test.translationKey} className={classes.slide}>
                                 <Measurement
                                     prefix={props.prefix}
-                                    name={test.name}
+                                    name={test.name as MeasurementName}
                                     unitOfMeasure={test.unitOfMeasure}
                                     translationKey={test.translationKey}
                                     key={test.translationKey}
@@ -48,7 +49,7 @@ export const TestDetails = (props: { prefix: string }) => {
                     return (
                         <Measurement
                             prefix={props.prefix}
-                            name={test.name}
+                            name={test.name as MeasurementName}
                             unitOfMeasure={test.unitOfMeasure}
                             translationKey={test.translationKey}
                             key={test.translationKey}

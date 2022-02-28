@@ -46,6 +46,3 @@ export const TESTS = [
         name: 'PendelumRun',
     },
 ];
-
-export const MAX_POINTS_FOR_TEST = 60;
-export const MAX_OVERALL_POINTS = MAX_POINTS_FOR_TEST * TESTS.length;
