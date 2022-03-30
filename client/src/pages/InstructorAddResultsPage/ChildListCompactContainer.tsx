@@ -35,13 +35,14 @@ interface Props {
 }
 
 export function ChildListCompactContainer({
-    childList,
     assessment,
-    results,
+    childList,
     compact,
-    searchTerm,
     onChange,
     onClick,
+    results,
+    searchTerm,
+    selectedGroup,
 }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -71,6 +72,19 @@ export function ChildListCompactContainer({
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
                     const result = results.find((r) => r.childId === c._id);
+
+                    let isGroupActive;
+
+                    if (selectedGroup === '') {
+                        isGroupActive = true;
+                    } else if (selectedGroup === 'unassigned') {
+                        isGroupActive =
+                            result?.firstMeasurementGroup === '' || result?.firstMeasurementGroup === undefined;
+                    } else {
+                        isGroupActive = result?.firstMeasurementGroup === selectedGroup;
+                    }
+
+                    if (!isGroupActive) return null;
 
                     return (
                         <>
