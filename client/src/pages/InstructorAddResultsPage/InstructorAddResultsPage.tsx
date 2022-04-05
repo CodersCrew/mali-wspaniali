@@ -3,6 +3,7 @@ import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
+import { Assessment } from '@app/graphql/types';
 import { activePage } from '../../apollo_client';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { CustomContainer } from '../../components/CustomContainer';
@@ -135,6 +136,14 @@ export default function InstructorAddResultsPage() {
         </PageContainer>
     );
 
+    function getMeasurementStatus(assessment: Assessment | undefined) {
+        if (!assessment || assessment.firstMeasurementStatus === 'active') {
+            return 'first';
+        }
+
+        return 'last';
+    }
+
     function handleFilterChanged(type: string, value: string) {
         if (type === 'assessment') {
             setSelectedGroup('');
@@ -248,20 +257,22 @@ export default function InstructorAddResultsPage() {
     }
 
     function onFabClick() {
+        const measurementStatus = getMeasurementStatus(currentAssessment);
+
         history.push(
-            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/all/${currentChildren[0]._id}`,
+            `/instructor/result/add/${measurementStatus}/${selectedAssessment}/${selectedKindergarten}/all/${currentChildren[0]._id}`,
         );
     }
 
     function getFiltredAndSortedChildList() {
-        const filtredChildList = currentChildren.filter((c) => {
+        const filteredChildList = currentChildren.filter((c) => {
             const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
 
             return fullName.includes(searchTerm.toLowerCase());
         });
 
         if (fullNameSortType !== '') {
-            filtredChildList.sort((a, b) => {
+            filteredChildList.sort((a, b) => {
                 const fullNameA = `${a.firstname} ${a.lastname}`;
                 const fullNameB = `${b.firstname} ${b.lastname}`;
 
@@ -274,7 +285,7 @@ export default function InstructorAddResultsPage() {
         }
 
         if (ageSortType !== '') {
-            filtredChildList.sort((a, b) => {
+            filteredChildList.sort((a, b) => {
                 const childAgeA = parseDateToAge(a.birthYear, a.birthQuarter);
                 const childAgeB = parseDateToAge(b.birthYear, b.birthQuarter);
 
@@ -287,7 +298,7 @@ export default function InstructorAddResultsPage() {
         }
 
         if (creationDateSortType !== '') {
-            filtredChildList.sort((a, b) => {
+            filteredChildList.sort((a, b) => {
                 if (creationDateSortType === 'asc') {
                     return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1;
                 }
@@ -296,16 +307,16 @@ export default function InstructorAddResultsPage() {
             });
         }
 
-        return filtredChildList;
+        return filteredChildList;
     }
 
-    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+    async function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
         const childResult = kindergartenResults.find((r) => r.childId === update.childId);
 
         if (childResult) {
-            updateAssessmentResult({ _id: childResult._id, ...update });
+            await updateAssessmentResult({ _id: childResult._id, ...update });
         } else {
-            createAssessmentResult(update);
+            await createAssessmentResult(update);
         }
     }
 
