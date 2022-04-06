@@ -3,7 +3,7 @@ import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Assessment } from '@app/graphql/types';
+import { Assessment } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { CustomContainer } from '../../components/CustomContainer';
