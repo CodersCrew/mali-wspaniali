@@ -5,10 +5,10 @@ import { Quill } from 'react-quill';
 import './internationalization/i18n';
 import ImageResize from 'quill-image-resize-module-react';
 
-import { client } from './apollo_client';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
 import { Suspense } from 'react';
 import { ThemeProvider } from '@app/theme';
+import { client } from './apollo_client';
 import createGenerateClassName from './classNameGenerator';
 
 Quill.register('modules/imageResize', ImageResize);
