@@ -20,7 +20,7 @@ interface GroupsSubheaderProps {
 }
 export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
-    const currentAssessment = props.assessments.find(a => a._id === props.selectedAssessment);
+    const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const toggleOrSelect = (groupId: string) => {
         props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
     };
@@ -55,7 +55,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
                     onClick={() => toggleOrSelect('unassigned')}
                     selected={props.selectedGroup === 'unassigned'}
                 />
-                {activeGroups.map(group => (
+                {activeGroups.map((group) => (
                     <Box key={group.group} display="inline">
                         <Box display="inline-block" mb={1}>
                             <GroupsChip
@@ -88,7 +88,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
         // eslint-disable-next-line no-void
         void openGroupsModal({
             ...props,
-            assessment: props.assessments.find(a => a._id === props.selectedAssessment),
+            assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
         });
     }
 
@@ -96,10 +96,10 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
         // return groupList.filter((g) => g.kindergartenId === props.selectedKindergarten);
         // TODO: Move making the group list (groupList param) unique to the backend
 
-        const listOfGroups = groupList.filter(g => g.kindergartenId === props.selectedKindergarten);
-        const set = new Set(listOfGroups.map(group => JSON.stringify(group)));
+        const listOfGroups = groupList.filter((g) => g.kindergartenId === props.selectedKindergarten);
+        const set = new Set(listOfGroups.map((group) => JSON.stringify(group)));
         const arr: Group[] = [];
-        set.forEach(group => arr.push(JSON.parse(group)));
+        set.forEach((group) => arr.push(JSON.parse(group)));
 
         return arr;
     }
