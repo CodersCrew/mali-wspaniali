@@ -97,9 +97,9 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
         // TODO: Move making the group list (groupList param) unique to the backend
 
         const listOfGroups = groupList.filter((g) => g.kindergartenId === props.selectedKindergarten);
-        const set = new Set(listOfGroups.map(group => JSON.stringify(group)));
+        const set = new Set(listOfGroups.map((group) => JSON.stringify(group)));
         const arr: Group[] = [];
-        set.forEach(group => arr.push(JSON.parse(group)));
+        set.forEach((group) => arr.push(JSON.parse(group)));
 
         return arr;
     }
