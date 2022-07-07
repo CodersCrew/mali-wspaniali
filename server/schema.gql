@@ -327,6 +327,7 @@ input UserPagination {
   role: String
   search: String
   page: String
+  isConfirmed: Boolean
 }
 
 type Mutation {

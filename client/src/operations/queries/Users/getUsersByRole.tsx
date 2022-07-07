@@ -33,6 +33,7 @@ interface PaginatedUserOptions {
     role: string;
     page?: string;
     search?: string;
+    isConfirmed?: boolean;
 }
 
 const INSTRUCTORS = gql`

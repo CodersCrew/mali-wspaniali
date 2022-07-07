@@ -634,7 +634,8 @@
             "checkbox-option": "Move to the same kindergarten",
             "success-message": "The kindergartens have been changed successfully"
         },
-        "success-message": "Removed (Anonymized) parent"
+        "success-message": "Removed (Anonymized) parent",
+        "not-confirmed-only": "not confirmed only"
     },
     "single-article": {
         "emotions": "emotions",

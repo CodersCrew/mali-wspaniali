@@ -2,14 +2,15 @@ import { ChangeEvent, memo, useState } from 'react';
 import { TableBody, TableCell, Table, TableHead, TableRow, TablePagination } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import { User } from '@app/graphql/types';
 import { useUsers } from '../../operations/queries/Users/getUsersByRole';
 import { AdminSettingsItem, AdminSettingsLoadingItem } from './AdminSettingsItem';
-import { User } from '@app/graphql/types';
 
 interface AdminSettingsListContainersProps {
     role: string;
     search?: string;
     kindergartenId?: string;
+    isConfirmed?: boolean;
 }
 
 export const AdminSettingsListContainers = memo(function AdminSettingsListContainers(
