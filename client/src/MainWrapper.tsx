@@ -6,7 +6,7 @@ import './internationalization/i18n';
 import ImageResize from 'quill-image-resize-module-react';
 
 import { CssBaseline, StylesProvider } from '@material-ui/core';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { ThemeProvider } from '@app/theme';
 import { client } from './apollo_client';
 import createGenerateClassName from './classNameGenerator';
