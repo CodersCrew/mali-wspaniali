@@ -633,7 +633,8 @@
             "checkbox-option": "Przeniesienie do tego samego przedszkola",
             "success-message": "Zmiana przedszkoli przebiegła pomyślnie"
         },
-        "success-message": "Usunięto (Zaanonimozowano) rodzica"
+        "success-message": "Usunięto (Zaanonimozowano) rodzica",
+        "not-confirmed-only": "tylko niepotwierdzeni"
     },
     "single-article": {
         "emotions": "emocje",

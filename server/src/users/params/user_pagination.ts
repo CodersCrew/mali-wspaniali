@@ -13,4 +13,7 @@ export class UserPagination {
 
   @Field({ nullable: true })
   page?: string;
+
+  @Field({ nullable: true })
+  isConfirmed?: boolean;
 }

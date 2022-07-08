@@ -37,7 +37,7 @@ export class UserRepository {
       )
       .lean()
       .exec()
-      .then(users => users.map(parseUser));
+      .then((users) => users.map(parseUser));
   }
 
   async getAll(options: UserPagination): Promise<User[]> {
@@ -47,7 +47,7 @@ export class UserRepository {
         isDeleted: {
           $in: [false, undefined],
         },
-        isConfirmed: true,
+        isConfirmed: options.isConfirmed ?? true,
       });
 
     if (options.search && options.search.length !== 0) {
@@ -82,7 +82,7 @@ export class UserRepository {
       result.limit(10);
     }
 
-    return await result.exec().then(users => users.map(parseUser));
+    return await result.exec().then((users) => users.map(parseUser));
   }
 
   async getByMail(mail: string): Promise<User> {
@@ -103,21 +103,21 @@ export class UserRepository {
       })
       .lean()
       .exec()
-      .then(users => users.map(parseUser));
+      .then((users) => users.map(parseUser));
   }
 
   async forEach(cb: (user: UserDocument) => void): Promise<void> {
     await this.userModel
       .find({ isConfirmed: true })
       .cursor()
-      .eachAsync(user => cb(user));
+      .eachAsync((user) => cb(user));
   }
 
   async forEachAdmin(cb: (user: UserDocument) => void): Promise<void> {
     await this.userModel
       .find({ role: 'admin', isConfirmed: true })
       .cursor()
-      .eachAsync(user => cb(user));
+      .eachAsync((user) => cb(user));
   }
 
   async create(
@@ -219,7 +219,7 @@ export class UserRepository {
 
 function parseUser(user: UserDocument) {
   if (user) {
-    const recreatedUser = UserMapper.toDomain((user as unknown) as UserDTO);
+    const recreatedUser = UserMapper.toDomain(user as unknown as UserDTO);
 
     return recreatedUser;
   }
