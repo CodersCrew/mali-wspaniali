@@ -3,7 +3,7 @@
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "Default GraphQL Endpoint": {
+      "Local GraphQL Endpoint": {
         "url": "http://localhost:3005/graphql",
         "headers": {
           "user-agent": "JS GraphQL"

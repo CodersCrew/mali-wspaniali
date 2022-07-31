@@ -14,6 +14,7 @@ import { Assessment } from '@app/graphql/types';
 import { useKindergartensWithChildren } from '@app/operations/queries/Kindergartens/getKindergartensWithChildren';
 import { Theme } from '@app/theme';
 
+import { useAssessmentResults } from '@app/operations/queries/Assessment/getAssessmentResults';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { NoResults } from './NoResults';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
@@ -26,6 +27,7 @@ export default function TestResultsPage() {
     const [page, setPage] = useState(0);
 
     const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
+    const { assessmentResults } = useAssessmentResults(assessmentId);
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -40,6 +42,7 @@ export default function TestResultsPage() {
             },
         });
     };
+
     useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
@@ -49,6 +52,11 @@ export default function TestResultsPage() {
     };
     const handleSelectAssessmentType = (selectedAssessmentType: AssessmentPart) => {
         pushToAdminResult(assessmentId, selectedAssessmentType.type);
+    };
+
+    const downloadResults = () => {
+        // TODO: remove!
+        console.log('pobierz wyniki:', { assessmentResults });
     };
 
     if (!kindergartenList) return <NoResults />;
@@ -70,18 +78,19 @@ export default function TestResultsPage() {
                                 ))}
                             />
                         </div>
+
                         <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
                     </Box>
+
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
                         <ButtonSecondary
-                            onClick={() => {
-                                console.log('pobierz wyniki');
-                            }}
+                            onClick={downloadResults}
                             icon={<SaveAltIcon />}
                             innerText={t('test-results.download-result')}
                         />
                     </Box>
                 </Grid>
+
                 <Box className={classes.informationContainer} justifyContent="space-between" alignItems={'center'}>
                     <span className={classes.measurementText}>{t(selectedAssessmentPart.assessmentName)}</span>
                     <p>
@@ -89,6 +98,7 @@ export default function TestResultsPage() {
                         {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
+
                 {isKindergartenListLoading ? (
                     <EmptyPage />
                 ) : (
