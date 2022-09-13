@@ -10,7 +10,7 @@ import { ResultEmptyView } from './ResultEmptyView';
 export function ResultPreview(props: { resultId: string }) {
     const { result } = useResult(props.resultId);
 
-    if (!result) return null;
+    if (!result) return <></>;
 
     if (!isFirstMeasurementDone() && !isLastMeasurementDone()) return <ResultEmptyView childId={result.child._id} />;
 

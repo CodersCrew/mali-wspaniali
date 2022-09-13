@@ -54,8 +54,8 @@ export function useSelectOptions(): { getOptions: (name: string) => Option[] } {
 }
 
 function generateDates() {
-    return [...Array(5)].map((_, i) => {
-        const date = (new Date().getFullYear() - 3 - i).toString();
+    return [...Array(6)].map((_, i) => {
+        const date = (new Date().getFullYear() - 2 - i).toString();
 
         return {
             value: date,
