@@ -1,9 +1,9 @@
-import React from 'react';
+import { useContext, createContext } from 'react';
 
-import { Me } from '../graphql/types';
+import { Me } from '@app/graphql/types';
 
-export const UserContext = React.createContext<Me | null>(null);
+export const UserContext = createContext<Me | null>(null);
 
 export function useMe(): Me | null {
-    return React.useContext(UserContext);
+    return useContext(UserContext);
 }

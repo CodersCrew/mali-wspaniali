@@ -3,12 +3,12 @@ import { makeStyles, Theme, Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
-import { Child, AddChildResult, UpdatedChildInput } from '../../graphql/types';
+import { Child, AddChildResult, UpdatedChildInput } from '@app/graphql/types';
 import { BasicModal } from '../Modal/BasicModal';
 import { ChildCard } from '../ChildCard/ChildCard';
-import BoyAvatar from '../../assets/boy.svg';
-import GirlAvatar from '../../assets/girl.svg';
-import { openDialog, ActionDialog } from '../../utils/openDialog';
+import BoyAvatar from '@app/assets/boy.svg';
+import GirlAvatar from '@app/assets/girl.svg';
+import { openDialog, ActionDialog } from '@app/utils/openDialog';
 import { ChildForm } from '../ChildForm/ChildForm';
 
 import { initialValues, validationSchema, normalizeChild } from './utils';

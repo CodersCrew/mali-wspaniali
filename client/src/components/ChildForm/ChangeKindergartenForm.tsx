@@ -1,7 +1,7 @@
 import { Typography, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { FieldArray, FormikProps } from 'formik';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 import { Select } from './Select';
 import { mapKindergartenToOption } from './utils';
@@ -28,7 +28,9 @@ interface ChangeKindergartenProps {
 
 export const ChangeKindergartenModal = ({ formik, kindergartens }: ChangeKindergartenProps) => {
     const { t } = useTranslation();
-    const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
+    const kindergartenOptions = [...kindergartens]
+        .sort((a, b) => (a.city > b.city ? -1 : 1))
+        .map(mapKindergartenToOption);
 
     const classes = useStyles();
 

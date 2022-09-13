@@ -1,20 +1,15 @@
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from '@apollo/client';
-import { Quill } from 'react-quill';
 
 import './internationalization/i18n';
-import ImageResize from 'quill-image-resize-module-react';
 import { Root } from './pages/Root';
 
 import * as serviceWorker from './serviceWorker';
-import { client } from './apollo_client';
-
-Quill.register('modules/imageResize', ImageResize);
+import { MainWrapper } from './MainWrapper';
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
+    <MainWrapper>
         <Root />
-    </ApolloProvider>,
+    </MainWrapper>,
     document.getElementById('root'),
 );
 

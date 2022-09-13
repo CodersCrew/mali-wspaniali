@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import {
     createStyles,
     Grid,
@@ -33,7 +33,7 @@ interface Props {
     onClick: () => void;
 }
 
-export const MeasurementPoint = React.memo((props: Props) => {
+export const MeasurementPoint = memo((props: Props) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const device = useIsDevice();
@@ -43,7 +43,7 @@ export const MeasurementPoint = React.memo((props: Props) => {
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item>
-                <Grid container spacing={1} justify={device.isSmallMobile ? 'space-between' : 'flex-start'}>
+                <Grid container spacing={1} justifyContent={device.isSmallMobile ? 'space-between' : 'flex-start'}>
                     <Grid item className={classes.editMeasurementButton}>
                         <Typography variant="subtitle1">{props.label}</Typography>&nbsp;
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
@@ -125,7 +125,7 @@ export const MeasurementPoint = React.memo((props: Props) => {
             </Grid>
             <Grid item>
                 <FormControlLabel
-                    checked={props.isEmpty}
+                    checked={props.points === 0}
                     disabled={props.isEmpty}
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}

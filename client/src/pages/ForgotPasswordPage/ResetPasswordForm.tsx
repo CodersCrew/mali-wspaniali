@@ -1,12 +1,12 @@
-import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
 import { useState } from 'react';
+import { TextField, Typography, Box, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
 
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { emailTest } from '../../utils/emailTest';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 const tPrefix = 'forgot-password-page';
 

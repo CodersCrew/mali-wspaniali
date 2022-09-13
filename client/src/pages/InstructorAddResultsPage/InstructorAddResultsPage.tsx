@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
+import { Assessment } from '../../graphql/types';
 import { activePage } from '../../apollo_client';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { CustomContainer } from '../../components/CustomContainer';
@@ -33,6 +34,7 @@ export default function InstructorAddResultsPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [fullNameSortType, setFullNameSortType] = useState('asc');
     const [ageSortType, setAgeSortType] = useState('');
+    const [creationDateSortType, setCreationDateSortType] = useState('');
     const { t } = useTranslation();
     const history = useHistory();
     const device = useIsDevice();
@@ -76,106 +78,75 @@ export default function InstructorAddResultsPage() {
 
     return (
         <PageContainer>
-            {!device.isSmallMobile ? (
-                <>
-                    <CustomContainer
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                searchTerm={searchTerm}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        subheader={
-                            <AssessmentSubheader
-                                results={kindergartenResults}
-                                max={maxResults}
-                                assessment={currentAssessment}
-                            />
-                        }
-                        subsubheader={
-                            <GroupsSubheader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        container={
-                            <ChildListContainer
-                                assessment={currentAssessment}
-                                results={kindergartenResults}
-                                childList={childList}
-                                onClick={handleClick}
-                                fullNameSortType={fullNameSortType}
-                                ageSortType={ageSortType}
-                            />
-                        }
+            <CustomContainer
+                header={
+                    <ChildListHeader
+                        assessments={assessments}
+                        selectedAssessment={selectedAssessment}
+                        selectedKindergarten={selectedKindergarten}
+                        searchTerm={searchTerm}
+                        onChange={handleFilterChanged}
                     />
-                    {currentChildren[0] && (
-                        <SecondaryFab
-                            text={t('add-results-page.add-result')}
-                            icon={<BarChart />}
-                            onClick={onFabClick}
-                        />
-                    )}
-                </>
-            ) : (
-                <>
-                    <CustomContainer
-                        subheader={
-                            <AssessmentSubheader
-                                results={kindergartenResults}
-                                max={maxResults}
-                                assessment={currentAssessment}
-                            />
-                        }
-                        header={
-                            <ChildListHeader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                                compact
-                                searchTerm={searchTerm}
-                            />
-                        }
-                        subsubheader={
-                            <GroupsSubheader
-                                assessments={assessments}
-                                selectedAssessment={selectedAssessment}
-                                selectedKindergarten={selectedKindergarten}
-                                onChange={handleFilterChanged}
-                            />
-                        }
-                        container={
-                            <ChildListCompactContainer
-                                assessment={currentAssessment}
-                                childList={childList}
-                                results={kindergartenResults}
-                                onChange={handleFilterChanged}
-                                compact
-                                searchTerm={searchTerm}
-                                onClick={handleClick}
-                            />
-                        }
+                }
+                subheader={
+                    <AssessmentSubheader
+                        results={kindergartenResults}
+                        max={maxResults}
+                        assessment={currentAssessment}
                     />
-                    {currentChildren[0] && (
-                        <SecondaryFab
-                            text={t('add-results-page.add-result')}
-                            icon={<BarChart />}
-                            onClick={onFabClick}
+                }
+                subsubheader={
+                    <GroupsSubheader
+                        assessments={assessments}
+                        selectedAssessment={selectedAssessment}
+                        selectedKindergarten={selectedKindergarten}
+                        selectedGroup={selectedGroup}
+                        onChange={handleFilterChanged}
+                    />
+                }
+                container={
+                    device.isSmallMobile ? (
+                        <ChildListCompactContainer
+                            assessment={currentAssessment}
+                            childList={childList}
+                            results={kindergartenResults}
+                            onChange={handleFilterChanged}
+                            compact
+                            selectedGroup={selectedGroup}
+                            searchTerm={searchTerm}
+                            onClick={handleClick}
                         />
-                    )}
-                </>
+                    ) : (
+                        <ChildListContainer
+                            assessment={currentAssessment}
+                            results={kindergartenResults}
+                            childList={childList}
+                            onClick={handleClick}
+                            fullNameSortType={fullNameSortType}
+                            selectedGroup={selectedGroup}
+                            ageSortType={ageSortType}
+                            creationDateSortType={creationDateSortType}
+                        />
+                    )
+                }
+            />
+            {currentChildren[0] && (
+                <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} onClick={onFabClick} />
             )}
         </PageContainer>
     );
 
+    function getMeasurementStatus(assessment: Assessment | undefined) {
+        if (!assessment || assessment.firstMeasurementStatus === 'active') {
+            return 'first';
+        }
+
+        return 'last';
+    }
+
     function handleFilterChanged(type: string, value: string) {
         if (type === 'assessment') {
+            setSelectedGroup('');
             setSelectedAssessment(value);
 
             return;
@@ -189,21 +160,23 @@ export default function InstructorAddResultsPage() {
 
         if (type === 'group') {
             setSelectedGroup(value);
-            console.log(selectedGroup);
 
             return;
         }
 
-        setSelectedKindergarten(value);
+        if (type === 'kindergarten') {
+            setSelectedGroup('');
+            setSelectedKindergarten(value);
+        }
     }
 
     async function handleClick(type: string, value: string) {
         if (type === 'add-first-assessment-result') {
-            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${value}`);
+            history.push(`/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/all/${value}`);
         }
 
         if (type === 'add-last-assessment-result') {
-            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/${value}`);
+            history.push(`/instructor/result/add/last/${selectedAssessment}/${selectedKindergarten}/all/${value}`);
         }
 
         if (type === 'add-first-assessment-note') {
@@ -263,11 +236,19 @@ export default function InstructorAddResultsPage() {
         if (type === 'full-name') {
             setFullNameSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setAgeSortType('');
+            setCreationDateSortType('');
         }
 
         if (type === 'age') {
             setAgeSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
             setFullNameSortType('');
+            setCreationDateSortType('');
+        }
+
+        if (type === 'created-at') {
+            setCreationDateSortType((prev) => (prev === 'asc' ? 'dsc' : 'asc'));
+            setFullNameSortType('');
+            setAgeSortType('');
         }
 
         if (type === 'see-results') {
@@ -276,20 +257,22 @@ export default function InstructorAddResultsPage() {
     }
 
     function onFabClick() {
+        const measurementStatus = getMeasurementStatus(currentAssessment);
+
         history.push(
-            `/instructor/result/add/first/${selectedAssessment}/${selectedKindergarten}/${currentChildren[0]._id}`,
+            `/instructor/result/add/${measurementStatus}/${selectedAssessment}/${selectedKindergarten}/all/${currentChildren[0]._id}`,
         );
     }
 
     function getFiltredAndSortedChildList() {
-        const filtredChildList = currentChildren.filter((c) => {
+        const filteredChildList = currentChildren.filter((c) => {
             const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
 
             return fullName.includes(searchTerm.toLowerCase());
         });
 
         if (fullNameSortType !== '') {
-            filtredChildList.sort((a, b) => {
+            filteredChildList.sort((a, b) => {
                 const fullNameA = `${a.firstname} ${a.lastname}`;
                 const fullNameB = `${b.firstname} ${b.lastname}`;
 
@@ -302,7 +285,7 @@ export default function InstructorAddResultsPage() {
         }
 
         if (ageSortType !== '') {
-            filtredChildList.sort((a, b) => {
+            filteredChildList.sort((a, b) => {
                 const childAgeA = parseDateToAge(a.birthYear, a.birthQuarter);
                 const childAgeB = parseDateToAge(b.birthYear, b.birthQuarter);
 
@@ -314,16 +297,26 @@ export default function InstructorAddResultsPage() {
             });
         }
 
-        return filtredChildList;
+        if (creationDateSortType !== '') {
+            filteredChildList.sort((a, b) => {
+                if (creationDateSortType === 'asc') {
+                    return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1;
+                }
+
+                return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? -1 : 1;
+            });
+        }
+
+        return filteredChildList;
     }
 
-    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+    async function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
         const childResult = kindergartenResults.find((r) => r.childId === update.childId);
 
         if (childResult) {
-            updateAssessmentResult({ _id: childResult._id, ...update });
+            await updateAssessmentResult({ _id: childResult._id, ...update });
         } else {
-            createAssessmentResult(update);
+            await createAssessmentResult(update);
         }
     }
 

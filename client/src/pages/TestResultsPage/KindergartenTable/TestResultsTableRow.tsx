@@ -1,11 +1,13 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableRow, TableCell, IconButton, Tooltip, makeStyles, Theme, alpha } from '@material-ui/core';
 import { KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon } from '@material-ui/icons';
+
+import { ProgressBar } from '@app/components/ProgressBar';
+import { KindergartenWithChildren } from '@app/graphql/types';
+import { getMeasurementResult } from '@app/utils/getMeasurementResult';
+
 import { KindergartenChildrenTable } from './KindergartenChildrenTable';
-import { KindergartenWithChildren } from '../../../graphql/types';
-import { ProgressBar } from '../../../components/ProgressBar';
-import { getMeasurementResult } from '../../../utils/getMeasurementResult';
 import { ResultParametersInfo } from './ResultParametersInfo';
 
 interface Props {
@@ -15,10 +17,10 @@ interface Props {
 
 export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const classes = useStyles({ open });
 
-    const { name, maxResultCount, children: childrenInfo } = kindergarten.kindergarten;
+    const { name, maxResultCount, children: childrenInfo, address } = kindergarten.kindergarten;
     const measurementResult = getMeasurementResult(parameterInfo.measurementType, kindergarten);
     const expandIconTooltip = t('test-results.button-icon-expand-tooltip');
 
@@ -32,7 +34,10 @@ export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
                         </IconButton>
                     </Tooltip>
                 </TableCell>
-                <TableCell className={classes.cell}>{name}</TableCell>
+                <TableCell className={classes.cell}>
+                    <div>{name}</div>
+                    <div className={classes.helperLabel}>{address}</div>
+                </TableCell>
                 <TableCell className={classes.cell}>
                     <div className={classes.progressBarContainer}>
                         <div className={classes.progressBar}>
@@ -81,5 +86,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     cell: {
         padding: theme.spacing(1),
         borderBottom: 'none',
+    },
+    helperLabel: {
+        color: theme.palette.grey['400'],
+        marginLeft: theme.spacing(1),
     },
 }));

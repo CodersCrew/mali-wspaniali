@@ -1,26 +1,27 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import pick from 'lodash.pick';
 
-import { activePage } from '../../apollo_client';
-import { CustomContainer } from '../../components/CustomContainer';
-import { PageContainer } from '../../components/PageContainer';
+import { activePage } from '@app/apollo_client';
+import { CustomContainer } from '@app/components/CustomContainer';
+import { PageContainer } from '@app/components/PageContainer';
+import { ButtonSecondary } from '@app/components/Button/ButtonSecondary';
+import { UpdatedUserInput } from '@app/graphql/types';
+import { useUpdateUser } from '@app/operations/mutations/User/useUpdateUser';
+import { useMe } from '@app/utils/useMe';
+
 import { BasicInformationPanel } from './BasicInformationPanel/BasicInformationPanel';
-import { ButtonSecondary } from '../../components/Button/ButtonSecondary';
-import { useMe } from '../../utils/useMe';
-import { useUpdateUser } from '../../operations/mutations/User/useUpdateUser';
-import { UpdatedUserInput } from '../../graphql/types';
 
 export default function InstructorSettingsPage() {
     const { t } = useTranslation();
     const user = useMe();
     const { updateUser } = useUpdateUser();
-    const [editedUser, setEditedUser] = React.useState<UpdatedUserInput>(
+    const [editedUser, setEditedUser] = useState<UpdatedUserInput>(
         pick(user, ['firstname', 'lastname']) as UpdatedUserInput,
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['instructor-menu.settings']);
     }, []);
 
@@ -30,7 +31,9 @@ export default function InstructorSettingsPage() {
         <PageContainer>
             <CustomContainer
                 header={
-                    <Typography variant="h3">{t('instructor-settings-page.basic-information-panel.title')}</Typography>
+                    <Typography variant="h3">
+                        {t('instructor-settings-page.basic-information-panel.title')}&nbsp;
+                    </Typography>
                 }
                 container={
                     <Box p={2}>

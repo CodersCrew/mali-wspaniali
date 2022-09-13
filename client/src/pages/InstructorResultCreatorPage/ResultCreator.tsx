@@ -1,10 +1,10 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, createStyles, Divider, Grid, makeStyles, MenuItem, Paper, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../components/Button';
 import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 import { ChildPicker } from './ChildPicker/ChildPicker';
 import { ChildHeader } from './MeasurementEditor/ChildHeader';
 import { MeasurementEditor } from './MeasurementEditor/MeasurementEditor';
@@ -14,10 +14,11 @@ import { countCurrentPoints } from './countPoints';
 interface Props {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
+    isLoading: boolean;
     onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
-export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
+export function ResultCreator({ resultCreator, measurement, onClick, isLoading }: Props) {
     const classes = useStyles();
     const { t } = useTranslation();
 
@@ -25,6 +26,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
     const childList = resultCreator.selectedKindergarten.children ?? [];
     const selectedKindergarten = resultCreator.selectedKindergarten._id;
     const selectedChild = resultCreator.selectedChild._id;
+    const { selectedGroup } = resultCreator;
 
     return (
         <Paper>
@@ -34,6 +36,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                         <ChildPicker
                             header={<Typography variant="h4">{t('add-result-page.kindergarten')}</Typography>}
                             selectedKindergarten={selectedKindergarten}
+                            selectedGroup={selectedGroup}
                             kindergartens={kindergartens.filter((k) => !!k) as Kindergarten[]}
                             selected={selectedChild}
                             measurement={measurement}
@@ -45,7 +48,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <EditorPanel {...{ resultCreator, measurement, onClick }} />
+                    <EditorPanel {...{ resultCreator, measurement, onClick, isLoading }} />
                 </Grid>
             </Grid>
         </Paper>
@@ -55,6 +58,7 @@ export function ResultCreator({ resultCreator, measurement, onClick }: Props) {
 interface EditorPanelProps {
     measurement: string;
     resultCreator: ResultCreatorReturnProps;
+    isLoading: boolean;
     onClick: (type: string, value: string | AssessmentValues) => void;
 }
 
@@ -64,14 +68,14 @@ function EditorPanel(props: EditorPanelProps) {
 
     const { selectedChild: child } = props.resultCreator;
 
-    const [localResult, setLocalResult] = React.useState(props.resultCreator.values);
-    const [localNote, setLocalNote] = React.useState(getCurrentNote());
+    const [localResult, setLocalResult] = useState(props.resultCreator.values);
+    const [localNote, setLocalNote] = useState(getCurrentNote());
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLocalResult(props.resultCreator.values);
     }, [props.resultCreator.values]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLocalNote(getCurrentNote() || '');
     }, [props.resultCreator.values, getCurrentNote()]);
 
@@ -128,7 +132,7 @@ function EditorPanel(props: EditorPanelProps) {
                 <Divider />
             </Grid>
             <Grid item className={classes.footerContainer}>
-                <Grid container justify="flex-end">
+                <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Box mr={2}>
                             <ButtonSecondary onClick={() => props.onClick('back-to-table', '')} variant="text">
@@ -140,6 +144,7 @@ function EditorPanel(props: EditorPanelProps) {
                         {isLastChild() ? (
                             <ButtonSecondary
                                 variant="contained"
+                                disabled={props.isLoading}
                                 onClick={() =>
                                     props.onClick('save-and-back-to-table', { ...localResult, note: localNote })
                                 }
@@ -148,6 +153,7 @@ function EditorPanel(props: EditorPanelProps) {
                             </ButtonSecondary>
                         ) : (
                             <ActionMenuButtonSecondary
+                                isDisabled={props.isLoading}
                                 label={t('add-result-page.save-and-next')}
                                 onClick={() => props.onClick('save-and-next', { ...localResult, note: localNote })}
                                 options={[

@@ -1,10 +1,12 @@
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { BasicModal } from '../../Modal/BasicModal';
-import { ActionDialog, openDialog } from '../../../utils/openDialog';
-import { DetailsMeasurement } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/DetailsMeasurement';
-import { Results } from '../../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
-import { useIsDevice } from '../../../queries/useBreakpoints';
+
+import { BasicModal } from '@app/components/Modal/BasicModal';
+import { DetailsMeasurement } from '@app/pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/DetailsMeasurement';
+import { Results } from '@app/pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+import { ActionDialog, openDialog } from '@app/utils/openDialog';
+
 import { Result } from '../Result';
 
 const T_DETAILS_PREFIX = 'child-profile.details-modal';
@@ -12,9 +14,6 @@ const T_DETAILS_PREFIX = 'child-profile.details-modal';
 function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMoreClicked: boolean }>) {
     const { t } = useTranslation();
     const device = useIsDevice();
-
-    const percentile = 36;
-
     const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } =
         props.resultWrapper.getParam()!;
 
@@ -97,9 +96,6 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                             <Typography className={classes.typographySpacing} variant="subtitle2">
                                 {t(`${T_DETAILS_PREFIX}.result-details.better-results-title`)}&nbsp;
                             </Typography>
-                            <Typography className={classes.typographySpacing} variant="body2">
-                                {t(`${T_DETAILS_PREFIX}.result-details.better-results`, { count: percentile })}
-                            </Typography>
                         </Grid>
                     </Grid>
                     {nextLimit && (
@@ -145,7 +141,7 @@ function NextFeatureLevel(props: NextFeatureLevelProps) {
                     nextLevel: t(`child-profile.result-levels.${props.nextKey}`),
                     value: props.nextLimit,
                     unit: props.unit,
-                    valueToNextLevel: props.valueToNextLimit,
+                    valueToNextLevel: Math.abs(props.valueToNextLimit),
                 })}
             </Typography>
         </>

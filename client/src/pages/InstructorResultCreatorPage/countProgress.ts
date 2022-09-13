@@ -1,38 +1,38 @@
-import { AssessmentResult } from '../../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
 export function countProgress(measurement: string, result: AssessmentResult) {
     let count = 0;
 
     if (measurement === 'first') {
-        if (result.firstMeasurementJumpResult) {
+        if (result.firstMeasurementJumpDate) {
             count += 1;
         }
 
-        if (result.firstMeasurementPendelumRunResult) {
+        if (result.firstMeasurementPendelumRunDate) {
             count += 1;
         }
 
-        if (result.firstMeasurementRunResult) {
+        if (result.firstMeasurementRunDate) {
             count += 1;
         }
 
-        if (result.firstMeasurementThrowResult) {
+        if (result.firstMeasurementThrowDate) {
             count += 1;
         }
     } else {
-        if (result.lastMeasurementJumpResult) {
+        if (result.lastMeasurementJumpDate) {
             count += 1;
         }
 
-        if (result.lastMeasurementPendelumRunResult) {
+        if (result.lastMeasurementPendelumRunDate) {
             count += 1;
         }
 
-        if (result.lastMeasurementRunResult) {
+        if (result.lastMeasurementRunDate) {
             count += 1;
         }
 
-        if (result.lastMeasurementThrowResult) {
+        if (result.lastMeasurementThrowDate) {
             count += 1;
         }
     }

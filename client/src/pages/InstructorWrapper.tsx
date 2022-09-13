@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
-import { useMe } from '../utils/useMe';
+import { useMe } from '@app/utils/useMe';
 import { openUpdateInstructorNameModal } from '../components/Instructor/UpdateInstructorNameModal';
 import { useUpdateUser } from '../operations/mutations/User/useUpdateUser';
 
-export const InstructorWrapper: React.FC = ({ children }) => {
+export const InstructorWrapper: FC = ({ children }) => {
     const user = useMe();
     const { updateUser } = useUpdateUser();
 
@@ -14,11 +14,13 @@ export const InstructorWrapper: React.FC = ({ children }) => {
         const { firstname, lastname, mail } = user;
 
         if (!firstname || !lastname) {
-            openUpdateInstructorNameModal({ lastname, firstname, mail }).then((result) => {
-                if (result.decision && result.decision.accepted) {
-                    updateUser(result.decision.name);
-                }
-            });
+            openUpdateInstructorNameModal({ lastname, firstname, mail })
+                .then((result) => {
+                    if (result.decision && result.decision.accepted) {
+                        updateUser(result.decision.name);
+                    }
+                })
+                .catch(() => console.log('Modal result error'));
         }
     }, [user?.firstname, user?.lastname]);
 

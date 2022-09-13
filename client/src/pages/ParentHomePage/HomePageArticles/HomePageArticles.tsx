@@ -41,7 +41,7 @@ export const HomePageArticles = ({ articles }: Props) => {
                             direction={isSmallMobile ? 'column' : 'row'}
                             spacing={3}
                             key={groupIndex}
-                            justify="center"
+                            justifyContent="center"
                         >
                             {renderArticles(articlesArray)}
                         </Grid>

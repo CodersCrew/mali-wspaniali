@@ -46,7 +46,7 @@ const useStyles = makeStyles(() =>
 
 function LegendItem({ label, color }: { label: string; color: string }) {
     return (
-        <Grid container direction="row" justify="flex-start" alignItems="center">
+        <Grid container direction="row" justifyContent="flex-start" alignItems="center">
             <Grid item lg={2}>
                 <svg width="20" height="20" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="160" height="80" rx="40" x="10" y="80" fill={color} />

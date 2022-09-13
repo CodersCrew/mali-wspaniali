@@ -1,12 +1,13 @@
+import { MouseEvent as ReactMouseEvent, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import { textColor } from '../../colors';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { TwoActionsModal } from '../../components/Modal/TwoActionsModal';
 
-export const NewsletterSentModal: React.FC<{
+export const NewsletterSentModal: FC<{
     isOpen: boolean;
     onClose: () => void;
     goToAdminPage: () => void;
@@ -15,7 +16,7 @@ export const NewsletterSentModal: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation();
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleButtonClick = (event: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (event.currentTarget.id === 'homePageButton') {
             goToAdminPage();
             onClose();

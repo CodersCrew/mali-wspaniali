@@ -1,5 +1,5 @@
-import React from 'react';
+import { createContext } from 'react';
 
-import { AssessmentResult } from '../../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
-export const ResultContext = React.createContext<AssessmentResult | null>(null);
+export const ResultContext = createContext<AssessmentResult | null>(null);

@@ -1,12 +1,12 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { ListItem, ListItemIcon, ListItemText, makeStyles, Theme, createStyles, alpha } from '@material-ui/core';
 import clsx from 'clsx';
 
 export interface SingleItemProps {
     name: string;
-    icon: React.ReactNode;
+    icon: ReactNode;
     link?: string;
-    rightIcon?: React.ReactNode;
+    rightIcon?: ReactNode;
     active?: boolean;
     preload?: () => void;
 }

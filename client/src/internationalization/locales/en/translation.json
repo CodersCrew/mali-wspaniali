@@ -25,15 +25,16 @@
     "login-wrapper": {
         "welcome-text": "Welcome to the world of Mali Wspaniali",
         "subheading": "Join the community of conscious parents",
-        "made-by": "Made by:",
-        "partners": "Strategic partners:"
+        "made-by": "Developed by:",
+        "partners": "Strategic partners:",
+        "financial-partners": "The program is co-financed from the budget:"
     },
     "registration-page": {
         "register-header": "Registration",
         "already-have-account": "Already have an account?",
         "register-failure": "Registration failed",
         "register-failure-keycode": "Incorrect keycode provided",
-        "register-failure-description": "Something went wrong. This may be caused by mistyping the code received from the Foundation or by reusing the code or by providing an email that was not provided to the Foundation. Please, check it out again and contact us as a last resort.",
+        "register-failure-description": "Something went wrong. This may be caused by mistyping the code received from the Foundation or by reusing the code. Please, check it out again and contact us as a last resort.",
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And finally - the last step!",
         "register-success-content": "An email containing an activation link has been sent to your email address. Use the link to confirm your email address and finish the registration process.",
@@ -67,7 +68,7 @@
             "show-more-content-modal": "See the full text in a new tab",
             "sub-title": "Consents",
             "sub-title-description": "Consents for using your child's image and for receiving marketing information can be refused at any time on the platform in 'Consents' tab.",
-            "statement": "I declare that I have read and accepted <a style='color: #00acc1; text-decoration: none'; href='#'>Terms & Conditions</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Privacy Policy</a>.",
+            "statement": "I declare that I have read and accepted <a  href='/docs/regulamin_pl.pdf' target='_blank' style='color: #00acc1; text-decoration: none;'>Terms & Conditions</a>, <a href='/docs/polityka_prywatnosci_pl.pdf' target='_blank' style='color: #00acc1; text-decoration: none'>Privacy Policy</a>.",
             "required-field": "mandatory field",
             "required-agreements": "Required consents and declarations",
             "select-all": "Select all consents",
@@ -169,17 +170,7 @@
         "info-about-test": "Information about the test",
         "carries-out-on": "carried out {{date}}",
         "age-group": "Child's age",
-        "age-group-description": {
-            "title": "How we assign a child to an age group",
-            "subtitle": "When assigning the child to the age group, we calculate the child's metric age on the day of testing (with an accuracy of one month).",
-            "text-1": "If a child is, for example, 4 years and 10 months old we classify him/her as a 5 year old. The group of ",
-            "age-1": "children aged 5",
-            "text-2": " includes all children who on the day of the survey were ",
-            "age-2": "4 years and 6 months,",
-            "text-3": " but no more than ",
-            "age-3": "5 years and 5 months.",
-            "text-4": " A similar principle applies to the qualification of children in other age groups."
-        },
+        "empty-view": "There is no test assigned to your child",
         "initial-fitness-level": "Total result of initial measurement",
         "final-fitness-level": "Total result of final measurement",
         "advice": "Advice",
@@ -235,7 +226,8 @@
         "comparison-legend": {
             "title": "Chart information",
             "progress": "Physical level progress:",
-            "regress": "Physical level regress",
+            "regress": "Physical level regress:",
+            "constant": "Constant physical level.",
             "initial-result": "Initial result",
             "final-result": "Final result"
         },
@@ -260,8 +252,8 @@
             "conditions": {
                 "panelTitle": "How do we perform the preschool agility test and calculate its results?",
                 "title": "The preschool agility test is performed once a semester.",
-                "text1": "It consists of two measurements: the initial measurement (at the turn of October and November) and the final measurement (at the turn of April and May). Each measurement has four attempts, the sum of which makes up the total score. This result gives an indication of your child's fitness level.",
-                "text2": "A certain number of points is assigned for each attempt. Children are assessed according to a scale prepared by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength attempts (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility attempts (speed and agility), more points will be awarded to the child with shorter execution time.",
+                "text1": "It consists of two measurements: the initial measurement (in the fall months of the school year) and the final measurement (in the spring months of the school year). Each measurement has four attempts, the sum of which makes up the total score. This result gives an indication of your child's fitness level.",
+                "text2": "A certain number of points is assigned for each attempt. The scoring scale corresponds to the standards developed as a result of many years of measurements and analyzes conducted in cooperation with, among others, scientists and researchers from the the University of Rzeszów. Children are assessed according to a scale updated by international experts in the field of mobility among children, which shows the minimum and maximum results calculated for a given age and gender. For strength attempts (strength and power), the greater the distance the child has covered during the test, the more points he/she will receive, while in the case of agility attempts (speed and agility), more points will be awarded to the child with shorter execution time. Sometimes the slightest differences in the results of attempts can significantly impact the score discrepancies. Also apparently large differences in the child's scores may not change the score. The scoring method resulted from many years of detailed research conducted by scientists from Polish academic centers among preschoolers.",
                 "text3": "The sum of points makes up the total score. This result signifies your child's fitness level (low, medium, good or very good). The results are collected from children who are present at the facility and willing to participate in the Mali Wspaniali classes held by the Instructor. A missing attempt result may be due to child's absence that day or to non-participation in a given attempt. In this case, you receive individual test results without insights into child's overall fitness.",
                 "test1-name": "Agility",
                 "test1-description": "4 x 5 m shuttle run while carrying a block",
@@ -293,16 +285,17 @@
                 "panelTitle": "What factors can contribute to a low test result",
                 "title1": "General factors that can contribute to a low test result:",
                 "title2": "Individual factors that can contribute to a low test result:",
-                "text1": "Lack of motivation among participants or in the environment",
-                "text2": "Conditions inside and outside the facility (not necessarily unfavorable)",
-                "text3": "Daytime (e.g. after a meal, resting or other activities)",
-                "text4": "External difficulties (e.g. behavior of other children)",
-                "text5": "Child's disease (e.g. cold, diarrhea)",
-                "text6": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
-                "text7": "Serious illness of the child requiring hospitalization within the last 6 months",
-                "text8": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
-                "text9": "The child is premature",
-                "text10": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
+                "text1": "Omitted one or more attempts in test",
+                "text2": "Lack of motivation among participants or in the environment",
+                "text3": "Conditions inside and outside the facility (not necessarily unfavorable)",
+                "text4": "Daytime (e.g. after a meal, resting or other activities)",
+                "text5": "External difficulties (e.g. behavior of other children)",
+                "text6": "Child's disease (e.g. cold, diarrhea)",
+                "text7": "Injury (e.g. fracture, sprain, bruise) within the last 30 days ",
+                "text8": "Serious illness of the child requiring hospitalization within the last 6 months",
+                "text9": "Chronic disease (e.g. bronchial asthma, allergy (atopic))",
+                "text10": "The child is premature",
+                "text11": "Subjective barriers on the part of the child (e.g. physical or mental ones)"
             }
         },
         "recommendations": {
@@ -381,39 +374,29 @@
         "advice-modal-content": {
             "scale39": {
                 "title": "Tip - Low level of fitness",
-                "subtitle": "Something went wrong!",
+                "subtitle": "We have something to work on!",
                 "text-1": "Test result of your child's physical fitness is low. This should not be underestimated.",
-                "text-2": "It could have been influenced by various",
-                "text-2-1": "factors,",
-                "text-2-2": "however, it is worth checking the cause of the lower result and working with the child to improve mobility so that he or she can develop healthy.",
-                "text-3": "Our experts are eager to help. They have prepared guidelines for you which you can apply today for the sake of your child! You can also use our",
-                "text-3-1": "exercise set."
+                "text-2": "It could have been influenced by various <Link>factors</Link>, however, it is worth checking the cause of the lower result and working with the child to improve mobility so that he or she can develop healthy.",
+                "text-3": "Our experts are eager to help. They have prepared guidelines for you which you can apply today for the sake of your child! You can also use our <Link>exercise set</Link>."
             },
             "scale49": {
                 "title": "Tip - Average level of efficiency",
                 "subtitle": "We have something to work on!",
                 "text-1": "Basics of fitness have been reached, but for your child to develop better, you need to work on improvements. Here are here to help!",
-                "text-2": "Prepared by our experts",
-                "text-2-1": "exercises",
-                "text-2-2": "will definitely help to improve your child's fitness.",
-                "text-3": "This is not everything we have prepared for you! Check out what else you can do to improve your child's fitness thanks to our expert",
-                "text-3-1": "article"
+                "text-2": "Prepared by our experts exercises will definitely help to improve your child's fitness.",
+                "text-3": "This is not everything we have prepared for you! Check out what else you can do to improve your child's fitness thanks to our expert <Link>article</Link>"
             },
             "scale59": {
                 "title": "Advice - Good level of efficiency",
                 "subtitle": "You have many reasons to be pleased!",
                 "text-1": "Your child is developing well in terms of physical fitness. Now we have work to do to reach the very good level. It is close!",
-                "text-2": "Remember the time reserved for your child for daily physical activity. It will help you with this",
-                "text-2-1": "article",
-                "text-2-2": "prepared by our experts, with a handful of advice to apply immediately!"
+                "text-2": "Remember the time reserved for your child for daily physical activity. It will help you with this <Link>article</Link> prepared by our experts, with a handful of advice to apply immediately!"
             },
             "maxScale": {
                 "title": "Tip - Very good level of fitness",
                 "subtitle": "Be proud of your kid!",
                 "text-1": "He or she is physically very fit and can be an example for their peers. You also deserve congratulations for taking care of your child's health and proper development - keep it up!",
-                "text-2": "You should see",
-                "text-2-1": "article",
-                "text-2-2": "prepared by our experts, with a handful of advice to apply immediately!"
+                "text-2": "You should see <Link>article</Link> prepared by our experts, with a handful of advice to apply immediately!"
             }
         },
         "results-modal-content": {
@@ -421,37 +404,30 @@
                 "title": "There is progress! Bravo!",
                 "subtitle": "Well done, we can see that you care about your child's activity.",
                 "text-1": "You are well on your way towards your kid’s health and well-being. Keep on going!",
-                "text-2": "You must see the advice prepared by our experts in the tab",
-                "text-2-1": "recommendations",
-                "text-2-2": "to become an even more conscious parent."
+                "text-2": "You must see the advice prepared by our experts in the tab <Link>recommendations</Link> to become an even more conscious parent."
             },
             "constant": {
                 "title": "Attention! No improvement",
                 "subtitle": "There has been no increase in the results of your child's attempts since the last measurement.",
-                "text-1": "We have to do something about it. It is worth considering why this happened. Check the tab",
-                "text-1-1": "test information",
-                "text-1-2": ", where we have listed all the factors that may have contributed to worse fitness test results.",
-                "text-2": "This is not everything we have prepared for you. Check what else you can do to improve your child's fitness. Our experts will help you with ",
-                "text-2-1": "recommendations",
-                "text-2-2": "or",
-                "text-2-3": "articles."
+                "text-1": "We have to do something about it. It is worth considering why this happened. Check the tab <Link>test information</Link>, where we have listed all the factors that may have contributed to worse fitness test results.",
+                "text-2": "This is not everything we have prepared for you. Check what else you can do to improve your child's fitness. Our experts will help you with <Link>recommendations</Link> or <OtherLink>articles</OtherLink>."
             },
             "regress": {
                 "title": "Warning! Regress!",
                 "subtitle": "Since the last test, your child is less able to cope with the features we tested. That's why you need to act!",
-                "text-1": "We need to consider why this happened to take care of your kid’s development. Check the tab",
-                "text-1-1": "test information",
-                "text-1-2": ", where we have listed all the factors that may have resulted in a worse test result.",
-                "text-2": "From now on, start implementing the recommendations prepared by us in the tab ",
-                "text-2-1": "recommendations",
-                "text-3": "Check what else you can do to improve your child's fitness. Our experts will help you with ",
-                "text-3-1": "article"
+                "text-1": "We need to consider why this happened to take care of your kid’s development. Check the tab <Link>test information</Link>, where we have listed all the factors that may have resulted in a worse test result.",
+                "text-2": "From now on, start implementing the recommendations prepared by us in the tab <Link>recommendations</Link>.",
+                "text-3": "Check what else you can do to improve your child's fitness. Our experts will help you with <Link>article</Link>"
             }
         }
     },
     "parent-profile": {
         "parent": "Parent",
         "no-parent": "There is no parent with the given id"
+    },
+    "parent-settings": {
+        "terms-conditions": "Terms & conditions",
+        "privacy-policy": "Privacy Policy"
     },
     "test-results": {
         "search-result": "Search results",
@@ -482,10 +458,15 @@
         "edit": "Edit data",
         "first-measurement": "FM",
         "last-measurement": "LM",
-        "publish-result": "Publish result",
         "download-result": "Download result",
         "status-result": "result status",
-        "filter-children-label": "Search by children"
+        "filter-children-label": "Search by children",
+        "age-description": {
+            "age-in-test": "Age in test: {{age}}Y {{q}}Q",
+            "current-age": "Current age: {{age}}Y {{q}}Q",
+            "dob": "Date of birth: {{year}} {{q}}Q",
+            "current-date": "Curent date: {{year}} {{q}}Q"
+        }
     },
     "kindergarten-modal": {
         "city": "City",
@@ -543,7 +524,6 @@
         "content-heading": "Newsletter content",
         "general-recipient-label": "Select the recipient from list",
         "general-recipient-label-filled": "Select a recipient",
-        "general-recipient-helper-text": "No recipient was selected. This step is necessary to specify a recipient.",
         "specific-recipient-label": "Specify a recipient",
         "specific-recipient-value-labels": {
             "all-parents": "all parents",
@@ -552,6 +532,8 @@
             "selected-kindergartens": "selected kindergartens"
         },
         "specific-recipient-helper-text": "Recipient not specified. Fill in this field to send a message to the proper recipient.",
+        "created": "Newsletter created",
+        "created-error": "Failed to create newsletter",
         "recipient-single-parent-label": "To sent a message to a single parent, select him/her from the list",
         "recipient-single-parent-label-filled": "The message will be sent to parents of these children:",
         "recipient-single-kindergarten-label": "Select kindergartens from the list",
@@ -652,7 +634,8 @@
             "checkbox-option": "Move to the same kindergarten",
             "success-message": "The kindergartens have been changed successfully"
         },
-        "success-message": "Removed (Anonymized) parent"
+        "success-message": "Removed (Anonymized) parent",
+        "not-confirmed-only": "not confirmed only"
     },
     "single-article": {
         "emotions": "emotions",
@@ -1013,6 +996,7 @@
         "lastname": "Last name",
         "full-name": "Full name",
         "age": "Age",
+        "created-at": "Added at",
         "birth-quarter": "Birth quarter",
         "first-assessment": "Initial measurement",
         "last-assessment": "Final measurement",
@@ -1047,6 +1031,8 @@
     "add-result-page": {
         "kindergarten": "Kindergarten",
         "select-measurement": "Select measurement",
+        "select-group": "Select group",
+        "all-groups": "All",
         "first": "Initial",
         "last": "Final",
         "no-result": "No result",
@@ -1074,6 +1060,7 @@
         "run": "SPEED"
     },
     "groupsModal": {
+        "title": "Groups",
         "close": "close",
         "save": "save",
         "kindergarten-name": "Kindergarten",
@@ -1092,7 +1079,8 @@
         "delete-group": "Delete a group",
         "confirm": "Are you sure you want to delete the group {{name}}?",
         "edit-groups": "edit groups",
-        "edit": "edit"
+        "edit": "edit",
+        "group-with-children-message": "The deleting group with children is not allowed. Please unassign children."
     },
     "add-article": {
         "basic-information-form": {
@@ -1128,7 +1116,10 @@
         },
         "events": {
             "created": "Article created",
-            "updated": "Article updated"
+            "updated": "Article updated",
+            "updated-wrong-title": "Wrong title. It should contain 10 - 100 characters",
+            "updated-wrong-description": "Wrong description. It should contain 30 - 300 characters",
+            "updated-unknown-error": "Update article error"
         }
     },
     "admin-article-list": {
@@ -1137,6 +1128,7 @@
             "publish": "Publish (Notifications will be sent)",
             "unpublish": "Hide (In case of re-publication, notifications will not be sent)",
             "delete": "Delete",
+            "views": "Views",
             "delete-article-dialog": {
                 "title": "Delete article \"{{title}}\"?"
             },
@@ -1151,8 +1143,8 @@
     "instructor-settings-page": {
         "basic-information-panel": {
             "title": "Basic information",
-            "first-name":"First name",
-            "last-name":"Last name"
+            "first-name": "First name",
+            "last-name": "Last name"
         },
         "save": "Save"
     },

@@ -10,10 +10,11 @@ import {
     CardActions,
     IconButton,
     Tooltip,
+    Box,
 } from '@material-ui/core';
-import { Create, Delete, Public } from '@material-ui/icons';
+import { Create, Delete, Public, Visibility } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Article } from '../../graphql/types';
+import { Article } from '@app/graphql/types';
 import { openQuestionDialog } from '../QuestionDialog';
 import { useUpdateArticle } from '../../operations/mutations/Articles/updateArticle';
 import { useArticles } from '../../operations/queries/Articles/getArticles';
@@ -53,21 +54,32 @@ export const BlogArticleCard = (props: BlogArticleCardProps) => {
             </CardActionArea>
             {!props.readOnly && (
                 <CardActions classes={{ root: classes.cardActions }}>
-                    <Tooltip title={<>{t('admin-article-list.card.edit')}</>}>
-                        <IconButton href={`/admin/article/${props.article._id}/edit`}>
-                            <Create />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title={getPublishUnpublishTitle()}>
-                        <IconButton onClick={onPublishOrHideArticleClick}>
-                            <Public color={props.article.isPublished ? 'secondary' : 'inherit'} />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title={<>{t('admin-article-list.card.delete')}</>}>
-                        <IconButton onClick={onDeletedArticleClick}>
-                            <Delete />
-                        </IconButton>
-                    </Tooltip>
+                    <Box ml={1}>
+                        <Tooltip title={<>{t('admin-article-list.card.views')}</>}>
+                            <span className={classes.views}>
+                                <Visibility />
+                                &nbsp;
+                                {props.article.views}
+                            </span>
+                        </Tooltip>
+                    </Box>
+                    <span>
+                        <Tooltip title={<>{t('admin-article-list.card.edit')}</>}>
+                            <IconButton href={`/admin/article/${props.article._id}/edit`}>
+                                <Create />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={getPublishUnpublishTitle()}>
+                            <IconButton onClick={onPublishOrHideArticleClick}>
+                                <Public color={props.article.isPublished ? 'secondary' : 'inherit'} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={<>{t('admin-article-list.card.delete')}</>}>
+                            <IconButton onClick={onDeletedArticleClick}>
+                                <Delete />
+                            </IconButton>
+                        </Tooltip>
+                    </span>
                 </CardActions>
             )}
         </Card>
@@ -137,6 +149,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         '-webkit-box-orient': 'vertical',
     },
     cardActions: {
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
+        display: 'flex',
+    },
+    views: {
+        display: 'flex',
+        alignItems: 'center',
     },
 }));

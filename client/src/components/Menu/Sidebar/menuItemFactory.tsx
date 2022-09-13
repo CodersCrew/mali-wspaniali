@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { TFunction } from 'i18next';
 import {
     Assessment,
@@ -46,7 +46,7 @@ interface MenuItemFactoryProps {
     name: string;
     t: TFunction;
     active: string[];
-    rightIcon?: React.ReactNode;
+    rightIcon?: ReactNode;
 }
 
 interface CollapsibleMenuItemFactoryProps {
@@ -126,6 +126,7 @@ function getChildMenuItem({ child, active, t }: ChildMenuItemFactoryProps): Menu
         icon: mainItemAvatar,
         name: child.firstname,
         active: active.includes(child.firstname),
+        preload: getRootLazyImports('ChildResultsPage').preload,
     };
 
     const subItems: SingleItemProps[] = [
@@ -164,6 +165,7 @@ function getBlogMenuItem({ active, t }: CollapsibleMenuItemFactoryProps): MenuIt
         name: t('parent-menu.blog'),
         link: '/parent/blog/all',
         active: active.includes('parent-menu.blog'),
+        preload: getRootLazyImports('ArticleListPage').preload,
     };
 
     const subItems: SingleItemProps[] = [
@@ -207,6 +209,7 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
         name: 'parent-menu.home',
         link: '/parent',
         icon: <Icon icon={<Home />} />,
+        preload: getRootLazyImports('ParentHomePage').preload,
     };
 
     const NotificationsItem = {
@@ -214,12 +217,14 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
         link: '/parent/notifications',
         icon: <Icon icon={<Notifications />} />,
         rightIcon,
+        preload: getRootLazyImports('NotificationsPage').preload,
     };
 
     const SettingsItem = {
         name: 'parent-menu.settings',
         link: '/parent/settings',
         icon: <Icon icon={<Build />} />,
+        preload: getRootLazyImports('ParentSettingsPage').preload,
     };
 
     const LogoutItem = {
@@ -232,6 +237,7 @@ function getParentMenuItem({ name, rightIcon, active, t }: MenuItemFactoryProps)
         name: 'parent-menu.agreements',
         link: '/parent/agreements',
         icon: <Icon icon={<AssignmentTurnedIn />} />,
+        preload: getRootLazyImports('ParentAgreementsPage').preload,
     };
 
     const options: { [index: string]: SingleItemProps } = {
@@ -413,6 +419,7 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         name: 'instructor-menu.results-table',
         link: '/instructor',
         icon: <Icon icon={<Assessment />} />,
+        preload: getRootLazyImports('InstructorAddResultsPage').preload,
     };
 
     const ResultCreatorItem = {
@@ -426,12 +433,14 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         link: '/instructor/notifications',
         icon: <Icon icon={<Notifications />} />,
         rightIcon,
+        preload: getRootLazyImports('NotificationsPage').preload,
     };
 
     const SettingsItem = {
         name: 'instructor-menu.settings',
         link: '/instructor/settings',
         icon: <Icon icon={<Build />} />,
+        preload: getRootLazyImports('InstructorSettingsPage').preload,
     };
 
     const LogoutItem = {
@@ -444,6 +453,7 @@ function getInstructorMenuItem({ name, active, rightIcon, t }: MenuItemFactoryPr
         name: 'admin-menu.agreements',
         link: '/admin/agreements',
         icon: <Icon icon={<AssignmentTurnedIn />} />,
+        preload: getRootLazyImports('AdminAgreementsPageContainer').preload,
     };
 
     const options: { [index: string]: SingleItemProps } = {

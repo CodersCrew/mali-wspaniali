@@ -8,7 +8,7 @@ import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     isOpen: boolean;
-    actionName: string;
+    actionName?: string;
     onAction?: () => void;
     onClose?: (e: unknown) => void;
     closeButtonText?: string;

@@ -4,12 +4,11 @@ import { makeStyles, createStyles, Typography, Box, Link } from '@material-ui/co
 import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
 
-import { Theme } from '../../theme';
-import SuccessImage from '../../assets/forgotPassword/success.png';
+import { Theme } from '@app/theme';
+import SuccessImage from '@app/assets/forgotPassword/success.png';
 import { ButtonSecondary } from '../../components/Button';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-
 import { PasswordChangeForm } from './PasswordChangeForm';
 import { passwordStrengthTest } from './passwordStrengthTest';
 import { PasswordSuccessfullyChanged } from './PasswordSuccessfullyChanged';

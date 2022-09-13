@@ -4,7 +4,7 @@ import { FormikProps } from 'formik';
 
 import { Input } from '../ChildForm/Input';
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { useTheme } from '../../theme';
+import { useTheme } from '@app/theme';
 
 export interface UpdateInstructorNameModalProps {
     firstname: string;

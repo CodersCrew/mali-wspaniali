@@ -1,24 +1,25 @@
-import React from 'react';
+import { FC } from 'react';
 import { makeStyles, createStyles, Box } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
 
-import { Theme } from '../theme/types';
+import { Theme } from '@app/theme/types';
+import { ACTIVE_PAGE } from '@app/graphql/localFields';
+import { UserContext } from '@app/utils/useMe';
+import { SidebarStateProvider } from '@app/utils/useSidebar';
+
 import { useBreakpoints } from '../queries/useBreakpoints';
 import { Navbar } from '../components/Menu/Navbar/Navbar';
-import { ACTIVE_PAGE } from '../graphql/localFields';
 import { Sidebar } from '../components/Menu/Sidebar/Sidebar';
 import { useGetMe } from '../operations/mutations/User/useGetMe';
 import dayjs from '../localizedMoment';
-import { UserContext } from '../utils/useMe';
-import { SidebarStateProvider } from '../utils/useSidebar';
 
-export const AppWrapper: React.FC = ({ children }) => {
+export const AppWrapper: FC = ({ children }) => {
     const classes = useStyles();
     const { user } = useGetMe();
     const { i18n } = useTranslation();
-    const { data: ActivePageState } = useQuery(ACTIVE_PAGE);
+    const { data: ActivePageState } = useQuery<{ activePage: string[] }>(ACTIVE_PAGE);
     const device = useBreakpoints();
 
     const history = useHistory();
@@ -32,12 +33,12 @@ export const AppWrapper: React.FC = ({ children }) => {
                 <Box display="flex">
                     <Navbar
                         device={device}
-                        activePage={ActivePageState.activePage}
+                        activePage={ActivePageState!.activePage}
                         language={language}
                         notifications={user.notifications}
                         onLanguageChange={handleLanguageChange}
                     />
-                    <Sidebar user={user} activePage={ActivePageState.activePage} onClick={handleClick} />
+                    <Sidebar user={user} activePage={ActivePageState!.activePage} onClick={handleClick} />
 
                     <main className={classes.content}>
                         <div className={classes.toolbar}>{children}</div>

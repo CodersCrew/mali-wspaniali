@@ -1,12 +1,11 @@
 import { FC } from 'react';
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonSecondary } from '../../../../components/Button';
 
 interface ButtonSendMessageProps {
-    handleClick?: () => void;
+    handleClick: () => void;
 }
 
 export const ButtonSendMessage: FC<ButtonSendMessageProps> = ({ handleClick }) => {

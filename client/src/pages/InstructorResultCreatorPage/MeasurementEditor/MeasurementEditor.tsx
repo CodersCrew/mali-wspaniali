@@ -5,7 +5,7 @@ import dayjs from '../../../localizedMoment';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 import { AssessmentParam } from '../../../graphql/types';
-import { theme } from '../../../theme/theme';
+import { theme } from '@app/theme/theme';
 import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 interface MeasurementValues {
@@ -43,7 +43,7 @@ export function MeasurementEditor(props: Props) {
     }
 
     return (
-        <Grid container justify="space-between" direction="column" spacing={1} className={classes.container}>
+        <Grid container justifyContent="space-between" direction="column" spacing={1} className={classes.container}>
             <Grid item>
                 <MeasurementPoint
                     isEmpty={
@@ -123,7 +123,7 @@ export function MeasurementEditor(props: Props) {
                     options={{ multiline: true, minRows: 7 }}
                     onChange={(value) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
                 />
-                <Grid container justify="flex-end">
+                <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Box mt={1}>
                             <Typography variant="caption" color="textSecondary">

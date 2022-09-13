@@ -1,29 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Grid, MenuItem } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
-import ReplyAllIcon from '@material-ui/icons/ReplyAll';
 import { useHistory, useParams } from 'react-router-dom';
-import { NoResults } from './NoResults';
+import { Skeleton } from '@material-ui/lab';
+
+import { activePage } from '@app/apollo_client';
+import { ButtonSecondary } from '@app/components/Button';
+import { PageContainer } from '@app/components/PageContainer';
+import { SelectList } from '@app/components/SelectList';
+import { Assessment } from '@app/graphql/types';
+import { useKindergartensWithChildren } from '@app/operations/queries/Kindergartens/getKindergartensWithChildren';
+import { Theme } from '@app/theme';
+
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
-import { activePage } from '../../apollo_client';
-import { useKindergartensWithChildren } from '../../operations/queries/Kindergartens/getKindergartensWithChildren';
-import { PageContainer } from '../../components/PageContainer';
-import { Theme } from '../../theme';
-import { SelectList } from '../../components/SelectList';
+import { NoResults } from './NoResults';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
-import { ButtonSecondary } from '../../components/Button';
-import { Assessment } from '../../graphql/types';
 
 export default function TestResultsPage() {
     const history = useHistory<{ assessment: Assessment[] }>();
     const { assessmentId, measurementType } = useParams<{ assessmentId: string; measurementType: MeasurementType }>();
     const classes = useStyles();
     const { t } = useTranslation();
+    const [page, setPage] = useState(0);
 
-    const { kindergartenList } = useKindergartensWithChildren(assessmentId);
-    const [SearchedValue, setSearchedValue] = useState('');
+    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -73,13 +75,6 @@ export default function TestResultsPage() {
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
                         <ButtonSecondary
                             onClick={() => {
-                                console.log('publikuj wyniki');
-                            }}
-                            icon={<ReplyAllIcon />}
-                            innerText={t('test-results.publish-result')}
-                        />
-                        <ButtonSecondary
-                            onClick={() => {
                                 console.log('pobierz wyniki');
                             }}
                             icon={<SaveAltIcon />}
@@ -94,15 +89,31 @@ export default function TestResultsPage() {
                         {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
-                <TestResultsTable
-                    assessmentId={assessmentId}
-                    measurementType={measurementType}
-                    kindergartens={kindergartenList}
-                    searchedValue={SearchedValue}
-                    onSearchChange={setSearchedValue}
-                />
+                {isKindergartenListLoading ? (
+                    <EmptyPage />
+                ) : (
+                    <TestResultsTable
+                        assessmentId={assessmentId}
+                        measurementType={measurementType}
+                        kindergartens={kindergartenList}
+                        page={page}
+                        setPage={setPage}
+                        assessment={selectedAssessment}
+                    />
+                )}
             </Box>
         </PageContainer>
+    );
+}
+
+function EmptyPage() {
+    return (
+        <>
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+        </>
     );
 }
 

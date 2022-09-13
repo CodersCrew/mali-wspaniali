@@ -15,10 +15,14 @@ import {
     Tooltip,
 } from '@material-ui/core';
 import { InsertChart as InsertChartIcon, Edit as EditIcon } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
-import ArrowedCell, { useArrowedCell } from '../../../components/ArrowedCell';
-import { BaseChildInfo } from '../../../graphql/types';
+import { Link, useHistory } from 'react-router-dom';
+
+import ArrowedCell, { useArrowedCell } from '@app/components/ArrowedCell';
+import { BaseChildInfo } from '@app/graphql/types';
+import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
+
 import { ResultParametersInfo } from './ResultParametersInfo';
+import { getQuarter, parseToDetailedAge } from '@app/utils/parseDateToAge';
 
 interface Props {
     open: boolean;
@@ -30,10 +34,12 @@ const CHILD_NAME = 'childName';
 const AGE_NAME = 'AgeName';
 
 export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }: Props) => {
+    const { measurementType, assessmentId, kindergartenId } = parameterInfo;
     const classes = useStyles({ open });
     const { t } = useTranslation();
     const history = useHistory<object>();
     const [children, selectedSortableCell, cellParameters] = useArrowedCell(childrenInfo);
+    const { kindergartenResults } = useAssessmentResults(kindergartenId, assessmentId);
 
     const childCell = cellParameters(
         CHILD_NAME,
@@ -42,12 +48,11 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
     const ageCell = cellParameters(AGE_NAME, (c: BaseChildInfo, b: BaseChildInfo) => (c.age ?? 0) < (b.age ?? 0));
 
     const onEditChildInfo = (childId: string) => {
-        const { measurementType, assessmentId, kindergartenId } = parameterInfo;
         const actualPath = history.location.pathname;
         const actualState = history.location.state;
 
         history.push({
-            pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/${childId}`,
+            pathname: `/instructor/result/add/${measurementType}/${assessmentId}/${kindergartenId}/all/${childId}`,
             state: {
                 ...actualState,
                 sourcePageInfo: {
@@ -82,37 +87,94 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {children.map((child) => (
-                                    <TableRow className={classes.row} key={child._id}>
-                                        <TableCell
-                                            className={classes.cell}
-                                            component="th"
-                                            scope="row"
-                                            style={{ width: '46%' }}
-                                        >
-                                            {child.firstname} {child.lastname}
-                                        </TableCell>
-                                        <TableCell className={classes.cell}>
-                                            {child.age} {t('years_1')}
-                                        </TableCell>
-                                        <TableCell className={classes.iconCell} align="right">
-                                            <Tooltip title={t('test-results.edit').toString()}>
-                                                <IconButton
-                                                    onClick={() => onEditChildInfo(child._id)}
-                                                    className={classes.button}
-                                                    aria-label="view results"
+                                {children.map((child) => {
+                                    const result = kindergartenResults.find((r) => r.childId === child._id);
+                                    const realAge = parseToDetailedAge(child.birthYear, child.birthQuarter);
+                                    const assessmentStartDate =
+                                        parameterInfo.assessment.firstMeasurementStartDate ||
+                                        parameterInfo.assessment.lastMeasurementStartDate;
+                                    const assessmentAge = parseToDetailedAge(
+                                        child.birthYear,
+                                        child.birthQuarter,
+                                        new Date(assessmentStartDate),
+                                    );
+
+                                    return (
+                                        <TableRow className={classes.row} key={child._id}>
+                                            <TableCell
+                                                className={classes.cell}
+                                                component="th"
+                                                scope="row"
+                                                style={{ width: '46%' }}
+                                            >
+                                                {child.firstname} {child.lastname}
+                                            </TableCell>
+                                            <TableCell className={classes.cell}>
+                                                <Tooltip
+                                                    title={
+                                                        <div>
+                                                            <div>
+                                                                {t('test-results.age-description.age-in-test', {
+                                                                    age: assessmentAge[0],
+                                                                    q: assessmentAge[1],
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.current-age', {
+                                                                    age: realAge[0],
+                                                                    q: realAge[1],
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.dob', {
+                                                                    year: child.birthYear,
+                                                                    q: child.birthQuarter,
+                                                                })}
+                                                            </div>
+                                                            <div>
+                                                                {t('test-results.age-description.current-date', {
+                                                                    year: new Date().getFullYear(),
+                                                                    q: getQuarter(),
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 >
-                                                    <EditIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title={t('test-results.button-icon-results-tooltip').toString()}>
-                                                <IconButton className={classes.button} aria-label="view results">
-                                                    <InsertChartIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
+                                                    <span>
+                                                        {child.age} {t('years_1')}
+                                                    </span>
+                                                </Tooltip>
+                                            </TableCell>
+                                            <TableCell className={classes.iconCell} align="right">
+                                                <Tooltip title={t('test-results.edit').toString()}>
+                                                    <IconButton
+                                                        onClick={() => onEditChildInfo(child._id)}
+                                                        className={classes.button}
+                                                        aria-label="view results"
+                                                    >
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                {result && (
+                                                    <Link to={`/instructor/results/${result._id}`}>
+                                                        <Tooltip
+                                                            title={t(
+                                                                'test-results.button-icon-results-tooltip',
+                                                            ).toString()}
+                                                        >
+                                                            <IconButton
+                                                                className={classes.button}
+                                                                aria-label="view results"
+                                                            >
+                                                                <InsertChartIcon />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </Link>
+                                                )}
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
                             </TableBody>
                         </Table>
                     </Box>

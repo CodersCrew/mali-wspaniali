@@ -1,21 +1,18 @@
 import { createStyles, makeStyles } from '@material-ui/core';
-import clsx from 'clsx';
+import { observer } from 'mobx-react-lite';
+import { articleStore } from '../AdminUpdateArticlePage/ArticleCreator/ArticleCreatorStore';
 
-interface ArticleVideoProps {
-    videoUrl: string;
-    isPreview: boolean;
-}
-
-export function ArticleVideo({ videoUrl, isPreview }: ArticleVideoProps) {
+export const ArticleVideo = observer(function ArticleVideo() {
     const classes = useStyles();
+    const { article } = articleStore;
 
-    if (!videoUrl) return null;
+    if (!article || !article.videoUrl) return null;
 
     return (
-        <div className={clsx({ [classes.contentVideoPlayer]: true, [classes.isPreview]: isPreview })}>
+        <div className={classes.contentVideoPlayer}>
             <iframe
                 width="560"
-                src={videoUrl}
+                src={article.videoUrl}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -23,11 +20,10 @@ export function ArticleVideo({ videoUrl, isPreview }: ArticleVideoProps) {
             ></iframe>
         </div>
     );
-}
+});
 
 const useStyles = makeStyles(() =>
     createStyles({
-        isPreview: { opcity: 0.5 },
         contentVideoPlayer: {
             display: 'flex',
             justifyContent: 'center',

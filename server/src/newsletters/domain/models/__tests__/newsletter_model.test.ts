@@ -41,7 +41,7 @@ describe('Newsletter model', () => {
   });
 
   describe('if recreated', () => {
-    it('emits events', () => {
+    it('does not emit events', () => {
       const newsletter = NewsletterMapper.toDomain({
         message: 'my-message',
         recipients: ['mark@mail.com'],

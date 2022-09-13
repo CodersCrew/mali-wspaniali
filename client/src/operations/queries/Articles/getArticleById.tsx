@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { Article } from '../../../graphql/types';
 
 const ARTICLE_BY_ID = gql`
@@ -29,9 +30,13 @@ const ARTICLE_BY_ID = gql`
 `;
 
 export function useArticleWithId(id: string) {
-    const { data } = useQuery<{ article: Article }>(ARTICLE_BY_ID, {
+    const { data, error } = useQuery<{ article: Article }>(ARTICLE_BY_ID, {
         variables: { articleId: id },
     });
+
+    if (error) {
+        openSnackbar({ text: error.message, severity: 'error' });
+    }
 
     return { article: data?.article };
 }

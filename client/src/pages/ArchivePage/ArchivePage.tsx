@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { activePage } from '../../apollo_client';
 import { ButtonSecondary } from '../../components/Button';
@@ -8,12 +8,12 @@ import { PageContainer } from '../../components/PageContainer';
 import { Search } from './Search';
 
 export default function ArchivePage() {
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.newsletter.title', 'admin-menu.newsletter.archive']);
     }, []);
     const { t } = useTranslation();
 
-    const [options, setOptions] = React.useState<Record<string, string>>({});
+    const [options, setOptions] = useState<Record<string, string>>({});
 
     return (
         <PageContainer>

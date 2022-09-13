@@ -1,7 +1,7 @@
 import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Child } from '../../../graphql/types';
-import { theme as customTheme } from '../../../theme/theme';
+import { theme as customTheme } from '@app/theme/theme';
 import { CircleChart } from '../../../components/CircleChart';
 
 interface Props {
@@ -18,7 +18,12 @@ export function ChildHeader({ description, selectedChild, points, maxPoints }: P
     return (
         <Grid container className={classes.container}>
             <Grid item xs={8}>
-                <Grid container direction="column" justify="space-between" className={classes.childPersonalInformation}>
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="space-between"
+                    className={classes.childPersonalInformation}
+                >
                     <Grid item>
                         <Typography variant="h4">
                             {selectedChild.firstname} {selectedChild.lastname}

@@ -39,10 +39,10 @@ function SingleTest(props: { prefix: string }) {
     const classes = useStyles();
 
     return (
-        <div className={classes.container}>
+        <section className={classes.container}>
             <TestSummary {...props} />
             <TestDetails {...props} />
-        </div>
+        </section>
     );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -22,10 +22,10 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
 
     const { selectedChild: child } = resultCreator;
 
-    const [localResult, setLocalResult] = React.useState(resultCreator.values);
-    const [localNote, setLocalNote] = React.useState(getCurrentNote() || '');
+    const [localResult, setLocalResult] = useState(resultCreator.values);
+    const [localNote, setLocalNote] = useState(getCurrentNote() || '');
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLocalResult(resultCreator.values);
     }, [resultCreator.values, getCurrentNote()]);
 
@@ -47,6 +47,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                                 .map((k) => k.kindergarten!) || []
                         }
                         selected={child._id}
+                        selectedGroup={resultCreator.selectedGroup}
                         measurement={measurement}
                         childList={resultCreator.selectedKindergarten?.children || []}
                         resultCreator={resultCreator}

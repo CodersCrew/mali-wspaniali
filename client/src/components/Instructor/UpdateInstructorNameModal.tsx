@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 
 import { BasicModal } from '../Modal/BasicModal';
 import { ActionDialog, openDialog } from '../../utils/openDialog';
-import { UpdatedUserInput, UpdateInstructorNameResult } from '../../graphql/types';
+import { UpdatedUserInput, UpdateInstructorNameResult } from '@app/graphql/types';
 
 import { UpdateInstructorNameForm, UpdateInstructorNameModalProps } from './UpdateInstructorNameForm';
 

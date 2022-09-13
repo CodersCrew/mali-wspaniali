@@ -10,6 +10,7 @@ import {
 } from '@nestjs/graphql';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { UseInterceptors, UseGuards } from '@nestjs/common';
+import * as pick from 'lodash.pick';
 
 import { SentryInterceptor } from '../shared/sentry_interceptor';
 import { GqlAuthGuard } from '../users/guards/jwt_guard';
@@ -31,6 +32,13 @@ import { CurrentUser, LoggedUser } from '../users/params/current_user_param';
 import { GetResultsQuery } from '../users/domain/queries/impl/get_results_query';
 import { GetChildrenFromKindergartenQuery } from '../users/domain/queries/impl/get_children_from_kindergarten_query';
 import { countResults } from '../shared/utils/count_results';
+import { KindergartenWithInstructorDTO } from './dto/kindergarten_with_instructor_dto';
+import { GetKindergartensQuery } from '../kindergartens/domain/queries/impl/get_kindergartens_query';
+import { Kindergarten } from '../kindergartens/domain/models/kindergarten_model';
+import { GetUsersQuery } from '../users/domain/queries/impl/get_users_query';
+import { User } from '@app/users/domain/models';
+import { KindergartenMapper } from '../kindergartens/domain/mappers/kindergarten_mapper';
+import { UserMapper } from '../users/domain/mappers/user_mapper';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => AssessmentDTO)
@@ -76,7 +84,7 @@ export class AssessmentResolver {
   }
 
   @Mutation(() => AssessmentDTO)
-  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  @UseGuards(new GqlAuthGuard({ role: ['admin', 'instructor'] }))
   async createAssessment(
     @Args('assessment') assessment: AssessmentInput,
   ): Promise<AssessmentCore> {
@@ -88,13 +96,17 @@ export class AssessmentResolver {
   }
 
   @Mutation(() => AssessmentDTO)
-  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
+  @UseGuards(new GqlAuthGuard({ role: ['admin', 'instructor'] }))
   async updateAssessment(
+    @CurrentUser() user: LoggedUser,
     @Args('id') id: string,
     @Args('assessment') assessment: UpdatedAssessmentInput,
   ): Promise<AssessmentCore> {
     const updated: Assessment = await this.commandBus.execute(
-      new UpdateAssessmentCommand(id, assessment),
+      new UpdateAssessmentCommand(
+        id,
+        user.role === 'instructor' ? pick(assessment, ['groups']) : assessment,
+      ),
     );
 
     return AssessmentMapper.toPlain(updated);
@@ -129,5 +141,38 @@ export class AssessmentResolver {
     context.req.assessmentId = assessment.id;
 
     return AssessmentMapper.toPlain(assessment);
+  }
+
+  @ResolveField(() => KindergartenWithInstructorDTO)
+  async kindergartens(
+    @Parent() assessment: AssessmentDTO,
+    @Args('page', { nullable: true, type: () => Int }) page: number | undefined,
+  ) {
+    const paginatedKindergartens =
+      page !== undefined
+        ? assessment.kindergartens.slice(page * 10, (page + 1) * 10)
+        : assessment.kindergartens;
+
+    const kindergartens: Kindergarten[] = await this.queryBus.execute(
+      new GetKindergartensQuery(
+        paginatedKindergartens.map(k => k.kindergartenId),
+      ),
+    );
+
+    const instructors: User[] = await this.queryBus.execute(
+      new GetUsersQuery(paginatedKindergartens.map(k => k.instructorId)),
+    );
+
+    return paginatedKindergartens.map(col => {
+      const kindergarten = kindergartens.find(k => k.id === col.kindergartenId);
+      const instructor = instructors.find(i => i.id === col.instructorId);
+
+      return {
+        kindergarten: kindergarten
+          ? KindergartenMapper.toPlain(kindergarten)
+          : null,
+        instructor: instructor ? UserMapper.toPlain(instructor) : null,
+      };
+    });
   }
 }

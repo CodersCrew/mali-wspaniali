@@ -131,7 +131,12 @@ function KindergartenItem(props: KindergartenItemProps) {
                 <Checkbox checked={props.selected} disabled={props.disabled} color="default" />
             </TableCell>
             <TableCell classes={kindergartenNameclasses} title={'already used'}>
-                {props.kindergarten.number}/{props.kindergarten.name}
+                <div>
+                    {props.kindergarten.number}/{props.kindergarten.name}
+                </div>
+                <div>
+                    {props.kindergarten.address}&nbsp;{props.kindergarten.city}
+                </div>
             </TableCell>
         </TableRow>
     );

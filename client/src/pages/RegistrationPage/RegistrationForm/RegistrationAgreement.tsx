@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent, useState } from 'react';
 import {
     Checkbox,
     AccordionDetails,
@@ -17,9 +17,8 @@ import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import parse from 'html-react-parser';
 
 import { ButtonSecondary } from '../../../components/Button';
-import { Theme } from '../../../theme';
+import { Theme } from '@app/theme';
 import { AgreementExtended } from '../types';
-
 import { AgreementModal } from './AgreementModal';
 import { useStyles } from './styles';
 
@@ -31,7 +30,7 @@ export interface Props {
     classButton: string;
     classNextBtn: string;
     agreements: AgreementExtended[];
-    setAgreements: React.Dispatch<React.SetStateAction<AgreementExtended[]>>;
+    setAgreements: Dispatch<SetStateAction<AgreementExtended[]>>;
     agreementMoreBtn: string;
     agreementContainer: string;
     agreementCheckboxHeader: string;
@@ -228,12 +227,12 @@ export const RegistrationAgreement = ({
     }
 
     function handleMoreContent(panel: string) {
-        return (event: React.ChangeEvent<Record<string, unknown>>, newExpanded: boolean) => {
+        return (event: ChangeEvent<Record<string, unknown>>, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : '');
         };
     }
 
-    function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+    function handleChange({ target }: ChangeEvent<HTMLInputElement>) {
         const { id, checked } = target;
         const checks = [...boxChecked];
         const agreementState = [...agreements];

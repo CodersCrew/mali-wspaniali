@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
@@ -20,8 +20,7 @@ import {
     passwordCapitalTest,
 } from '../passwordStrengthTest';
 import { ButtonSecondary } from '../../../components/Button';
-import { Theme } from '../../../theme';
-
+import { Theme } from '@app/theme';
 import { RegistrationPasswordProps, PasswordValidation } from './types';
 import { PasswordStrengthChips } from './PasswordStrengthChips';
 
@@ -41,7 +40,6 @@ export const RegistrationPassword = ({
     classButton,
     classNextBtn,
     classFormItem,
-    skip,
     loading,
     error,
     setError,
@@ -142,12 +140,8 @@ export const RegistrationPassword = ({
         setShowPassword((prev) => !prev);
     }
 
-    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleClick() {
         if (password !== passwordConfirm) setError(true);
-
-        if (event.ctrlKey) {
-            if (skip) skip(() => true);
-        }
     }
 };
 

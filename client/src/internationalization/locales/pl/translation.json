@@ -26,14 +26,15 @@
         "welcome-text": "Witaj w świecie Małych Wspaniałych!",
         "subheading": "Dołącz do społeczności świadomych rodziców",
         "made-by": "Stworzone przez:",
-        "partners": "Partnerzy strategiczni:"
+        "partners": "Partnerzy strategiczni:",
+        "financial-partners": "Program zajęć współfinansowany z budżetu:"
     },
     "registration-page": {
         "register-header": "Rejestracja",
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
         "register-failure-keycode": "Podany kod nie jest prawidłowy",
-        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu, a może podaniem innego emaila, niż ten podany Fundacji. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>fundacja@mali-wspaniali.pl</strong>",
+        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>fundacja@mali-wspaniali.pl</strong>",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
@@ -67,7 +68,7 @@
             "show-more-content-modal": "Zobacz pełną treść w nowym oknie",
             "sub-title": "Zgody",
             "sub-title-description": "Zgodę na wykorzystanie wizerunku dziecka oraz na otrzymywanie informacji marketingowych może Pani/Pan w dowolnej chwili wycofać z poziomu platformy w zakładce 'Zgody'.",
-            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a style='color: #00acc1; text-decoration: none'; href='#'>Regulaminu</a>, <a style='color: #00acc1; text-decoration: none;' href='#'>Polityki prywatności</a>",
+            "statement": "Oświadczam, że zapoznałam/em się z treścią oraz akceptuję postanowienia <a href='/docs/regulamin_pl.pdf' target='_blank' style='color: #00acc1; text-decoration: none;'>Regukamin</a>, <a href='/docs/polityka_prywatnosci_pl.pdf' target='_blank' style='color: #00acc1; text-decoration: none'>Polityki prywatności</a>",
             "required-field": "*pole obowiązkowe do wypełnienia",
             "required-agreements": "Wymagane zgody lub oświadczenia",
             "select-all": "Zaznacz wszystkie zgody",
@@ -85,7 +86,7 @@
         "receive-link": "Otrzymasz na maila link by wygenerować nowe hasło.",
         "insert-email": "Wpisz adres e-mail podany fundacji",
         "continue": "Resetuj hasło",
-        "problem": "Napotkałeś/łaśgit problem?",
+        "problem": "Napotkałeś/łaś problem?",
         "contact": "Skontaktuj się z fundacją, by go rozwiązać",
         "email-helper-text": "Wpisz adres e-mail użyty przy rejestracji",
         "incorrect-email-helper-text": "Niepoprawny adres e-mail",
@@ -180,10 +181,15 @@
         "edit": "Edytuj dane",
         "first-measurement": "PP",
         "last-measurement": "PK",
-        "publish-result": "Publikuj wyniki",
         "download-result": "Pobierz wyniki",
         "status-result": "Status wyników",
-        "filter-children-label": "Szukaj po dziecku"
+        "filter-children-label": "Szukaj po dziecku",
+        "age-description": {
+            "age-in-test": "Wiek w teście: {{age}}l. {{q}} kw.",
+            "current-age": "Aktualny wiek: {{age}}l. {{q}} kw.",
+            "dob": "Data urodzenia: {{year}} {{q}} kw.",
+            "current-date": "Aktualna data: {{year}}  {{q}} kw."
+        }
     },
     "kindergarten-modal": {
         "city": "Miasto",
@@ -232,56 +238,36 @@
         "info-about-test": "Informacje o pomiarze",
         "carries-out-on": "przeprowadzony {{date}}",
         "age-group": "Wiek dziecka",
-        "age-group-description": {
-            "title": "W jaki sposób przypisujemy dziecko do danej grupy wiekowej?",
-            "subtitle": "Przypisując dziecko do grupy wiekowej obliczamy w dniu testów jego wiek metrykalny (z dokładnością do jednego miesiąca).",
-            "text-1": "Jeśli dziecko ma np. 4 lata i 10 miesięcy to kwalifikujemy je jako 5-latka. Do grupy ",
-            "age-1": "dzieci w wieku 5 lat",
-            "text-2": " zalicza się wszystkie dzieci, które w dniu badania miały ukończone ",
-            "age-2": "4 lata i 6 miesięcy,",
-            "text-3": " ale nie przekroczyły ",
-            "age-3": "5 lat i 5 miesięcy.",
-            "text-4": " Podobna zasada obowiązuje w kwalifikacji dzieci do innych grup wiekowych."
-        },
+        "empty-view": "Żaden test nie jest dostępny dla Twojego dziecka",
         "initial-fitness-level": "Łączny wynik z pomiaru początkowego",
         "final-fitness-level": "Łączny wynik z pomiaru końcowego",
         "advice": "Porada",
         "advice-modal-content": {
             "scale39": {
                 "title": "Porada - Niski poziom sprawności",
-                "subtitle": "Coś poszło nie tak!",
+                "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Wynik testu sprawności fizycznej Twojego dziecka jest na niskim poziomie. Nie należy tego bagatelizować. ",
-                "text-2": "Mogły na to wpłynąć różne",
-                "text-2-1": "czynniki, ",
-                "text-2-2": "jednak warto sprawdzić przyczynę słabszego wyniku i pracować z dzieckiem nad poprawą sprawności ruchowej, by mogło się zdrowo rozwijać.",
-                "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego ",
-                "text-3-1": "zestawu ćwiczeń."
+                "text-2": "Mogły na to wpłynąć różne <Link>czynniki</Link> jednak warto sprawdzić przyczynę słabszego wyniku i pracować z dzieckiem nad poprawą sprawności ruchowej, by mogło się zdrowo rozwijać.",
+                "text-3": "Nasi eksperci służą pomocą. Przygotowali dla Ciebie wytyczne, które możesz zastosować już dziś dla dobra swojego dziecka! Możesz także skorzystać z naszego <Link>zestawu ćwiczeń.</Link>"
             },
-            "medium": {
+            "scale49": {
                 "title": "Porada - Średni poziom sprawności",
                 "subtitle": "Mamy nad czym pracować!",
                 "text-1": "Podstawy sprawności są, ale by Twoje dziecko mogło lepiej się rozwijać, trzeba popracować nad jej poprawą. Tu z pomocą przychodzimy my! ",
-                "text-2": "Przygotowane przez naszych ekspertów ",
-                "text-2-1": "ćwiczenia",
-                "text-2-2": "na pewno pomogą w poprawie sprawności Twojego dziecka.",
-                "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów ",
-                "text-3-1": "artykułowi"
+                "text-2": "Przygotowane przez naszych ekspertów ćwiczenia na pewno pomogą w poprawie sprawności Twojego dziecka.",
+                "text-3": "To nie wszystko co dla Ciebie przygotowaliśmy! Sprawdź co jeszcze możesz zrobić by poprawić sprawności Twojego dziecka dzięki przygotowanemu przez naszych ekspertów <Link>artykułowi</Link>"
             },
-            "good": {
+            "scale59": {
                 "title": "Porada - Dobry poziom sprawności",
                 "subtitle": "Masz wiele powodów do zadowolenia!",
                 "text-1": "Twoje dziecko dobrze rozwija się pod względem sprawności fizycznej. Teraz przed nami praca do wykonania, by wspiąć się na poziom bardzo dobry. Już niewiele brakuje!",
-                "text-2": "Pamiętaj o czasie na codzienną aktywność fizyczną zarezerwowanym dla Twojego dziecka. Pomoże Ci w tym ",
-                "text-2-1": "artykuł",
-                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
+                "text-2": "Pamiętaj o czasie na codzienną aktywność fizyczną zarezerwowanym dla Twojego dziecka. Pomoże Ci w tym <Link>artykuł</Link> przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             },
             "maxScale": {
                 "title": "Porada - Bardzo dobry poziom sprawności",
                 "subtitle": "Bądź dumny ze swojego dziecka!",
                 "text-1": "Jest bardzo sprawne fizycznie i może być przykładem dla rówieśników. Podziękowania należą się także Tobie za dbanie o zdrowie i prawidłowy rozwój twojego dziecka – tak trzymajcie! ",
-                "text-2": "Koniecznie zobacz ",
-                "text-2-1": "artykuł",
-                "text-2-2": " przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
+                "text-2": "Koniecznie zobacz <Link>artykuł</Link> przygotowany przez naszych ekspertów, z garścią porad do zastosowania od zaraz!"
             }
         },
         "results-modal-content": {
@@ -289,31 +275,20 @@
                 "title": "Jest postęp! Brawo!",
                 "subtitle": "Brawo, widać, że dbasz o aktywność swojego dziecka.",
                 "text-1": "Jesteś na dobrej drodze do jego zdrowia i dobrego samopoczucia. Trzymaj tak dalej!",
-                "text-2": "Koniecznie zobacz porady przygotowane przez naszych ekspertów w zakładce ",
-                "text-2-1": " rekomendacje",
-                "text-2-2": ", by stać się jeszcze bardziej świadomym rodzicem."
+                "text-2": "Koniecznie zobacz porady przygotowane przez naszych ekspertów w zakładce <Link>rekomendacje</Link>, by stać się jeszcze bardziej świadomym rodzicem."
             },
             "constant": {
                 "title": "Uwaga! brak poprawy",
                 "subtitle": "Od ostatniego testu nie nastąpił wzrost wyników w przeprowadzonych próbach u Twojego dziecka.",
-                "text-1": "Musimy coś z tym zrobić. Warto zastanowić się, dlaczego tak się stało. Sprawdź zakładkę",
-                "text-1-1": "informacje o teście",
-                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
-                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworzone przez naszych ekspertów",
-                "text-2-1": "rekomendacje",
-                "text-2-2": " lub ",
-                "text-2-3": "artykuły."
+                "text-1": "Musimy coś z tym zrobić. Warto zastanowić się, dlaczego tak się stało. Sprawdź zakładkę <Link>informacje o teście</Link>, gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu sprawności.",
+                "text-2": "To nie wszystko co dla Ciebie przygotowaliśmy. Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomogą Ci w tym stworzone przez naszych ekspertów <Link>rekomendacje</Link> lub <OtherLink>artykuły</OtherLink>."
             },
             "regress": {
                 "title": "Uwaga! Pogorszenie!",
                 "subtitle": "Od ostatniego testu Twoje dziecko gorzej radzi sobie z badanymi przez nas cechami. Dlatego trzeba działać!",
-                "text-1": "Musimy zastanowić się, dlaczego tak się stało, by zadbać o prawidłowy rozwój Twojego dziecka. Sprawdź zakładkę ",
-                "text-1-1": "informacje o teście",
-                "text-1-2": ", gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
-                "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce ",
-                "text-2-1": "rekomendacje",
-                "text-3": "Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomoże Ci w tym stworzony przez naszych ekspertów",
-                "text-3-1": "artykuł."
+                "text-1": "Musimy zastanowić się, dlaczego tak się stało, by zadbać o prawidłowy rozwój Twojego dziecka. Sprawdź zakładkę <Link>informacje o teście</Link>, gdzie wypisaliśmy wszystkie czynniki mogące wpłynąć na gorsze wyniki testu.",
+                "text-2": "Już dziś zacznij realizować zalecenia przygotowane przez nas w zakładce <Link>rekomendacje</Link>",
+                "text-3": "Sprawdź, co jeszcze możesz zrobić, by poprawić sprawność swojego dziecka. Pomoże Ci w tym stworzony przez naszych ekspertów <Link>artykuł</Link>."
             }
         },
         "initial-test": "Pomiar początkowy",
@@ -344,7 +319,7 @@
             "agility": "Próba zwinności"
         },
         "test-description": {
-            "agility": "Bieg wahadłowy 4x5 m",
+            "agility": "Bieg wahadłowy 4x5 metrów",
             "power": "Skok w dal obunóż z miejsca",
             "strength": "Rzut piłką lekarską znad głowy",
             "speed": "Bieg na odległość 20 metrów"
@@ -369,6 +344,7 @@
             "title": "Informacja na wykresie",
             "progress": "Wzrost poziomu sprawności o:",
             "regress": "Spadek poziomu sprawności o:",
+            "constant": "Poziom sprawności nie zmienił się.",
             "initial-result": "Wynik pomiaru początkowego",
             "final-result": "Wynik pomiaru końcowego"
         },
@@ -425,8 +401,8 @@
             "conditions": {
                 "panelTitle": "W jaki sposób wykonujemy test przedszkolaka oraz obliczamy jego wyniki?",
                 "title": "Test sprawności przedszkolaka wykonywany jest raz w semestrze.",
-                "text1": "Składa się z dwóch prób: próba początkowa (pomiar na przełomie października i listopada) oraz próba końcowa (pomiar na przełomie kwietnia i maja). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
-                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów. Dzieci oceniane są według skali, przygotowanej przez międzynarodowych ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy.",
+                "text1": "Składa się z dwóch prób: próba początkowa (pomiar w miesiącach jesiennych roku szkolnego) oraz próba końcowa (pomiar w miesiącach wiosennych). Każda próba ma cztery składowe, których suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka.",
+                "text2": "Za każdą z prób można otrzymać określoną liczbę punktów, ustaloną według norm opracowanych w wyniku wieloletnich pomiarów i analiz prowadzonych we współpracy między innymi z naukowcami Katedry Nauk o Człowieku Uniwersytetu Rzeszowskiego. Dzieci oceniane są według zaktualizowanej skali przygotowanej przez ekspertów z dziedziny sprawności ruchowej wśród dzieci, która pokazuje wynik minimalny i maksymalny obliczany dla danego wieku i płci. Dla prób siłowych (siła i moc), im większą odległość uzyskało dziecko podczas próby, tym więcej otrzyma punktów, z kolei w przypadku prób sprawnościowych (szybkość i zwinność) więcej punktów otrzyma dziecko, którego czas wykonania próby jest krótszy. Czasem najmniejsze różnice w wynikach prób mogą mieć spore znaczenie dla różnicy punktacji. Może też się zdarzyć, że pozornie znaczne różnice w wynikach dziecka nie wpłyną na zmianę rezultatu punktowego. Sposób ustalania punktacji jest wynikiem wieloletnich, szczegółowych badań dzieci wieku przedszkolnego prowadzonych przez naukowców z ośrodków akademickich w Polsce.",
                 "text3": "Suma ocen tworzy wynik łączny. Wynik ten wskazuje na stopień sprawności Twojego dziecka (niski, średni, dobry lub bardzo dobry). Wyniki pobierane są od dzieci, które w czasie prowadzenia zajęć Mali Wspaniali przez Instruktora są obecne w placówce i chętne do ćwiczenia. Brak wyniku danej próby może świadczyć o nieobecności dziecka w danym dniu lub o nieuczestniczeniu w danym ćwiczeniu. W takim przypadku otrzymują Państwo poszczególne wyniki prób, bez możliwości zobaczenia ogólnej sprawności dziecka.",
                 "test1-name": "Zwinność",
                 "test1-description": "Bieg wahadłowy 4x5 m z przenoszeniem klocka",
@@ -458,16 +434,17 @@
                 "panelTitle": "Jakie czynniki mogą mieć wpływ na niski wynik testu",
                 "title1": "Czynniki ogólne mogące wpłynąć na niski wynik testu:",
                 "title2": "Indywidualne czynniki mogące wpłynąć na niski wynik testu:",
-                "text1": "Brak motywacji u uczestników testu lub w otoczeniu",
-                "text2": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
-                "text3": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
-                "text4": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
-                "text5": "Choroba dziecka (np. przeziębienie, biegunka)",
-                "text6": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
-                "text7": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
-                "text8": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
-                "text9": "Dziecko jest wcześniakiem",
-                "text10": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
+                "text1": "Brak jednej lub więcej prób testu",
+                "text2": "Brak motywacji u uczestników testu lub w otoczeniu",
+                "text3": "Warunki w placówce i poza nią (niekoniecznie niekorzystne)",
+                "text4": "Pora dnia (np. po posiłku, po leżakowaniu, innych zajęciach)",
+                "text5": "Zewnętrzne utrudnienia (np. zachowanie innych dzieci)",
+                "text6": "Choroba dziecka (np. przeziębienie, biegunka)",
+                "text7": "Uraz (np.: złamanie, skręcenie, stłuczenie) w ciągu ostatnich 30 dni",
+                "text8": "Poważna choroba dziecka wymagająca hospitalizacji w ciągu ostatnich 6 miesięcy",
+                "text9": "Choroba przewlekła (np.: astma oskrzelowa, alergia (atopowa))",
+                "text10": "Dziecko jest wcześniakiem",
+                "text11": "Bariery subiektywne ze strony dziecka (np.: inne fizyczne lub psychiczne)"
             }
         },
         "recommendations": {
@@ -516,6 +493,10 @@
         "parent": "Rodzic",
         "no-parent": "Nie istnieje rodzic o takim id"
     },
+    "parent-settings": {
+        "terms-conditions": "Regulamin",
+        "privacy-policy": "Polityka prywatności"
+    },
     "alert-dialog": {
         "error": "Błąd",
         "warning": "Uwaga!",
@@ -542,7 +523,6 @@
         "content-heading": "Treść newslettera",
         "general-recipient-label": "Wybierz adresata z listy",
         "general-recipient-label-filled": "Wybierz adresata",
-        "general-recipient-helper-text": "Nie wybrano adresata. Ten krok jest konieczny by przejść do pola specyzuj adresata.",
         "specific-recipient-label": "Sprecyzuj adresata",
         "specific-recipient-value-labels": {
             "all-parents": "wszyscy rodzice",
@@ -551,6 +531,8 @@
             "selected-kindergartens": "wybrane przedszkola"
         },
         "specific-recipient-helper-text": "Nie sprecyzowano adresata. Wypełnij pole, by wysłać wiadomość do prawidłowego odbiorcy.",
+        "created": "Stworzono wiadomość",
+        "created-error": "Błąd tworzonia wiadomość",
         "recipient-single-parent-label": "Aby wysłać wiadomość do konkretnego rodzica, wpisz dane dziecka, lub wybierz je z listy",
         "recipient-single-parent-label-filled": "Wiadomość wyślesz do rodziców dzieci:",
         "recipient-single-kindergarten-label": "Wybierz przedszkola z listy",
@@ -651,7 +633,8 @@
             "checkbox-option": "Przeniesienie do tego samego przedszkola",
             "success-message": "Zmiana przedszkoli przebiegła pomyślnie"
         },
-        "success-message": "Usunięto (Zaanonimozowano) rodzica"
+        "success-message": "Usunięto (Zaanonimozowano) rodzica",
+        "not-confirmed-only": "tylko niepotwierdzeni"
     },
     "single-article": {
         "emotions": "emocje",
@@ -720,7 +703,7 @@
             "tests-information": "Opis testów",
             "details": "Dane dziecka"
         },
-        "blog": "Aktualności",
+        "blog": "Artykuły",
         "agreements": "Zgody",
         "settings": "Ustawienia",
         "notifications": "Powiadomienia",
@@ -1008,7 +991,7 @@
         }
     },
     "add-results-page": {
-        "test-name": "Nazwa roku",
+        "test-name": "Nazwa testu",
         "kindergarten-name": "Przedszkole",
         "search-by-child-full-name": "Imię lub nazwisko dziecka",
         "firstname": "Imie",
@@ -1016,6 +999,7 @@
         "full-name": "Imie i nazwisko",
         "birth-quarter": "Kwartał urodzenia",
         "age": "Wiek dziecka",
+        "created-at": "Dodane",
         "first-assessment": "Pomiar początkowy",
         "last-assessment": "Pomiar końcowy",
         "first-assessment-progress": "Przeprowadzone przeze mnie próby w pomiarze początkowym",
@@ -1050,6 +1034,8 @@
     "add-result-page": {
         "kindergarten": "Przedszkole",
         "select-measurement": "Wybierz pomiar",
+        "select-group": "Wybierz grupę",
+        "all-groups": "Wszystkie",
         "first": "Początkowy",
         "last": "Końcowy",
         "no-result": "Brak wyniku",
@@ -1077,6 +1063,7 @@
         "run": "SZYBKOŚĆ"
     },
     "groupsModal": {
+        "title": "Grupy",
         "close": "zamknij",
         "save": "zapisz",
         "kindergarten-name": "Przedszkole",
@@ -1095,7 +1082,8 @@
         "delete-group": "Usuń grupę",
         "confirm": "Czy na pewno chcesz usunąć grupę {{name}}?",
         "edit-groups": "włącz edycję grup",
-        "edit": "edytuj"
+        "edit": "edytuj",
+        "group-with-children-message": "Kasowanie grupy z dziećmi jest niedozwolone. Wypisz wszystkie dzieci aby odblokować."
     },
     "add-article": {
         "basic-information-form": {
@@ -1131,7 +1119,10 @@
         },
         "events": {
             "created": "Utworzono artykuł",
-            "updated": "Artykuł zaktualizowany"
+            "updated": "Artykuł zaktualizowany",
+            "updated-wrong-title": "Nieprawidłowy tytuł. Powinien zawierać 10 - 100 znaków",
+            "updated-wrong-description": "Zły opis. Powinien zawierać 30 - 300 znaków",
+            "updated-unknown-error": "Błąd aktualizacji artykułu"
         }
     },
     "admin-article-list": {
@@ -1140,6 +1131,7 @@
             "publish": "Publikuj (Notyfikacje zostanę wysłane)",
             "unpublish": "Ukryj (W przypadku ponownego opublikowania, powiadomienia nie zostaną wysłane)",
             "delete": "Skasuj",
+            "views": "Otworzone",
             "delete-article-dialog": {
                 "title": "Skasować artykuł \"{{title}}\"?"
             },
@@ -1154,8 +1146,8 @@
     "instructor-settings-page": {
         "basic-information-panel": {
             "title": "Podstawowe informacje",
-            "first-name":"Imie",
-            "last-name":"Nazwisko"
+            "first-name": "Imie",
+            "last-name": "Nazwisko"
         },
         "save": "Zapisz"
     },

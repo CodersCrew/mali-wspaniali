@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { TextField, TextFieldProps } from '@material-ui/core';
 
 interface OutlinedTextFieldProps {
@@ -8,7 +8,7 @@ interface OutlinedTextFieldProps {
     options?: Partial<TextFieldProps>;
 }
 
-export const OutlinedTextField = React.memo(
+export const OutlinedTextField = memo(
     function OutlinedTextField({ label, value, options = {}, onChange }: OutlinedTextFieldProps) {
         return (
             <TextField

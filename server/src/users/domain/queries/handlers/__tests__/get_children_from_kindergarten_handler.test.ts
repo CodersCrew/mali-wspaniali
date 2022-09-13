@@ -1,16 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqrsModule } from '@nestjs/cqrs';
 import MockDate from 'mockdate';
-
-import * as dbHandler from '@app/db_handler';
-import { KeyCodesModule } from '../../../../../key_codes/key_codes_module';
-import { UsersModule } from '../../../../users_module';
-import { CreateKeyCodeHandler } from '../../../../../key_codes/domain/commands/handlers/create_key_code_handler';
-import { User } from '../../../models/user_model';
-import { AgreementsModule } from '../../../../../agreements/agreements_module';
-import { KindergartenModule } from '../../../../../kindergartens/kindergarten_module';
-import { CreateUserHandler } from '../../../commands/handlers/create_user_handler';
 import waitForExpect from 'wait-for-expect';
+
+import { User } from '../../../models/user_model';
 import { GetChildrenFromKindergartenHandler } from '../get_children_from_kindergarten_handler';
 import {
   createParent,
@@ -21,22 +12,15 @@ import {
 import { GetChildrenFromKindergartenQuery } from '../../impl';
 import { Child } from '../../../models/child_model';
 import { Kindergarten } from '../../../../../kindergartens/domain/models/kindergarten_model';
+import { getApp } from '../../../../../../setupTests';
 
 describe('GetChildrenFromKindergartenHandler', () => {
-  let app: TestingModule;
-
   afterAll(async () => {
-    await app.close();
     MockDate.reset();
   });
 
   beforeAll(async () => {
-    app = await setup();
     MockDate.set('2010-10-31');
-  });
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
   });
 
   describe('when executed', () => {
@@ -165,26 +149,10 @@ describe('GetChildrenFromKindergartenHandler', () => {
   });
 
   function getChildrenFromKindergarten(id: string) {
-    return app.resolve(GetChildrenFromKindergartenHandler).then(handler => {
-      return handler.execute(new GetChildrenFromKindergartenQuery(id));
-    });
-  }
-
-  async function setup() {
-    const module = await Test.createTestingModule({
-      imports: [
-        dbHandler.rootMongooseTestModule(),
-        CqrsModule,
-        UsersModule,
-        AgreementsModule,
-        KeyCodesModule,
-        KindergartenModule,
-      ],
-      providers: [CreateKeyCodeHandler, CreateUserHandler],
-    }).compile();
-
-    await module.init();
-
-    return module;
+    return getApp()
+      .resolve(GetChildrenFromKindergartenHandler)
+      .then(handler => {
+        return handler.execute(new GetChildrenFromKindergartenQuery(id));
+      });
   }
 });

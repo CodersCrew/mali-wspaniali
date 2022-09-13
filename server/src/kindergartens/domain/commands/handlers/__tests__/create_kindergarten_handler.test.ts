@@ -1,17 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import waitForExpect from 'wait-for-expect';
+
 import { CreateKindergartenCommand } from '../../impl';
 import { CreateKindergartenHandler } from '../create_kindergarten_handler';
-import { KindergartenModule } from '../../../../kindergarten_module';
-import * as dbHandler from '@app/db_handler';
 import { Kindergarten } from '../../../models/kindergarten_model';
 import { NotificationRepository } from '../../../../../notifications/domain/repositories/notification_repository';
 import { UserRepository } from '../../../../../users/domain/repositories/user_repository';
 import { User } from '../../../../../users/domain/models/user_model';
 import { KindergartenInput } from '../../../../inputs/kindergarten_input';
+import { getApp } from '../../../../../../setupTests';
 
 describe('CreatKindergartenHandler', () => {
-  let module: TestingModule;
   let admin: User;
 
   const validKindergartenOptions = {
@@ -22,16 +20,6 @@ describe('CreatKindergartenHandler', () => {
   };
 
   let createdKindergarten: Kindergarten;
-
-  afterAll(async () => {
-    await module.close();
-  });
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-
-    module = await setup();
-  });
 
   describe('when executed with correct data', () => {
     beforeEach(async () => {
@@ -53,14 +41,10 @@ describe('CreatKindergartenHandler', () => {
 
     it('invokes child added notification', async () => {
       await waitForExpect(async () => {
-        return expect(await getNotificationsForUser(admin.id)).toEqual(
-          jasmine.arrayContaining([
-            jasmine.objectContaining({
-              templateId: 'kindergarten_created',
-              values: ['my-name'],
-            }),
-          ]),
-        );
+        const notifications = await getNotificationsForUser(admin.id);
+
+        expect(notifications[0].templateId).toBe('kindergarten_created');
+        expect(notifications[0].values).toEqual(['my-name']);
       });
     });
   });
@@ -74,33 +58,27 @@ describe('CreatKindergartenHandler', () => {
   });
 
   function createKindergartenWith(options: Partial<KindergartenInput>) {
-    return module.get(CreateKindergartenHandler).execute(
-      new CreateKindergartenCommand({
-        ...validKindergartenOptions,
-        ...options,
-      }),
-    );
+    return getApp()
+      .get(CreateKindergartenHandler)
+      .execute(
+        new CreateKindergartenCommand({
+          ...validKindergartenOptions,
+          ...options,
+        }),
+      );
   }
 
   function getNotificationsForUser(user: string) {
-    return module.get(NotificationRepository).getAll(user);
+    return getApp()
+      .get(NotificationRepository)
+      .getAll(user);
   }
 
   async function createAdmin() {
-    const userRepository = module.get(UserRepository);
+    const userRepository = getApp().get(UserRepository);
 
     await userRepository.createAdmin('admin@admin.com', 'adminadmin');
 
     return userRepository.getByMail('admin@admin.com');
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [dbHandler.rootMongooseTestModule(), KindergartenModule],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}

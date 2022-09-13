@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, UpdateQuery } from 'mongoose';
 
 import { ChildDocument } from '../../schemas/child_schema';
 import { Child } from '../models/child_model';
@@ -28,7 +28,7 @@ export class ChildRepository {
       { _id: childId },
       {
         $addToSet: { results: resultId },
-      },
+      } as UpdateQuery<ChildDocument>,
       {
         useFindAndModify: false,
       },
@@ -62,7 +62,7 @@ export class ChildRepository {
     return results.filter(c => {
       const age = parseDateToAge(c.birthYear, c.birthQuarter);
 
-      return age >= 3 && age <= 7 && !c.isDeleted;
+      return age >= 2 && age <= 7 && !c.isDeleted;
     });
   }
 

@@ -1,3 +1,4 @@
+import { FC, ChangeEvent, useState } from 'react';
 import {
     createStyles,
     FormControl,
@@ -9,10 +10,9 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { ChangeEvent, useState } from 'react';
 
 import { useIsDevice } from '../../queries/useBreakpoints';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 export type PasswordChangeFormInputProps = {
     value: string;
@@ -22,7 +22,7 @@ export type PasswordChangeFormInputProps = {
     label: string;
 };
 
-export const PasswordChangeFormInput: React.FC<PasswordChangeFormInputProps> = ({
+export const PasswordChangeFormInput: FC<PasswordChangeFormInputProps> = ({
     children,
     value,
     onChange,

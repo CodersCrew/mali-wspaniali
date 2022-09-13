@@ -33,6 +33,7 @@ export const ADD_CHILD = gql`
                 _id
                 name
                 number
+                city
             }
         }
     }

@@ -17,9 +17,11 @@ describe('load', () => {
         it('attaches loader', () => {
             expect(getActiveLoadersCounter()).toEqual(0);
 
-            load(Promise.reject()).then(() => {
-                expect(getActiveLoadersCounter()).toEqual(0);
-            });
+            load(Promise.reject())
+                .then(() => {
+                    expect(getActiveLoadersCounter()).toEqual(0);
+                })
+                .catch(() => {});
 
             expect(getActiveLoadersCounter()).toEqual(1);
         });

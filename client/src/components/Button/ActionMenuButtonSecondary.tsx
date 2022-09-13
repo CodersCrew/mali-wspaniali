@@ -1,4 +1,4 @@
-import { useState, useRef, ReactNode } from 'react';
+import { ReactNode, CSSProperties, useState, useRef } from 'react';
 import { Button, ButtonGroup, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 
@@ -6,8 +6,9 @@ interface ActionMenuButtonSecondaryProps {
     label: string;
     options: ReactNode[];
     onClick: () => void;
+    isDisabled?: boolean;
     size?: 'small' | 'medium' | 'large';
-    buttonStyle?: React.CSSProperties;
+    buttonStyle?: CSSProperties;
     popperStyle?: string;
 }
 
@@ -25,10 +26,15 @@ export function ActionMenuButtonSecondary(props: ActionMenuButtonSecondaryProps)
                     ref={anchorRef}
                     aria-label="split button"
                 >
-                    <Button style={props.buttonStyle} size={props.size || 'medium'} onClick={props.onClick}>
+                    <Button
+                        disabled={props.isDisabled}
+                        style={props.buttonStyle}
+                        size={props.size || 'medium'}
+                        onClick={props.onClick}
+                    >
                         {props.label}
                     </Button>
-                    <Button size="small" onClick={handleMenuToggle}>
+                    <Button disabled={props.isDisabled} size="small" onClick={handleMenuToggle}>
                         <ArrowDropDown />
                     </Button>
                 </ButtonGroup>

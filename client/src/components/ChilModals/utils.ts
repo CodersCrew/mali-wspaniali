@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { AddChildResult, ChildInput } from '../../graphql/types';
+import { AddChildResult, ChildInput } from '@app/graphql/types';
 
 export const initialValues: AddChildResult = {
     firstname: '',

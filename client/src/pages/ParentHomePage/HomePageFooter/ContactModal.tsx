@@ -6,7 +6,7 @@ import { BasicModal } from '../../../components/Modal/BasicModal';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 import { SocialMediaBar } from '../SocialMediaBar';
 
-import Logo from '../../../assets/MW_logo_with_characters.svg';
+import Logo from '@app/assets/MW_logo_with_characters.svg';
 
 export const openContactModal = () => {
     return openDialog(ContactModal);
@@ -41,7 +41,6 @@ export function ContactModal({ onClose }: ActionDialog) {
                         <Typography variant="body1">Fundacja Mali Wspaniali </Typography>
                         <Typography variant="body1">Ślężna 2 - 24, Wrocław, 53-302 </Typography>
                         <Box mb={2} />
-                        <Typography variant="body1">+48 510 454 457</Typography>
                         <Typography variant="body1">fundacja@mali-wspaniali.pl</Typography>
                     </Box>
                     <Box

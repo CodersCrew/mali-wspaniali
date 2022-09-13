@@ -43,10 +43,12 @@ import { AgreementMapper } from '../agreements/domain/mappers/agreement_mapper';
 import { NotificationCore } from '../notifications/domain/models/notification_model';
 import { UserMapper } from './domain/mappers/user_mapper';
 import { UserPagination } from './params/user_pagination';
+import { NotificationMapper } from '../notifications/domain/mappers/notification_mapper';
 import {
   Agreement,
   AgreementCore,
 } from '@app/agreements/domain/models/agreement';
+import { Notification } from '../notifications/domain/models/notification_model';
 
 @UseInterceptors(SentryInterceptor)
 @Resolver(() => UserDTO)
@@ -65,9 +67,11 @@ export class UsersResolver {
 
   @ResolveField(() => [NotificationDTO])
   async notifications(@Parent() user: UserDTO): Promise<NotificationDTO[]> {
-    return await this.queryBus.execute(
+    const notifications = await this.queryBus.execute(
       new GetNotificationsByUserQuery(user._id),
     );
+
+    return notifications.map(NotificationMapper.toPlain);
   }
 
   @ResolveField()
@@ -103,7 +107,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => ReturnedStatusDTO)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async anonymizeUser(@Args('id') id: string) {
     const user: User = await this.commandBus.execute(
       new AnonymizeUserCommand(id),
@@ -115,11 +119,11 @@ export class UsersResolver {
   @Mutation(() => NotificationDTO)
   @UseGuards(GqlAuthGuard)
   async readNotification(@Args('id') id: string): Promise<NotificationCore> {
-    const notification: NotificationCore = await this.commandBus.execute(
+    const notification: Notification = await this.commandBus.execute(
       new ReadNotificationCommand(id),
     );
 
-    return notification;
+    return NotificationMapper.toPlain(notification);
   }
 
   @Mutation(() => ReturnedStatusDTO)
@@ -183,7 +187,7 @@ export class UsersResolver {
       new ChangeUserAgreementCommand(user.userId, agreementId),
     );
 
-    return agreement.getProps();
+    return AgreementMapper.toRaw(agreement);
   }
 
   @Mutation(() => UserDTO)

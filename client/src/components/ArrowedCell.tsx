@@ -1,9 +1,10 @@
+import { useState, useEffect } from 'react';
 import { TableCell, IconButton, makeStyles, createStyles } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import clsx from 'clsx';
-import { useState, useEffect } from 'react';
-import { Theme } from '../theme';
+
+import { Theme } from '@app/theme';
 
 interface ArrowedCellProps {
     text: string;

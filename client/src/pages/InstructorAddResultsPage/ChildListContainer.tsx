@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { IconButton, Table, TableBody, TableCell, TableHead, TableRow, Box, Grid } from '@material-ui/core';
 import { ArrowUpward, ArrowDownward, Assessment as AssessmentIcon, BarChart, EventNote } from '@material-ui/icons';
-import { Assessment, Child, AssessmentResult } from '../../graphql/types';
+import { Assessment, Child, AssessmentResult } from '@app/graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { Clickable } from '../../components/Clickable';
 import { CustomIconButton } from '../../components/Button/CustomIconButton';
 import { CountIcon } from '../../components/CountIcon';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
+import dayjs from '../../localizedMoment';
 
 interface Props {
     childList: Child[];
@@ -14,12 +15,14 @@ interface Props {
     assessment: Assessment;
     fullNameSortType: string;
     ageSortType: string;
+    creationDateSortType: string;
+    selectedGroup: string;
     onClick: (type: string, value: string) => void;
 }
 
 export function ChildListContainer(props: Props) {
     const { t } = useTranslation();
-    const { childList, results, assessment, fullNameSortType, ageSortType, onClick } = props;
+    const { childList, results, assessment, fullNameSortType, ageSortType, creationDateSortType, onClick } = props;
     const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
     const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
 
@@ -33,6 +36,13 @@ export function ChildListContainer(props: Props) {
                     <TableCell onClick={() => onClick('age', '')}>
                         <SortableHeaderItem label={t('add-results-page.age')} type={ageSortType} isCenter />
                     </TableCell>
+                    <TableCell onClick={() => onClick('created-at', '')}>
+                        <SortableHeaderItem
+                            label={t('add-results-page.created-at')}
+                            type={creationDateSortType}
+                            isCenter
+                        />
+                    </TableCell>
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
                     <TableCell align="center">{t('add-results-page.last-assessment')}</TableCell>
                     <TableCell align="center">{t('add-results-page.see-results')}</TableCell>
@@ -44,6 +54,21 @@ export function ChildListContainer(props: Props) {
                     const lastNote = getLastNote(c._id);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
+                    const isResultDisabled = isFirstMeasurementDisabled && isLastMeasurementDisabled;
+                    const result = results.find((r) => r.childId === c._id);
+
+                    let isGroupActive;
+
+                    if (props.selectedGroup === '') {
+                        isGroupActive = true;
+                    } else if (props.selectedGroup === 'unassigned') {
+                        isGroupActive =
+                            result?.firstMeasurementGroup === '' || result?.firstMeasurementGroup === undefined;
+                    } else {
+                        isGroupActive = result?.firstMeasurementGroup === props.selectedGroup;
+                    }
+
+                    if (!isGroupActive) return null;
 
                     return (
                         <TableRow key={c._id} hover>
@@ -51,8 +76,9 @@ export function ChildListContainer(props: Props) {
                                 {c.firstname} {c.lastname}
                             </TableCell>
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
+                            <TableCell align="center">{dayjs(c.createdAt).format('L')}</TableCell>
                             <TableCell align="center">
-                                <Grid container alignItems="center" justify="space-evenly">
+                                <Grid container alignItems="center" justifyContent="space-evenly">
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center">
                                             <Grid container alignItems="center">
@@ -89,7 +115,7 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <Grid container justify="space-evenly">
+                                <Grid container justifyContent="space-evenly">
                                     <Grid item sm={6} md={4}>
                                         <Box display="flex" alignItems="center">
                                             <Grid container alignItems="center">
@@ -124,9 +150,14 @@ export function ChildListContainer(props: Props) {
                                 </Grid>
                             </TableCell>
                             <TableCell align="center">
-                                <IconButton onClick={() => onClick('see-results', c._id)} disabled={isResultDisabled()}>
-                                    <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
-                                </IconButton>
+                                {result && (
+                                    <IconButton
+                                        onClick={() => onClick('see-results', result._id)}
+                                        disabled={!isResultDisabled}
+                                    >
+                                        <AssessmentIcon titleAccess={t('add-results-page.see-results')} />
+                                    </IconButton>
+                                )}
                             </TableCell>
                         </TableRow>
                     );
@@ -134,10 +165,6 @@ export function ChildListContainer(props: Props) {
             </TableBody>
         </Table>
     );
-
-    function isResultDisabled() {
-        return props.assessment.firstMeasurementStatus !== 'done' || props.assessment.lastMeasurementStatus !== 'done';
-    }
 
     function matchResultWithColor(result: number) {
         if (result === 4) return 'success-dark';
@@ -165,7 +192,7 @@ export function ChildListContainer(props: Props) {
 function SortableHeaderItem({ type, label, isCenter }: { type: string; label: string; isCenter?: boolean }) {
     return (
         <Clickable>
-            <Box display="flex" justifyContent={isCenter ? 'center' : 'left'}>
+            <Box display="flex" justifyContent={isCenter ? 'center' : 'left'} alignItems="center">
                 <Box mr={1}>{label}</Box>
                 <ArrowItem type={type} />
             </Box>

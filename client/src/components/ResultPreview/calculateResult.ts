@@ -1,12 +1,14 @@
-import { resultColors } from '../../colors';
-import { AssessmentParam } from '../../graphql/types';
-import { countInvertedPoints, countPoints } from '../../pages/InstructorResultCreatorPage/countPoints';
+import { resultColors } from '@app/colors';
+import { AssessmentParam } from '@app/graphql/types';
+import { countInvertedPoints, countPoints } from '@app/pages/InstructorResultCreatorPage/countPoints';
+
+export type ResultKeys = 'scale39' | 'scale49' | 'scale59' | 'maxScale';
 
 export interface Calculation {
     color: string;
     lightColor: string;
-    key: string;
-    nextKey: string | null;
+    key: ResultKeys;
+    nextKey: ResultKeys | null;
     maxValueInPoints: number;
     valueInPoints: number;
     scale39InPoints: number;
@@ -16,7 +18,7 @@ export interface Calculation {
     maxScaleInPoints: number;
 }
 
-export const testResults = {
+export const testResults: Record<string, Partial<Calculation>> = {
     bad: {
         color: resultColors.red,
         lightColor: resultColors.lightRed,
@@ -49,11 +51,11 @@ export function getResultColorAndLabel(value: number, param: AssessmentParam, na
 
     let result: Partial<Calculation>;
 
-    const scale39InPoints = count(param?.scale39 || 0, param);
-    const scale49InPoints = count(param?.scale49 || 0, param);
-    const scale59InPoints = count(param?.scale59 || 0, param);
-    const minScaleInPoints = count(param?.minScale || 0, param);
-    const maxScaleInPoints = count(param?.maxScale || 0, param);
+    const scale39InPoints = count(param.scale39, param);
+    const scale49InPoints = count(param.scale49, param);
+    const scale59InPoints = count(param.scale59, param);
+    const minScaleInPoints = count(param.minScale, param);
+    const maxScaleInPoints = count(param.maxScale, param);
 
     if (valueInPoints < scale39InPoints) {
         result = testResults.bad;

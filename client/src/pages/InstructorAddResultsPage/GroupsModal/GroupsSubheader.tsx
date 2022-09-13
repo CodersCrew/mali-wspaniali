@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { Grid, Typography, Box } from '@material-ui/core';
+
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import { useIsDevice } from '../../../queries/useBreakpoints';
@@ -11,34 +11,30 @@ import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
 import { openGroupsModal } from './GroupsModal';
 import { GroupsChip } from './GroupsChip';
 
-interface Props {
+interface GroupsSubheaderProps {
     selectedKindergarten: string;
     selectedAssessment: string;
+    selectedGroup: string;
     assessments: Assessment[];
     onChange: (type: string, value: string) => void;
 }
-export function GroupsSubheader(props: Props) {
+export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
-    const [selectedGroup, setSelectedGroup] = useState('unassigned');
+    const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const toggleOrSelect = (groupId: string) => {
-        if (selectedGroup === groupId) {
-            setSelectedGroup('');
-            props.onChange('group', '');
-        } else {
-            setSelectedGroup(groupId);
-            props.onChange('group', groupId);
-        }
+        props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
     };
 
     const { t } = useTranslation();
 
     useEffect(() => {
-        setGroups([
-            { _id: '123', name: 'motylki', instructor: null, kindergarten: null },
-            { _id: '124', name: 'kotki', instructor: null, kindergarten: null },
-        ]);
-    }, []); // to be deleted
+        if (currentAssessment) {
+            setGroups(currentAssessment.groups);
+        }
+    }, [currentAssessment]);
     const device = useIsDevice();
+
+    const activeGroups = selectGroupsFromKindergarten(groups);
 
     return (
         <Grid
@@ -46,7 +42,7 @@ export function GroupsSubheader(props: Props) {
             direction="row"
             alignItems="center"
             wrap="wrap"
-            justify={device.isSmallMobile ? 'flex-start' : 'space-between'}
+            justifyContent={device.isSmallMobile ? 'flex-start' : 'space-between'}
         >
             {device.isDesktop && (
                 <Grid item xs={1}>
@@ -57,15 +53,19 @@ export function GroupsSubheader(props: Props) {
                 <GroupsChip
                     label={t('groupsModal.unassigned')}
                     onClick={() => toggleOrSelect('unassigned')}
-                    selected={selectedGroup === 'unassigned'}
+                    selected={props.selectedGroup === 'unassigned'}
                 />
-                {groups.map((group, index) => (
-                    <GroupsChip
-                        key={index}
-                        label={group.name}
-                        onClick={() => toggleOrSelect(group._id)}
-                        selected={selectedGroup === group._id}
-                    />
+                {activeGroups.map((group) => (
+                    <Box key={group.group} display="inline">
+                        <Box display="inline-block" mb={1}>
+                            <GroupsChip
+                                key={group.group}
+                                label={group.group}
+                                onClick={() => toggleOrSelect(group.group)}
+                                selected={props.selectedGroup === group.group}
+                            />
+                        </Box>
+                    </Box>
                 ))}
             </Grid>
             {device.isDesktop && (
@@ -76,11 +76,22 @@ export function GroupsSubheader(props: Props) {
                             variant="contained"
                             startIcon={<PermIdentityIcon />}
                             innerText={t('groupsModal.groups')}
-                            onClick={() => openGroupsModal({ ...props })}
+                            onClick={onGroupClicked}
                         />
                     </Box>
                 </Grid>
             )}
         </Grid>
     );
+
+    function onGroupClicked() {
+        openGroupsModal({
+            ...props,
+            assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
+        });
+    }
+
+    function selectGroupsFromKindergarten(groupList: Group[]) {
+        return groupList.filter((g) => g.kindergartenId === props.selectedKindergarten);
+    }
 }

@@ -34,7 +34,7 @@ export function AgreementsFilter({ agreementType, agreementStatus, agreementKind
             <Grid container>
                 <AgreementKindergartenInput values={agreementKindergarten} onChange={onChange} />
             </Grid>
-            <Grid container justify="flex-end">
+            <Grid container justifyContent="flex-end">
                 <ButtonSecondary variant="contained" className={classes.filterButton} onClick={onSubmit}>
                     <CheckCircleOutlineIcon />
                 </ButtonSecondary>

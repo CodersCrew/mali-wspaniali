@@ -14,11 +14,11 @@ export const CREATE_NEWSLETTER = gql`
 `;
 
 export function useCreateNewsletter() {
-    const [createNewsletter, { data }] = useMutation<CreateNewsletterResponse>(CREATE_NEWSLETTER);
+    const [createNewsletter, { data, loading, called }] = useMutation<CreateNewsletterResponse>(CREATE_NEWSLETTER);
 
     const handleCreateNewsletter = async (newsletter: NewsletterInput) => {
         await createNewsletter({ variables: { newsletter } });
     };
 
-    return { createNewsletter: handleCreateNewsletter, result: data };
+    return { createNewsletter: handleCreateNewsletter, result: data, createNewsletterPending: loading || called };
 }

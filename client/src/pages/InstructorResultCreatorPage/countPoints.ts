@@ -1,4 +1,4 @@
-import { AssessmentParam, Child } from '../../graphql/types';
+import { AssessmentParam, Child } from '@app/graphql/types';
 import type { AssessmentValues } from './useResultCreator';
 
 export function countPoints(value: number, param: AssessmentParam) {

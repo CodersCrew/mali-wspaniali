@@ -1,6 +1,8 @@
 import { transformAndValidateSync } from 'class-transformer-validator';
 import { classToPlain } from 'class-transformer';
+
 import { NewsletterCore, Newsletter } from '../models/newsletter_model';
+import { getCoreValidationConfig } from '../../../shared/utils/core_validation';
 
 export class NewsletterMapper {
   static toDomain(
@@ -12,10 +14,11 @@ export class NewsletterMapper {
       : Newsletter.recreate;
 
     return createNewsletter(
-      transformAndValidateSync(NewsletterCore, value, {
-        transformer: { excludeExtraneousValues: true },
-        validator: { validationError: { target: false, value: false } },
-      }),
+      transformAndValidateSync(
+        NewsletterCore,
+        value,
+        getCoreValidationConfig(),
+      ),
     );
   }
 

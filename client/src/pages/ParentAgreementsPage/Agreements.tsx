@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Box,
@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 
 import { ButtonSecondary } from '../../components/Button';
-import { Agreement } from '../../graphql/types';
+import { Agreement } from '@app/graphql/types';
 import { useUpdateAgreements } from '../../operations/mutations/Agreements/useUpdateAgreements';
 import { PageContainer } from '../../components/PageContainer';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
@@ -30,7 +30,7 @@ export const Agreements = ({ agreements }: Props) => {
     const [agreementsArray, setAgreementsArray] = useState(agreements);
     const [agreementIds, setAgreementIds] = useState<string[]>([]);
 
-    function changeAgreement(e: React.ChangeEvent<HTMLInputElement>, id: string) {
+    function changeAgreement(e: ChangeEvent<HTMLInputElement>, id: string) {
         const agreementIndex = agreementsArray.findIndex((agreement) => agreement._id === id);
         const newArray = [...agreementsArray];
 

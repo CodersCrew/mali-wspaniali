@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 import { activePage } from '../../apollo_client';
 import { AssessmentHistoryList } from './AssessmentHistoryList/AssessmentHistoryList';
@@ -13,7 +14,7 @@ import { CustomContainer } from '../../components/CustomContainer';
 export default function AdminAssessmentHistoryPage() {
     const { t } = useTranslation();
     const history = useHistory();
-    const { assessments } = useAssessments();
+    const { assessments, areAssessmentsLoading } = useAssessments();
 
     useEffect(() => {
         activePage(['admin-menu.test-management']);
@@ -41,21 +42,36 @@ export default function AdminAssessmentHistoryPage() {
                 }
                 container={
                     <Box mb={3}>
-                        <AssessmentHistoryList
-                            assessments={assessments}
-                            onTestClick={(type, id) => {
-                                if (type === 'edit') {
-                                    redirectToEditAssessmentPage(id);
-                                }
+                        {areAssessmentsLoading ? (
+                            <EmptyPage />
+                        ) : (
+                            <AssessmentHistoryList
+                                assessments={assessments}
+                                onTestClick={(type, id) => {
+                                    if (type === 'edit') {
+                                        redirectToEditAssessmentPage(id);
+                                    }
 
-                                if (type === 'details') {
-                                    redirectToDetailsAssessmentPage(id);
-                                }
-                            }}
-                        />
+                                    if (type === 'details') {
+                                        redirectToDetailsAssessmentPage(id);
+                                    }
+                                }}
+                            />
+                        )}
                     </Box>
                 }
             />
         </PageContainer>
+    );
+}
+
+function EmptyPage() {
+    return (
+        <>
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+            <Skeleton height={64} />
+        </>
     );
 }

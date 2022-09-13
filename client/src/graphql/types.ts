@@ -15,6 +15,7 @@ export interface Article {
     deletedAt: string;
     modifiedAt: string;
     publishedAt: string;
+    views: number;
 }
 
 export interface Redactor {
@@ -125,7 +126,16 @@ export interface BaseChildInfo {
     firstname: string;
     lastname: string;
     sex: Sex;
+    birthYear: number;
+    birthQuarter: number;
     age?: number;
+}
+
+interface CurrentParams {
+    run?: AssessmentParam;
+    pendelumRun?: AssessmentParam;
+    throw?: AssessmentParam;
+    jump?: AssessmentParam;
 }
 
 export interface Child extends BaseChildInfo {
@@ -134,12 +144,8 @@ export interface Child extends BaseChildInfo {
     birthQuarter: number;
     age?: number;
     results: AssessmentResult[];
-    currentParams?: {
-        run?: AssessmentParam;
-        pendelumRun?: AssessmentParam;
-        throw?: AssessmentParam;
-        jump?: AssessmentParam;
-    };
+    createdAt: string;
+    currentParams?: CurrentParams;
 }
 
 export type Sex = 'male' | 'female';
@@ -148,6 +154,7 @@ export interface KindergartenWithChildren {
     kindergarten: {
         _id: string;
         name: string;
+        address: string;
         firstMeasurementResultCount: number;
         lastMeasurementResultCount: number;
         maxResultCount: number;
@@ -230,13 +237,15 @@ export interface KeyCodeSeries {
     count: number;
 }
 
+export type MeasurementStage = 'not-planned' | 'planned' | 'active' | 'done';
+
 export interface Assessment {
     _id: string;
     isOutdated: boolean;
     isDeleted: boolean;
     title: string;
-    firstMeasurementStatus: string;
-    lastMeasurementStatus: string;
+    firstMeasurementStatus: MeasurementStage;
+    lastMeasurementStatus: MeasurementStage;
     firstMeasurementStartDate: string;
     firstMeasurementEndDate: string;
     lastMeasurementStartDate: string;
@@ -248,6 +257,7 @@ export interface Assessment {
         instructor: User | null;
         kindergarten: Kindergarten | null;
     }[];
+    groups: { kindergartenId: string; group: string }[];
 }
 
 export interface AssessmentResult {
@@ -283,6 +293,8 @@ export interface AssessmentResult {
     lastMeasurementJumpDate: Date;
     createdAt: Date;
     modifiedAt: Date;
+    firstMeasurementGroup?: string;
+    lastMeasurementGroup?: string;
 }
 
 export interface ReturnedStatusDTO {
@@ -290,11 +302,8 @@ export interface ReturnedStatusDTO {
 }
 
 export interface Group {
-    _id: string;
-    name: string;
-    children?: Child[];
-    instructor: User | null;
-    kindergarten: Kindergarten | null;
+    kindergartenId: string;
+    group: string;
 }
 
 export interface NewsletterInput {

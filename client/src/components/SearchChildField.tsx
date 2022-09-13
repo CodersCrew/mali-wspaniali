@@ -51,7 +51,7 @@ function SearchFieldLabel(props: SearchFieldLabelProps) {
 
     return (
         <Box mb={1} mt={1}>
-            <Grid container justify="space-between" alignItems="center">
+            <Grid container justifyContent="space-between" alignItems="center">
                 <Grid item>
                     <Typography component={'span'}>
                         <Box fontWeight={500}>{label}</Box>

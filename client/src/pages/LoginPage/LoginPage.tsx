@@ -1,15 +1,30 @@
-import React, { FormEvent, useState } from 'react';
-import { TextField, makeStyles, createStyles, Typography, Box, Divider, CircularProgress } from '@material-ui/core/';
+import { FormEvent, useState, useEffect } from 'react';
+import {
+    TextField,
+    makeStyles,
+    createStyles,
+    Typography,
+    Box,
+    Divider,
+    CircularProgress,
+    InputAdornment,
+    IconButton,
+    FormControl,
+    OutlinedInput,
+    InputLabel,
+} from '@material-ui/core/';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme';
-import { useAuthorizeMe } from '../../operations/mutations/User/authorizeMe';
-import { useIsDevice } from '../../queries/useBreakpoints';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { ButtonSecondary } from '@app/components/Button';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
+import { Theme } from '@app/theme';
+import { useAuthorizeMe } from '@app/operations/mutations/User/authorizeMe';
+import { useConfirmUser } from '@app/operations/mutations/User/confirmUser';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+
 import { PartnerLogotypeContainer } from '../AuthTemplate/PartnerLogotypeContainer';
-import { useConfirmUser } from '../../operations/mutations/User/confirmUser';
 
 const initialError: Error = {
     name: '',
@@ -32,16 +47,16 @@ export default function LoginPage() {
         },
     );
     const { isDesktop } = useIsDevice();
+    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
+    const params = useParams<{ confirm?: string }>();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(initialError);
     const [loading, setLoading] = useState(false);
-    const { confirmUser } = useConfirmUser(handleConfirmationSuccess, handleConfirmationErrors);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const params = useParams<{ confirm?: string }>();
-
-    React.useEffect(() => {
+    useEffect(() => {
         if (params.confirm) {
             confirmUser(params.confirm);
         }
@@ -79,29 +94,39 @@ export default function LoginPage() {
                         className={classes.formItem}
                     />
                     <Box mb={2} />
-                    <TextField
-                        required
-                        onChange={({ target: { value } }) => {
-                            setPassword(value);
-                            setLoginError((prevState) => {
-                                return { ...prevState, message: '' };
-                            });
-                        }}
-                        value={password}
-                        id="password"
-                        label={t('password')}
-                        type="password"
-                        variant="outlined"
-                        error={!!loginError.message}
-                        className={classes.formItem}
-                    />
+                    <FormControl variant="outlined" required error={!!loginError.message} className={classes.formItem}>
+                        <InputLabel htmlFor="password">{t('password')}</InputLabel>
+                        <OutlinedInput
+                            label={t('password')}
+                            id="password"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={({ target: { value } }) => {
+                                setPassword(value);
+                                setLoginError((prevState) => {
+                                    return { ...prevState, message: '' };
+                                });
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
                     <Box mb={6} />
                     <div className={classes.submitWrapper}>
                         <ButtonSecondary
                             variant="text"
-                            href="/forgot-password"
                             innerText={t('login-page.forgot-password')}
                             className={classes.forgotPasswordButton}
+                            onClick={() => history.push('/forgot-password')}
                         />
                         <div className={classes.buttonWrapper}>
                             <ButtonSecondary
@@ -126,9 +151,9 @@ export default function LoginPage() {
                     <Box mb={3} />
                     <ButtonSecondary
                         variant="outlined"
-                        href="/register"
                         innerText={t('login-page.register')}
                         className={classes.forgotPasswordButton}
+                        onClick={() => history.push('/register')}
                     />
                 </div>
                 <Box mb={3} />
@@ -166,6 +191,10 @@ export default function LoginPage() {
     function handleConfirmationSuccess() {
         openSnackbar({ text: t('login-page.confirmation-success'), severity: 'success' });
         history.push('/login');
+    }
+
+    function togglePasswordVisibility() {
+        setShowPassword((prev) => !prev);
     }
 }
 

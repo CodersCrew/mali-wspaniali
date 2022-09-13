@@ -42,6 +42,7 @@ jobs:
             CI: true
             working-directory: ./server
             JWT_SECRET: secret
+            SENDER: my-admin@admin.com
     build:
         needs: [lint-and-test]
         name: Build
@@ -99,3 +100,4 @@ jobs:
             IS_PRODUCTION_MAIL: false
             EMAIL: nicolette.hyatt@ethereal.email
             EMAIL_PASSWORD: cEJ7BTfh63qvJtKdX4
+            SENDER: my-admin@admin.com

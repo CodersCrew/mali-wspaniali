@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 import { TableBody, TableCell, Table, TableHead, TableRow, TablePagination } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import { User } from '@app/graphql/types';
 import { useUsers } from '../../operations/queries/Users/getUsersByRole';
 import { AdminSettingsItem, AdminSettingsLoadingItem } from './AdminSettingsItem';
-import { User } from '../../graphql/types';
 
 interface AdminSettingsListContainersProps {
     role: string;
     search?: string;
     kindergartenId?: string;
+    isConfirmed?: boolean;
 }
 
-export const AdminSettingsListContainers = React.memo(function AdminSettingsListContainers(
+export const AdminSettingsListContainers = memo(function AdminSettingsListContainers(
     props: AdminSettingsListContainersProps,
 ) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const { users, isUserListLoading } = useUsers({ ...props, page: page.toString() });
+    const { users, isUserListLoading, refetchUser } = useUsers({ ...props, page: page.toString() });
 
     const isParent = props.role === 'parent';
     const Header = isParent ? ParentHeader : InstructorHeader;
@@ -29,7 +30,7 @@ export const AdminSettingsListContainers = React.memo(function AdminSettingsList
                 <TableBody>
                     {isUserListLoading && <AdminSettingsLoadingItem />}
                     {users.map((user: User) => {
-                        return <AdminSettingsItem user={user} key={user.mail} />;
+                        return <AdminSettingsItem user={user} key={user.mail} onChange={refetchUser} />;
                     })}
                 </TableBody>
             </Table>
@@ -50,7 +51,7 @@ export const AdminSettingsListContainers = React.memo(function AdminSettingsList
         setPage(newPage);
     }
 
-    function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleChangeRowsPerPage(event: ChangeEvent<HTMLInputElement>) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }

@@ -47,7 +47,7 @@ const UPDATE_ARTICLE = gql`
 `;
 
 export function useUpdateArticle() {
-    const [mutate] = useMutation<UpdateArticleResponse>(UPDATE_ARTICLE);
+    const [mutate, { loading }] = useMutation<UpdateArticleResponse>(UPDATE_ARTICLE);
     const { t } = useTranslation();
 
     return {
@@ -69,9 +69,25 @@ export function useUpdateArticle() {
 
             return mutate({
                 variables: { updates },
-            }).then(() => {
-                openSnackbar({ text: t('add-article.events.updated') });
-            });
+            })
+                .then(() => {
+                    openSnackbar({ text: t('add-article.events.updated') });
+                })
+                .catch((e) => {
+                    if (e.message.includes('title')) {
+                        return openSnackbar({ text: t('add-article.events.updated-wrong-title'), severity: 'error' });
+                    }
+
+                    if (e.message.includes('description')) {
+                        return openSnackbar({
+                            text: t('add-article.events.updated-wrong-description'),
+                            severity: 'error',
+                        });
+                    }
+
+                    openSnackbar({ text: t('add-article.events.updated-unknown-error'), severity: 'error' });
+                });
         },
+        isUpdatePending: loading,
     };
 }

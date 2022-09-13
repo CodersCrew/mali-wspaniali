@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import { User } from '../../graphql/types';
+import { User } from '@app/graphql/types';
 
 interface Props {
     user: User;

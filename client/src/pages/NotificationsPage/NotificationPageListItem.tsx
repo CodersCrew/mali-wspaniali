@@ -2,7 +2,7 @@ import { TableRow, TableCell, makeStyles, Theme, Typography, IconButton } from '
 import { Notifications } from '@material-ui/icons/';
 import clsx from 'clsx';
 
-import { Notification } from '../../graphql/types';
+import { Notification } from '@app/graphql/types';
 import dayjs from '../../localizedMoment';
 import { useNotificationContent } from './useNotificationContent';
 

@@ -2,10 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Typography } from '@material-ui/core';
 
 import { Panel } from '../Panel';
-import ConditionsImage1 from '../../../../assets/testInformation/Conditions/testInformationConditions1.png';
-import ConditionsImage2 from '../../../../assets/testInformation/Conditions/testInformationConditions2.png';
-import ConditionsImage3 from '../../../../assets/testInformation/Conditions/testInformationConditions3.png';
-import ConditionsImage4 from '../../../../assets/testInformation/Conditions/testInformationConditions4.png';
+import ConditionsImage1 from '@app/assets/testInformation/Conditions/testInformationConditions1.png';
+import ConditionsImage2 from '@app/assets/testInformation/Conditions/testInformationConditions2.png';
+import ConditionsImage3 from '@app/assets/testInformation/Conditions/testInformationConditions3.png';
+import ConditionsImage4 from '@app/assets/testInformation/Conditions/testInformationConditions4.png';
 
 const T_PREFIX = 'child-profile.tests-informations.conditions';
 
@@ -52,7 +52,7 @@ export const Conditions = () => {
                 {tests.map(({ name, image, imageAlt, description }) => (
                     <Box key={name} display="grid" className={classes.test}>
                         <Box className={classes.testImageContainer}>
-                            <img src={image} alt={imageAlt} />
+                            <img className={classes.image} src={image} alt={imageAlt} />
                         </Box>
                         <Box>
                             <Typography className={classes.testName} variant="subtitle2">
@@ -102,5 +102,11 @@ const useStyles = makeStyles((theme) => ({
     testImageContainer: {
         height: 152,
         textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    image: {
+        marginTop: 'auto',
     },
 }));

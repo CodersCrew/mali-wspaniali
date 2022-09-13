@@ -5,7 +5,7 @@ import { FormikProps } from 'formik';
 import { useSelectOptions } from './useSelectValues';
 import { Input } from './Input';
 import { Select } from './Select';
-import { Kindergarten, AddChildResult } from '../../graphql/types';
+import { Kindergarten, AddChildResult } from '@app/graphql/types';
 import { useBreakpoints } from '../../queries/useBreakpoints';
 import { mapKindergartenToOption } from './utils';
 
@@ -20,7 +20,9 @@ export const ChildForm = ({ kindergartens, formik }: KindergardenProp) => {
     const device = useBreakpoints();
     const { getOptions } = useSelectOptions();
 
-    const kindergartenOptions = kindergartens.map(mapKindergartenToOption);
+    const kindergartenOptions = [...kindergartens]
+        .sort((a, b) => (a.city > b.city ? -1 : 1))
+        .map(mapKindergartenToOption);
 
     return (
         <Grid container spacing={2} className={classes.container}>

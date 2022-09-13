@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { Assessment, Kindergarten, Child, AssessmentResult } from '../../graphql/types';
+import { Assessment, Kindergarten, Child, AssessmentResult } from '@app/graphql/types';
 import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
 
 interface Props {
     assessmentId: string;
     kindergartenId: string;
     childId: string;
+    groupId: string;
     measurement: string;
 }
 export interface AssessmentValues {
@@ -23,6 +24,7 @@ export interface ResultCreatorReturnProps {
     selectedAssessment: Assessment;
     selectedKindergarten: Kindergarten;
     selectedChild: Child;
+    selectedGroup: string;
     error: null;
     edited: string;
     kindergartenResults: AssessmentResult[];
@@ -34,12 +36,14 @@ export interface ResultCreatorErrorReturnProps {
     selectedAssessment?: Assessment;
     selectedKindergarten?: Kindergarten | null;
     selectedChild?: Child;
+    selectedGroup?: string;
 }
 
 export function useResultCreator({
     assessmentId,
     kindergartenId,
     childId,
+    groupId,
     measurement,
 }: Props): ResultCreatorReturnProps | ResultCreatorErrorReturnProps {
     const { assessments } = useAssessments({ withChildren: true });
@@ -68,6 +72,7 @@ export function useResultCreator({
         selectedAssessment,
         selectedKindergarten,
         selectedChild,
+        selectedGroup: groupId,
         error: null,
         edited,
         kindergartenResults,

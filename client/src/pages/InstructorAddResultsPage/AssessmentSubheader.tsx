@@ -1,7 +1,7 @@
 import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { Assessment, AssessmentResult } from '../../graphql/types';
+import { Assessment, AssessmentResult } from '@app/graphql/types';
 import { StatusChip } from '../../components/StatusChip';
 import dayjs from '../../localizedMoment';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
@@ -57,7 +57,12 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        <Grid container direction="column" justify="flex-end" className={classes.progressBarContainer}>
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="flex-end"
+                            className={classes.progressBarContainer}
+                        >
                             <Grid item>
                                 <Typography variant="body2">
                                     {t(`add-results-page.${currentMeasurement.measurement}-assessment-progress`)}

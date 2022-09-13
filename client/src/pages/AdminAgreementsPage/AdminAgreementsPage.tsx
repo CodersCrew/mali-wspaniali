@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import { KindergartenWithUsers } from '../../graphql/types';
+import { KindergartenWithUsers } from '@app/graphql/types';
 import { activePage } from '../../apollo_client';
 import { AgreementsList } from './AgreementsList/AgreementsList';
 import { AgreementsFilter } from './AgreementsFilter/AgreementsFilter';
@@ -57,7 +57,12 @@ export const AdminAgreementsPage = ({
     return (
         <PageContainer>
             <Paper elevation={0}>
-                <Grid container justify="space-between" alignItems="center" classes={{ root: classes.filterHeader }}>
+                <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    classes={{ root: classes.filterHeader }}
+                >
                     <Typography variant="h4">{t('admin-agreements-page.agreements-list')}</Typography>
                     <IconButton onClick={() => setIsFilterListOpen((prev) => !prev)}>
                         <FilterListIcon />

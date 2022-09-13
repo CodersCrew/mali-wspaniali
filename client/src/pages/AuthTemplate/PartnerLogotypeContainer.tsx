@@ -1,43 +1,50 @@
-import { createStyles, makeStyles, Theme, Typography, Box, Link } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Maker from '../../assets/authTemplateLogos/maker/maker.png';
-import Ecm from '../../assets/authTemplateLogos/partners/e-cm-grey.png';
-import MinisterstwoSportu from '../../assets/authTemplateLogos/partners/ministerstwo-sportu-nowe.jpg';
-import { useIsDevice } from '../../queries/useBreakpoints';
+import CodersCrew from '@app/assets/authTemplateLogos/maker/coders-crew.svg';
+import Ecm from '@app/assets/authTemplateLogos/partners/e-cm-grey.png';
+import MinisterstwoSportu from '@app/assets/authTemplateLogos/partners/ministerstwo-sportu.png';
+import Wroclaw from '@app/assets/authTemplateLogos/partners/wroclaw-miasto-spotkan.svg';
+
+import { useIsDevice } from '@app/queries/useBreakpoints';
 
 export const PartnerLogotypeContainer = (): JSX.Element => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
 
-    const partners = [Ecm, MinisterstwoSportu];
-
     return (
         <div className={classes.partnersContainer}>
-            <div className={classes.headerBox}>
-                <div className={classes.headerMaker}>
-                    <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.made-by')}</Typography>
-                    <Box mb={isDesktop ? 3 : 1} />
-                </div>
-                <div className={classes.headerPartners}>
-                    <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.partners')}</Typography>
-                    <Box mb={isDesktop ? 3 : 1} />
-                </div>
+            <div className={classes.headerMaker}>
+                <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.made-by')}</Typography>
             </div>
-            <div className={classes.makerBox}>
-                <div className={classes.imageBox}>
-                    <Link href="https://coderscrew.pl/" target="_blank">
-                        <img src={Maker} alt="maker_logo" className={classes.image} />
-                    </Link>
-                </div>
+            <div className={classes.strategicPartners}>
+                <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>{t('login-wrapper.partners')}</Typography>
             </div>
-            <div className={classes.partnersBox}>
-                {partners.map((logo, key) => (
-                    <div className={classes.imageBox} key={key}>
-                        <img src={partners[key]} alt={`maker_logo_${key}`} className={classes.image} />
-                    </div>
-                ))}
+            <div className={classes.financialPartners}>
+                <Typography variant={isDesktop ? 'subtitle1' : 'caption'}>
+                    {t('login-wrapper.financial-partners')}
+                </Typography>
+            </div>
+            <div className={classes.imageBox}>
+                <Link href="https://coderscrew.pl/" target="_blank" className={classes.link}>
+                    <img src={CodersCrew} alt="CodersCrew" className={classes.image} />
+                </Link>
+            </div>
+            <div className={classes.imageBox}>
+                <Link href="http://e-cm.pl/" target="_blank" className={classes.link}>
+                    <img src={Ecm} alt="e-cm.pl" className={classes.image} />
+                </Link>
+            </div>
+            <div className={classes.imageBox}>
+                <Link href="https://www.wroclaw.pl/" target="_blank" className={classes.link}>
+                    <img src={Wroclaw} alt="Wrocław" className={classes.image} />
+                </Link>
+            </div>
+            <div className={classes.imageBox}>
+                <Link href="https://www.gov.pl/web/kulturaisport" target="_blank" className={classes.link}>
+                    <img src={MinisterstwoSportu} alt="Ministerstwo Sportu" className={classes.image} />
+                </Link>
             </div>
         </div>
     );
@@ -46,13 +53,9 @@ export const PartnerLogotypeContainer = (): JSX.Element => {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         partnersContainer: {
-            width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            columnGap: theme.spacing(2),
-            [theme.breakpoints.down('md')]: {
-                columnGap: theme.spacing(1),
-            },
+            gridTemplateColumns: 'repeat(4,1fr)',
+            gridGap: '1em',
         },
         headerBox: {
             width: '100%',
@@ -60,27 +63,21 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr',
         },
-        headerMaker: {},
-        headerPartners: {
-            gridColumnStart: 'span 2',
+        headerMaker: {
+            alignSelf: 'end',
         },
-        makerBox: {},
-        partnersBox: {
-            width: '100%',
-            gridColumnStart: 'span 2',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            columnGap: theme.spacing(2),
-            [theme.breakpoints.down('md')]: {
-                columnGap: theme.spacing(1),
-            },
+        financialPartners: {
+            gridColumn: '3/5',
+            alignSelf: 'end',
+        },
+        strategicPartners: {
+            alignSelf: 'end',
         },
         imageBox: {
             minWidth: `calc(100% / 3 - 2 * ${theme.spacing(3)}px / 3)`,
             height: '70px',
             minHeight: '70px',
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
             padding: theme.spacing(0.5),
             backgroundColor: theme.palette.background.paper,
@@ -92,7 +89,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: theme.spacing(0.25),
             },
         },
+        link: {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+        },
         image: {
+            width: '100%',
             maxWidth: `calc(100% - 2 * ${theme.spacing(0.5)}px)`,
             maxHeight: `calc(70px - 2 * ${theme.spacing(0.5)}px)`,
             [theme.breakpoints.down('md')]: {

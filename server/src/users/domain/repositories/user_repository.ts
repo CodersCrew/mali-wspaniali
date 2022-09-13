@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { transformAndValidateSync } from 'class-transformer-validator';
+import { Model, UpdateQuery } from 'mongoose';
 
 import { UserCore, User } from '../models/user_model';
 import { UserDocument } from '../../schemas/user_schema';
-import { classToPlain } from 'class-transformer';
 import { KeyCode } from '../../../key_codes/domain/models/key_code_model';
 import { UserMapper } from '../mappers/user_mapper';
 import { UserDTO } from '../../dto/user_dto';
-import { UserPagination } from '@users/params/user_pagination';
+import { UserPagination } from '@app/users/params/user_pagination';
 
 @Injectable()
 export class UserRepository {
@@ -33,12 +31,13 @@ export class UserRepository {
           _id: {
             $in: ids,
           },
+          isConfirmed: true,
         },
         { password: 0 },
       )
       .lean()
       .exec()
-      .then(users => users.map(parseUser));
+      .then((users) => users.map(parseUser));
   }
 
   async getAll(options: UserPagination): Promise<User[]> {
@@ -48,6 +47,7 @@ export class UserRepository {
         isDeleted: {
           $in: [false, undefined],
         },
+        isConfirmed: options.isConfirmed ?? true,
       });
 
     if (options.search && options.search.length !== 0) {
@@ -82,12 +82,12 @@ export class UserRepository {
       result.limit(10);
     }
 
-    return await result.exec().then(users => users.map(parseUser));
+    return await result.exec().then((users) => users.map(parseUser));
   }
 
   async getByMail(mail: string): Promise<User> {
     return await this.userModel
-      .findOne({ mail })
+      .findOne({ mail: mail.toLowerCase() })
       .lean()
       .exec()
       .then(parseUser);
@@ -99,24 +99,25 @@ export class UserRepository {
         children: {
           $in: childrenIds,
         },
+        isConfirmed: true,
       })
       .lean()
       .exec()
-      .then(users => users.map(parseUser));
+      .then((users) => users.map(parseUser));
   }
 
   async forEach(cb: (user: UserDocument) => void): Promise<void> {
     await this.userModel
-      .find()
+      .find({ isConfirmed: true })
       .cursor()
-      .eachAsync(user => cb(user));
+      .eachAsync((user) => cb(user));
   }
 
   async forEachAdmin(cb: (user: UserDocument) => void): Promise<void> {
     await this.userModel
-      .find({ role: 'admin' })
+      .find({ role: 'admin', isConfirmed: true })
       .cursor()
-      .eachAsync(user => cb(user));
+      .eachAsync((user) => cb(user));
   }
 
   async create(
@@ -141,10 +142,10 @@ export class UserRepository {
 
   async addChild(childId: string, userId: string): Promise<void> {
     await this.userModel.findOneAndUpdate(
-      { _id: userId },
+      { _id: userId, isConfirmed: true },
       {
         $addToSet: { children: childId },
-      },
+      } as UpdateQuery<UserDocument>,
       { new: true, useFindAndModify: false },
     );
   }
@@ -165,7 +166,7 @@ export class UserRepository {
       { _id: userId },
       {
         $addToSet: { agreements: agreementId },
-      },
+      } as UpdateQuery<UserDocument>,
       {
         useFindAndModify: false,
       },
@@ -180,7 +181,7 @@ export class UserRepository {
       { _id: userId },
       {
         $pull: { agreements: agreementId },
-      },
+      } as UpdateQuery<UserDocument>,
       {
         useFindAndModify: false,
       },
@@ -218,7 +219,7 @@ export class UserRepository {
 
 function parseUser(user: UserDocument) {
   if (user) {
-    const recreatedUser = UserMapper.toDomain((user as unknown) as UserDTO);
+    const recreatedUser = UserMapper.toDomain(user as unknown as UserDTO);
 
     return recreatedUser;
   }

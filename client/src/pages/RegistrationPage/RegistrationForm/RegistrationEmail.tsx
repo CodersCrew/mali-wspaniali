@@ -1,10 +1,9 @@
+import { KeyboardEvent } from 'react';
 import { TextField } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
-import React from 'react';
 
 import { emailTest } from '../../../utils/emailTest';
 import { ButtonSecondary } from '../../../components/Button';
-
 import { RegistrationEmailProps } from './types';
 
 export const RegistrationEmail = ({
@@ -49,7 +48,7 @@ export const RegistrationEmail = ({
         </>
     );
 
-    function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+    function handleKeyPress(event: KeyboardEvent<HTMLDivElement>) {
         if (event.key !== 'Enter') return;
 
         event.preventDefault();

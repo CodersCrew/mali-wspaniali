@@ -1,5 +1,6 @@
+import { ChangeEvent } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { PrivilegedUser } from '../../graphql/types';
+import { PrivilegedUser } from '@app/graphql/types';
 
 interface InstructorsSelectProps {
     label: string;
@@ -37,7 +38,7 @@ export const InstructorsSelect = (props: InstructorsSelectProps) => {
         return props.values.map((value) => value.mail);
     }
 
-    function onSelect(e: React.ChangeEvent<{ name?: string | undefined; value: unknown }>) {
+    function onSelect(e: ChangeEvent<{ name?: string | undefined; value: unknown }>) {
         props.onChange(e.target.value as string[]);
     }
 };

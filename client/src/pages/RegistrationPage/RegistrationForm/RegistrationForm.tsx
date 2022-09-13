@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, StepContent, Typography, Box, StepConnector } from '@material-ui/core/';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
 
 import { createUser } from '../../../queries/userQueries';
 import { getAgreements } from '../../../graphql/agreementRepository';
@@ -13,7 +14,6 @@ import { useIsDevice } from '../../../queries/useBreakpoints';
 import { AgreementExtended } from '../types';
 import { AGREEMENTS } from '../agreements';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-
 import { RegistrationAgreement } from './RegistrationAgreement';
 import { RegistrationCode } from './RegistrationCode';
 import { RegistrationEmail } from './RegistrationEmail';
@@ -34,10 +34,10 @@ export const RegistrationForm = () => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
+    const history = useHistory();
 
     const [form, setForm] = useState(initialState);
     const [activeStep, setActiveStep] = useState(0);
-    const [skip, setSkip] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [roleBasedKeyCode, setRoleBasedKeyCode] = useState<RoleBasedKeyCodeObject | undefined>(undefined);
@@ -129,9 +129,9 @@ export const RegistrationForm = () => {
             {activeStep === 4 && getStepContent(activeStep)}
             <div className={classes.footer}>
                 <ButtonSecondary
-                    href="/login"
                     className={classes.backToLoginButton}
                     innerText={t('registration-page.go-to-loginpage')}
+                    onClick={() => history.push('/login')}
                 />
                 <Box mb={3} />
             </div>
@@ -206,7 +206,6 @@ export const RegistrationForm = () => {
                     classButton={classes.buttonWrapper}
                     classNextBtn={classes.nextButton}
                     classFormItem={classes.formItem}
-                    skip={setSkip}
                     loading={loading}
                     error={error}
                     setError={setError}
@@ -281,7 +280,7 @@ export const RegistrationForm = () => {
 
         load(
             createUser({
-                mail: email,
+                mail: email.toLowerCase(),
                 password,
                 keyCode: roleBasedKeyCode?.parseToKeyCode() || '',
                 agreements: agreements
@@ -295,16 +294,11 @@ export const RegistrationForm = () => {
             })
             .catch(() => {
                 setLoading(() => false);
-                if (skip) {
-                    setSkip(() => false);
-                    handleNext();
-                } else {
-                    openAlertDialog({
-                        type: 'error',
-                        title: t('registration-page.register-failure'),
-                        description: <Trans i18nKey={'registration-page.register-failure-description'} />,
-                    });
-                }
+                openAlertDialog({
+                    type: 'error',
+                    title: t('registration-page.register-failure'),
+                    description: <Trans i18nKey={'registration-page.register-failure-description'} />,
+                });
             });
     }
 

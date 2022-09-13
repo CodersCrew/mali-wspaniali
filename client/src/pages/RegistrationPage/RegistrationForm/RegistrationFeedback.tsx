@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import { useIsDevice } from '../../../queries/useBreakpoints';
-
 import { RegistrationFeedbackProps } from './types';
 
 export const RegistrationFeedback = ({ classWrapper }: RegistrationFeedbackProps) => {

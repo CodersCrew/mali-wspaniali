@@ -1,24 +1,24 @@
+import { MouseEvent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 interface Props {
     count: number;
     page: number;
     rowsPerPage: number;
-    onChangePage: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
+    onChangePage: (event: MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
 
 export const TablePaginationActions = ({ count, page, rowsPerPage, onChangePage }: Props) => {
     const classes = useStyles();
 
-    const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleBackButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
         onChangePage(event, page - 1);
     };
 
-    const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleNextButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
         onChangePage(event, page + 1);
     };
 

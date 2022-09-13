@@ -1,10 +1,11 @@
 import { Box, createStyles, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
-import PasswordChangeSuccess from '../../assets/forgotPassword/password-change-success.svg';
+import PasswordChangeSuccess from '@app/assets/forgotPassword/password-change-success.svg';
 import { ButtonSecondary } from '../../components/Button';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 import { useIsDevice } from '../../queries/useBreakpoints';
 
 export const PasswordSuccessfullyChanged = () => {
@@ -42,12 +43,13 @@ export const PasswordSuccessfullyChanged = () => {
                 {t('password-change-success-page.password-change-success-subtitle')}
             </Typography>
             <Box mb={5} />
-            <ButtonSecondary
-                variant="contained"
-                type="button"
-                href="/login"
-                innerText={t('password-change-success-page.login')}
-            />
+            <Link to="/login">
+                <ButtonSecondary
+                    variant="contained"
+                    type="button"
+                    innerText={t('password-change-success-page.login')}
+                />
+            </Link>
             <Box mb={3} />
         </div>
     );

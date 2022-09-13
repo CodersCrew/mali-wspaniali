@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,7 @@ export default function AdminManageSingleAssessmentPage() {
     const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment, isLoading } =
         useAssessmentManager(assessmentId, onAssessmentSubmited);
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['admin-menu.test-management']);
     }, []);
 
@@ -75,7 +75,7 @@ export default function AdminManageSingleAssessmentPage() {
                 </Grid>
                 <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                     {!isViewOnly && (
-                        <Grid container justify="space-between">
+                        <Grid container justifyContent="space-between">
                             <Grid item xs={6}>
                                 {
                                     <ButtonSecondary
@@ -98,8 +98,8 @@ export default function AdminManageSingleAssessmentPage() {
                                 }
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container justify="flex-end" spacing={2}>
-                                    <Grid container justify="flex-end" spacing={3}>
+                                <Grid container justifyContent="flex-end" spacing={2}>
+                                    <Grid container justifyContent="flex-end" spacing={3}>
                                         <Grid item>
                                             <ButtonSecondary variant="text" onClick={redirectIntoTestPage}>
                                                 {t('add-test-view.cancel')}

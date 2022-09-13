@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles, Box, Grid, Typography, Theme } from '@material-ui/core';
 
 import { Panel } from '../Panel';
-import aboutImage from '../../../../assets/testInformation/About/testInformationAbout.png';
+import aboutImage from '@app/assets/testInformation/About/testInformationAbout.png';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
 
 const T_PREFIX = 'child-profile.tests-informations.about';

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { categories } from './BlogCategories';
 import { blogCategoryColors } from '../../colors';
-import { ArticleCategory } from '../../graphql/types';
+import { ArticleCategory } from '@app/graphql/types';
 
 type Props = {
     articleCategory: ArticleCategory;

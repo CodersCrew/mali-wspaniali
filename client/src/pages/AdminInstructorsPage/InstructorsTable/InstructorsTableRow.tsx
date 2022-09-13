@@ -20,10 +20,11 @@ import {
 } from '@material-ui/icons';
 
 import { InstructorRelation } from '../types';
-import { Assessment, Kindergarten } from '../../../graphql/types';
+import { Assessment, Kindergarten, User } from '../../../graphql/types';
 import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
 import { openQuestionDialog } from '../../../components/QuestionDialog';
 import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
+import { useAssessments } from '../../../operations/queries/Assessment/getAllAssessments';
 
 interface InstructorRowProps {
     relation: InstructorRelation;
@@ -37,6 +38,7 @@ const T_PREFIX = 'admin-instructors-page.table';
 export function InstructorsTableRow(props: InstructorRowProps) {
     const classes = useStyles();
     const { t } = useTranslation();
+    const { refetchAssessments } = useAssessments();
 
     const [open, setOpen] = useState(false);
     const [showAddButton, setShowAddButton] = useState(false);
@@ -46,12 +48,7 @@ export function InstructorsTableRow(props: InstructorRowProps) {
     const { mail, firstname, lastname } = props.relation.instructor;
 
     function filterKindergartens(kindergarten: Kindergarten) {
-        return props.relation.kindergartens.map(({ _id }) => {
-            return {
-                kindergartenId: _id,
-                instructorId: _id === kindergarten._id ? undefined : props.relation.instructor._id,
-            };
-        });
+        return props.assessment?.kindergartens.map(toSimpleRelation).map(removeSelectedKindergarten(kindergarten));
     }
 
     return (
@@ -117,14 +114,16 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                                                 if (result.decision?.accepted) {
                                                     updateAssessment(props.assessment!._id, {
                                                         kindergartens: filterKindergartens(kindergarten),
-                                                    });
-
-                                                    openSnackbar({
-                                                        text: t(`${T_PREFIX}.unassign-kindergarten`, {
-                                                            name: kindergarten.name,
-                                                            mail: props.relation.instructor.mail,
-                                                        }),
-                                                    });
+                                                    })
+                                                        .then(refetchAssessments)
+                                                        .then(() =>
+                                                            openSnackbar({
+                                                                text: t(`${T_PREFIX}.unassign-kindergarten`, {
+                                                                    name: kindergarten.name,
+                                                                    mail: props.relation.instructor.mail,
+                                                                }),
+                                                            }),
+                                                        );
                                                 }
                                             });
                                         }}
@@ -137,6 +136,24 @@ export function InstructorsTableRow(props: InstructorRowProps) {
             </TableRow>
         </>
     );
+
+    function toSimpleRelation(kindergartenRelation: { instructor: User | null; kindergarten: Kindergarten | null }) {
+        return {
+            instructorId: kindergartenRelation.instructor?._id,
+            kindergartenId: kindergartenRelation.kindergarten?._id,
+        };
+    }
+
+    function removeSelectedKindergarten(selectedKindergarten: Kindergarten) {
+        return (kindergartenRelation: { instructorId: string | undefined; kindergartenId: string | undefined }) => {
+            const instructorId =
+                kindergartenRelation.kindergartenId !== selectedKindergarten._id
+                    ? kindergartenRelation.instructorId
+                    : undefined;
+
+            return { ...kindergartenRelation, instructorId };
+        };
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

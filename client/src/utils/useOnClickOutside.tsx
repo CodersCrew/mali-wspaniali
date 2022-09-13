@@ -1,8 +1,9 @@
-import React from 'react';
+import { MutableRefObject, useEffect } from 'react';
 
-export function useOnClickOutside(ref: React.MutableRefObject<HTMLElement | null>, handler: (event: Event) => void) {
-    React.useEffect(() => {
+export function useOnClickOutside(ref: MutableRefObject<HTMLElement | null>, handler: (event: Event) => void) {
+    useEffect(() => {
         const listener = (event: MouseEvent | TouchEvent) => {
+            // eslint-disable-next-line
             if (!ref.current || ref.current!.contains(event.target as Node)) {
                 return;
             }

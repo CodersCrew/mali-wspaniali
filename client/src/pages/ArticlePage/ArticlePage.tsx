@@ -1,7 +1,8 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { makeStyles, createStyles, Grid, Theme, CardMedia, Divider } from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Theme, CardMedia } from '@material-ui/core';
 import clsx from 'clsx';
+import { observer } from 'mobx-react-lite';
 
 import { activePage } from '../../apollo_client';
 import { useIsDevice } from '../../queries/useBreakpoints';
@@ -12,30 +13,30 @@ import { ArticleContent } from './ArticleContent';
 import { ArticleVideo } from './ArticleVideo';
 import { ArticleRedactor } from './ArticleRedactor';
 import { ReadingTime } from './ReadingTime';
-import { Article } from '../../graphql/types';
+import { articleStore } from '../AdminUpdateArticlePage/ArticleCreator/ArticleCreatorStore';
 
-export default function ArticlePage(props: { localArticle: Article }) {
+export default observer(function ArticlePage() {
     const { articleId } = useParams<{ articleId: string }>();
     const { isMobile, isTablet, isDesktop } = useIsDevice();
     const classes = useStyles();
     const history = useHistory();
     const { article } = useArticleWithId(articleId);
 
-    React.useEffect(() => {
+    useEffect(() => {
         activePage(['parent-menu.blog']);
     }, [articleId]);
+
+    useEffect(() => {
+        if (!articleStore.article && article) {
+            articleStore.setArticle(article);
+        }
+    }, [article]);
 
     function onBackClick() {
         history.goBack();
     }
 
-    if (!article) return null;
-
-    const articleToDisplay = props.localArticle ? props.localArticle : article;
-    const isPreview = !!props.localArticle;
-
-    const { pictureUrl, createdAt, publishedAt, title, description, contentHTML, videoUrl, redactor } =
-        articleToDisplay;
+    if (!article || !articleStore.article) return null;
 
     return (
         <>
@@ -45,7 +46,11 @@ export default function ArticlePage(props: { localArticle: Article }) {
                 container
             >
                 <Grid item xs={12}>
-                    <CardMedia classes={{ root: classes.imageContainer }} component="img" image={pictureUrl} />
+                    <CardMedia
+                        classes={{ root: classes.imageContainer }}
+                        component="img"
+                        image={articleStore.article.pictureUrl}
+                    />
                 </Grid>
                 <Grid item xs={12} lg={10} md={11}>
                     <div
@@ -56,59 +61,24 @@ export default function ArticlePage(props: { localArticle: Article }) {
                         })}
                     >
                         <ReadingTime
-                            date={new Date(publishedAt || createdAt)}
-                            readingTime={calculateReadingTime(isPreview ? getPreviewContentHTML() : contentHTML)}
+                            date={new Date(articleStore.article.publishedAt || articleStore.article.createdAt)}
+                            readingTime={calculateReadingTime(articleStore.article.contentHTML)}
                         />
                     </div>
-                    <ArticleContent
-                        title={title}
-                        description={description}
-                        contentHTML={isPreview ? getPreviewContentHTML() : contentHTML}
-                        isPreview={isPreview}
-                    />
+                    <ArticleContent />
                     <Grid item classes={{ root: classes.videoContainer }}>
-                        <ArticleVideo videoUrl={getPreviewVideoUrl()} isPreview={isPreview} />
+                        <ArticleVideo />
                     </Grid>
                 </Grid>
                 <Grid container xs={12}>
-                    <Grid item xs={12}>
-                        <Divider />
-                    </Grid>
                     <Grid item xs={12} classes={{ root: classes.redactorContainer }}>
-                        <ArticleRedactor
-                            redactor={isPreview ? { ...redactor, ...getPreviewRedactorFullName() } : redactor}
-                            isPreview={isPreview}
-                        />
+                        <ArticleRedactor />
                     </Grid>
                 </Grid>
             </Grid>
         </>
     );
-
-    function getPreviewContentHTML() {
-        return (
-            contentHTML.replaceAll('<p><br></p>', '<br>') ||
-            `
-        Aktywność fizyczna to każdy ruch, każda praca mięśni, podczas której wydatek energii jest większy niż gdy odpoczywamy - leżymy lub siedzimy.
-        `
-        );
-    }
-
-    function getPreviewRedactorFullName() {
-        const firstName = redactor.firstName || 'Hanna';
-        const lastName = redactor.lastName || 'Nałęcz';
-        const profession = redactor.profession || 'Psycholog Dziecięcy';
-        const biography =
-            redactor.biography ||
-            'Hanna Nałęcz,   dr   n.   o   kulturze   fizycznej,   pedagog,   specjalista   zdrowia   pub-licznego.   Zastępca   kierownika  Zakładu   Zdrowia  Dzieci   i  Młodzieży  w   InstytucieMatki i Dziecka w Warszawie. Współautorka ponad 80 krajowych i międzynarodowych publikacji dotyczących  aktywności fizycznej dzieci i młodzieży.  Członek polskiego zespołu  The Active Healthy Kids Global Alliance. Redaktor tematyczny w  the Activity Health Kids Global Alliance. Mama dwóch córek';
-
-        return { firstName, lastName, profession, biography };
-    }
-
-    function getPreviewVideoUrl() {
-        return isPreview ? videoUrl || 'https://www.youtube.com/embed/SABaMN08NmY' : videoUrl;
-    }
-}
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

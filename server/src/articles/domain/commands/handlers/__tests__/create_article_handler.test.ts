@@ -1,30 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import * as dbHandler from '@app/db_handler';
-import { CreateArticleHandler } from '@articles/domain/commands/handlers/create_article_handler';
-import { CreateArticleCommand } from '@articles/domain/commands/impl';
-import { ArticlesModule } from '@articles/articles_module';
-import { CreateArticleInput } from '@articles/inputs/article_input';
+import { CreateArticleHandler } from '@app/articles/domain/commands/handlers/create_article_handler';
+import { CreateArticleCommand } from '@app/articles/domain/commands/impl';
+import { CreateArticleInput } from '@app/articles/inputs/article_input';
 import { Article } from '@app/articles/domain/models/article_model';
 import { getAllArticles } from '@app/test/helpers/app_mock';
 import waitForExpect from 'wait-for-expect';
+import { getApp } from '../../../../../../setupTests';
 
 jest.setTimeout(10000);
 
 describe('CreateArticleHandler', () => {
-  let app: TestingModule;
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  beforeAll(async () => {
-    app = await setup();
-  });
-
-  beforeEach(async () => {
-    await dbHandler.clearDatabase();
-  });
-
   describe('when executed', () => {
     describe('with correct data', () => {
       it('returns article instance', async () => {
@@ -67,20 +51,12 @@ describe('CreateArticleHandler', () => {
       videoUrl: 'https://www.google.com',
     };
 
-    return app.resolve(CreateArticleHandler).then(handler => {
-      return handler.execute(
-        new CreateArticleCommand({ ...validArticleOptions, ...options }),
-      );
-    });
+    return getApp()
+      .resolve(CreateArticleHandler)
+      .then(handler => {
+        return handler.execute(
+          new CreateArticleCommand({ ...validArticleOptions, ...options }),
+        );
+      });
   }
 });
-
-async function setup() {
-  const module = await Test.createTestingModule({
-    imports: [dbHandler.rootMongooseTestModule(), ArticlesModule],
-  }).compile();
-
-  await module.init();
-
-  return module;
-}

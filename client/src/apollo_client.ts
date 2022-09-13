@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill';
 import { ApolloClient, ApolloLink, concat, InMemoryCache, HttpLink, makeVar } from '@apollo/client';
 import { AgreementTypeFilter, AgreementTypeFilters } from './models/AgreementTypeFilters';
 import { AgreementStatusFilters, AgreementStatusFilter } from './models/AgreementStatusFilter';
@@ -5,7 +6,7 @@ import { AgreementKindergartenFilter, AgreementKindergartenFilters } from './mod
 import { AgreementSortStatus, AgreementSortType } from './models/AgreementSortStatus';
 
 const link = new HttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_SERVER,
+    uri: process.env.VITE_APP_GRAPHQL_SERVER as string,
     credentials: 'include',
 });
 

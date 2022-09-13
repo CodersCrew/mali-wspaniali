@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography, createStyles, Box, Link } from '@material-ui/core';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
 
-import DefaultImage from '../../assets/forgotPassword/default.png';
-import ErrorImage from '../../assets/forgotPassword/error.png';
-import SuccessImage from '../../assets/forgotPassword/success.png';
-import { Theme } from '../../theme';
+import DefaultImage from '@app/assets/forgotPassword/default.png';
+import ErrorImage from '@app/assets/forgotPassword/error.png';
+import SuccessImage from '@app/assets/forgotPassword/success.png';
+import { Theme } from '@app/theme';
 import { useResetPassword } from '../../operations/mutations/User/resetPassword';
 import { ButtonSecondary } from '../../components/Button';
 import { openSnackbar } from '../../components/Snackbar/openSnackbar';
@@ -21,6 +22,7 @@ export default function ForgotPasswordPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
+    const history = useHistory();
     const { resetPassword } = useResetPassword(
         () => setImageState('SUCCESS'),
         () => setImageState('ERROR'),
@@ -67,7 +69,7 @@ export default function ForgotPasswordPage() {
                 <Link underline="always" color="textPrimary" href={`mailto:${t('forgot-password-page.mailto')}`}>
                     <Typography variant="caption">{t('forgot-password-page.contact')}</Typography>
                 </Link>
-                <ButtonSecondary variant="text" href="/" className={classes.backToLoginButton}>
+                <ButtonSecondary variant="text" className={classes.backToLoginButton} onClick={() => history.push('/')}>
                     {t('forgot-password-page.back-to-login')}
                 </ButtonSecondary>
             </div>

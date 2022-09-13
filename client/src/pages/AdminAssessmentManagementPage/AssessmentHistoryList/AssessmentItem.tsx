@@ -1,3 +1,4 @@
+import { MouseEvent as ReactMouseEvent } from 'react';
 import { createStyles, IconButton, makeStyles, TableCell, TableRow, Theme, alpha, Tooltip } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -5,8 +6,8 @@ import dayjs from 'dayjs';
 
 import utc from 'dayjs/plugin/utc';
 
-import { StatusChip } from '../../../components/StatusChip';
-import { Assessment } from '../../../graphql/types';
+import { StatusChip } from '@app/components/StatusChip';
+import { Assessment } from '@app/graphql/types';
 
 dayjs.extend(utc);
 
@@ -54,7 +55,7 @@ export function AssessmentItem({ value, onClick }: Props) {
         onClick('details', value._id);
     }
 
-    function handleEditClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleEditClick(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) {
         e.stopPropagation();
 
         onClick('edit', value._id);

@@ -30,6 +30,8 @@ export const GET_ALL_ASSESSMENTS = gql`
                     _id
                     name
                     number
+                    address
+                    city
                 }
                 instructor {
                     _id
@@ -62,6 +64,8 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                     _id
                     name
                     number
+                    address
+                    city
                     children {
                         _id
                         firstname
@@ -122,12 +126,17 @@ const GET_ALL_ASSESSMENTS_WITH_CHILDREN = gql`
                                 veryGoodStageLimit
                             }
                         }
+                        createdAt
                     }
                 }
                 instructor {
                     _id
                     mail
                 }
+            }
+            groups {
+                kindergartenId
+                group
             }
         }
     }

@@ -27,7 +27,7 @@ export class AssessmentRepository {
 
   getAll(): Promise<Assessment[]> {
     return this.model
-      .find({ isDeleted: false }, {}, { sort: { date: -1 } })
+      .find({ isDeleted: false }, {}, { sort: { createdAt: -1 } })
       .lean()
       .exec()
       .then(fetchAssessments => {
@@ -79,6 +79,6 @@ export class AssessmentRepository {
 
     await assessmentDocument.update(AssessmentMapper.toPlain(assessment));
 
-    return assessment;
+    return AssessmentMapper.toDomain(await this.model.findById(assessment.id));
   }
 }

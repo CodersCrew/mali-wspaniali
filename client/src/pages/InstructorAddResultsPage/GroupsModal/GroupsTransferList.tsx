@@ -1,75 +1,93 @@
-import React from 'react';
+import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import {
+    makeStyles,
+    Theme,
+    createStyles,
+    Card,
+    CardHeader,
+    Checkbox,
+    Divider,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Grid,
+    Button,
+} from '@material-ui/core';
+import { AssessmentResult, Child, Group } from '../../../graphql/types';
+import {
+    UpdatedAssessmentInput,
+    useUpdateAssessmentResult,
+} from '../../../operations/mutations/Results/updateAssessmentResult';
+import { useCreateAssessmentResult } from '../../../operations/mutations/Results/createAssessmentResult';
+import { useAssessmentResults } from '../../../operations/queries/Results/getAssessmentResults';
 
-function not(a: number[], b: number[]) {
-    return a.filter((value) => b.indexOf(value) === -1);
+interface GroupsTransferListProps {
+    group: Group;
+    childrenList: Child[];
+    results: AssessmentResult[];
+    assessmentId: string;
 }
 
-function intersection(a: number[], b: number[]) {
-    return a.filter((value) => b.indexOf(value) !== -1);
-}
-
-function union(a: number[], b: number[]) {
-    return [...a, ...not(b, a)];
-}
-
-export function GroupsTransferList() {
+export function GroupsTransferList(props: GroupsTransferListProps) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [checked, setChecked] = React.useState<number[]>([]);
-    const [left, setLeft] = React.useState<number[]>([0, 1, 2, 3]);
-    const [right, setRight] = React.useState<number[]>([4, 5, 6, 7]);
+    const [checked, setChecked] = useState<string[]>([]);
+    const { createAssessmentResult } = useCreateAssessmentResult();
+    const { updateAssessmentResult } = useUpdateAssessmentResult();
+    const { refetchResults } = useAssessmentResults(props.group.kindergartenId, props.assessmentId);
+    const [isActionPending, setIsActionPending] = useState(false);
 
-    const leftChecked = intersection(checked, left);
-    const rightChecked = intersection(checked, right);
-
-    const handleToggle = (value: number) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
+    const handleToggle = (value: Child) => () => {
+        if (checked.includes(value._id)) {
+            setChecked(checked.filter((i) => i !== value._id));
         } else {
-            newChecked.splice(currentIndex, 1);
+            setChecked([...checked, value._id]);
         }
-
-        setChecked(newChecked);
     };
 
-    const numberOfChecked = (items: number[]) => intersection(checked, items).length;
+    const numberOfChecked = (items: Child[]) => {
+        const selectedItems = items.filter((i) => checked.includes(i._id));
 
-    const handleToggleAll = (items: number[]) => () => {
-        if (numberOfChecked(items) === items.length) {
-            setChecked(not(checked, items));
+        return selectedItems.length;
+    };
+
+    const handleToggleAll = (items: Child[]) => () => {
+        if (checked.length === items.length && checked.length > 0) {
+            setChecked([]);
         } else {
-            setChecked(union(checked, items));
+            setChecked(items.map((i) => i._id));
         }
     };
 
     const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setLeft(not(left, leftChecked));
-        setChecked(not(checked, leftChecked));
+        setIsActionPending(true);
+        Promise.all(
+            checked.map((c) => createOrUpdateResult({ childId: c, firstMeasurementGroup: props.group.group })),
+        ).then(() => {
+            setTimeout(() => {
+                refetchResults()?.then(() => {
+                    setChecked([]);
+                    setIsActionPending(false);
+                });
+            }, 2000);
+        });
     };
 
     const handleCheckedLeft = () => {
-        setLeft(left.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
+        setIsActionPending(true);
+        Promise.all(checked.map((c) => createOrUpdateResult({ childId: c, firstMeasurementGroup: '' }))).then(() => {
+            setTimeout(() => {
+                refetchResults()?.then(() => {
+                    setChecked([]);
+                    setIsActionPending(false);
+                });
+            }, 2000);
+        });
     };
-    const customList = (title: React.ReactNode, items: number[]) => (
+    const customList = (title: ReactNode, items: Child[]) => (
         <Card>
             <CardHeader
                 className={classes.cardHeader}
@@ -87,20 +105,26 @@ export function GroupsTransferList() {
             />
             <Divider />
             <List className={classes.list} dense component="div" role="list">
-                {items.map((value: number) => {
+                {items.map((value: Child) => {
                     const labelId = `transfer-list-all-item-${value}-label`;
 
                     return (
-                        <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
+                        <ListItem
+                            key={value._id}
+                            role="listitem"
+                            button
+                            onClick={handleToggle(value)}
+                            disabled={isActionPending}
+                        >
                             <ListItemIcon>
                                 <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
+                                    checked={checked.indexOf(value._id) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} />
+                            <ListItemText id={labelId} primary={`${value.firstname} ${value.lastname}`} />
                         </ListItem>
                     );
                 })}
@@ -110,8 +134,8 @@ export function GroupsTransferList() {
     );
 
     return (
-        <Grid container spacing={2} justify="space-around" alignItems="center" className={classes.root}>
-            <Grid item>{customList(t('groupsModal.unassigned'), left)}</Grid>
+        <Grid container spacing={2} justifyContent="space-around" alignItems="center" className={classes.root}>
+            <Grid item>{customList(t('groupsModal.unassigned'), getLeft(props.childrenList))}</Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
@@ -119,7 +143,7 @@ export function GroupsTransferList() {
                         size="small"
                         className={classes.button}
                         onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
+                        disabled={checked.length === 0 || getLeft(props.childrenList).length === 0 || isActionPending}
                         aria-label="move selected right"
                     >
                         &gt;
@@ -129,16 +153,52 @@ export function GroupsTransferList() {
                         size="small"
                         className={classes.button}
                         onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
+                        disabled={checked.length === 0 || getRight(props.childrenList).length === 0 || isActionPending}
                         aria-label="move selected left"
                     >
                         &lt;
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList('Grupa 1', right)}</Grid>
+            <Grid item>{customList(props.group.group, getRight(props.childrenList))}</Grid>
         </Grid>
     );
+
+    function getRight(children: Child[]): Child[] {
+        return children.filter((c) => {
+            const result = props.results.find((r) => r.childId === c._id);
+
+            if (!result) return false;
+
+            if (result.firstMeasurementGroup === props.group.group) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    function getLeft(children: Child[]): Child[] {
+        return children.filter((c) => {
+            const result = props.results.find((r) => r.childId === c._id);
+
+            if (!result || result.firstMeasurementGroup === '') return true;
+
+            return false;
+        });
+    }
+
+    function createOrUpdateResult(update: Partial<UpdatedAssessmentInput>) {
+        const options = { kindergartenId: props.group.kindergartenId, assessmentId: props.assessmentId };
+
+        const childResult = props.results.find((r) => r.childId === update.childId);
+
+        if (childResult) {
+            return updateAssessmentResult({ _id: childResult._id, ...options, ...update });
+        }
+
+        return createAssessmentResult({ ...options, ...update });
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>

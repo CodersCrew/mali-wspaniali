@@ -8,7 +8,7 @@ import {
 import { ConfirmUserCommand } from '../impl';
 import { JwtService } from '@nestjs/jwt';
 import { UserChangePasswordRepository } from '../../repositories/user_change_password_jwt_repository';
-import { User } from '@users/domain/models';
+import { User } from '@app/users/domain/models';
 import { GetUserQuery } from '../../queries/impl';
 
 @CommandHandler(ConfirmUserCommand)

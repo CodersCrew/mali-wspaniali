@@ -52,7 +52,7 @@ export type RegistrationPasswordProps = {
     skip?: Dispatch<SetStateAction<boolean>>;
     loading: boolean;
     error: boolean;
-    setError: React.Dispatch<React.SetStateAction<boolean>>;
+    setError: Dispatch<SetStateAction<boolean>>;
 };
 
 export type RegistrationFeedbackProps = {

@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { makeStyles, IconButton } from '@material-ui/core';
 
-import PlFlag from '../assets/pl.svg';
-import EnFlag from '../assets/en.svg';
+import PlFlag from '@app/assets/pl.svg';
+import EnFlag from '@app/assets/en.svg';
 
 export function LanguageSelectorLoginFlow() {
     const { i18n } = useTranslation();

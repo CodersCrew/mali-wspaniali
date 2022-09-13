@@ -1,8 +1,8 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme, AppBar, Box } from '@material-ui/core';
+import { FC } from 'react';
+import { makeStyles, createStyles, Theme, Typography, AppBar, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import Logo from '../../assets/MW_logo_with_characters.svg';
+import Logo from '@app/assets/MW_logo_with_characters.svg';
 import { useIsDevice } from '../../queries/useBreakpoints';
 import { LanguageSelectorLoginFlow as LanguageSelector } from '../../components/LanguageSelectorLoginFlow';
 
@@ -10,7 +10,7 @@ import { PartnerLogotypeContainer } from './PartnerLogotypeContainer';
 
 type AuthTemplateType = 'login' | 'register';
 
-export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, type }) => {
+export const AuthTemplate: FC<{ type: AuthTemplateType }> = ({ children, type }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const { isDesktop } = useIsDevice();
@@ -22,7 +22,9 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
                     <div className={classes.logoContainer}>
                         <div className={classes.logoInnerContainer}>
                             <img className={classes.logo} src={Logo} alt="Mali Wspaniali Logo" />
-                            <div className={classes.welcomeText}>{t('login-wrapper.welcome-text')}</div>
+                            <Typography className={classes.welcomeText} variant="h2">
+                                {t('login-wrapper.welcome-text')}
+                            </Typography>
                         </div>
                         {type === 'login' && <PartnerLogotypeContainer />}
                     </div>
@@ -53,7 +55,6 @@ export const AuthTemplate: React.FC<{ type: AuthTemplateType }> = ({ children, t
         </>
     );
 };
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         background: {
@@ -83,12 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
         welcomeText: {
             marginTop: theme.spacing(5),
             width: 400,
-            color: theme.palette.text.primary,
-            fontFamily: 'Montserrat',
-            fontStyle: 'normal',
-            fontWeight: theme.typography.fontWeightMedium,
-            fontSize: '34px',
-            lineHeight: '41.45px',
             textAlign: 'center',
         },
         formContainer: {

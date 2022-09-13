@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import {
     Grid,
     InputAdornment,
@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { TransferListItem } from './TransferListItem';
 import { ButtonBase } from '../Button/ButtonBase';
 import { addOrDeleteFromArray } from '../../utils/addOrDeleteFromArray';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 export interface SelectableKindergarten {
     kindergarten: Kindergarten;
@@ -43,10 +43,10 @@ interface KindergartenTransferListProps {
 }
 
 export function KindergartenTransferList({ defaultKindergartens, onSelect, labels }: KindergartenTransferListProps) {
-    const [selectableKindergartens, setSelectableKindergartens] = React.useState(defaultKindergartens);
-    const [pickedItems, setPickedItems] = React.useState<string[]>([]);
+    const [selectableKindergartens, setSelectableKindergartens] = useState(defaultKindergartens);
+    const [pickedItems, setPickedItems] = useState<string[]>([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         onSelect(selectableKindergartens);
     }, [selectableKindergartens]);
 
@@ -120,7 +120,7 @@ function KindergartenPicker(props: {
 }) {
     const classes = useStyles();
     const { t } = useTranslation();
-    const [searchKindergarten, setSearchKindergarten] = React.useState('');
+    const [searchKindergarten, setSearchKindergarten] = useState('');
 
     const searchableItems = props.selectableKindergartens.filter(({ kindergarten }) => {
         if (searchKindergarten.length === 0) return true;
@@ -176,7 +176,15 @@ function KindergartenPicker(props: {
                                         key={selectableKindergarten.kindergarten.number}
                                         checked={props.selected.includes(selectableKindergarten.kindergarten._id)}
                                         disabled={selectableKindergarten.disabled}
-                                        label={label}
+                                        label={
+                                            <div>
+                                                <div>{label}</div>
+                                                <div className={classes.helperLabel}>
+                                                    {selectableKindergarten.kindergarten.address}&nbsp;
+                                                    {selectableKindergarten.kindergarten.city}
+                                                </div>
+                                            </div>
+                                        }
                                         onChange={() => props.onChangeItem(selectableKindergarten.kindergarten._id)}
                                     />
                                 );
@@ -250,5 +258,9 @@ const useStyles = makeStyles((theme) => ({
     input: {
         marginTop: 0,
         cursor: 'pointer',
+    },
+    helperLabel: {
+        color: theme.palette.grey['400'],
+        marginLeft: theme.spacing(1),
     },
 }));

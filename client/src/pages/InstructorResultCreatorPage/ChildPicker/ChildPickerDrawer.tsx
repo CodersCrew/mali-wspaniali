@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
     Box,
     createStyles,
@@ -19,18 +19,19 @@ import { useSidebarState } from '../../../utils/useSidebar';
 import { ResultCreatorReturnProps } from '../useResultCreator';
 import { ChildPicker } from './ChildPicker';
 
-interface Props {
+interface ChildPickerDrawerProps {
     childList: Child[];
     kindergartens: Kindergarten[];
     selectedKindergarten: string;
+    selectedGroup: string;
     measurement: string;
     resultCreator: ResultCreatorReturnProps;
     onClick: (type: string, value: string) => void;
     selected?: string;
 }
 
-export function ChildPickerDrawer(props: Props) {
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+export function ChildPickerDrawer(props: ChildPickerDrawerProps) {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { t } = useTranslation();
     const classes = useStyles();
     const sidebarState = useSidebarState();
@@ -62,6 +63,7 @@ export function ChildPickerDrawer(props: Props) {
                             </AppBar>
                         </Box>
                     }
+                    selectedGroup={props.selectedGroup}
                     selectedKindergarten={props.selectedKindergarten}
                     kindergartens={props.kindergartens}
                     selected={props.selected}
@@ -75,7 +77,7 @@ export function ChildPickerDrawer(props: Props) {
                     }}
                 />
             </SwipeableDrawer>
-            <Grid container justify="flex-end" className={classes.backButtonContainer}>
+            <Grid container justifyContent="flex-end" className={classes.backButtonContainer}>
                 <Grid item>
                     <ButtonSecondary onClick={() => setIsDrawerOpen(true)}>
                         <Box mr={1}>{t('add-result-page.select-child')}</Box> <ArrowForward />

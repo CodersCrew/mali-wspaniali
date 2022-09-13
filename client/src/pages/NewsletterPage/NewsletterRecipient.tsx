@@ -6,8 +6,8 @@ import { Card, CardHeader, Divider, CardContent, Grid } from '@material-ui/core'
 import { SingleSelect } from './SingleSelect';
 import { MultipleSelect } from './MultipleSelect';
 import { GeneralRecipient, SpecificRecipient, NewsletterFormValues } from './types';
-import { recipientType, parentsRecipients, kindergartensRecipients } from './data';
-import { Kindergarten } from '../../graphql/types';
+import { parentsRecipients, kindergartensRecipients } from './data';
+import { Kindergarten } from '@app/graphql/types';
 import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
 
 const setLabel = (
@@ -32,11 +32,11 @@ const setLabel = (
 
 const generateKindergardenOptions = (kindergardens: Kindergarten[]): { value: string; label: string }[] => {
     const values = kindergardens.map((kindergarden) => {
-        const { _id, number, name } = kindergarden;
+        const { _id, number, name, city, address } = kindergarden;
 
         return {
             value: _id,
-            label: `${number}, ${name}`,
+            label: `${number}, ${name} ${address} ${city}`,
         };
     });
 
@@ -93,19 +93,6 @@ export const NewsletterRecipent = ({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <SingleSelect
-                            stateData={generalRecipientType}
-                            optionsValues={recipientType}
-                            onChange={onChange}
-                            onBlur={onBlur}
-                            id="generalRecipientType"
-                            label={t('newsletter.general-recipient-label')}
-                            name="generalRecipientType"
-                            error={errors.generalRecipientType}
-                            touched={touched.generalRecipientType}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SingleSelect
                             stateData={specificRecipientType}
                             optionsValues={specificTypeOptionsValues}
                             onChange={onChange}
@@ -113,7 +100,6 @@ export const NewsletterRecipent = ({
                             id="specificRecipientType"
                             label={t('newsletter.specific-recipient-label')}
                             name="specificRecipientType"
-                            disabled={!generalRecipientType}
                             error={errors.specificRecipientType}
                             touched={touched.specificRecipientType}
                         />

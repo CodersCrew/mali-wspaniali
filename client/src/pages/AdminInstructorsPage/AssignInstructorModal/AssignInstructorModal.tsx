@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import {
     Typography,
     makeStyles,
@@ -39,7 +39,7 @@ export function openAssignInstructorModal(props: ModalProps) {
 function AssignInstructorModal(props: ModalProps & ActionDialog<{ updates: Partial<UpdatedAssessmentInput> }>) {
     const classes = useStyles();
     const currentRelation = props.relations.find((relation) => relation.instructor._id === props.instructorId);
-    const [selectedKindergartens, setSelectedKindergartens] = React.useState<SelectableKindergarten[]>([]);
+    const [selectedKindergartens, setSelectedKindergartens] = useState<SelectableKindergarten[]>([]);
     const { t } = useTranslation();
 
     const select = (kindergartens: SelectableKindergarten[]) => {

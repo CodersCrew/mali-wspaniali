@@ -1,6 +1,6 @@
 import { Divider, createStyles, makeStyles } from '@material-ui/core';
 import { AppLogo } from '../../AppLogo';
-import { Theme } from '../../../theme/types';
+import { Theme } from '@app/theme/types';
 
 export function LabeledHeader() {
     const classes = useStyles();

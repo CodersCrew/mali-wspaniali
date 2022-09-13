@@ -1,8 +1,8 @@
 import { makeStyles, createStyles, Box, Typography, Paper, Button, Link } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import CCLogo from '../../../assets/authTemplateLogos/maker/maker.svg';
-import { Theme } from '../../../theme';
+import CCLogo from '@app/assets/authTemplateLogos/maker/coders-crew.svg';
+import { Theme } from '@app/theme';
 import { useBreakpoints } from '../../../queries/useBreakpoints';
 
 import { openContactModal } from './ContactModal';
@@ -25,8 +25,10 @@ export function Footer() {
                     <Button className={classes.link} onClick={openContactModal}>
                         {t('home-page-content.footer.contact')}
                     </Button>
-                    {device === 'DESKTOP' ? '' : <Typography variant="subtitle1">|</Typography>}
-                    <Button className={classes.link}>{t('home-page-content.footer.privacy')}</Button>
+                    {device === 'DESKTOP' ? '' : <Typography variant="subtitle1">|</Typography>}&nbsp;&nbsp;&nbsp;
+                    <Link href="/docs/polityka_prywatnosci_pl.pdf" className={classes.link} target="_blank">
+                        {t('home-page-content.footer.privacy')}
+                    </Link>
                 </Box>
 
                 {device === 'DESKTOP' ? (
@@ -72,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
         link: {
             fontWeight: theme.typography.button.fontWeight,
             color: theme.palette.primary.light,
+            textTransform: 'uppercase',
         },
         logo: {
             height: theme.spacing(8),

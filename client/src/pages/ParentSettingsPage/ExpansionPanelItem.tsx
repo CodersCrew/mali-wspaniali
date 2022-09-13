@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
-import { Me } from '../../graphql/types';
+import { Me } from '@app/graphql/types';
 
 export interface Props {
     user: Me;

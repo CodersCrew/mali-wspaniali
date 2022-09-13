@@ -1,8 +1,9 @@
+import { ReactNode } from 'react';
 import { ListItem, ListItemIcon, ListItemText, Checkbox, makeStyles } from '@material-ui/core';
 
 interface TransferListItemProps {
     checked: boolean;
-    label: string;
+    label: ReactNode;
     disabled: boolean;
     onChange: () => void;
 }
@@ -20,7 +21,7 @@ export function TransferListItem(props: TransferListItemProps) {
             <ListItemIcon>
                 <Checkbox checked={props.checked} tabIndex={-1} disableRipple disabled={props.disabled} />
             </ListItemIcon>
-            <ListItemText id={props.label} primary={props.label} />
+            <ListItemText primary={props.label} />
         </ListItem>
     );
 }

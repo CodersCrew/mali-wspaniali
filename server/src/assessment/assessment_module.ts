@@ -11,7 +11,6 @@ import { EventHandlers } from './domain/events/handlers';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { UsersModule } from '../users/users_module';
 import { QueryHandlers } from './domain/queries/handlers';
-import { KindergartenWithInstructorResolver } from './kindergarten_with_instructor_resolver';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { KindergartenWithInstructorResolver } from './kindergarten_with_instruct
   ],
   providers: [
     AssessmentResolver,
-    KindergartenWithInstructorResolver,
     AssessmentRepository,
     ...CommandHandlers,
     ...QueryHandlers,

@@ -15,7 +15,7 @@ import {
 import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { Assessment, Child, AssessmentResult } from '../../graphql/types';
+import { Assessment, Child, AssessmentResult } from '@app/graphql/types';
 import { parseDateToAge } from '../../utils/parseDateToAge';
 import { SearchChildField } from '../../components/SearchChildField';
 import { Clickable } from '../../components/Clickable';
@@ -28,19 +28,21 @@ interface Props {
     assessment: Assessment;
     results: AssessmentResult[];
     searchTerm: string;
+    selectedGroup: string;
     compact?: boolean;
     onChange: (type: string, value: string) => void;
     onClick: (type: string, value: string) => void;
 }
 
 export function ChildListCompactContainer({
-    childList,
     assessment,
-    results,
+    childList,
     compact,
-    searchTerm,
     onChange,
     onClick,
+    results,
+    searchTerm,
+    selectedGroup,
 }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
@@ -69,6 +71,20 @@ export function ChildListCompactContainer({
                     const age = parseDateToAge(c.birthYear, c.birthQuarter);
                     const firstMeasurementResultCount = countMeasurementResults('first', c._id);
                     const lastMeasurementResultCount = countMeasurementResults('last', c._id);
+                    const result = results.find((r) => r.childId === c._id);
+
+                    let isGroupActive;
+
+                    if (selectedGroup === '') {
+                        isGroupActive = true;
+                    } else if (selectedGroup === 'unassigned') {
+                        isGroupActive =
+                            result?.firstMeasurementGroup === '' || result?.firstMeasurementGroup === undefined;
+                    } else {
+                        isGroupActive = result?.firstMeasurementGroup === selectedGroup;
+                    }
+
+                    if (!isGroupActive) return null;
 
                     return (
                         <>
@@ -213,24 +229,30 @@ export function ChildListCompactContainer({
                                                                 </TableCell>
                                                             </TableRow>
                                                             <TableRow>
-                                                                <TableCell classes={{ root: classes.cell }}>
-                                                                    <Typography variant="subtitle2">
-                                                                        {t('add-results-page.see-results')}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                                <TableCell classes={{ root: classes.cell }}>
-                                                                    <CustomIconButton
-                                                                        disabled={isResultDisabled}
-                                                                        onClick={() => onClick('see-results', c._id)}
-                                                                        icon={
-                                                                            <AssessmentIcon
-                                                                                titleAccess={t(
-                                                                                    'add-results-page.see-results',
-                                                                                )}
+                                                                {result && (
+                                                                    <>
+                                                                        <TableCell classes={{ root: classes.cell }}>
+                                                                            <Typography variant="subtitle2">
+                                                                                {t('add-results-page.see-results')}
+                                                                            </Typography>
+                                                                        </TableCell>
+                                                                        <TableCell classes={{ root: classes.cell }}>
+                                                                            <CustomIconButton
+                                                                                disabled={!isResultDisabled}
+                                                                                onClick={() =>
+                                                                                    onClick('see-results', result._id)
+                                                                                }
+                                                                                icon={
+                                                                                    <AssessmentIcon
+                                                                                        titleAccess={t(
+                                                                                            'add-results-page.see-results',
+                                                                                        )}
+                                                                                    />
+                                                                                }
                                                                             />
-                                                                        }
-                                                                    />
-                                                                </TableCell>
+                                                                        </TableCell>
+                                                                    </>
+                                                                )}
                                                             </TableRow>
                                                         </TableBody>
                                                     </Table>

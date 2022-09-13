@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, createStyles, FormControl, FormHelperText } from '@material-ui/core';
 
 import { modules, formats } from './workspaceConfig';
-import { Theme } from '../../theme';
+import { Theme } from '@app/theme';
 
 interface Props {
     value: string;
@@ -15,7 +15,7 @@ interface Props {
 
 export const Workspace = ({ value, error, onChange }: Props) => {
     const { t } = useTranslation();
-    const [isTouched, setIsTouched] = React.useState(false);
+    const [isTouched, setIsTouched] = useState(false);
     const classes = useStyles();
 
     return (

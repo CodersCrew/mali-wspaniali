@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Notifications } from '@material-ui/icons/';
 
 import { NotificationPageListItem } from './NotificationPageListItem';
-import { Notification } from '../../graphql/types';
+import { Notification } from '@app/graphql/types';
 import { TablePaginationActions } from './NotificationTablePaginationActions';
 
 interface Props {

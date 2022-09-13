@@ -17,7 +17,7 @@ import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { LabeledContainer } from '../../components/LabeledContainer';
-import { Kindergarten } from '../../graphql/types';
+import { Kindergarten } from '@app/graphql/types';
 
 interface Props {
     isDisabled: boolean;
@@ -108,7 +108,13 @@ export function KindergartenPicker({ isDisabled, kindergartens, onSelect }: Prop
                                             />
                                         </TableCell>
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
-                                            {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            <div>
+                                                {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                            </div>
+                                            <div className={classes.helperLabel}>
+                                                {kindergarten.kindergarten.address}&nbsp;
+                                                {kindergarten.kindergarten.city}
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -130,6 +136,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         kindergartenItem: {
             cursor: 'pointer',
+        },
+        helperLabel: {
+            color: theme.palette.grey['400'],
+            marginLeft: theme.spacing(1),
         },
     }),
 );

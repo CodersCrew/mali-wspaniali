@@ -14,12 +14,10 @@ export class FreshmailProvider implements Sendable {
     axios.post(
       `${this.getRootUrl()}/messaging/emails/`,
       {
-        recipients: [
-          options.bcc.map(mail => ({
-            email: mail,
-            name: mail,
-          })),
-        ],
+        recipients: options.bcc.map(mail => ({
+          email: mail,
+          name: mail,
+        })),
         from: {
           name: options.from,
           email: options.from,

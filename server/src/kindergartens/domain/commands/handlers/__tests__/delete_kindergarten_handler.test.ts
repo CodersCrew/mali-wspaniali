@@ -1,4 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import MockDate from 'mockdate';
 import {
   addChild,
@@ -6,25 +5,18 @@ import {
   createParent,
   getKindergarten,
 } from '../../../../../test/helpers/app_mock';
-import { Kindergarten } from '@kindergartens/domain/models';
-import * as dbHandler from '@app/db_handler';
-import { KindergartenModule } from '@kindergartens/kindergarten_module';
+import { Kindergarten } from '@app/kindergartens/domain/models';
 import { DeleteKindergartenHandler } from '../delete_kindergarten_handler';
 import { DeleteKindergartenCommand } from '../../impl';
+import { getApp } from '../../../../../../setupTests';
 
 describe('DeleteKindergartenHandler', () => {
-  let app: TestingModule;
-
   afterAll(async () => {
-    await app.close();
     MockDate.reset();
   });
 
   beforeEach(async () => {
-    app = await setup();
     MockDate.set('2010-10-31');
-
-    await dbHandler.clearDatabase();
   });
 
   describe('if executed', () => {
@@ -77,18 +69,10 @@ describe('DeleteKindergartenHandler', () => {
   });
 
   function anonymizeKindergarten(kindergartenId: string) {
-    return app.resolve(DeleteKindergartenHandler).then(handler => {
-      return handler.execute(new DeleteKindergartenCommand(kindergartenId));
-    });
-  }
-
-  async function setup() {
-    const module = await Test.createTestingModule({
-      imports: [dbHandler.rootMongooseTestModule(), KindergartenModule],
-    }).compile();
-
-    await module.init();
-
-    return module;
+    return getApp()
+      .resolve(DeleteKindergartenHandler)
+      .then(handler => {
+        return handler.execute(new DeleteKindergartenCommand(kindergartenId));
+      });
   }
 });

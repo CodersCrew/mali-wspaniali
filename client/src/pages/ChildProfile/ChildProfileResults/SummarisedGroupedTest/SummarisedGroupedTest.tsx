@@ -1,11 +1,11 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 
 import { ButtonSecondary } from '../../../../components/Button';
 import { useIsDevice } from '../../../../queries/useBreakpoints';
-import { AssessmentResult } from '../../../../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
 interface Props {
     onClick: () => void;
@@ -17,8 +17,8 @@ export function SummarisedGroupedTest({ onClick, isExpanded, test }: Props) {
     const classes = useStyles();
 
     return (
-        <Grid direction="row" justify="space-between" alignItems="center" className={classes.wrapper} container>
-            <Grid direction="row" justify="flex-start" alignItems="center" item xs={8} container>
+        <Grid direction="row" justifyContent="space-between" alignItems="center" className={classes.wrapper} container>
+            <Grid direction="row" justifyContent="flex-start" alignItems="center" item xs={8} container>
                 <Grid item>
                     <Typography className={classes.title} variant="subtitle2">
                         {test.assessment.title}
@@ -50,7 +50,7 @@ function DetailsButton({ onClick, isExpanded }: { isExpanded: boolean; onClick: 
         />
     );
 
-    function onDetailsButtonClick(event: React.MouseEvent<SVGSVGElement | HTMLButtonElement>) {
+    function onDetailsButtonClick(event: MouseEvent<SVGSVGElement | HTMLButtonElement>) {
         event.stopPropagation();
 
         onClick();

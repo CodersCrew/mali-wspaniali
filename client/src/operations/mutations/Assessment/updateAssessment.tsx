@@ -14,6 +14,7 @@ export type UpdatedAssessmentInput = {
     lastMeasurementEndDate: string;
     firstMeasurementStatus: string;
     lastMeasurementStatus: string;
+    groups: Array<{ kindergartenId: string; group: string }>;
 };
 
 interface UpdateAssessment {
@@ -42,6 +43,8 @@ export const UPDATE_ASSESSMENT = gql`
                     _id
                     name
                     number
+                    address
+                    city
                 }
                 instructor {
                     _id
@@ -57,8 +60,6 @@ export function useUpdateAssessment(): UpdateAssessment {
 
     return {
         updateAssessment: (id: string, updatedAssessment) => {
-            console.log(updatedAssessment);
-
             return updateAssessment({
                 variables: {
                     id,
@@ -73,6 +74,7 @@ export function useUpdateAssessment(): UpdateAssessment {
                         'kindergartens',
                         'isOutdated',
                         'isDeleted',
+                        'groups',
                     ]),
                 },
             });

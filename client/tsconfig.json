@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -24,5 +25,9 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "functions/src/database/utils.ts", "src/custom.d.ts"]
+  "include": [
+    "src",
+    "functions/src/database/utils.ts",
+    "src/custom.d.ts"
+  ]
 }

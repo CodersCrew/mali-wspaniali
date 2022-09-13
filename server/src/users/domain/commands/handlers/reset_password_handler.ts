@@ -35,7 +35,7 @@ export class ResetPasswordHandler
 
       this.sendMail.send({
         bcc: [mail],
-        from: 'piotrek@coderscrew.pl',
+        from: process.env.SENDER,
         subject: 'Zmiana hasła na platformie Mali Wspaniali',
         text: 'register',
         html: this.createTemplate(
@@ -98,8 +98,7 @@ export class ResetPasswordHandler
             <div class="address">
                   Fundacja Mali Wspaniali</br>
               ul. Ślężna 2 - 24, 53-302 Wrocław</br></br>
-              +48 510 454 457</br>
-              <a href="mailto:biuro@mali-wspaniali.pl">biuro@mali-wspaniali.pl</a>
+              <a href="mailto:fundacja@mali-wspaniali.pl">fundacja@mali-wspaniali.pl</a>
             </div>
             <div class="contact">
               Odwiedź nas na:</br>

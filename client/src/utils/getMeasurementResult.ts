@@ -1,4 +1,4 @@
-import { KindergartenWithChildren } from '../graphql/types';
+import { KindergartenWithChildren } from '@app/graphql/types';
 import { MeasurementType } from '../pages/TestResultsPage/TestToggleButton';
 
 export const getMeasurementResult = (assessmentType: MeasurementType, kindergarten: KindergartenWithChildren) => {
