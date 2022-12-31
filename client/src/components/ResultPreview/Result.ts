@@ -70,7 +70,7 @@ export class Result {
     }
 
     getChartDetails() {
-        return getResultColorAndLabel(this.getValue() as number, this.getParam()!, this.getNormalizedName());
+        return getResultColorAndLabel(this.getValue(), this.getParam()!, this.getNormalizedName());
     }
 
     getChildId() {

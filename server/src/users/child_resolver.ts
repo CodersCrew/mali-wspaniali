@@ -99,7 +99,7 @@ export class ChildResolver {
   @ResolveField(() => Int, {
     nullable: true,
     description:
-      "Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasuremtnDate / lastMeasurementDate if the first is not available, if run without any context in returns age in realation to the current date",
+      "Returns child's age, if run on concrete assessment context, returns age in relation to firstMeasurementDate / lastMeasurementDate if the first is not available, if run without any context in returns age in relation to the current date",
   })
   @UseGuards(GqlAuthGuard)
   async age(
@@ -125,11 +125,10 @@ export class ChildResolver {
   @Query(() => [ChildDTO])
   @UseGuards(new GqlAuthGuard({ role: 'admin' }))
   async allChildren() {
-    const childrenWithKindergarten: ChildWithKindergarten[] = await this.queryBus.execute(
-      new GetAllChildrenQuery(),
-    );
+    const childrenWithKindergarten: ChildWithKindergarten[] =
+      await this.queryBus.execute(new GetAllChildrenQuery());
 
-    return childrenWithKindergarten.map(child => ({
+    return childrenWithKindergarten.map((child) => ({
       ...child.child,
       kindergarten: child.kindergarten,
       results: child.results,

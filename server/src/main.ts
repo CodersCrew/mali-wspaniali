@@ -6,7 +6,12 @@ import { AppModule } from './app.module';
 import { isProduction } from './shared/utils/is_production';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: [new RegExp(process.env.SERVER_HOST)],
+      credentials: true,
+    },
+  });
 
   if (isProduction()) {
     app.use(helmet());

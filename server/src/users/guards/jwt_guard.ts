@@ -27,12 +27,13 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
     }
 
     const role = Array.isArray(this.options.role)
-      ? this.options.role.find(r => r === user.role)
+      ? this.options.role.find((r) => r === user.role)
       : this.options.role === user.role;
 
     if (this.options.role && !role) {
-      throw err ||
-        new UnauthorizedException(`You need to be logged as "${role}"`);
+      throw (
+        err || new UnauthorizedException(`You need to be logged as "${role}"`)
+      );
     }
 
     return user;

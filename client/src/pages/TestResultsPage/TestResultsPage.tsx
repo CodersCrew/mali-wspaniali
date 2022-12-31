@@ -14,7 +14,10 @@ import { Assessment } from '@app/graphql/types';
 import { useKindergartensWithChildren } from '@app/operations/queries/Kindergartens/getKindergartensWithChildren';
 import { Theme } from '@app/theme';
 
-import { useAssessmentResults } from '@app/operations/queries/Assessment/getAssessmentResults';
+// import { useAssessmentResults } from '@app/operations/queries/Assessment/getAssessmentResults';
+// import { Result } from '@app/components/ResultPreview/Result';
+import axios from 'axios';
+import FileSaver from 'file-saver';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { NoResults } from './NoResults';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
@@ -27,7 +30,7 @@ export default function TestResultsPage() {
     const [page, setPage] = useState(0);
 
     const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
-    const { assessmentResults } = useAssessmentResults(assessmentId);
+    // const { assessmentResults } = useAssessmentResults(assessmentId);
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -54,9 +57,37 @@ export default function TestResultsPage() {
         pushToAdminResult(assessmentId, selectedAssessmentType.type);
     };
 
-    const downloadResults = () => {
+    const downloadResults = async () => {
         // TODO: remove!
-        console.log('pobierz wyniki:', { assessmentResults });
+        /*
+        if (assessmentResults) {
+            console.log('pobierz wyniki:', assessmentResults);
+            const result = assessmentResults.kindergartens[0].kindergarten.children[4].results[0];
+            const res = new Result({ result });
+            console.log('new Result - age:', res.getChildAge());
+        } else {
+            console.log('brak wyników');
+        }
+*/
+
+        try {
+            const url = process.env.VITE_APP_API
+                ? `${process.env.VITE_APP_API}/children/result_sheet/${assessmentId}`
+                : `http://localhost:3005/children/result_sheet/${assessmentId}`;
+
+            const token = localStorage.getItem('token') || '';
+
+            const response = await axios.get(url, {
+                headers: {
+                    authorization: token,
+                },
+                responseType: 'blob',
+            });
+
+            FileSaver.saveAs(response.data, 'test-przedszkole-agatka.xlsx');
+        } catch (error: unknown) {
+            console.log({ error });
+        }
     };
 
     if (!kindergartenList) return <NoResults />;

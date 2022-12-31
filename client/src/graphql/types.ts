@@ -162,6 +162,18 @@ export interface KindergartenWithChildren {
     };
 }
 
+export interface KindergartenWithChildrenResults {
+    kindergarten: {
+        _id: string;
+        name: string;
+        address: string;
+        firstMeasurementResultCount: number;
+        lastMeasurementResultCount: number;
+        maxResultCount: number;
+        children: Child[];
+    };
+}
+
 export interface Kindergarten {
     _id: string;
     name: string;
@@ -260,70 +272,18 @@ export interface Assessment {
     groups: { kindergartenId: string; group: string }[];
 }
 
-export interface AssessmentResults {
-    assessment: {
-        _id: string;
-        title: string;
-        firstMeasurementStartDate: Date;
-        firstMeasurementEndDate: Date;
-        firstMeasurementStatus: string;
-        firstMeasurementResultCount: number;
-        lastMeasurementStartDate: Date;
-        lastMeasurementEndDate: Date;
-        lastMeasurementStatus: string;
-        lastMeasurementResultCount: number;
-        kindergartens: {
-            kindergarten: {
-                _id: string;
-                name: string;
-                children: {
-                    firstname: string;
-                    lastname: string;
-                    sex: string;
-                    age: string;
-                    currentParams: {
-                        run?: AssessmentParam;
-                        pendelumRun?: AssessmentParam;
-                        throw?: AssessmentParam;
-                        jump?: AssessmentParam;
-                    };
-                    results: {
-                        childId: string;
-                        kindergartenId: string;
-                        assessmentId: string;
-
-                        firstMeasurementNote: string;
-                        firstMeasurementGroup: string;
-                        firstMeasurementInstructor: string;
-                        firstMeasurementKindergarten: string;
-
-                        firstMeasurementRunDate: Date;
-                        firstMeasurementRunResult: number;
-                        firstMeasurementJumpDate: Date;
-                        firstMeasurementJumpResult: number;
-                        firstMeasurementThrowDate: Date;
-                        firstMeasurementThrowResult: number;
-                        firstMeasurementPendelumRunDate: Date;
-                        firstMeasurementPendelumRunResult: number;
-
-                        lastMeasurementNote: string;
-                        lastMeasurementGroup: string;
-                        lastMeasurementInstructor: string;
-                        lastMeasurementKindergarten: string;
-
-                        lastMeasurementRunDate: Date;
-                        lastMeasurementRunResult: number;
-                        lastMeasurementJumpDate: Date;
-                        lastMeasurementJumpResult: number;
-                        lastMeasurementThrowDate: Date;
-                        lastMeasurementThrowResult: number;
-                        lastMeasurementPendelumRunDate: Date;
-                        lastMeasurementPendelumRunResult: number;
-                    };
-                }[];
-            }[];
-        };
-    };
+export interface AssessmentResultsForDownload {
+    _id: string;
+    title: string;
+    firstMeasurementStartDate: Date;
+    firstMeasurementEndDate: Date;
+    firstMeasurementStatus: string;
+    firstMeasurementResultCount: number;
+    lastMeasurementStartDate: Date;
+    lastMeasurementEndDate: Date;
+    lastMeasurementStatus: string;
+    lastMeasurementResultCount: number;
+    kindergartens: KindergartenWithChildrenResults[];
 }
 
 export interface AssessmentResult {

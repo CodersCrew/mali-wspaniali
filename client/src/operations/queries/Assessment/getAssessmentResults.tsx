@@ -1,13 +1,13 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
-import { AssessmentResults } from '@app/graphql/types';
+import { AssessmentResultsForDownload } from '@app/graphql/types';
 
 export interface AssessmentResultsResponse {
-    assessmentResults?: AssessmentResults;
+    assessment: AssessmentResultsForDownload | null;
 }
 
 interface UseAssessmentResultsReturn {
-    assessmentResults?: AssessmentResultsResponse;
+    assessmentResults: AssessmentResultsForDownload | null;
     areAssessmentResultsLoading: boolean;
     refetchAssessmentResults: () => void;
 }
@@ -16,134 +16,139 @@ export const GET_ASSESSMENT_RESULTS = gql`
     query Assessment($id: String!) {
         assessment(id: $id) {
             _id
-            title
-            firstMeasurementStartDate
             firstMeasurementEndDate
-            firstMeasurementStatus
             firstMeasurementResultCount
-            lastMeasurementStartDate
-            lastMeasurementEndDate
-            lastMeasurementStatus
-            lastMeasurementResultCount
+            firstMeasurementStartDate
+            firstMeasurementStatus
+            isDeleted
             kindergartens {
                 kindergarten {
                     _id
-                    name
                     children {
-                        firstname
-                        lastname
-                        sex
-                        age
-                        currentParams {
-                            run {
-                                a
-                                b
-                                lowerLimit
-                                lowerLimitPoints
-                                upperLimit
-                                upperLimitPoints
-                                badStageLimit
-                                weakStageLimit
-                                middleStageLimit
-                                goodStageLimit
-                                veryGoodStageLimit
-                                minScale
-                                scale39
-                                scale49
-                                scale59
-                                maxScale
-                            }
-                            pendelumRun {
-                                a
-                                b
-                                lowerLimit
-                                lowerLimitPoints
-                                upperLimit
-                                upperLimitPoints
-                                badStageLimit
-                                weakStageLimit
-                                middleStageLimit
-                                goodStageLimit
-                                veryGoodStageLimit
-                                minScale
-                                scale39
-                                scale49
-                                scale59
-                                maxScale
-                            }
-                            jump {
-                                a
-                                b
-                                lowerLimit
-                                lowerLimitPoints
-                                upperLimit
-                                upperLimitPoints
-                                badStageLimit
-                                weakStageLimit
-                                middleStageLimit
-                                goodStageLimit
-                                veryGoodStageLimit
-                                minScale
-                                scale39
-                                scale49
-                                scale59
-                                maxScale
-                            }
-                            throw {
-                                a
-                                b
-                                lowerLimit
-                                lowerLimitPoints
-                                upperLimit
-                                upperLimitPoints
-                                badStageLimit
-                                weakStageLimit
-                                middleStageLimit
-                                goodStageLimit
-                                veryGoodStageLimit
-                                minScale
-                                scale39
-                                scale49
-                                scale59
-                                maxScale
-                            }
-                        }
+                        _id
                         results {
-                            childId
-                            kindergartenId
+                            _id
                             assessmentId
+                            child {
+                                _id
+                                age
+                                currentParams {
+                                    jump {
+                                        a
+                                        b
+                                        lowerLimit
+                                        lowerLimitPoints
+                                        upperLimit
+                                        upperLimitPoints
+                                        badStageLimit
+                                        weakStageLimit
+                                        middleStageLimit
+                                        goodStageLimit
+                                        veryGoodStageLimit
+                                        minScale
+                                        scale39
+                                        scale49
+                                        scale59
+                                        maxScale
+                                    }
+                                    pendelumRun {
+                                        a
+                                        b
+                                        lowerLimit
+                                        lowerLimitPoints
+                                        upperLimit
+                                        upperLimitPoints
+                                        badStageLimit
+                                        weakStageLimit
+                                        middleStageLimit
+                                        goodStageLimit
+                                        veryGoodStageLimit
+                                        minScale
+                                        scale39
+                                        scale49
+                                        scale59
+                                        maxScale
+                                    }
+                                    run {
+                                        a
+                                        b
+                                        lowerLimit
+                                        lowerLimitPoints
+                                        upperLimit
+                                        upperLimitPoints
+                                        badStageLimit
+                                        weakStageLimit
+                                        middleStageLimit
+                                        goodStageLimit
+                                        veryGoodStageLimit
+                                        minScale
+                                        scale39
+                                        scale49
+                                        scale59
+                                        maxScale
+                                    }
+                                    throw {
+                                        a
+                                        b
+                                        lowerLimit
+                                        lowerLimitPoints
+                                        upperLimit
+                                        upperLimitPoints
+                                        badStageLimit
+                                        weakStageLimit
+                                        middleStageLimit
+                                        goodStageLimit
+                                        veryGoodStageLimit
+                                        minScale
+                                        scale39
+                                        scale49
+                                        scale59
+                                        maxScale
+                                    }
+                                }
+                                firstname
+                                lastname
+                                sex
+                            }
+                            kindergartenId
 
-                            firstMeasurementNote
                             firstMeasurementGroup
                             firstMeasurementInstructor
                             firstMeasurementKindergarten
+                            firstMeasurementNote
 
-                            firstMeasurementRunDate
-                            firstMeasurementRunResult
                             firstMeasurementJumpDate
                             firstMeasurementJumpResult
-                            firstMeasurementThrowDate
-                            firstMeasurementThrowResult
                             firstMeasurementPendelumRunDate
                             firstMeasurementPendelumRunResult
+                            firstMeasurementRunDate
+                            firstMeasurementRunResult
+                            firstMeasurementThrowDate
+                            firstMeasurementThrowResult
 
-                            lastMeasurementNote
                             lastMeasurementGroup
                             lastMeasurementInstructor
                             lastMeasurementKindergarten
+                            lastMeasurementNote
 
-                            lastMeasurementRunDate
-                            lastMeasurementRunResult
                             lastMeasurementJumpDate
                             lastMeasurementJumpResult
-                            lastMeasurementThrowDate
-                            lastMeasurementThrowResult
                             lastMeasurementPendelumRunDate
                             lastMeasurementPendelumRunResult
+                            lastMeasurementRunDate
+                            lastMeasurementRunResult
+                            lastMeasurementThrowDate
+                            lastMeasurementThrowResult
                         }
                     }
+                    name
                 }
             }
+            lastMeasurementEndDate
+            lastMeasurementResultCount
+            lastMeasurementStartDate
+            lastMeasurementStatus
+            title
         }
     }
 `;
@@ -158,7 +163,8 @@ export function useAssessmentResults(id: string | undefined): UseAssessmentResul
     }, [id, getTest]);
 
     return {
-        assessmentResults: data,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        assessmentResults: data?.assessment || null,
         areAssessmentResultsLoading: loading,
         refetchAssessmentResults: () => {
             if (!refetch) return;

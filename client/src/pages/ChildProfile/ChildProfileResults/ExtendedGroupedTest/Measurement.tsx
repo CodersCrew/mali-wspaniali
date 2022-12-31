@@ -35,6 +35,18 @@ export function Measurement(props: Props) {
     });
     const chartDetails = resultWrapper.getChartDetails();
 
+    // TODO: remove!
+    /*
+    if (chartDetails.valueInPoints)
+        console.log('result:', {
+            result,
+            unit: props.unitOfMeasure,
+            name: props.name,
+            prefix: props.prefix,
+            translationKey: props.translationKey,
+        });
+*/
+
     return (
         <div className={classes.container}>
             <Box width="110px" height="110px">
