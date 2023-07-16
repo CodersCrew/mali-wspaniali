@@ -101,13 +101,12 @@ export class ChildrenController {
           child.results[0].firstMeasurementJumpResult &&
           child.results[0].firstMeasurementRunResult &&
           child.results[0].firstMeasurementThrowResult &&
-          child.results[0].firstMeasurementPendelumRunResult,
-        // TODO: customize! Distinguish FIRST test, LAST test, or both
-        // child.results[0].firstMeasurementPendelumRunResult &&
-        // child.results[0].lastMeasurementJumpResult &&
-        // child.results[0].lastMeasurementRunResult &&
-        // child.results[0].lastMeasurementThrowResult &&
-        // child.results[0].lastMeasurementPendelumRunResult,
+          child.results[0].firstMeasurementPendelumRunResult &&
+          // TODO: customize! Distinguish FIRST test, LAST test, or BOTH tests
+          child.results[0].lastMeasurementJumpResult &&
+          child.results[0].lastMeasurementRunResult &&
+          child.results[0].lastMeasurementThrowResult &&
+          child.results[0].lastMeasurementPendelumRunResult,
       )
       .map((child) => {
         const result = { ...data[0] };

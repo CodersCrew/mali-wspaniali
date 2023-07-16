@@ -70,6 +70,8 @@ export default function TestResultsPage() {
         }
 */
 
+        const FILE_NAME = 'test-przedszkole-agatka.xlsx';
+
         try {
             const url = process.env.VITE_APP_API
                 ? `${process.env.VITE_APP_API}/children/result_sheet/${assessmentId}`
@@ -84,7 +86,7 @@ export default function TestResultsPage() {
                 responseType: 'blob',
             });
 
-            FileSaver.saveAs(response.data, 'test-przedszkole-agatka.xlsx');
+            FileSaver.saveAs(response.data, FILE_NAME);
         } catch (error: unknown) {
             console.log({ error });
         }
