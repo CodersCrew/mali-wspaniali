@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { KeyCode } from '../../../graphql/types';
+import { KeyCode } from '@app/graphql/types';
 
 export interface CreateKeyCodeSeriesResponse {
     createKeyCodeBulk: KeyCode[];
@@ -30,7 +30,7 @@ export function useCreateKeyCodes() {
 
                 cache.modify({
                     fields: {
-                        keyCodeSeries(keycodes = []) {
+                        keyCodeSeries(keycodes: KeyCode[] = []) {
                             return [...keycodes, { ...newKeyCode, __typename: 'KeyCodeSeriesDTO' }];
                         },
                     },
@@ -40,7 +40,7 @@ export function useCreateKeyCodes() {
     });
 
     useEffect(() => {
-        setCreated(data?.createKeyCodeBulk[0]);
+        setCreated(() => data?.createKeyCodeBulk[0]);
     }, [data]);
 
     return { createKeyCodes, created, resetCreated: () => setCreated(undefined) };
