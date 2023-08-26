@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.20.x]
+        node: [14.x]
     name: Lint, test and prettier
     steps:
       - uses: actions/checkout@v2
