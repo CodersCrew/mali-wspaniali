@@ -8,7 +8,7 @@ import { getApp } from '../../../../../../setupTests';
 import { createParent } from '@app/test/helpers/app_mock';
 import { getNewsletters } from '../../../../../test/helpers/app_mock';
 
-describe.skip('CreateNewsletterHandler', () => {
+describe('CreateNewsletterHandler', () => {
   let sendMail: SendMail;
 
   beforeEach(async () => {
