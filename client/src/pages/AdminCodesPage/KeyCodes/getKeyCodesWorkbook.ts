@@ -8,7 +8,7 @@ const WORKSHEET_NAME = 'KeyCodes';
 export function getKeyCodesWorkbook(keyCodes: KeyCode[]) {
     const workbook = getWorkbookWithWorkSheet();
 
-    const columnLabels = ['created', 'valid by', 'keycode'];
+    const columnLabels = ['Utworzony:', 'Ważny do:', 'Kod aktywacyjny:'];
 
     workbook.Sheets[WORKSHEET_NAME] = createWorkSheetWithKeyCodes(columnLabels, keyCodes);
 
