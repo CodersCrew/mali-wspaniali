@@ -2,13 +2,13 @@ import { useContext } from 'react';
 import { Card, Grid, Theme, Typography, Box } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles } from '@material-ui/styles';
-import { gray, lightTextColor, resultColors } from '../../colors';
+import { gray, lightTextColor, resultColors } from '@app/colors';
+import { Results } from '@app/pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
+import { ChartLegend } from '@app/pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import { ButtonSecondary } from '../Button';
 import { openResultsModal } from './modals/ResultsModal';
 import { openSnackbar } from '../Snackbar/openSnackbar';
-import { Results } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Results';
-import { ChartLegend } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/ChartLegend';
-import { useIsDevice } from '../../queries/useBreakpoints';
 import { Result } from './Result';
 import { ResultContext } from './context';
 
@@ -50,12 +50,15 @@ export const ResultComparison = () => {
                         <Typography variant="caption" className={classes.cardTopSubtitle}>
                             {t('child-profile.summary-info')}
                         </Typography>
+
                         <Typography variant="h4" className={classes.cardTopTitle}>
                             {t('child-profile.test-result')}
                         </Typography>
                     </div>
+
                     <div className={classes.cardBottom}>
                         <Typography variant="body1">{t('child-profile.comparison-label')}</Typography>
+
                         <Box my={3}>
                             <Typography
                                 variant="subtitle2"
@@ -65,6 +68,7 @@ export const ResultComparison = () => {
                                 {t(`child-profile.difference.${key}`)}
                             </Typography>
                         </Box>
+
                         <ButtonSecondary
                             variant="contained"
                             onClick={onOpenResultsClick}
@@ -72,10 +76,12 @@ export const ResultComparison = () => {
                         />
                     </div>
                 </Card>
+
                 <div className={classes.rightWrapper}>
                     <Box my={1}>
                         <Typography variant="body1">{t('child-profile.comparison-right-title')}</Typography>
                     </Box>
+
                     <Grid
                         container
                         direction={isSmallMobile ? 'column-reverse' : 'row'}
@@ -90,6 +96,7 @@ export const ResultComparison = () => {
                                 displayHistoricalResults={sumOfPointsFirstMeasurement > 0}
                             />
                         </Grid>
+
                         <Grid item xs={12} sm={3} className={classes.info}>
                             <ChartLegend resultKey={key} color={differenceColor} difference={difference} />
                         </Grid>
@@ -100,9 +107,11 @@ export const ResultComparison = () => {
     );
 
     function onOpenResultsClick() {
-        openResultsModal({ progressKey: key, result: resultWrapper }).then((res) => {
+        // eslint-disable-next-line no-void
+        void openResultsModal({ progressKey: key, result: resultWrapper }).then((res) => {
             if (!res.close)
-                openSnackbar({
+                // eslint-disable-next-line no-void
+                void openSnackbar({
                     text: t('user-settings.modal-edit-account.success-message'),
                 });
         });

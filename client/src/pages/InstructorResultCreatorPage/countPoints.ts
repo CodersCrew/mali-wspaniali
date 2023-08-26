@@ -36,9 +36,12 @@ export function countCurrentPoints(values: AssessmentValues, currentParams: Chil
     }
 
     return {
-        run: currentParams.run ? countPoints(values.run, currentParams.run) : 0,
-        pendelumRun: currentParams.pendelumRun ? countPoints(values.pendelumRun, currentParams.pendelumRun) : 0,
-        throw: currentParams.throw ? countInvertedPoints(values.throw, currentParams.throw) : 0,
-        jump: currentParams.jump ? countInvertedPoints(values.jump, currentParams.jump) : 0,
+        run: currentParams.run && values.run ? countPoints(values.run, currentParams.run) : 0,
+        pendelumRun:
+            currentParams.pendelumRun && values.pendelumRun
+                ? countPoints(values.pendelumRun, currentParams.pendelumRun)
+                : 0,
+        throw: currentParams.throw && values.throw ? countInvertedPoints(values.throw, currentParams.throw) : 0,
+        jump: currentParams.jump && values.jump ? countInvertedPoints(values.jump, currentParams.jump) : 0,
     };
 }
