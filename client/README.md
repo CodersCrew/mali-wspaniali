@@ -21,7 +21,3 @@ https://mali-wspaniali.now.sh/
 ## Production environment
 
 https://mal-wsp-dev.firebaseapp.com/
-
-
-
-only to enable Netlify deploy
