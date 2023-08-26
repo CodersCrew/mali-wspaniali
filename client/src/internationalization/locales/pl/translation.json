@@ -136,7 +136,7 @@
             "keycode-amount": "Ilość kluczy",
             "keycode-amount-total": "Liczba aktywnych kluczy ({{total}})",
             "generate": "Generuj",
-            "download-as": "Pobierz jako plik XLSX.",
+            "download-as": "Pobierz ostatni wygenerowany plik w formacie XLSX.",
             "download": "Pobierz",
             "download-alert": "Plik {{filename}} został pobrany."
         }

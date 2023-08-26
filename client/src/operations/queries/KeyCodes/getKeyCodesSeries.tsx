@@ -1,5 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
-import { KeyCodeSeries } from '../../../graphql/types';
+import { KeyCodeSeries } from '@app/graphql/types';
+import { useMemo } from 'react';
 
 interface KeyCodeSeriesResponse {
     keyCodeSeries: KeyCodeSeries[];
@@ -19,7 +20,9 @@ export const KEYCODE_SERIES = gql`
 export function useKeyCodeSeries() {
     const { data } = useQuery<KeyCodeSeriesResponse>(KEYCODE_SERIES);
 
+    const keyCodeSeries = useMemo(() => data?.keyCodeSeries, [data]);
+
     return {
-        keyCodeSeries: data?.keyCodeSeries,
+        keyCodeSeries,
     };
 }

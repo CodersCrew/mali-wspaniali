@@ -98,6 +98,6 @@ jobs:
             working-directory: ./server
             JWT_SECRET: secret
             IS_PRODUCTION_MAIL: false
-            EMAIL: nicolette.hyatt@ethereal.email
-            EMAIL_PASSWORD: cEJ7BTfh63qvJtKdX4
+            EMAIL: simone73@ethereal.email
+            EMAIL_PASSWORD: bhKwsGh4HHn84kXmgR
             SENDER: my-admin@admin.com

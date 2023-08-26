@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
+import { useResult } from '@app/operations/queries/Results/getResult';
 import { ResultComparison } from './ResultComparison';
 import { TestSummary } from './TestSummary';
-import { useResult } from '../../operations/queries/Results/getResult';
 import { ResultContext } from './context';
 import { TestDetails } from './TestDetails';
 import { ResultEmptyView } from './ResultEmptyView';

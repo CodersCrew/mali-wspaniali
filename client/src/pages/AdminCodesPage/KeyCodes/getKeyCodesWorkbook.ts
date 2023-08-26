@@ -1,18 +1,16 @@
 import XLSX from 'xlsx';
 import dayjs from 'dayjs';
 
-import { KeyCode } from '../../../graphql/types';
+import { KeyCode } from '@app/graphql/types';
 
 const WORKSHEET_NAME = 'KeyCodes';
 
 export function getKeyCodesWorkbook(keyCodes: KeyCode[]) {
     const workbook = getWorkbookWithWorkSheet();
 
-    const columnLabels = ['date', 'keycode'];
+    const columnLabels = ['created', 'valid by', 'keycode'];
 
-    const worksheet = createWorkSheetWithKeyCodes(columnLabels, keyCodes);
-
-    workbook.Sheets[WORKSHEET_NAME] = worksheet;
+    workbook.Sheets[WORKSHEET_NAME] = createWorkSheetWithKeyCodes(columnLabels, keyCodes);
 
     return workbook;
 }
@@ -50,5 +48,9 @@ function createWorkSheetWithKeyCodes(columnLabels: string[], keyCodes: KeyCode[]
 }
 
 function mapKeyCodesToSpreadsheetRows(keyCode: KeyCode) {
-    return [dayjs(keyCode.createdAt).format('DD.MM.YYYY HH:MM'), keyCode.keyCode];
+    return [
+        dayjs(keyCode.createdAt).format('DD.MM.YYYY HH:MM'),
+        dayjs(keyCode.createdAt).add(14, 'days').format('DD.MM.YYYY HH:MM'),
+        keyCode.keyCode,
+    ];
 }
