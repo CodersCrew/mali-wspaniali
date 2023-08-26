@@ -1,5 +1,7 @@
 import { AssessmentParam, AssessmentResult } from '@app/graphql/types';
 
+import { AssessmentValues } from '@app/pages/InstructorResultCreatorPage/useResultCreator';
+import { countCurrentPoints } from '@app/pages/InstructorResultCreatorPage/countPoints';
 import { Calculation, getResultColorAndLabel, testResults } from './calculateResult';
 
 export const ARTICLE_LINK = '/parent/article/77f21eeb-4b1e-48de-8d20-e3b093d62be4';
@@ -23,6 +25,10 @@ export class Result {
         return this.props.result;
     }
 
+    get currentParams() {
+        return this.props.result.currentParams;
+    }
+
     get name() {
         return this.props.name;
     }
@@ -43,10 +49,11 @@ export class Result {
 
     getValue(name?: string): number {
         const resultName = this.props.result;
+        const prefix = this.props.prefix || '';
 
         return (
             (this.props.result[
-                `${this.props.prefix}Measurement${name || this.props.name}Result` as keyof typeof resultName
+                `${prefix}Measurement${name || this.props.name || ''}Result` as keyof typeof resultName
             ] as number) || 0
         );
     }
@@ -70,7 +77,7 @@ export class Result {
     }
 
     getChartDetails() {
-        return getResultColorAndLabel(this.getValue() as number, this.getParam()!, this.getNormalizedName());
+        return getResultColorAndLabel(this.getValue(), this.getParam()!, this.getNormalizedName());
     }
 
     getChildId() {
@@ -121,18 +128,41 @@ export class Result {
             lastMeasurementThrowResult,
         } = this.result;
 
-        const sumOfPointsFirstMeasurement =
-            firstMeasurementJumpResult +
-            firstMeasurementPendelumRunResult +
-            firstMeasurementRunResult +
-            firstMeasurementThrowResult;
-        const sumOfPointsLastMeasurement =
-            lastMeasurementJumpResult +
-            lastMeasurementPendelumRunResult +
-            lastMeasurementRunResult +
-            lastMeasurementThrowResult;
+        const assessmentValuesFirst: Omit<AssessmentValues, 'note'> = {
+            jump: firstMeasurementJumpResult,
+            pendelumRun: firstMeasurementPendelumRunResult,
+            run: firstMeasurementRunResult,
+            throw: firstMeasurementThrowResult,
+        };
 
-        return { sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement };
+        const assessmentValuesLast: Omit<AssessmentValues, 'note'> = {
+            jump: lastMeasurementJumpResult,
+            pendelumRun: lastMeasurementPendelumRunResult,
+            run: lastMeasurementRunResult,
+            throw: lastMeasurementThrowResult,
+        };
+
+        const assessmentPointsFirst: Omit<AssessmentValues, 'note'> = countCurrentPoints(
+            { ...assessmentValuesFirst, note: '' },
+            this.currentParams,
+        );
+        const assessmentPointsLast: Omit<AssessmentValues, 'note'> = countCurrentPoints(
+            { ...assessmentValuesLast, note: '' },
+            this.currentParams,
+        );
+
+        const sumOfPointsFirstMeasurement =
+            assessmentPointsFirst.jump +
+            assessmentPointsFirst.pendelumRun +
+            assessmentPointsFirst.run +
+            assessmentPointsFirst.throw;
+        const sumOfPointsLastMeasurement =
+            assessmentPointsLast.jump +
+            assessmentPointsLast.pendelumRun +
+            assessmentPointsLast.run +
+            assessmentPointsLast.throw;
+
+        return { assessmentPointsFirst, assessmentPointsLast, sumOfPointsFirstMeasurement, sumOfPointsLastMeasurement };
     }
 
     getUniversalParam(): Partial<Calculation> {
