@@ -29,6 +29,9 @@ jobs:
       - name: npm install
         run: npm install
         working-directory: ${{env.working-directory}}
+      - name: npm dedupe
+        run: npm dedupe
+        working-directory: ${{env.working-directory}}
       - name: npm run lint
         run: npm run lint
         working-directory: ${{env.working-directory}}
