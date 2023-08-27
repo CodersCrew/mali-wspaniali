@@ -2,10 +2,10 @@ import { Grid, LinearProgress, makeStyles, createStyles, Typography, Theme, Box 
 import { useTranslation } from 'react-i18next';
 
 import { Assessment, AssessmentResult } from '@app/graphql/types';
-import { StatusChip } from '../../components/StatusChip';
+import { StatusChip } from '@app/components/StatusChip';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import dayjs from '../../localizedMoment';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
-import { useIsDevice } from '../../queries/useBreakpoints';
 
 interface Props {
     max: number;
@@ -43,10 +43,12 @@ export function AssessmentSubheader({ results, max, assessment }: Props) {
                                 <Grid container spacing={1}>
                                     <Grid item>
                                         <Typography variant="body2">
-                                            {dayjs(currentMeasurement.startDate).format('l')}&nbsp;-&nbsp;
-                                            {dayjs(currentMeasurement.endDate).format('l')}
+                                            {`${dayjs(currentMeasurement.startDate).format('L')} - ${dayjs(
+                                                currentMeasurement.endDate,
+                                            ).format('L')}`}
                                         </Typography>
                                     </Grid>
+
                                     <Grid item>
                                         <Typography variant="subtitle2">
                                             ({dayjs(currentMeasurement.endDate).fromNow()})

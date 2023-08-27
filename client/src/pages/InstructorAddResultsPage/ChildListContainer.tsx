@@ -2,27 +2,35 @@ import { useTranslation } from 'react-i18next';
 import { IconButton, Table, TableBody, TableCell, TableHead, TableRow, Box, Grid } from '@material-ui/core';
 import { ArrowUpward, ArrowDownward, Assessment as AssessmentIcon, BarChart, EventNote } from '@material-ui/icons';
 import { Assessment, Child, AssessmentResult } from '@app/graphql/types';
-import { parseDateToAge } from '../../utils/parseDateToAge';
-import { Clickable } from '../../components/Clickable';
-import { CustomIconButton } from '../../components/Button/CustomIconButton';
-import { CountIcon } from '../../components/CountIcon';
+import { parseDateToAge } from '@app/utils/parseDateToAge';
+import { Clickable } from '@app/components/Clickable';
+import { CustomIconButton } from '@app/components/Button/CustomIconButton';
+import { CountIcon } from '@app/components/CountIcon';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
 import dayjs from '../../localizedMoment';
 
 interface Props {
-    childList: Child[];
-    results: AssessmentResult[];
-    assessment: Assessment;
-    fullNameSortType: string;
     ageSortType: string;
+    assessment: Assessment;
+    childList: Child[];
     creationDateSortType: string;
-    selectedGroup: string;
+    fullNameSortType: string;
     onClick: (type: string, value: string) => void;
+    results: AssessmentResult[];
+    selectedGroup: string;
 }
 
-export function ChildListContainer(props: Props) {
+export function ChildListContainer({
+    childList,
+    results,
+    assessment,
+    fullNameSortType,
+    ageSortType,
+    creationDateSortType,
+    onClick,
+    selectedGroup,
+}: Props) {
     const { t } = useTranslation();
-    const { childList, results, assessment, fullNameSortType, ageSortType, creationDateSortType, onClick } = props;
     const isFirstMeasurementDisabled = assessment.firstMeasurementStatus !== 'active';
     const isLastMeasurementDisabled = assessment.lastMeasurementStatus !== 'active';
 
@@ -33,9 +41,11 @@ export function ChildListContainer(props: Props) {
                     <TableCell onClick={() => onClick('full-name', '')}>
                         <SortableHeaderItem label={t('add-results-page.full-name')} type={fullNameSortType} />
                     </TableCell>
+
                     <TableCell onClick={() => onClick('age', '')}>
                         <SortableHeaderItem label={t('add-results-page.age')} type={ageSortType} isCenter />
                     </TableCell>
+
                     <TableCell onClick={() => onClick('created-at', '')}>
                         <SortableHeaderItem
                             label={t('add-results-page.created-at')}
@@ -43,11 +53,15 @@ export function ChildListContainer(props: Props) {
                             isCenter
                         />
                     </TableCell>
+
                     <TableCell align="center">{t('add-results-page.first-assessment')}</TableCell>
+
                     <TableCell align="center">{t('add-results-page.last-assessment')}</TableCell>
+
                     <TableCell align="center">{t('add-results-page.see-results')}</TableCell>
                 </TableRow>
             </TableHead>
+
             <TableBody>
                 {childList.map((c) => {
                     const firstNote = getFirstNote(c._id);
@@ -59,24 +73,25 @@ export function ChildListContainer(props: Props) {
 
                     let isGroupActive;
 
-                    if (props.selectedGroup === '') {
+                    if (selectedGroup === '') {
                         isGroupActive = true;
-                    } else if (props.selectedGroup === 'unassigned') {
+                    } else if (selectedGroup === 'unassigned') {
                         isGroupActive =
                             result?.firstMeasurementGroup === '' || result?.firstMeasurementGroup === undefined;
                     } else {
-                        isGroupActive = result?.firstMeasurementGroup === props.selectedGroup;
+                        isGroupActive = result?.firstMeasurementGroup === selectedGroup;
                     }
 
                     if (!isGroupActive) return null;
 
                     return (
                         <TableRow key={c._id} hover>
-                            <TableCell>
-                                {c.firstname} {c.lastname}
-                            </TableCell>
+                            <TableCell>{`${c.lastname}, ${c.firstname}`}</TableCell>
+
                             <TableCell align="center">{parseDateToAge(c.birthYear, c.birthQuarter)}</TableCell>
+
                             <TableCell align="center">{dayjs(c.createdAt).format('L')}</TableCell>
+
                             <TableCell align="center">
                                 <Grid container alignItems="center" justifyContent="space-evenly">
                                     <Grid item xs={3}>
@@ -96,12 +111,14 @@ export function ChildListContainer(props: Props) {
                                                         }
                                                     />
                                                 </Grid>
+
                                                 <Grid item sm={12} md={4}>
                                                     <CountIcon value={firstMeasurementResultCount} max={4} />
                                                 </Grid>
                                             </Grid>
                                         </Box>
                                     </Grid>
+
                                     <Grid item xs={3}>
                                         <Box display="flex" alignItems="center" justifyContent="center">
                                             <CustomIconButton
@@ -114,6 +131,7 @@ export function ChildListContainer(props: Props) {
                                     </Grid>
                                 </Grid>
                             </TableCell>
+
                             <TableCell align="center">
                                 <Grid container justifyContent="space-evenly">
                                     <Grid item sm={6} md={4}>
@@ -133,12 +151,14 @@ export function ChildListContainer(props: Props) {
                                                         }
                                                     />
                                                 </Grid>
+
                                                 <Grid item sm={12} md={4}>
                                                     <CountIcon value={lastMeasurementResultCount} max={4} />
                                                 </Grid>
                                             </Grid>
                                         </Box>
                                     </Grid>
+
                                     <Grid item sm={6} md={4}>
                                         <CustomIconButton
                                             color={lastNote ? 'success' : 'default'}
@@ -149,6 +169,7 @@ export function ChildListContainer(props: Props) {
                                     </Grid>
                                 </Grid>
                             </TableCell>
+
                             <TableCell align="center">
                                 {result && (
                                     <IconButton

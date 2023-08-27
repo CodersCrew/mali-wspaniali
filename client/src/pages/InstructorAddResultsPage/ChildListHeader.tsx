@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { createStyles, Grid, makeStyles, MenuItem, TextField, Theme } from '@material-ui/core';
 
 import { Assessment } from '@app/graphql/types';
-import { SearchChildField } from '../../components/SearchChildField';
+import { SearchChildField } from '@app/components/SearchChildField';
 
 interface Props {
     assessments: Assessment[];
@@ -32,7 +32,7 @@ export function ChildListHeader({
                     <TextField
                         select
                         label={t('add-results-page.test-name')}
-                        onChange={({ target: { value } }) => onChange('assessment', value as string)}
+                        onChange={({ target: { value } }) => onChange('assessment', value)}
                         variant="outlined"
                         value={selectedAssessment}
                         fullWidth
@@ -55,7 +55,7 @@ export function ChildListHeader({
                         select
                         classes={{ root: classes.selectKindergarten }}
                         label={t('add-results-page.kindergarten-name')}
-                        onChange={({ target: { value } }) => onChange('kindergarten', value as string)}
+                        onChange={({ target: { value } }) => onChange('kindergarten', value)}
                         variant="outlined"
                         value={selectedKindergarten}
                         fullWidth
@@ -76,13 +76,16 @@ export function ChildListHeader({
                         ))}
                     </TextField>
                 </Grid>
-                <Grid item xs={compact ? 12 : 4}>
-                    <SearchChildField
-                        isCompact={!!compact}
-                        searchTerm={searchTerm}
-                        onChange={(value) => onChange('searchTerm', value)}
-                    />
-                </Grid>
+
+                {!compact && (
+                    <Grid item xs={compact ? 12 : 4}>
+                        <SearchChildField
+                            isCompact={!!compact}
+                            searchTerm={searchTerm}
+                            onChange={(value) => onChange('searchTerm', value)}
+                        />
+                    </Grid>
+                )}
             </Grid>
         </div>
     );
