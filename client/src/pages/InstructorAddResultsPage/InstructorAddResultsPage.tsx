@@ -82,26 +82,27 @@ export default function InstructorAddResultsPage() {
                 header={
                     <ChildListHeader
                         assessments={assessments}
+                        onChange={handleFilterChanged}
+                        searchTerm={searchTerm}
                         selectedAssessment={selectedAssessment}
                         selectedKindergarten={selectedKindergarten}
-                        searchTerm={searchTerm}
-                        onChange={handleFilterChanged}
+                        compact={device.isSmallMobile}
                     />
                 }
                 subheader={
                     <AssessmentSubheader
-                        results={kindergartenResults}
-                        max={maxResults}
                         assessment={currentAssessment}
+                        max={maxResults}
+                        results={kindergartenResults}
                     />
                 }
                 subsubheader={
                     <GroupsSubheader
                         assessments={assessments}
-                        selectedAssessment={selectedAssessment}
-                        selectedKindergarten={selectedKindergarten}
-                        selectedGroup={selectedGroup}
                         onChange={handleFilterChanged}
+                        selectedAssessment={selectedAssessment}
+                        selectedGroup={selectedGroup}
+                        selectedKindergarten={selectedKindergarten}
                     />
                 }
                 container={
@@ -109,12 +110,12 @@ export default function InstructorAddResultsPage() {
                         <ChildListCompactContainer
                             assessment={currentAssessment}
                             childList={childList}
-                            results={kindergartenResults}
-                            onChange={handleFilterChanged}
                             compact
-                            selectedGroup={selectedGroup}
-                            searchTerm={searchTerm}
+                            onChange={handleFilterChanged}
                             onClick={handleClick}
+                            results={kindergartenResults}
+                            searchTerm={searchTerm}
+                            selectedGroup={selectedGroup}
                         />
                     ) : (
                         <ChildListContainer
@@ -130,6 +131,7 @@ export default function InstructorAddResultsPage() {
                     )
                 }
             />
+
             {currentChildren[0] && (
                 <SecondaryFab text={t('add-results-page.add-result')} icon={<BarChart />} onClick={onFabClick} />
             )}
