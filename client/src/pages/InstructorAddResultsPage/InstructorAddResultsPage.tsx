@@ -3,27 +3,27 @@ import { BarChart } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Assessment } from '../../graphql/types';
-import { activePage } from '../../apollo_client';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { CustomContainer } from '../../components/CustomContainer';
-import { ChildListHeader } from './ChildListHeader';
-import { ChildListContainer } from './ChildListContainer';
-import { PageContainer } from '../../components/PageContainer';
-import { openAddNoteDialog } from './AddNoteDialog';
-import { NoAssessmentView } from './NoAssessmentsView';
-import { SecondaryFab } from '../../components/SecondaryFab';
-import { useIsDevice } from '../../queries/useBreakpoints';
-import { ChildListCompactContainer } from './ChildListCompactContainer';
-import { AssessmentSubheader } from './AssessmentSubheader';
-import { parseDateToAge } from '../../utils/parseDateToAge';
-import { useCreateAssessmentResult } from '../../operations/mutations/Results/createAssessmentResult';
-import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { Assessment } from '@app/graphql/types';
+import { activePage } from '@app/apollo_client';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
+import { CustomContainer } from '@app/components/CustomContainer';
+import { PageContainer } from '@app/components/PageContainer';
+import { SecondaryFab } from '@app/components/SecondaryFab';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+import { parseDateToAge } from '@app/utils/parseDateToAge';
+import { useCreateAssessmentResult } from '@app/operations/mutations/Results/createAssessmentResult';
+import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
 import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
-} from '../../operations/mutations/Results/updateAssessmentResult';
+} from '@app/operations/mutations/Results/updateAssessmentResult';
+import { AssessmentSubheader } from './AssessmentSubheader';
+import { ChildListCompactContainer } from './ChildListCompactContainer';
+import { NoAssessmentView } from './NoAssessmentsView';
+import { openAddNoteDialog } from './AddNoteDialog';
+import { ChildListContainer } from './ChildListContainer';
+import { ChildListHeader } from './ChildListHeader';
 import { GroupsSubheader } from './GroupsModal/GroupsSubheader';
 
 export default function InstructorAddResultsPage() {
@@ -63,7 +63,7 @@ export default function InstructorAddResultsPage() {
         }
     }, [assessments]);
 
-    const childList = getFiltredAndSortedChildList();
+    const childList = getFilteredAndSortedChildList();
     const maxResults = currentChildren.length * 4;
 
     if (areAssessmentsLoading) return null;
@@ -118,14 +118,14 @@ export default function InstructorAddResultsPage() {
                         />
                     ) : (
                         <ChildListContainer
-                            assessment={currentAssessment}
-                            results={kindergartenResults}
-                            childList={childList}
-                            onClick={handleClick}
-                            fullNameSortType={fullNameSortType}
-                            selectedGroup={selectedGroup}
                             ageSortType={ageSortType}
+                            assessment={currentAssessment}
+                            childList={childList}
                             creationDateSortType={creationDateSortType}
+                            fullNameSortType={fullNameSortType}
+                            onClick={handleClick}
+                            results={kindergartenResults}
+                            selectedGroup={selectedGroup}
                         />
                     )
                 }
@@ -264,17 +264,19 @@ export default function InstructorAddResultsPage() {
         );
     }
 
-    function getFiltredAndSortedChildList() {
-        const filteredChildList = currentChildren.filter((c) => {
-            const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+    function getFilteredAndSortedChildList() {
+        const fullName = (firstName: string, lastName: string) => {
+            return `${lastName}, ${firstName}`;
+        };
 
-            return fullName.includes(searchTerm.toLowerCase());
+        const filteredChildList = currentChildren.filter((c) => {
+            return fullName(c.lastname, c.firstname).toLowerCase().includes(searchTerm.toLowerCase());
         });
 
         if (fullNameSortType !== '') {
             filteredChildList.sort((a, b) => {
-                const fullNameA = `${a.firstname} ${a.lastname}`;
-                const fullNameB = `${b.firstname} ${b.lastname}`;
+                const fullNameA = fullName(a.firstname, a.lastname);
+                const fullNameB = fullName(b.firstname, b.lastname);
 
                 if (fullNameSortType === 'asc') {
                     return fullNameA > fullNameB ? 1 : -1;
