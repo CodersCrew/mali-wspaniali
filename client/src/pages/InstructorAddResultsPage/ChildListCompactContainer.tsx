@@ -16,22 +16,22 @@ import { Assessment as AssessmentIcon, BarChart, EventNote, ExpandLess, ExpandMo
 import { useTranslation } from 'react-i18next';
 
 import { Assessment, Child, AssessmentResult } from '@app/graphql/types';
-import { parseDateToAge } from '../../utils/parseDateToAge';
-import { SearchChildField } from '../../components/SearchChildField';
-import { Clickable } from '../../components/Clickable';
+import { parseDateToAge } from '@app/utils/parseDateToAge';
+import { SearchChildField } from '@app/components/SearchChildField';
+import { Clickable } from '@app/components/Clickable';
+import { CountIcon } from '@app/components/CountIcon';
+import { CustomIconButton } from '@app/components/Button/CustomIconButton';
 import { countProgress } from '../InstructorResultCreatorPage/countProgress';
-import { CountIcon } from '../../components/CountIcon';
-import { CustomIconButton } from '../../components/Button/CustomIconButton';
 
 interface Props {
-    childList: Child[];
     assessment: Assessment;
-    results: AssessmentResult[];
-    searchTerm: string;
-    selectedGroup: string;
+    childList: Child[];
     compact?: boolean;
     onChange: (type: string, value: string) => void;
     onClick: (type: string, value: string) => void;
+    results: AssessmentResult[];
+    searchTerm: string;
+    selectedGroup: string;
 }
 
 export function ChildListCompactContainer({
@@ -101,14 +101,16 @@ export function ChildListCompactContainer({
                                                         {isOpen ? <ExpandLess /> : <ExpandMore />}
                                                     </Box>
                                                 </Grid>
+
                                                 <Grid item>
                                                     <Typography variant="body2">
-                                                        {c.firstname} {c.lastname}
+                                                        {`${c.lastname}, ${c.firstname}`}
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
                                         </Clickable>
                                     </Grid>
+
                                     {isOpen && (
                                         <Grid container alignItems="center">
                                             <Grid item>
@@ -121,6 +123,7 @@ export function ChildListCompactContainer({
                                                                         {t('add-results-page.age')}
                                                                     </Typography>
                                                                 </TableCell>
+
                                                                 <TableCell colSpan={2} classes={{ root: classes.cell }}>
                                                                     <Typography variant="body2">
                                                                         {age}{' '}
@@ -128,12 +131,14 @@ export function ChildListCompactContainer({
                                                                     </Typography>
                                                                 </TableCell>
                                                             </TableRow>
+
                                                             <TableRow>
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <Typography variant="subtitle2">
                                                                         <u>{t('add-results-page.first-assessment')}</u>
                                                                     </Typography>
                                                                 </TableCell>
+
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <Box display="flex" alignItems="center">
                                                                         <CustomIconButton
@@ -155,12 +160,14 @@ export function ChildListCompactContainer({
                                                                                 />
                                                                             }
                                                                         />
+
                                                                         <CountIcon
                                                                             value={firstMeasurementResultCount}
                                                                             max={4}
                                                                         />
                                                                     </Box>
                                                                 </TableCell>
+
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <CustomIconButton
                                                                         color={firstNote ? 'success' : 'default'}
@@ -178,12 +185,14 @@ export function ChildListCompactContainer({
                                                                     />
                                                                 </TableCell>
                                                             </TableRow>
+
                                                             <TableRow>
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <Typography variant="subtitle2">
                                                                         <u>{t('add-results-page.last-assessment')}</u>
                                                                     </Typography>
                                                                 </TableCell>
+
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <Box display="flex" alignItems="center">
                                                                         <CustomIconButton
@@ -205,12 +214,14 @@ export function ChildListCompactContainer({
                                                                                 />
                                                                             }
                                                                         />
+
                                                                         <CountIcon
                                                                             value={lastMeasurementResultCount}
                                                                             max={4}
                                                                         />
                                                                     </Box>
                                                                 </TableCell>
+
                                                                 <TableCell classes={{ root: classes.cell }}>
                                                                     <CustomIconButton
                                                                         color={lastNote ? 'success' : 'default'}
@@ -228,6 +239,7 @@ export function ChildListCompactContainer({
                                                                     />
                                                                 </TableCell>
                                                             </TableRow>
+
                                                             <TableRow>
                                                                 {result && (
                                                                     <>
