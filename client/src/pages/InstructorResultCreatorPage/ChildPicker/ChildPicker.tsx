@@ -136,12 +136,14 @@ export function ChildPicker({
             return getFilteredChildrenByFullName(c) && getFilteredByGroup(c);
         });
 
-        // Sort by last name, first name as default
-        return filteredChildren.sort((a, b) => {
-            const fullNameA = fullName(a.firstname, a.lastname);
-            const fullNameB = fullName(b.firstname, b.lastname);
+        const collator = new Intl.Collator('pl', { sensitivity: 'base' });
 
-            return fullNameA > fullNameB ? 1 : -1;
+        // Sort by `last name, first name` as default
+        return filteredChildren.sort((a, b) => {
+            const fullNameA = fullName(a.firstname, a.lastname).toLowerCase();
+            const fullNameB = fullName(b.firstname, b.lastname).toLowerCase();
+
+            return collator.compare(fullNameA, fullNameB);
         });
     }
 
