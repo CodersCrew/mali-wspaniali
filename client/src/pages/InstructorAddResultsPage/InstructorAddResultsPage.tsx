@@ -276,15 +276,17 @@ export default function InstructorAddResultsPage() {
         });
 
         if (fullNameSortType !== '') {
+            const collator = new Intl.Collator('pl', { sensitivity: 'base' });
+
             filteredChildList.sort((a, b) => {
-                const fullNameA = fullName(a.firstname, a.lastname);
-                const fullNameB = fullName(b.firstname, b.lastname);
+                const fullNameA = fullName(a.firstname, a.lastname).toLowerCase();
+                const fullNameB = fullName(b.firstname, b.lastname).toLowerCase();
 
                 if (fullNameSortType === 'asc') {
-                    return fullNameA > fullNameB ? 1 : -1;
+                    return collator.compare(fullNameA, fullNameB);
                 }
 
-                return fullNameA > fullNameB ? -1 : 1;
+                return collator.compare(fullNameB, fullNameA);
             });
         }
 
