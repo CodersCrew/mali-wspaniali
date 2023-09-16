@@ -12,25 +12,25 @@ import {
 } from '@material-ui/core';
 import { Edit, AddCircle as Add } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { CircleChart } from '../../../components/CircleChart';
-import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
-import { useIsDevice } from '../../../queries/useBreakpoints';
-import { AssessmentParam } from '../../../graphql/types';
+import { CircleChart } from '@app/components/CircleChart';
+import { ButtonSecondary } from '@app/components/Button';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+import { AssessmentParam } from '@app/graphql/types';
 
 interface Props {
-    label: string;
-    value: number;
-    unit: string;
-    step: number;
-    maxValue: number;
-    points: number;
-    color: string;
-    isEmpty: boolean;
-    disabled: boolean;
-    param: AssessmentParam;
     changeDate?: string;
-    onChange: (value: number) => void;
+    color: string;
+    disabled: boolean;
+    isEmpty: boolean;
+    label: string;
+    maxValue: number;
+    onChange: (value: string) => void;
     onClick: () => void;
+    param: AssessmentParam;
+    points: number;
+    step: number;
+    unit: string;
+    value: number;
 }
 
 export const MeasurementPoint = memo((props: Props) => {
@@ -48,22 +48,16 @@ export const MeasurementPoint = memo((props: Props) => {
                         <Typography variant="subtitle1">{props.label}</Typography>&nbsp;
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
                     </Grid>
+
                     <Grid item>{<SelectButton disabled={props.disabled} onClick={props.onClick} />}</Grid>
                 </Grid>
             </Grid>
+
             <Grid item>
                 <Grid container spacing={2}>
                     <Grid item xs={9} sm={6}>
                         <Slider
-                            disabled={!props.disabled}
                             aria-labelledby="discrete-slider-restrict"
-                            step={props.step}
-                            valueLabelDisplay="auto"
-                            min={Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit)}
-                            value={props.value}
-                            max={Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit)}
-                            onChange={(_, v) => props.onChange(v as number)}
-                            marks={getMarks()}
                             classes={{
                                 mark: classes.mark,
                                 track: classes.sliderRoot,
@@ -72,32 +66,43 @@ export const MeasurementPoint = memo((props: Props) => {
                                 valueLabel: classes.valueLabel,
                                 disabled: classes.sliderDisabled,
                             }}
+                            disabled={!props.disabled}
+                            marks={getMarks()}
+                            max={Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit)}
+                            min={Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit)}
+                            onChange={handleSliderChange}
+                            step={props.step}
+                            value={props.value}
+                            valueLabelDisplay="auto"
                         />
                     </Grid>
+
                     <Grid item xs={3} sm={2}>
                         <Grid container>
                             <Grid item xs={8}>
                                 <Input
-                                    disabled={!props.disabled}
-                                    value={props.value}
-                                    margin="dense"
-                                    fullWidth
-                                    onChange={({ target: { value: v } }) => props.onChange(parseFloat(v))}
-                                    inputProps={{
-                                        step: props.step,
-                                        min: 0,
-                                        max: props.maxValue,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider',
-                                    }}
                                     classes={{ input: classes.input }}
+                                    disabled={!props.disabled}
+                                    fullWidth
+                                    inputProps={{
+                                        'aria-labelledby': 'input-slider',
+                                        max: props.maxValue,
+                                        min: 0,
+                                        step: props.step,
+                                        type: 'text',
+                                    }}
+                                    margin="dense"
+                                    onChange={handleInputChange}
+                                    value={props.value}
                                 />
                             </Grid>
+
                             <Grid item xs={4} className={classes.unit}>
                                 <span>{props.unit}</span>
                             </Grid>
                         </Grid>
                     </Grid>
+
                     <Grid item xs={12} sm={4} className={classes.pieContainer}>
                         <Grid container alignItems="center" spacing={2}>
                             {!device.isSmallMobile && (
@@ -110,6 +115,7 @@ export const MeasurementPoint = memo((props: Props) => {
                                     />
                                 </Grid>
                             )}
+
                             <Grid item xs={device.isSmallMobile ? 12 : 9}>
                                 <Typography variant="body2">
                                     {t('add-result-page.received-points')}{' '}
@@ -123,6 +129,7 @@ export const MeasurementPoint = memo((props: Props) => {
                     </Grid>
                 </Grid>
             </Grid>
+
             <Grid item>
                 <FormControlLabel
                     checked={props.points === 0}
@@ -130,33 +137,48 @@ export const MeasurementPoint = memo((props: Props) => {
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}
                     labelPlacement="end"
-                    onChange={() => props.onChange(0)}
+                    onChange={() => props.onChange('0')}
                 />
             </Grid>
         </Grid>
     );
 
+    function handleInputChange(event: { target: { value: string } }) {
+        const v = event.target.value;
+        const vv = v
+            .replace(/[^\d.]/g, '')
+            .replace(/,/g, '.')
+            .replace(/(\.\d{1})\d*/g, '$1');
+
+        return props.onChange(vv);
+    }
+
+    function handleSliderChange(_: React.ChangeEvent<{}>, v: number | number[]) {
+        return props.onChange((v as number).toFixed(1));
+    }
+
     function getMarks() {
-        const marks = [
+        const { lowerLimit, upperLimit } = props.param;
+        const margin = 0.25;
+
+        return [
             {
-                value: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
-                label: Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit),
+                value: Math.floor((1 - margin) * lowerLimit),
+                label: Math.floor((1 - margin) * lowerLimit),
             },
             {
-                value: props.param.lowerLimit,
-                label: props.param.lowerLimit,
+                value: lowerLimit,
+                label: lowerLimit,
             },
             {
-                value: props.param.upperLimit,
-                label: props.param.upperLimit,
+                value: upperLimit,
+                label: upperLimit,
             },
             {
-                value: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
-                label: Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit),
+                value: Math.floor((1 + margin) * upperLimit),
+                label: Math.floor((1 + margin) * upperLimit),
             },
         ];
-
-        return marks;
     }
 });
 

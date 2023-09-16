@@ -66,20 +66,22 @@ export function useResultCreator({
         };
     }
 
+    const edit = (name: string) => {
+        setEdited(name);
+        localStorage.setItem('edited', name);
+    };
+
     return {
         assessments,
-        values: getResultValue(),
+        edit,
+        edited,
+        error: null,
+        kindergartenResults,
         selectedAssessment,
-        selectedKindergarten,
         selectedChild,
         selectedGroup: groupId,
-        error: null,
-        edited,
-        kindergartenResults,
-        edit: (name: string) => {
-            setEdited(name);
-            localStorage.setItem('edited', name);
-        },
+        selectedKindergarten,
+        values: getResultValue(),
     };
 
     function getResultValue() {

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { createStyles, Divider, Grid, Paper, makeStyles, MenuItem, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonSecondary } from '../../components/Button';
-import { ActionMenuButtonSecondary } from '../../components/Button/ActionMenuButtonSecondary';
+import { AssessmentParam } from '@app/graphql/types';
+import { ButtonSecondary } from '@app/components/Button';
+import { ActionMenuButtonSecondary } from '@app/components/Button/ActionMenuButtonSecondary';
 import { countCurrentPoints } from './countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from './useResultCreator';
 import { ChildPickerDrawer } from './ChildPicker/ChildPickerDrawer';
@@ -54,6 +55,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         onClick={onClick}
                     />
                 </Grid>
+
                 <Grid item>
                     <ChildHeader
                         description={t(`add-result-page.title-${measurement}-measurement`)}
@@ -62,9 +64,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         maxPoints={countMaxPoints()}
                     />
                 </Grid>
+
                 <Grid item>
                     <Divider />
                 </Grid>
+
                 <Grid item className={classes.editor}>
                     <MeasurementEditor
                         note={localNote}
@@ -81,9 +85,11 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                         onEditClick={resultCreator.edit}
                     />
                 </Grid>
+
                 <Grid item>
                     <Divider />
                 </Grid>
+
                 <Grid item className={classes.footer}>
                     <Grid container direction="column" alignItems="center">
                         <Grid item classes={{ root: classes.footerButton }}>
@@ -105,6 +111,7 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
                                 ]}
                             />
                         </Grid>
+
                         <Grid item classes={{ root: classes.footerButton }}>
                             <ButtonSecondary
                                 style={{ width: '100%' }}
@@ -122,15 +129,18 @@ export function MobileResultCreator({ resultCreator, measurement, onClick }: Pro
     );
 
     function countMaxPoints() {
-        return Object.values(resultCreator.selectedChild!.currentParams!).reduce((acc, v) => {
-            if (!v || !v.lowerLimitPoints || !v.upperLimitPoints) return acc;
+        return Object.values(resultCreator.selectedChild.currentParams!).reduce(
+            (acc: number, v: AssessmentParam): number => {
+                if (!v || !v.lowerLimitPoints || !v.upperLimitPoints) return acc;
 
-            if (v.lowerLimitPoints > v.upperLimitPoints) {
-                return acc + v.lowerLimitPoints;
-            }
+                if (v.lowerLimitPoints > v.upperLimitPoints) {
+                    return acc + v.lowerLimitPoints;
+                }
 
-            return acc + v.upperLimitPoints;
-        }, 0);
+                return acc + v.upperLimitPoints;
+            },
+            0,
+        ) as number;
     }
 
     function getCurrentNote() {
