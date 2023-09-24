@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
 import { Assessment, Kindergarten, Child, AssessmentResult } from '@app/graphql/types';
-import { useAssessmentResults } from '../../operations/queries/Results/getAssessmentResults';
+import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
 
 interface Props {
     assessmentId: string;

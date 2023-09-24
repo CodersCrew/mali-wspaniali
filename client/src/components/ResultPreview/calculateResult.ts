@@ -71,12 +71,12 @@ export function getResultColorAndLabel(value: number, param: AssessmentParam, na
 
     return {
         ...result,
+        maxScaleInPoints,
         maxValueInPoints,
-        valueInPoints,
+        minScaleInPoints,
         scale39InPoints,
         scale49InPoints,
         scale59InPoints,
-        minScaleInPoints,
-        maxScaleInPoints,
+        valueInPoints,
     } as Calculation;
 }

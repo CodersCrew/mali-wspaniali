@@ -14,16 +14,17 @@ import {
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { KeyCodeSeries } from '../../../graphql/types';
+import { KEY_CODE_VALID_DAYS } from '@app/constants';
+import { KeyCodeSeries } from '@app/graphql/types';
+import dayjs from '@app/localizedMoment';
 import { FilenameButton } from './FilenameButton';
-import dayjs from '../../../localizedMoment';
 
 interface Props {
-    keyCodeSeries: KeyCodeSeries[];
+    keyCodeSeries?: KeyCodeSeries[];
     onKeyCodeClick: (series: string) => void;
 }
 
-export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
+export function ActiveKeysList({ keyCodeSeries = [], onKeyCodeClick }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -34,9 +35,11 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                     total: countTotalKeys(keyCodeSeries),
                 })}
             </Grid>
+
             <Grid item>
                 <Divider variant="fullWidth" />
             </Grid>
+
             <Grid item>
                 <TableContainer>
                     <Table aria-label="simple table">
@@ -45,41 +48,50 @@ export function ActiveKeysList({ keyCodeSeries, onKeyCodeClick }: Props) {
                                 <TableCell classes={{ root: classes.cell }}>
                                     {t('admin-setting-page.keycode-generation.filename')}
                                 </TableCell>
+
                                 <TableCell classes={{ root: classes.cell }}>
                                     {t('admin-setting-page.keycode-generation.target')}
                                 </TableCell>
+
                                 <TableCell classes={{ root: classes.cell }}>
                                     {t('admin-setting-page.keycode-generation.keycode-amount')}
                                 </TableCell>
+
                                 <TableCell classes={{ root: classes.cell }}>
                                     {t('admin-setting-page.keycode-generation.expires-at')}
                                 </TableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
                             {keyCodeSeries.map(({ series, count, target, createdAt }) => {
-                                const expirationDate = dayjs(createdAt).add(14, 'days');
+                                const expirationDate = dayjs(createdAt).add(KEY_CODE_VALID_DAYS, 'days');
 
                                 return (
                                     <TableRow key={series} data-testid="keycode-item">
                                         <TableCell component="th" scope="row" classes={{ root: classes.cell }}>
                                             <span>
                                                 <FilenameButton
-                                                    text={`mw-keycodes-${target}-${count}-${series}.clsx`}
+                                                    text={`mw-keycodes-${target}-${count}-${series}.xlsx`}
                                                     tooltip={t('admin-setting-page.keycode-generation.download')}
-                                                    onClick={() => onKeyCodeClick(series)}
+                                                    onClick={() => {
+                                                        onKeyCodeClick(series);
+                                                    }}
                                                 />
                                             </span>
                                         </TableCell>
+
                                         <TableCell
                                             classes={{ root: clsx(classes.targetCell, classes.cell) }}
                                             data-testid="keycode-item-target"
                                         >
                                             {t(`admin-setting-page.keycode-generation.role-${target}`)}
                                         </TableCell>
+
                                         <TableCell classes={{ root: classes.cell }} data-testid="keycode-item-count">
                                             {count}
                                         </TableCell>
+
                                         <TableCell classes={{ root: classes.cell }}>
                                             {expirationDate.format('LL')}&nbsp;(
                                             {expirationDate.fromNow()})

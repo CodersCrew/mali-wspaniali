@@ -1,12 +1,12 @@
 import { Box, createStyles, Grid, makeStyles, SimplePaletteColorOptions, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { AssessmentParam } from '@app/graphql/types';
+import { theme } from '@app/theme/theme';
+import { OutlinedTextField } from '@app/components/OutlinedTextField';
 import { MeasurementPoint } from './MeasurementPoint';
 import dayjs from '../../../localizedMoment';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
-import { AssessmentParam } from '../../../graphql/types';
-import { theme } from '@app/theme/theme';
-import { OutlinedTextField } from '../../../components/OutlinedTextField';
 
 interface MeasurementValues {
     run: number;
@@ -39,7 +39,7 @@ export function MeasurementEditor(props: Props) {
     );
 
     if (!child.currentParams || !run || !pendelumRun || !jump || !_throw) {
-        return <Typography variant="body1">The child doesnt suit to the test</Typography>;
+        return <Typography variant="body1">{"The child doesn't suit to the test"}</Typography>;
     }
 
     return (

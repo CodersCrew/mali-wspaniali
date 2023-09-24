@@ -2,49 +2,60 @@ import { ReactNode, useState } from 'react';
 import { List, MenuItem, Divider, createStyles, makeStyles, Theme, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-import { CustomContainer } from '../../../components/CustomContainer';
-import { SelectList } from '../../../components/SelectList';
-import { SearchChildField } from '../../../components/SearchChildField';
-import { Assessment, Child, Kindergarten, AssessmentResult } from '../../../graphql/types';
+import { CustomContainer } from '@app/components/CustomContainer';
+import { SelectList } from '@app/components/SelectList';
+import { SearchChildField } from '@app/components/SearchChildField';
+import { Assessment, Child, Kindergarten, AssessmentResult } from '@app/graphql/types';
 import { countProgress } from '../countProgress';
 import { ChildItem } from './ChildItem';
 
 interface ChildPickerProps {
-    childList: Child[];
-    kindergartens: Kindergarten[];
-    selectedKindergarten: string;
-    selectedGroup: string;
-    measurement: string;
-    header: ReactNode;
     assessment: Assessment;
-    results: AssessmentResult[];
+    childList: Child[];
+    header: ReactNode;
+    kindergartens: Kindergarten[];
+    measurement: string;
     onClick: (type: string, value: string) => void;
+    results: AssessmentResult[];
     selected?: string;
+    selectedGroup: string;
+    selectedKindergarten: string;
 }
 
-export function ChildPicker(props: ChildPickerProps) {
+export function ChildPicker({
+    assessment,
+    childList,
+    header,
+    kindergartens,
+    measurement,
+    onClick,
+    results,
+    selected,
+    selectedGroup,
+    selectedKindergarten,
+}: ChildPickerProps) {
     const classes = useStyles();
     const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
 
     const availableGroups = [
-        { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: props.selectedKindergarten },
-        ...props.assessment.groups
-            .filter((g) => g.kindergartenId === props.selectedKindergarten)
+        { group: 'all', label: t('add-result-page.all-groups'), kindergartenId: selectedKindergarten },
+        ...assessment.groups
+            .filter((g) => g.kindergartenId === selectedKindergarten)
             .map((g) => ({ ...g, label: g.group })),
     ];
 
     return (
         <CustomContainer
-            header={props.header}
+            header={header}
             container={
                 <>
                     <Grid container className={classes.container} spacing={2} direction="column">
                         <Grid item className={classes.fullWidth}>
                             <SelectList
-                                value={props.selectedKindergarten}
+                                value={selectedKindergarten}
                                 label={t('add-results-page.kindergarten-name')}
-                                items={props.kindergartens.map((k) => (
+                                items={kindergartens.map((k) => (
                                     <MenuItem value={k._id} key={k._id}>
                                         <div>
                                             {k.number}/{k.name}
@@ -52,12 +63,13 @@ export function ChildPicker(props: ChildPickerProps) {
                                         <div className={classes.helperLabel}>{k.address}</div>
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => props.onClick('kindergarten', value)}
+                                onSelect={(value) => onClick('kindergarten', value)}
                             />
                         </Grid>
+
                         <Grid item>
                             <SelectList
-                                value={props.measurement}
+                                value={measurement}
                                 disabled={isAssessmentDisabled()}
                                 label={t('add-result-page.select-measurement')}
                                 items={[
@@ -68,21 +80,23 @@ export function ChildPicker(props: ChildPickerProps) {
                                         {t('add-result-page.last')}
                                     </MenuItem>,
                                 ]}
-                                onSelect={(value) => props.onClick('measurement', value)}
+                                onSelect={(value) => onClick('measurement', value)}
                             />
                         </Grid>
+
                         <Grid item>
                             <SelectList
-                                value={props.selectedGroup}
+                                value={selectedGroup}
                                 label={t('add-result-page.select-group')}
                                 items={availableGroups.map((g) => (
                                     <MenuItem key={g.group} value={g.group}>
                                         {g.label}
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => props.onClick('group', value)}
+                                onSelect={(value) => onClick('group', value)}
                             />
                         </Grid>
+
                         <Grid item>
                             <SearchChildField
                                 isCompact
@@ -91,16 +105,18 @@ export function ChildPicker(props: ChildPickerProps) {
                             />
                         </Grid>
                     </Grid>
+
                     <List disablePadding>
                         <Divider />
-                        {getFiltredChildren().map((c) => {
+
+                        {getFilteredChildren().map((c) => {
                             return (
                                 <ChildItem
                                     key={c._id}
                                     child={c}
-                                    selected={c._id === props.selected}
+                                    selected={c._id === selected}
                                     progress={countResultProgress(c._id)}
-                                    onClick={() => props.onClick('child', c._id)}
+                                    onClick={() => onClick('child', c._id)}
                                 />
                             );
                         })}
@@ -111,41 +127,53 @@ export function ChildPicker(props: ChildPickerProps) {
         />
     );
 
-    function getFiltredChildren() {
-        return props.childList.filter((c) => {
-            return getFilteredChildrenByFullName(c) && getFiltredByGroup(c);
+    function getFilteredChildren() {
+        const fullName = (firstName: string, lastName: string) => {
+            return `${lastName}, ${firstName}`;
+        };
+
+        const filteredChildren = childList.filter((c) => {
+            return getFilteredChildrenByFullName(c) && getFilteredByGroup(c);
+        });
+
+        const collator = new Intl.Collator('pl', { sensitivity: 'base' });
+
+        // Sort by `last name, first name` as default
+        return filteredChildren.sort((a, b) => {
+            const fullNameA = fullName(a.firstname, a.lastname).toLowerCase();
+            const fullNameB = fullName(b.firstname, b.lastname).toLowerCase();
+
+            return collator.compare(fullNameA, fullNameB);
         });
     }
 
-    function getFiltredByGroup(c: Child) {
-        const foundResult = props.results.find((r) => r.childId === c._id);
+    function getFilteredByGroup(c: Child) {
+        const foundResult = results.find((r) => r.childId === c._id);
 
-        if (props.selectedGroup === 'all') return true;
+        if (selectedGroup === 'all') return true;
 
         if (foundResult) {
-            return foundResult.firstMeasurementGroup === props.selectedGroup;
+            return foundResult.firstMeasurementGroup === selectedGroup;
         }
 
         return false;
     }
 
     function getFilteredChildrenByFullName(c: Child) {
-        const fullName = `${c.firstname} ${c.lastname}`.toLowerCase();
+        const fullName = `${c.lastname}, ${c.firstname}`.toLowerCase();
 
         return fullName.includes(searchTerm.toLowerCase());
     }
 
     function isAssessmentDisabled() {
-        return (
-            props.assessment.firstMeasurementStatus !== 'active' || props.assessment.lastMeasurementStatus !== 'active'
-        );
+        return assessment.firstMeasurementStatus !== 'active' || assessment.lastMeasurementStatus !== 'active';
     }
 
     function countResultProgress(childId: string) {
-        const foundResult = props.results.find((r) => r.childId === childId);
+        const foundResult = results.find((r) => r.childId === childId);
 
         if (foundResult) {
-            return countProgress(props.measurement, foundResult);
+            return countProgress(measurement, foundResult);
         }
 
         return 0;

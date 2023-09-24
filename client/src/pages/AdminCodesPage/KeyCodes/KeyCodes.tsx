@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { Typography, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
+import { useCreateKeyCodes } from '@app/operations/mutations/KeyCodes/createKeyCodes';
+import { useKeyCodeSeries } from '@app/operations/queries/KeyCodes/getKeyCodesSeries';
 import { RoleToggleButton } from './RoleToggleButton';
 import { ActiveKeysList } from './ActiveKeysList';
 import { KeyCodesToGenerateTextfield } from './KeyCodesToGenerateTextfield';
-import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
 import { FilenameButton } from './FilenameButton';
 import { LoadingButton } from './LoadingButton';
-import { useCreateKeyCodes } from '../../../operations/mutations/KeyCodes/createKeyCodes';
 import { useGenerateExcel } from './useGenerateExcel';
-import { useKeyCodeSeries } from '../../../operations/queries/KeyCodes/getKeyCodesSeries';
 
 const INITIAL_KEY_CODE_AMOUNT = 1;
 
@@ -23,14 +23,32 @@ export function KeyCodes() {
     const [target, setTarget] = useState('parent');
     const [isLoading, setIsLoading] = useState(false);
     const { generateExcel } = useGenerateExcel((filename) => {
-        openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
+        // eslint-disable-next-line no-void
+        void openSnackbar({ text: t('admin-setting-page.keycode-generation.download-alert', { filename }) });
     });
 
-    if (!keyCodeSeries) return null;
+    const handleClick = async () => {
+        setIsLoading(true);
+
+        await createKeyCodes({
+            variables: {
+                target,
+                amount: keyCodesToGenerate,
+            },
+        });
+
+        setIsLoading(false);
+        setKeyCodesToGenerate(INITIAL_KEY_CODE_AMOUNT);
+    };
+
+    const handleKeyCodeClick = (series: string) => {
+        generateExcel(series);
+    };
 
     return (
         <div>
             <Typography variant="body2">{t('admin-setting-page.keycode-generation.description')}</Typography>
+
             <Grid container direction="column" spacing={4} classes={{ root: classes.container }}>
                 <div className={classes.toggleContainer}>
                     <RoleToggleButton
@@ -42,12 +60,14 @@ export function KeyCodes() {
                         }}
                     />
                 </div>
+
                 <div className={classes.amountContainer}>
                     <KeyCodesToGenerateTextfield
                         value={keyCodesToGenerate}
                         onChange={(amount) => setKeyCodesToGenerate(parseInt(amount, 10))}
                     />
                 </div>
+
                 <div className={classes.generateButtonContainer}>
                     <LoadingButton
                         data-testid="generate-keycodes-series"
@@ -56,20 +76,10 @@ export function KeyCodes() {
                             isLoading || !keyCodesToGenerate || keyCodesToGenerate > 1000 || keyCodesToGenerate < 1
                         }
                         text={t('admin-setting-page.keycode-generation.generate')}
-                        onClick={() => {
-                            setIsLoading(true);
-                            createKeyCodes({
-                                variables: {
-                                    target,
-                                    amount: keyCodesToGenerate,
-                                },
-                            }).then(() => {
-                                setIsLoading(false);
-                                setKeyCodesToGenerate(INITIAL_KEY_CODE_AMOUNT);
-                            });
-                        }}
+                        onClick={handleClick}
                     />
                 </div>
+
                 <span className={classes.generatedFileContainer}>
                     {created && (
                         <FilenameButton
@@ -81,8 +91,9 @@ export function KeyCodes() {
                     )}
                 </span>
             </Grid>
+
             <div className={classes.fileListContainer}>
-                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={(series) => generateExcel(series)} />
+                <ActiveKeysList keyCodeSeries={keyCodeSeries} onKeyCodeClick={handleKeyCodeClick} />
             </div>
         </div>
     );

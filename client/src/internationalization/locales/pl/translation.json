@@ -34,11 +34,11 @@
         "already-have-account": "Masz już konto?",
         "register-failure": "Rejestracja nie powiodła się",
         "register-failure-keycode": "Podany kod nie jest prawidłowy",
-        "register-failure-description": "Coś poszło nie tak. To może być spowodowane błędnie wpisanym kodem otrzymanym od Fundacji albo ponownym użyciem tego kodu. Sprawdź ponownie wprowadzone przez siebie dane i w ostateczności skontaktuj się z nami pod adresem e-mail: <strong>fundacja@mali-wspaniali.pl</strong>",
+        "register-failure-description": "Sprawdź, czy nie upłyneła data ważności kodu. Jeśli kod jest aktywny możliwe, że dla tego adresu e-mail konto zostało już założone wcześniej. Spróbuj skorzystać z przycisku '<strong>Nie pamiętasz hasła?</strong>' na stronie logowania. Jeśli jesteś pewien, że dla użytego adresu e-mail konto w serwisie nie było nigdy wcześniej utworzone napisz na adres: <strong>fundacja@mali-wspaniali.pl</strong> w treści opisując sytuację, podając <strong>adres e-mail</strong>, którego ten problem dotyczy oraz dodaj <strong>zdjęcie posiadanego kodu</strong>.",
         "password-mismatch": "Podane hasła nie są takie same",
         "register-success-title": "To już ostatni krok!",
         "register-success-content": "Wysłaliśmy na Twoją skrzynkę mailową wiadomość z linkiem aktywacyjnym. Skorzystaj z niego, aby potwierdzić swój adres e-mail i zakończyć rejestrację.",
-        "register-success-spam": "Jeżeli nie dostałeś maila z linkiem aktywacyjnym, spróbuj utworzyć konto za pomocą innej skrzynki mailowej np. Gmail.com",
+        "register-success-spam": "Jeżeli nie dostałeś maila z linkiem aktywacyjnym, spróbuj utworzyć konto za pomocą innego adresu e-mail.",
         "password-confirm": "Powtórz hasło",
         "register": "Rejestracja",
         "password-not-strong": "Hasło jest za słabe. Sprawdź, czy Twoje hasło posiada co najmniej osiem znaków, dużą literę, cyfrę i znak specjalny.",
@@ -136,7 +136,7 @@
             "keycode-amount": "Ilość kluczy",
             "keycode-amount-total": "Liczba aktywnych kluczy ({{total}})",
             "generate": "Generuj",
-            "download-as": "Pobierz jako plik XLSX.",
+            "download-as": "Pobierz ostatni wygenerowany plik w formacie XLSX.",
             "download": "Pobierz",
             "download-alert": "Plik {{filename}} został pobrany."
         }

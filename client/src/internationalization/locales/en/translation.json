@@ -38,7 +38,7 @@
         "password-mismatch": "Passwords do not match",
         "register-success-title": "And finally - the last step!",
         "register-success-content": "An email containing an activation link has been sent to your email address. Use the link to confirm your email address and finish the registration process.",
-        "register-success-spam": "If you did not receive any e-mail with an activation link, try to register again using a different email, e.g. Gmail.com.",
+        "register-success-spam": "If you did not receive any e-mail with an activation link, try to register again using a different email address.",
         "password-confirm": "Repeat your password",
         "register": "Registration",
         "password-not-strong": "Your password is not strong enough. Check if it contains minimum 8 characters, a capital letter, a number, and at least one special character.",
