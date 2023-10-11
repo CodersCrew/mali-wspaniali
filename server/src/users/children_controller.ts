@@ -96,6 +96,7 @@ export class ChildrenController {
 
     const results = childrenInAssessment
       .filter((child) => !!child.results.length)
+      /*
       .filter(
         (child) =>
           child.results[0].firstMeasurementJumpResult &&
@@ -106,6 +107,21 @@ export class ChildrenController {
           child.results[0].lastMeasurementJumpResult &&
           child.results[0].lastMeasurementRunResult &&
           child.results[0].lastMeasurementThrowResult &&
+          child.results[0].lastMeasurementPendelumRunResult,
+      )
+*/
+      // TODO: customize! Distinguish the FIRST test, the LAST test, or BOTH tests
+      .filter(
+        (child) =>
+          // TODO: the first test
+          child.results[0].firstMeasurementJumpResult ||
+          child.results[0].firstMeasurementRunResult ||
+          child.results[0].firstMeasurementThrowResult ||
+          child.results[0].firstMeasurementPendelumRunResult ||
+          // TODO: the last test
+          child.results[0].lastMeasurementJumpResult ||
+          child.results[0].lastMeasurementRunResult ||
+          child.results[0].lastMeasurementThrowResult ||
           child.results[0].lastMeasurementPendelumRunResult,
       )
       .map((child) => {
