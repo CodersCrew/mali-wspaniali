@@ -2,21 +2,21 @@ import { useContext } from 'react';
 import { createStyles, Theme, Typography, Box, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { CircleChart } from '../../../../components/CircleChart';
-import { white } from '../../../../colors';
-import { ButtonSecondary } from '../../../../components/Button';
-import { openDetailsModal } from '../../../../components/ResultPreview/modals/DetailsModal';
-import { ResultContext } from '../../../../components/ResultPreview/context';
-import { Result } from '../../../../components/ResultPreview/Result';
+import { CircleChart } from '@app/components/CircleChart';
+import { white } from '@app/colors';
+import { ButtonSecondary } from '@app/components/Button';
+import { openDetailsModal } from '@app/components/ResultPreview/modals/DetailsModal';
+import { ResultContext } from '@app/components/ResultPreview/context';
+import { Result } from '@app/components/ResultPreview/Result';
 
-interface Props {
+interface MeasurementProps {
     name: string;
     prefix: string;
     unitOfMeasure: string;
     translationKey: string;
 }
 
-export function Measurement(props: Props) {
+export function Measurement({ name, prefix, translationKey, unitOfMeasure }: MeasurementProps) {
     const result = useContext(ResultContext);
     const { t } = useTranslation();
     const classes = useStyles();
@@ -28,10 +28,10 @@ export function Measurement(props: Props) {
 
     const resultWrapper = new Result({
         result,
-        unit: props.unitOfMeasure,
-        name: props.name,
-        prefix: props.prefix,
-        translationKey: props.translationKey,
+        unit: unitOfMeasure,
+        name,
+        prefix,
+        translationKey,
     });
     const chartDetails = resultWrapper.getChartDetails();
 
@@ -43,29 +43,36 @@ export function Measurement(props: Props) {
                     value={resultWrapper.getChartValue()}
                     maxValue={resultWrapper.getMaxValue() - resultWrapper.getMinValue()}
                     label={String(resultWrapper.getValue())}
-                    labelSuffix={props.unitOfMeasure}
+                    labelSuffix={unitOfMeasure}
                     disable={!resultWrapper.getValue()}
                 />
             </Box>
+
             <Typography variant="h4" className={classes.testName}>
-                {t(`child-profile.tests-in-block.${props.translationKey}`)}
+                {t(`child-profile.tests-in-block.${translationKey}`)}
             </Typography>
+
             <Typography variant="body2" className={classes.description}>
-                {t(`child-profile.test-description.${props.translationKey}`)}
+                {t(`child-profile.test-description.${translationKey}`)}
             </Typography>
+
             <Typography variant="subtitle2" className={classes.levelLabel}>
                 {t('child-profile.result-level')}
             </Typography>
+
             <Typography variant="subtitle2" className={classes.level} style={{ color: chartDetails.color }}>
                 {t(`child-profile.result-levels.${chartDetails.key}`)}
             </Typography>
+
             <Typography variant="subtitle1" className={classes.pointsHeader}>
                 {t('child-profile.received-points')}:
             </Typography>
+
             <div className={classes.points} style={{ backgroundColor: chartDetails.color }}>
                 {Math.round(chartDetails.valueInPoints)}/{Math.round(chartDetails.maxValueInPoints)}
                 {t('child-profile.pts')}
             </div>
+
             <ButtonSecondary
                 variant="text"
                 className={classes.detailsButton}
@@ -77,7 +84,8 @@ export function Measurement(props: Props) {
     );
 
     function onDetailsButtonClick() {
-        openDetailsModal(resultWrapper).then(({ decision }) => {
+        // eslint-disable-next-line no-void
+        void openDetailsModal(resultWrapper).then(({ decision }) => {
             if (decision && decision.accepted && decision.readMoreClicked) {
                 history.push(`/parent/child/${childId}/tests-information`);
             }

@@ -58,6 +58,17 @@ export class Result {
         );
     }
 
+    getDate(name?: string): string {
+        const resultName = this.props.result;
+        const prefix = this.props.prefix || '';
+
+        return (
+            (this.props.result[
+                `${prefix}Measurement${name || this.props.name || ''}Date` as keyof typeof resultName
+            ] as string) || ''
+        );
+    }
+
     getChartValue() {
         const name = this.getNormalizedName();
 

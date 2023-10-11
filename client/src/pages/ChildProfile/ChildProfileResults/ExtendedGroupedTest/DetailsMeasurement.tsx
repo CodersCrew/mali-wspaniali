@@ -1,13 +1,19 @@
 import { makeStyles, Box, createStyles, Typography, Link, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { CircleChart } from '../../../../components/CircleChart';
-import { white } from '../../../../colors';
-import { Result } from '../../../../components/ResultPreview/Result';
+import { CircleChart } from '@app/components/CircleChart';
+import { white } from '@app/colors';
+import { Result } from '@app/components/ResultPreview/Result';
+import dayjs from 'dayjs';
 
-export function DetailsMeasurement(props: { result: Result; onReadMoreClick: () => void }) {
+type DetailsMeasurementProps = {
+    result: Result;
+    onReadMoreClick: () => void;
+};
+
+export function DetailsMeasurement({ result, onReadMoreClick }: DetailsMeasurementProps) {
     const { t } = useTranslation();
 
-    const chartDetails = props.result.getChartDetails();
+    const chartDetails = result.getChartDetails();
     const classes = useStyles({ color: chartDetails.color });
 
     return (
@@ -15,30 +21,45 @@ export function DetailsMeasurement(props: { result: Result; onReadMoreClick: () 
             <Box width="110px" height="110px">
                 <CircleChart
                     color={chartDetails.color}
-                    value={props.result.getChartValue()}
-                    maxValue={props.result.getMaxValue() - props.result.getMinValue()}
-                    label={String(props.result.getValue())}
-                    labelSuffix={props.result.unit}
+                    value={result.getChartValue()}
+                    maxValue={result.getMaxValue() - result.getMinValue()}
+                    label={String(result.getValue())}
+                    labelSuffix={result.unit}
                 />
             </Box>
+
             <Box mt={2} mb={1}>
-                <Typography variant="h4">{t(`child-profile.tests-in-block.${props.result.translationKey}`)}</Typography>
+                <Typography variant="h4">{t(`child-profile.tests-in-block.${result.translationKey}`)}</Typography>
             </Box>
+
             <Typography variant="body2" className={classes.description}>
-                {t(`child-profile.test-description.${props.result.translationKey}`)}
+                {t(`child-profile.test-description.${result.translationKey}`)}
             </Typography>
+
             <Box mb={1}>
                 <Typography variant="subtitle1">{t('child-profile.result-level')}</Typography>
             </Box>
+
             <Typography variant="subtitle2" className={classes.level}>
                 {t(`child-profile.result-levels.${chartDetails.key}`)}
             </Typography>
+
             <Typography variant="subtitle1">{t('child-profile.received-points')}:</Typography>
-            <div className={classes.points}>
-                {Math.round(chartDetails.valueInPoints)}/{chartDetails.maxValueInPoints} {t('child-profile.pts')}
-            </div>
-            <Box width="80%" mt={2}>
-                <Link className={classes.link} onClick={props.onReadMoreClick}>
+
+            <Box mb={3}>
+                <div className={classes.points}>
+                    {Math.round(chartDetails.valueInPoints)}/{chartDetails.maxValueInPoints} {t('child-profile.pts')}
+                </div>
+            </Box>
+
+            <Box mb={1}>
+                <Typography variant="subtitle1">{`${t('child-profile.carries-out-on')}:`}</Typography>
+            </Box>
+
+            {dayjs(result.getDate()).format('LL').toString()}
+
+            <Box width="80%" mt={3}>
+                <Link className={classes.link} onClick={onReadMoreClick}>
                     {t('child-profile.count-points-read-more')}
                 </Link>
             </Box>

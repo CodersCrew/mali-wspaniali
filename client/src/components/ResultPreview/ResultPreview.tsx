@@ -41,6 +41,7 @@ function SingleTest(props: { prefix: string }) {
     return (
         <section className={classes.container}>
             <TestSummary {...props} />
+
             <TestDetails {...props} />
         </section>
     );

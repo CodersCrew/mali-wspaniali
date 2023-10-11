@@ -17,7 +17,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
     const { minScale, maxScale, scale39, scale49, scale59, a, b, lowerLimitPoints, upperLimitPoints } =
         props.resultWrapper.getParam()!;
 
-    const rangeMax = Math.min(countValue(maxScale), lowerLimitPoints!);
+    const rangeMax = Math.min(countValue(maxScale), lowerLimitPoints);
 
     const resultsData = {
         result: props.resultWrapper.getValue(),
@@ -62,22 +62,28 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                             result={props.resultWrapper}
                             onReadMoreClick={() => props.makeDecision({ accepted: true, readMoreClicked: true })}
                         />
+
                         {props.resultWrapper.isLastMeasurementFinished() && <NextMeasurement />}
                     </Box>
                 </Box>
+
                 <Box display="flex" flex="1" flexDirection="column" py={2}>
                     <Typography className={classes.typographySpacing} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.assesment-details`)}
                     </Typography>
+
                     <Typography className={classes.typographySpacing} variant="body2">
                         {t(`${T_DETAILS_PREFIX}.content.${props.resultWrapper.translationKey}`)}
                     </Typography>
+
                     <Typography className={(classes.typographySpacing, classes.titleSpacing)} variant="h4">
                         {t(`${T_DETAILS_PREFIX}.result-details.title`)}
                     </Typography>
+
                     <Box pl={4} pr={4}>
                         <Results resultsData={resultsData} unit={props.resultWrapper.unit || ''} />
                     </Box>
+
                     <Grid container>
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="subtitle2" component="span">
@@ -91,6 +97,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                             >{`${resultsData.result}  ${props.resultWrapper.unit}`}</Typography>
                         </Grid>
                     </Grid>
+
                     <Grid container>
                         <Grid item>
                             <Typography className={classes.typographySpacing} variant="subtitle2">
@@ -98,6 +105,7 @@ function DetailsModal(props: { resultWrapper: Result } & ActionDialog<{ readMore
                             </Typography>
                         </Grid>
                     </Grid>
+
                     {nextLimit && (
                         <NextFeatureLevel
                             unit={props.resultWrapper.unit || ''}
