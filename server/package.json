@@ -47,7 +47,7 @@
     "lodash.pick": "^4.4.0",
     "module-alias": "^2.2.2",
     "mongoose": "5.11.15",
-    "nodemailer": "^6.4.16",
+    "nodemailer": "^6.9.9",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
