@@ -443,7 +443,7 @@
         "kindergarten-results": "Added results",
         "kindergarten-address": "Kindergarten address",
         "parents-email": "Parents' email address",
-        "children": "Children",
+        "children": "Child name",
         "age": "Age",
         "kindergarten-prefix": "Kindergarten no.",
         "search": "Search",
@@ -886,6 +886,7 @@
     },
     "years_0": "year",
     "years_1": "years",
+    "years_2": "years",
     "pagination": {
         "previous": "Previous",
         "next": "Next"

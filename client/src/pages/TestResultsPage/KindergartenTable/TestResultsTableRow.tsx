@@ -34,22 +34,28 @@ export const TestResultsTableRow = ({ parameterInfo, kindergarten }: Props) => {
                         </IconButton>
                     </Tooltip>
                 </TableCell>
+
                 <TableCell className={classes.cell}>
                     <div>{name}</div>
+
                     <div className={classes.helperLabel}>{address}</div>
                 </TableCell>
+
                 <TableCell className={classes.cell}>
                     <div className={classes.progressBarContainer}>
                         <div className={classes.progressBar}>
                             <ProgressBar value={(measurementResult / (maxResultCount / 2)) * 100} />
                         </div>
+
                         <span>
                             {measurementResult} / {maxResultCount / 2}
                         </span>
                     </div>
                 </TableCell>
+
                 <TableCell className={classes.cell} />
             </TableRow>
+
             <KindergartenChildrenTable {...{ open, childrenInfo, parameterInfo }} />
         </>
     );
