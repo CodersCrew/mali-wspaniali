@@ -30,7 +30,7 @@
     "@nestjs/jwt": "^7.1.0",
     "@nestjs/mongoose": "7.2.4",
     "@nestjs/passport": "^7.1.0",
-    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/platform-express": "^10.3.8",
     "@nestjs/schedule": "^0.4.0",
     "@sentry/node": "^5.19.0",
     "apollo-server-express": "^2.15.0",
