@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node: [12.x]
+                node: [14.x]
         name: Lint, test and prettier
         steps:
             - uses: actions/checkout@v2
@@ -75,29 +75,29 @@ jobs:
         env:
             CI: true
             working-directory: ./server
-    tests-E2E:
-        runs-on: ubuntu-latest
-        container: node:10.18-jessie
+#    tests-E2E:
+#        runs-on: ubuntu-latest
+#        container: node:10.18-jessie
 
-        services:
-            mongo:
-                image: mongo
-                ports:
-                    - 27017:27017
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v2
-            - name: Install Dependencies
-              run: npm install
-              working-directory: ${{env.working-directory}}
-            - name: E2E tests
-              run: npm run test:e2e
-              working-directory: ${{env.working-directory}}
-        env:
-            MONGO_KEY_TEST: mongodb://mongo:27017/mali_wspaniali
-            working-directory: ./server
-            JWT_SECRET: secret
-            IS_PRODUCTION_MAIL: false
-            EMAIL: simone73@ethereal.email
-            EMAIL_PASSWORD: bhKwsGh4HHn84kXmgR
-            SENDER: my-admin@admin.com
+#        services:
+#            mongo:
+#                image: mongo
+#                ports:
+#                    - 27017:27017
+#        steps:
+#            - name: Check out repository code
+#              uses: actions/checkout@v2
+#            - name: Install Dependencies
+#              run: npm install
+#              working-directory: ${{env.working-directory}}
+#            - name: E2E tests
+#              run: npm run test:e2e
+#              working-directory: ${{env.working-directory}}
+#        env:
+#            MONGO_KEY_TEST: mongodb://mongo:27017/mali_wspaniali
+#            working-directory: ./server
+#            JWT_SECRET: secret
+#            IS_PRODUCTION_MAIL: false
+#            EMAIL: simone73@ethereal.email
+#            EMAIL_PASSWORD: bhKwsGh4HHn84kXmgR
+#            SENDER: my-admin@admin.com

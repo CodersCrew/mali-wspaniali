@@ -22,6 +22,7 @@ function ArrowedCell({ text, isSelected, onClick, arrowSize = '1em', isActive = 
         <TableCell component="th" scope="row" padding="none">
             <span className={classes.cellContainer} onClick={() => isActive && onClick()}>
                 <span>{text}</span>
+
                 <IconButton className={classes.arrowIcon}>
                     <Arrow classes={{ root: clsx({ [classes.arrow]: true, [classes.isActive]: isActive }) }} />
                 </IconButton>
@@ -68,17 +69,15 @@ export const useArrowedCell = <T,>(rowElements: T[]) => {
         setSelectedSortableCell(undefined);
     }, [rowElements]);
 
-    const cellParameters = (cellValueName: string, compareExpression: (c: T, b: T) => boolean) => ({
+    const cellParameters = (cellValueName: string, compareExpression: (b: T, c: T) => number) => ({
         name: cellValueName,
         changeActive: () => {
             setSelectedSortableCell((prev) => (prev !== cellValueName ? cellValueName : undefined));
-
-            const compare = (val: 1 | -1) => {
-                return (c: T, b: T) => (compareExpression(c, b) ? val : -val);
-            };
-
-            if (selectedSortableCell === cellValueName) setElements(elements.sort(compare(-1)));
-            if (selectedSortableCell !== cellValueName) setElements(elements.sort(compare(1)));
+            setElements(elements.sort(compareExpression));
+        },
+        setActive: () => {
+            setSelectedSortableCell(cellValueName);
+            setElements(elements.sort(compareExpression));
         },
     });
 

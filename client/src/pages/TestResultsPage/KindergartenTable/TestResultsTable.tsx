@@ -50,14 +50,17 @@ export const TestResultsTable = ({
                 <TableHead>
                     <TableRow className={classes.tableRow}>
                         <TableCell style={{ width: '82px' }} />
+
                         <TableCell component="th" scope="row" padding="none">
                             <span className={classes.cellContainer}> {t('test-results.kindergarten-name')}</span>
                         </TableCell>
+
                         <TableCell component="th" scope="row" padding="none">
                             <span className={classes.cellContainer}> {t('test-results.kindergarten-results')}</span>
                         </TableCell>
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
                     {displayedKindergartens.map((kindergarten) => (
                         <TestResultsTableRow
@@ -73,6 +76,7 @@ export const TestResultsTable = ({
                     ))}
                 </TableBody>
             </Table>
+
             <TablePagination
                 rowsPerPageOptions={[10]}
                 component="div"
