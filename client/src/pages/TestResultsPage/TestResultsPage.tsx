@@ -70,8 +70,10 @@ export default function TestResultsPage() {
                                 ))}
                             />
                         </div>
+
                         <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
                     </Box>
+
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
                         <ButtonSecondary
                             onClick={() => {
@@ -82,13 +84,16 @@ export default function TestResultsPage() {
                         />
                     </Box>
                 </Grid>
+
                 <Box className={classes.informationContainer} justifyContent="space-between" alignItems={'center'}>
                     <span className={classes.measurementText}>{t(selectedAssessmentPart.assessmentName)}</span>
+
                     <p>
                         <span className={classes.ResultStatusText}>{t('test-results.status-result')}: </span>
                         {t(`manage-test-view.test-list.${selectedAssessment.firstMeasurementStatus}`)}
                     </p>
                 </Box>
+
                 {isKindergartenListLoading ? (
                     <EmptyPage />
                 ) : (
