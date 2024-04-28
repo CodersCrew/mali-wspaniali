@@ -4,7 +4,6 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import { useHistory, useParams } from 'react-router-dom';
-import { Skeleton } from '@material-ui/lab';
 
 import { activePage } from '@app/apollo_client';
 import { ButtonSecondary } from '@app/components/Button';
@@ -15,6 +14,7 @@ import { useKindergartensWithChildren } from '@app/operations/queries/Kindergart
 import { Theme } from '@app/theme';
 
 import { Search as SearchIcon } from '@material-ui/icons';
+import { EmptyPage } from '@app/components/EmptyPage';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { NoResults } from './NoResults';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
@@ -135,17 +135,6 @@ export default function TestResultsPage() {
                 )}
             </Box>
         </PageContainer>
-    );
-}
-
-function EmptyPage() {
-    return (
-        <>
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-        </>
     );
 }
 
