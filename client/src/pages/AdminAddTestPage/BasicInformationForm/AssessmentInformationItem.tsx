@@ -40,7 +40,7 @@ export function AssessmentInformationItem({ label, result, status, subheader, di
                 <Grid item xs={12} sm={6}>
                     <Grid container spacing={2} direction="column">
                         <Grid item>
-                            <Typography variant="body2">
+                            <Typography variant="body2" className={classes.measurementAmountBox}>
                                 {t('add-test-view.basic-information-form.measurement-amount')}
                             </Typography>
                         </Grid>
@@ -85,6 +85,13 @@ const useStyles = makeStyles((theme: Theme) =>
         listItemContainer: {
             paddingTop: theme.spacing(3),
             paddingBottom: theme.spacing(3),
+        },
+        measurementAmountBox: {
+            paddingTop: theme.spacing(4),
+
+            '@media (min-width: 768px)': {
+                paddingTop: theme.spacing(0),
+            },
         },
     }),
 );

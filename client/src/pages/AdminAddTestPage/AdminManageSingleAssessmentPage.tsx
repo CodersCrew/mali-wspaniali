@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { createStyles, Grid, makeStyles } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
@@ -23,6 +23,7 @@ export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const params = useParams<{ id?: string }>();
+    const classes = useStyles();
 
     const assessmentId = params.id;
 
@@ -46,16 +47,10 @@ export default function AdminManageSingleAssessmentPage() {
 
     return (
         <PageContainer>
-            <Grid
-                container
-                direction="column"
-                alignItems="flex-end"
-                spacing={6}
-                style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
-            >
+            <Grid container direction="column" alignItems="flex-end" spacing={6} className={classes.container}>
                 <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={7}>
+                    <Grid container spacing={2} className={classes.subContainer}>
+                        <Grid item xs={7} className={classes.basicInfoPanel}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item sm={12}>
                                     {isViewOnly ? (
@@ -74,7 +69,7 @@ export default function AdminManageSingleAssessmentPage() {
                             </Grid>
                         </Grid>
 
-                        <Grid item xs={5}>
+                        <Grid item xs={5} className={classes.basicInfoPanel}>
                             {isViewOnly ? (
                                 <KindergartenList kindergartens={kindergartens} />
                             ) : (
@@ -183,3 +178,27 @@ export default function AdminManageSingleAssessmentPage() {
         return history.location.pathname.includes(`/${name}`);
     }
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+        },
+        subContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+
+            '@media (min-width: 768px)': {
+                flexDirection: 'row',
+            },
+        },
+        basicInfoPanel: {
+            maxWidth: 'none',
+        },
+        kindergartensPanel: {
+            maxWidth: 'none',
+        },
+    }),
+);

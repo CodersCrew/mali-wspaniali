@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { Grid, Typography, List } from '@material-ui/core';
+import { Grid, Typography, List, makeStyles, createStyles } from '@material-ui/core';
 
 import { MeasurementType } from '@app/pages/TestResultsPage/TestToggleButton';
 import { CustomContainer } from '@app/components/CustomContainer';
 import { EmptyPage } from '@app/components/EmptyPage';
 import dayjs from '@app/localizedMoment';
+import { Theme } from '@app/theme';
 import { AssessmentManagerState } from '../useAssessmentManager';
 import { AssessmentInformationItem } from './AssessmentInformationItem';
 
@@ -15,10 +16,22 @@ interface Props {
 
 export function BasicInformationForm({ assessment, onClick }: Props) {
     const { t } = useTranslation();
+    const classes = useStyles();
+
+    const header = (
+        <>
+            <Typography variant="h4">{t('add-test-view.basic-information-form.title')}</Typography>
+            {assessment.title && (
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                    {assessment.title}
+                </Typography>
+            )}
+        </>
+    );
 
     return (
         <CustomContainer
-            header={<Typography variant="h4">{t('add-test-view.basic-information-form.title')}</Typography>}
+            header={header}
             container={
                 assessment.title ? (
                     <Grid container spacing={2}>
@@ -72,3 +85,12 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
         return ['planned', 'not-planned'].includes(assessment.lastMeasurementStatus);
     }
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        subtitle: {
+            fontWeight: 'bold',
+            paddingTop: theme.spacing(1),
+        },
+    }),
+);
