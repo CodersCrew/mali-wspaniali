@@ -61,9 +61,9 @@ export function KindergartenList({ kindergartens }: Props) {
                                 .filter(
                                     (kindergarten) =>
                                         kindergarten.selected &&
-                                        `${kindergarten.kindergarten.number}${kindergarten.kindergarten.name}${kindergarten.kindergarten.city}${kindergarten.kindergarten.address}`.includes(
-                                            searchPhrase,
-                                        ),
+                                        `${kindergarten.kindergarten.number}${kindergarten.kindergarten.name}${kindergarten.kindergarten.city}${kindergarten.kindergarten.address}`
+                                            .toLowerCase()
+                                            .includes(searchPhrase.toLowerCase()),
                                 )
                                 .map((kindergarten) => (
                                     <TableRow key={kindergarten.kindergarten._id} hover role="row">
