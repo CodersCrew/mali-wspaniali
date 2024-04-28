@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import { CreatedAssessmentInput, useCreateAssessment } from '../../operations/mutations/Assessment/createAssessment';
-import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-import { formatDate } from '../../utils/formatDate';
-import { useAssessment } from '../../operations/queries/Assessment/getAssessment';
-import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
 import { MeasurementStage } from '@app/graphql/types';
+import { CreatedAssessmentInput, useCreateAssessment } from '@app/operations/mutations/Assessment/createAssessment';
+import { useKindergartens } from '@app/operations/queries/Kindergartens/getKindergartens';
+import { formatDate } from '@app/utils/formatDate';
+import { useAssessment } from '@app/operations/queries/Assessment/getAssessment';
+import { useUpdateAssessment } from '@app/operations/mutations/Assessment/updateAssessment';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
 
 const TWO_MONTHS = 60 * 24 * 60 * 60 * 1000;
 
@@ -69,7 +69,7 @@ export function useAssessmentManager(
     const state = updatedLocalAssessment;
     const { updateAssessment, isUpdatePending } = useUpdateAssessment();
 
-    const { assessment } = useAssessment(assessmentId!);
+    const { assessment } = useAssessment(assessmentId);
 
     useEffect(() => {
         if (!assessment) return;
@@ -142,7 +142,8 @@ export function useAssessmentManager(
 
         valid
             .then(() => {
-                createTest(mapToCreatedAssessment(updatedLocalAssessment)).then(() => {
+                // eslint-disable-next-line no-void
+                void createTest(mapToCreatedAssessment(updatedLocalAssessment)).then(() => {
                     if (!error) {
                         setReasonForBeingDisabled('add-test-view.errors.test-already-created');
                         onSubmit({ assessment: state, message: t('add-test-view.assessment-created') });
@@ -216,11 +217,12 @@ export function useAssessmentManager(
                 return { ...prev, ...update };
             });
         },
-        assessemnt: updatedLocalAssessment,
+        assessment: updatedLocalAssessment,
         isLoading: isCreationPending || isUpdatePending,
     };
 }
 
+// eslint-disable-next-line @typescript-eslint/require-await
 async function validate(state: AssessmentManagerState) {
     const newTestSchema = yup.object().shape({
         title: yup.string().min(5, 'add-test-view.errors.name-too-short'),

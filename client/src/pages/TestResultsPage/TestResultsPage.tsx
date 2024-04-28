@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Box, Grid, MenuItem } from '@material-ui/core/';
+import { Box, Grid, MenuItem, InputAdornment, TextField } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import { useHistory, useParams } from 'react-router-dom';
-import { Skeleton } from '@material-ui/lab';
 
 import { activePage } from '@app/apollo_client';
 import { ButtonSecondary } from '@app/components/Button';
@@ -14,6 +13,8 @@ import { Assessment } from '@app/graphql/types';
 import { useKindergartensWithChildren } from '@app/operations/queries/Kindergartens/getKindergartensWithChildren';
 import { Theme } from '@app/theme';
 
+import { Search as SearchIcon } from '@material-ui/icons';
+import { EmptyPage } from '@app/components/EmptyPage';
 import { TestResultsTable } from './KindergartenTable/TestResultsTable';
 import { NoResults } from './NoResults';
 import { AssessmentPart, assessmentParts, MeasurementType, TestToggleButton } from './TestToggleButton';
@@ -24,8 +25,13 @@ export default function TestResultsPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const [page, setPage] = useState(0);
+    const [searchPhrase, setSearchPhrase] = useState('');
 
-    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
+    const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(
+        assessmentId,
+        page,
+        searchPhrase,
+    );
 
     const selectedAssessmentPart = assessmentParts.find((a) => a.type === measurementType) ?? assessmentParts[0];
 
@@ -43,6 +49,10 @@ export default function TestResultsPage() {
     useEffect(() => {
         activePage(['admin-menu.results.title', 'admin-menu.results.table']);
     }, []);
+
+    useEffect(() => {
+        setPage(0);
+    }, [searchPhrase]);
 
     const handleSelectAssessment = (selectedAssessmentId: string) => {
         pushToAdminResult(selectedAssessmentId, measurementType);
@@ -73,6 +83,23 @@ export default function TestResultsPage() {
 
                         <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
                     </Box>
+
+                    <TextField
+                        label={t('add-test-view.kindergartens.find-kindergarten')}
+                        type="search"
+                        variant="outlined"
+                        data-testid="search-field"
+                        value={searchPhrase}
+                        onChange={({ target: { value } }) => setSearchPhrase(value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
+                        fullWidth
+                    />
 
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
                         <ButtonSecondary
@@ -111,17 +138,6 @@ export default function TestResultsPage() {
     );
 }
 
-function EmptyPage() {
-    return (
-        <>
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-            <Skeleton height={64} />
-        </>
-    );
-}
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
@@ -129,22 +145,36 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         options: {
             display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            rowGap: theme.spacing(2),
             justifyContent: 'space-between',
-            alignItems: 'center',
             width: '100%',
             padding: theme.spacing(2),
+
+            '@media (min-width: 768px)': {
+                flexDirection: 'row',
+                alignItems: 'center',
+                rowGap: theme.spacing(0),
+            },
         },
         SelectListContainer: {
             display: 'flex',
-            width: 400,
             marginRight: theme.spacing(2),
+            flex: '1',
+
+            '@media (min-width: 768px)': {
+                minWidth: '240px',
+            },
         },
         optionsContainer: {
             display: 'flex',
             flexDirection: 'row',
-            width: '45%',
+            width: '100%',
+
+            '@media (min-width: 768px)': {
+                paddingRight: theme.spacing(2),
+            },
         },
         informationContainer: {
             display: 'flex',

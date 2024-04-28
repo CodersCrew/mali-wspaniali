@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { createStyles, Grid, makeStyles } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { activePage } from '../../apollo_client';
-import { ButtonSecondary } from '../../components/Button';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
-import { openQuestionDialog } from '../../components/QuestionDialog';
-import { PageContainer } from '../../components/PageContainer';
+import { MeasurementType } from '@app/pages/TestResultsPage/TestToggleButton';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
+import { activePage } from '@app/apollo_client';
+import { ButtonSecondary } from '@app/components/Button';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
+import { openQuestionDialog } from '@app/components/QuestionDialog';
+import { PageContainer } from '@app/components/PageContainer';
 
 import { BasicInformationForm } from './BasicInformationForm/BasicInformationForm';
 import { KindergartenPicker } from './KindergartenPicker';
@@ -21,14 +23,23 @@ export default function AdminManageSingleAssessmentPage() {
     const { t } = useTranslation();
     const history = useHistory();
     const params = useParams<{ id?: string }>();
+    const classes = useStyles();
 
     const assessmentId = params.id;
 
     const isEditOnly = isState('edit');
     const isViewOnly = isState('details');
 
-    const { submit, kindergartens, reasonForBeingDisabled, assessemnt, updateAssessment, isLoading } =
-        useAssessmentManager(assessmentId, onAssessmentSubmited);
+    const { assessments } = useAssessments();
+
+    const { submit, kindergartens, reasonForBeingDisabled, assessment, updateAssessment, isLoading } =
+        useAssessmentManager(assessmentId, onAssessmentSubmitted);
+
+    const handleViewTestDetailsClick = (measurementType: MeasurementType) => {
+        if (assessmentId && measurementType) {
+            history.push(`/admin/${assessmentId}/${measurementType}`, { assessment: assessments });
+        }
+    };
 
     useEffect(() => {
         activePage(['admin-menu.test-management']);
@@ -36,31 +47,29 @@ export default function AdminManageSingleAssessmentPage() {
 
     return (
         <PageContainer>
-            <Grid
-                container
-                direction="column"
-                alignItems="flex-end"
-                spacing={6}
-                style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
-            >
+            <Grid container direction="column" alignItems="flex-end" spacing={6} className={classes.container}>
                 <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={7}>
+                    <Grid container spacing={2} className={classes.subContainer}>
+                        <Grid item xs={7} className={classes.basicInfoPanel}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item sm={12}>
                                     {isViewOnly ? (
-                                        <BasicInformationForm assessment={assessemnt} onClick={() => null} />
+                                        <BasicInformationForm
+                                            assessment={assessment}
+                                            onClick={handleViewTestDetailsClick}
+                                        />
                                     ) : (
                                         <EditableBasicInformationForm
                                             isDisabled={isViewOnly}
-                                            assessment={assessemnt}
+                                            assessment={assessment}
                                             onChange={updateAssessment}
                                         />
                                     )}
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={5}>
+
+                        <Grid item xs={5} className={classes.basicInfoPanel}>
                             {isViewOnly ? (
                                 <KindergartenList kindergartens={kindergartens} />
                             ) : (
@@ -73,6 +82,7 @@ export default function AdminManageSingleAssessmentPage() {
                         </Grid>
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12} style={{ display: 'flex', alignItems: 'flex-end' }}>
                     {!isViewOnly && (
                         <Grid container justifyContent="space-between">
@@ -81,7 +91,8 @@ export default function AdminManageSingleAssessmentPage() {
                                     <ButtonSecondary
                                         variant="text"
                                         onClick={() => {
-                                            openQuestionDialog({
+                                            // eslint-disable-next-line no-void
+                                            void openQuestionDialog({
                                                 title: t('add-test-view.delete-test-dialog.title'),
                                                 description: t('add-test-view.delete-test-dialog.description'),
                                                 primaryButtonLabel: t('question-dialog.delete'),
@@ -97,6 +108,7 @@ export default function AdminManageSingleAssessmentPage() {
                                     </ButtonSecondary>
                                 }
                             </Grid>
+
                             <Grid item xs={6}>
                                 <Grid container justifyContent="flex-end" spacing={2}>
                                     <Grid container justifyContent="flex-end" spacing={3}>
@@ -105,6 +117,7 @@ export default function AdminManageSingleAssessmentPage() {
                                                 {t('add-test-view.cancel')}
                                             </ButtonSecondary>
                                         </Grid>
+
                                         <Grid item>
                                             <ActionButton
                                                 name={
@@ -128,11 +141,13 @@ export default function AdminManageSingleAssessmentPage() {
         </PageContainer>
     );
 
-    function onAssessmentSubmited(result: SuccessState | ErrorState) {
+    function onAssessmentSubmitted(result: SuccessState | ErrorState) {
         if ('errors' in result) {
-            openSnackbar({ text: t(result.errors), severity: 'error' });
+            // eslint-disable-next-line no-void
+            void openSnackbar({ text: t(result.errors), severity: 'error' });
         } else {
-            openSnackbar({ text: result.message! });
+            // eslint-disable-next-line no-void
+            void openSnackbar({ text: result.message! });
             redirectIntoTestPage();
         }
     }
@@ -142,7 +157,7 @@ export default function AdminManageSingleAssessmentPage() {
     }
 
     function onPickerClick(value: string[], options: { selectedAll?: boolean } = {}) {
-        const kindergartensCopy = [...assessemnt.kindergartenIds];
+        const kindergartensCopy = [...assessment.kindergartenIds];
 
         if (options.selectedAll) {
             updateAssessment({ kindergartenIds: value });
@@ -150,7 +165,7 @@ export default function AdminManageSingleAssessmentPage() {
             return;
         }
 
-        if (assessemnt.kindergartenIds.includes(value[0])) {
+        if (assessment.kindergartenIds.includes(value[0])) {
             updateAssessment({ kindergartenIds: kindergartensCopy.filter((id) => id !== value[0]) });
 
             return;
@@ -163,3 +178,27 @@ export default function AdminManageSingleAssessmentPage() {
         return history.location.pathname.includes(`/${name}`);
     }
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+        },
+        subContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+
+            '@media (min-width: 768px)': {
+                flexDirection: 'row',
+            },
+        },
+        basicInfoPanel: {
+            maxWidth: 'none',
+        },
+        kindergartensPanel: {
+            maxWidth: 'none',
+        },
+    }),
+);
