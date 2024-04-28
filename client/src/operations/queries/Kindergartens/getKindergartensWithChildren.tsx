@@ -14,9 +14,9 @@ interface UseKindergartensReturnType {
 }
 
 export const KINDERGARTENS_WITH_CHILDREN = gql`
-    query Assessment($assessmentId: String!, $page: Int) {
+    query Assessment($assessmentId: String!, $page: Int, $searchPhrase: String) {
         assessment(id: $assessmentId) {
-            kindergartens(page: $page) {
+            kindergartens(page: $page, searchPhrase: $searchPhrase) {
                 kindergarten {
                     _id
                     name
@@ -40,9 +40,13 @@ export const KINDERGARTENS_WITH_CHILDREN = gql`
     }
 `;
 
-export function useKindergartensWithChildren(assessmentId: string, page: number): UseKindergartensReturnType {
+export function useKindergartensWithChildren(
+    assessmentId: string,
+    page: number,
+    searchPhrase: string,
+): UseKindergartensReturnType {
     const { data, loading } = useQuery<KindergartenListResponse>(KINDERGARTENS_WITH_CHILDREN, {
-        variables: { assessmentId, page },
+        variables: { assessmentId, page, searchPhrase },
     });
 
     return {
