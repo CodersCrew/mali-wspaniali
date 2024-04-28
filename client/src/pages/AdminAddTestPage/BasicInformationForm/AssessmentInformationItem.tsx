@@ -1,8 +1,8 @@
 import { Grid, ListItem, Typography, Link, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
-import { ProgressBar } from '../../../components/ProgressBar';
-import { StatusChip } from '../../../components/StatusChip';
+import { ProgressBar } from '@app/components/ProgressBar';
+import { StatusChip } from '@app/components/StatusChip';
 
 interface Props {
     label: string;
@@ -14,7 +14,7 @@ interface Props {
     onClick: () => void;
 }
 
-export function AssessmentInformationItem({ label, result, status, subheader, disabled, divider }: Props) {
+export function AssessmentInformationItem({ label, result, status, subheader, disabled, divider, onClick }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -26,14 +26,17 @@ export function AssessmentInformationItem({ label, result, status, subheader, di
                         <Grid item>
                             <Typography variant="subtitle1">{label}</Typography>
                         </Grid>
+
                         <Grid item>
                             <Typography variant="body2">{subheader}</Typography>
                         </Grid>
+
                         <Grid item>
                             <StatusChip value={status} />
                         </Grid>
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12} sm={6}>
                     <Grid container spacing={2} direction="column">
                         <Grid item>
@@ -41,14 +44,20 @@ export function AssessmentInformationItem({ label, result, status, subheader, di
                                 {t('add-test-view.basic-information-form.measurement-amount')}
                             </Typography>
                         </Grid>
+
                         <Grid item>
                             <div className={classes.progressBarContainer}>
                                 <ProgressBar disabled={disabled} value={result} />
                             </div>
                         </Grid>
+
                         <Grid item>
                             <div className={classes.linkContainer}>
-                                {!disabled && <Link>{t('add-test-view.basic-information-form.see-results')}</Link>}
+                                {!disabled && (
+                                    <Link onClick={onClick}>
+                                        {t('add-test-view.basic-information-form.see-results')}
+                                    </Link>
+                                )}
                             </div>
                         </Grid>
                     </Grid>
@@ -71,6 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             justifyContent: 'center',
             height: theme.spacing(3),
+            cursor: 'pointer',
         },
         listItemContainer: {
             paddingTop: theme.spacing(3),

@@ -1,14 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Grid, Typography, List } from '@material-ui/core';
 
+import { MeasurementType } from '@app/pages/TestResultsPage/TestToggleButton';
+import { CustomContainer } from '@app/components/CustomContainer';
+import { EmptyPage } from '@app/components/EmptyPage';
+import dayjs from '@app/localizedMoment';
 import { AssessmentManagerState } from '../useAssessmentManager';
 import { AssessmentInformationItem } from './AssessmentInformationItem';
-import { CustomContainer } from '../../../components/CustomContainer';
-import dayjs from '../../../localizedMoment';
 
 interface Props {
     assessment: AssessmentManagerState;
-    onClick: () => void;
+    onClick: (measurementType: MeasurementType) => void;
 }
 
 export function BasicInformationForm({ assessment, onClick }: Props) {
@@ -18,33 +20,38 @@ export function BasicInformationForm({ assessment, onClick }: Props) {
         <CustomContainer
             header={<Typography variant="h4">{t('add-test-view.basic-information-form.title')}</Typography>}
             container={
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <List disablePadding>
-                            <AssessmentInformationItem
-                                label={t('add-test-view.basic-information-form.first-measurement')}
-                                subheader={`${dayjs(assessment.firstMeasurementStartDate).format('l')} - ${dayjs(
-                                    assessment.firstMeasurementEndDate,
-                                ).format('l')}`}
-                                status={assessment.firstMeasurementStatus}
-                                result={getFirstMeasurementCount()}
-                                divider
-                                disabled={isFirstMeasurementDisabled()}
-                                onClick={onClick}
-                            />{' '}
-                            <AssessmentInformationItem
-                                label={t('add-test-view.basic-information-form.last-measurement')}
-                                subheader={`${dayjs(assessment.lastMeasurementStartDate).format('l')} - ${dayjs(
-                                    assessment.lastMeasurementEndDate,
-                                ).format('l')}`}
-                                status={assessment.lastMeasurementStatus}
-                                result={getLastMeasurementCount()}
-                                disabled={isLastMeasurementDisabled()}
-                                onClick={onClick}
-                            />
-                        </List>
+                assessment.title ? (
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <List disablePadding>
+                                <AssessmentInformationItem
+                                    label={t('add-test-view.basic-information-form.first-measurement')}
+                                    subheader={`${dayjs(assessment.firstMeasurementStartDate).format('l')} - ${dayjs(
+                                        assessment.firstMeasurementEndDate,
+                                    ).format('l')}`}
+                                    status={assessment.firstMeasurementStatus}
+                                    result={getFirstMeasurementCount()}
+                                    divider
+                                    disabled={isFirstMeasurementDisabled()}
+                                    onClick={() => onClick('first')}
+                                />
+
+                                <AssessmentInformationItem
+                                    label={t('add-test-view.basic-information-form.last-measurement')}
+                                    subheader={`${dayjs(assessment.lastMeasurementStartDate).format('l')} - ${dayjs(
+                                        assessment.lastMeasurementEndDate,
+                                    ).format('l')}`}
+                                    status={assessment.lastMeasurementStatus}
+                                    result={getLastMeasurementCount()}
+                                    disabled={isLastMeasurementDisabled()}
+                                    onClick={() => onClick('last')}
+                                />
+                            </List>
+                        </Grid>
                     </Grid>
-                </Grid>
+                ) : (
+                    <EmptyPage />
+                )
             }
         />
     );
