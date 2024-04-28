@@ -61,7 +61,7 @@ export function KindergartenList({ kindergartens }: Props) {
                                 .filter(
                                     (kindergarten) =>
                                         kindergarten.selected &&
-                                        `${kindergarten.kindergarten.number}/${kindergarten.kindergarten.name}`.includes(
+                                        `${kindergarten.kindergarten.number}${kindergarten.kindergarten.name}${kindergarten.kindergarten.city}${kindergarten.kindergarten.address}`.includes(
                                             searchPhrase,
                                         ),
                                 )
@@ -69,7 +69,7 @@ export function KindergartenList({ kindergartens }: Props) {
                                     <TableRow key={kindergarten.kindergarten._id} hover role="row">
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
                                             <div>
-                                                {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
+                                                {kindergarten.kindergarten.number} / {kindergarten.kindergarten.name}
                                             </div>
 
                                             <div className={classes.helperLabel}>
