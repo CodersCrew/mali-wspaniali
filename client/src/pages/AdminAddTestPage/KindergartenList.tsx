@@ -15,8 +15,8 @@ import {
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { LabeledContainer } from '../../components/LabeledContainer';
 import { Kindergarten } from '@app/graphql/types';
+import { LabeledContainer } from '@app/components/LabeledContainer';
 
 interface Props {
     kindergartens: { selected: boolean; kindergarten: Kindergarten }[];
@@ -47,6 +47,7 @@ export function KindergartenList({ kindergartens }: Props) {
                         ),
                     }}
                 />
+
                 <TableContainer>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -54,15 +55,23 @@ export function KindergartenList({ kindergartens }: Props) {
                                 <TableCell>{t('add-test-view.kindergartens.kindergarten-name')}</TableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
                             {kindergartens
-                                .filter((kindergarten) => kindergarten.selected)
+                                .filter(
+                                    (kindergarten) =>
+                                        kindergarten.selected &&
+                                        `${kindergarten.kindergarten.number}/${kindergarten.kindergarten.name}`.includes(
+                                            searchPhrase,
+                                        ),
+                                )
                                 .map((kindergarten) => (
                                     <TableRow key={kindergarten.kindergarten._id} hover role="row">
                                         <TableCell classes={{ root: classes.kindergartenItem }}>
                                             <div>
                                                 {kindergarten.kindergarten.number}/{kindergarten.kindergarten.name}
                                             </div>
+
                                             <div className={classes.helperLabel}>
                                                 {kindergarten.kindergarten.address}&nbsp;
                                                 {kindergarten.kindergarten.city}
