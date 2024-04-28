@@ -158,7 +158,9 @@ export class AssessmentResolver {
     const filteredKindergartens = searchPhrase
       ? allKindergartens
           .filter(k =>
-            k.name.toLowerCase().includes(searchPhrase.toLowerCase()),
+            `${k.name}${k.city}${k.address}`
+              .toLowerCase()
+              .includes(searchPhrase.toLowerCase()),
           )
           .map(k => k.id)
       : allKindergartens.map(k => k.id);
