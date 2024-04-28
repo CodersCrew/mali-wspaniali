@@ -147,11 +147,30 @@ export class AssessmentResolver {
   async kindergartens(
     @Parent() assessment: AssessmentDTO,
     @Args('page', { nullable: true, type: () => Int }) page: number | undefined,
+    @Args('searchPhrase', { nullable: true }) searchPhrase: string | undefined,
   ) {
+    const allKindergartens: Kindergarten[] = await this.queryBus.execute(
+      new GetKindergartensQuery(
+        assessment.kindergartens.map(k => k.kindergartenId),
+      ),
+    );
+
+    const filteredKindergartens = searchPhrase
+      ? allKindergartens
+          .filter(k =>
+            k.name.toLowerCase().includes(searchPhrase.toLowerCase()),
+          )
+          .map(k => k.id)
+      : allKindergartens.map(k => k.id);
+
     const paginatedKindergartens =
       page !== undefined
-        ? assessment.kindergartens.slice(page * 10, (page + 1) * 10)
-        : assessment.kindergartens;
+        ? assessment.kindergartens
+            .filter(k => filteredKindergartens.includes(k.kindergartenId))
+            .slice(page * 10, (page + 1) * 10)
+        : assessment.kindergartens.filter(k =>
+            filteredKindergartens.includes(k.kindergartenId),
+          );
 
     const kindergartens: Kindergarten[] = await this.queryBus.execute(
       new GetKindergartensQuery(
