@@ -61,7 +61,7 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.0.0",
+    "@nestjs/cli": "^10.1.16",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
     "@types/axios": "^0.14.0",
