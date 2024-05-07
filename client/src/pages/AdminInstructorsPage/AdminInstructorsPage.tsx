@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PrivilegedUser, Kindergarten } from '@app/graphql/types';
+import { activePage } from '@app/apollo_client';
+import { useInstructors } from '@app/operations/queries/Users/getUsersByRole';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
+import { PageContainer } from '@app/components/PageContainer';
+import { useUpdateAssessment } from '@app/operations/mutations/Assessment/updateAssessment';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
 import { InstructorRelation } from './types';
 import { Toolbar } from './Toolbar';
 import { InstructorsSelect } from './InstructorsSelect';
@@ -7,13 +14,6 @@ import { AssessmentsSelect } from './AssessmentsSelect';
 import { InstructorsTableContainer } from './InstructorsTable/InstructorsTableContainer';
 import { InstructorsTableRow } from './InstructorsTable/InstructorsTableRow';
 import { openAssignInstructorModal } from './AssignInstructorModal/AssignInstructorModal';
-import { activePage } from '../../apollo_client';
-import { useInstructors } from '../../operations/queries/Users/getUsersByRole';
-import { useAssessments } from '../../operations/queries/Assessment/getAllAssessments';
-import { PrivilegedUser, Kindergarten } from '@app/graphql/types';
-import { PageContainer } from '../../components/PageContainer';
-import { useUpdateAssessment } from '../../operations/mutations/Assessment/updateAssessment';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
 
 const T_PREFIX = 'admin-instructors-page.table-toolbar';
 const T_PREFIX_SNACKBAR = 'admin-instructors-page.snackbars';
@@ -61,6 +61,7 @@ export default function AdminInstructorsPage() {
                 }
                 count={countUnassigned()}
             />
+
             <InstructorsTableContainer>
                 {getInstructorsRelations().map((relation) => (
                     <InstructorsTableRow
@@ -103,9 +104,11 @@ export default function AdminInstructorsPage() {
         });
 
         if (result.decision) {
-            updateAssessment(getSelectedAssessment()._id, result.decision.updates).then((e) => {
+            // eslint-disable-next-line no-void
+            void updateAssessment(getSelectedAssessment()._id, result.decision.updates).then((e) => {
                 refetchAssessments();
-                openSnackbar({
+                // eslint-disable-next-line no-void
+                void openSnackbar({
                     text: t(`${T_PREFIX_SNACKBAR}.assessment-updated`, { name: instructor.instructor.mail }),
                 });
             });
@@ -153,6 +156,13 @@ export default function AdminInstructorsPage() {
 
                 return true;
             })
+            .map((instructor) => ({
+                _id: instructor._id,
+                firstname: instructor.firstname,
+                lastname: instructor.lastname,
+                mail: instructor.mail,
+            }))
+            .sort(sortInstructorsByFullName)
             .map((instructor) => {
                 const kindergartens = relations
                     .filter((r) => {
@@ -169,4 +179,13 @@ export default function AdminInstructorsPage() {
                 };
             });
     }
+}
+
+function sortInstructorsByFullName(
+    a: { _id: string; firstname: string; lastname: string; mail: string },
+    b: { _id: string; firstname: string; lastname: string; mail: string },
+) {
+    const collator = new Intl.Collator('pl', { sensitivity: 'base' });
+
+    return collator.compare(`${a.lastname}${a.firstname}`.toLowerCase(), `${b.lastname}${b.firstname}`.toLowerCase());
 }

@@ -121,5 +121,8 @@
   },
   "_moduleAliases": {
     "@app": "dist"
+  },
+  "engines": {
+    "node": "14"
   }
 }

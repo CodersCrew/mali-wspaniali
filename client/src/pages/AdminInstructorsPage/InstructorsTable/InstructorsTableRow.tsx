@@ -19,12 +19,12 @@ import {
     AddCircle as AddIcon,
 } from '@material-ui/icons';
 
+import { Assessment, Kindergarten, User } from '@app/graphql/types';
+import { useUpdateAssessment } from '@app/operations/mutations/Assessment/updateAssessment';
+import { openQuestionDialog } from '@app/components/QuestionDialog';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
+import { useAssessments } from '@app/operations/queries/Assessment/getAllAssessments';
 import { InstructorRelation } from '../types';
-import { Assessment, Kindergarten, User } from '../../../graphql/types';
-import { useUpdateAssessment } from '../../../operations/mutations/Assessment/updateAssessment';
-import { openQuestionDialog } from '../../../components/QuestionDialog';
-import { openSnackbar } from '../../../components/Snackbar/openSnackbar';
-import { useAssessments } from '../../../operations/queries/Assessment/getAllAssessments';
 
 interface InstructorRowProps {
     relation: InstructorRelation;
@@ -61,14 +61,22 @@ export function InstructorsTableRow(props: InstructorRowProps) {
             >
                 <TableCell>
                     {props.relation.kindergartens.length > 0 && (
-                        <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setOpen((prevState) => !prevState)}
+                        >
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     )}
                 </TableCell>
-                <TableCell>{firstname}</TableCell>
+
                 <TableCell>{lastname}</TableCell>
+
+                <TableCell>{firstname}</TableCell>
+
                 <TableCell data-testid="instructor-mail">{mail}</TableCell>
+
                 <TableCell align="right" className={classes.kindergartenCell}>
                     {(props.isActive || props.relation.kindergartens.length > 0) && (
                         <Fade in={showAddButton} mountOnEnter unmountOnExit timeout={500}>
@@ -89,51 +97,58 @@ export function InstructorsTableRow(props: InstructorRowProps) {
                             </div>
                         </Fade>
                     )}
+
                     <span className={classes.countKindergarten}>{props.relation.kindergartens.length}</span>
                 </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell></TableCell>
-                <TableCell className={classes.collapseCell} colSpan={5}>
-                    <Collapse in={open && props.relation.kindergartens.length > 0} timeout="auto" unmountOnExit>
-                        <Box display="flex" alignItems="center" flexWrap="wrap">
-                            {t(`${T_PREFIX}.kindergartens-count`, { count: props.relation.kindergartens.length })}
-                            {props.relation.kindergartens.map((kindergarten) => (
-                                <Box m={1} ml={2} mb={1} key={kindergarten._id}>
-                                    <Chip
-                                        label={kindergarten.name}
-                                        onDelete={() => {
-                                            openQuestionDialog({
-                                                title: t(`${T_PREFIX}.unassign-dialog-title`),
-                                                description: t(`${T_PREFIX}.unassign-kindergarten-question`),
-                                                primaryButtonLabel: t(`${T_PREFIX}.unassign`),
-                                                color: 'primary',
-                                            }).then((result) => {
-                                                if (result.close) return;
 
-                                                if (result.decision?.accepted) {
-                                                    updateAssessment(props.assessment!._id, {
-                                                        kindergartens: filterKindergartens(kindergarten),
-                                                    })
-                                                        .then(refetchAssessments)
-                                                        .then(() =>
-                                                            openSnackbar({
-                                                                text: t(`${T_PREFIX}.unassign-kindergarten`, {
-                                                                    name: kindergarten.name,
-                                                                    mail: props.relation.instructor.mail,
+            {open && (
+                <TableRow>
+                    <TableCell></TableCell>
+
+                    <TableCell className={classes.collapseCell} colSpan={5}>
+                        <Collapse in={open && props.relation.kindergartens.length > 0} timeout="auto" unmountOnExit>
+                            <Box display="flex" alignItems="center" flexWrap="wrap">
+                                {t(`${T_PREFIX}.kindergartens-count`, { count: props.relation.kindergartens.length })}
+                                {props.relation.kindergartens.map((kindergarten) => (
+                                    <Box m={1} ml={2} mb={1} key={kindergarten._id}>
+                                        <Chip
+                                            label={kindergarten.name}
+                                            onDelete={() => {
+                                                // eslint-disable-next-line no-void
+                                                void openQuestionDialog({
+                                                    title: t(`${T_PREFIX}.unassign-dialog-title`),
+                                                    description: t(`${T_PREFIX}.unassign-kindergarten-question`),
+                                                    primaryButtonLabel: t(`${T_PREFIX}.unassign`),
+                                                    color: 'primary',
+                                                }).then((result) => {
+                                                    if (result.close) return;
+
+                                                    if (result.decision?.accepted) {
+                                                        // eslint-disable-next-line no-void
+                                                        void updateAssessment(props.assessment!._id, {
+                                                            kindergartens: filterKindergartens(kindergarten),
+                                                        })
+                                                            .then(refetchAssessments)
+                                                            .then(() =>
+                                                                openSnackbar({
+                                                                    text: t(`${T_PREFIX}.unassign-kindergarten`, {
+                                                                        name: kindergarten.name,
+                                                                        mail: props.relation.instructor.mail,
+                                                                    }),
                                                                 }),
-                                                            }),
-                                                        );
-                                                }
-                                            });
-                                        }}
-                                    />
-                                </Box>
-                            ))}
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
+                                                            );
+                                                    }
+                                                });
+                                            }}
+                                        />
+                                    </Box>
+                                ))}
+                            </Box>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            )}
         </>
     );
 
@@ -159,6 +174,8 @@ export function InstructorsTableRow(props: InstructorRowProps) {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
+            borderTop: `1px solid ${theme.palette.divider}`,
+
             '& > *': {
                 borderBottom: 'unset',
             },
