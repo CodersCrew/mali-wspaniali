@@ -9,9 +9,13 @@ export const InstructorsTableHead = () => {
         <TableHead>
             <TableRow>
                 <TableCell />
-                <TableCell>{t('admin-instructors-page.table.firstName')}</TableCell>
+
                 <TableCell>{t('admin-instructors-page.table.lastName')}</TableCell>
+
+                <TableCell>{t('admin-instructors-page.table.firstName')}</TableCell>
+
                 <TableCell>{t('admin-instructors-page.table.email')}</TableCell>
+
                 <TableCell align="right" className={classes.kindergartenCell}>
                     {t('admin-instructors-page.table.kindergarten-count')}
                 </TableCell>
