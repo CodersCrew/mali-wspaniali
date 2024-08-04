@@ -27,9 +27,10 @@ export type AssessmentPart = {
 interface Props {
     value: AssessmentPart;
     onChange: (value: AssessmentPart) => void;
+    disabled?: boolean;
 }
 
-export function TestToggleButton({ value, onChange }: Props) {
+export function TestToggleButton({ value, onChange, disabled }: Props) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -46,6 +47,7 @@ export function TestToggleButton({ value, onChange }: Props) {
             >
                 {assessmentParts.map((assessmentPart) => (
                     <ToggleButton
+                        disabled={disabled}
                         key={assessmentPart.type}
                         className={classes.ToggleButtonStyle}
                         value={assessmentPart}

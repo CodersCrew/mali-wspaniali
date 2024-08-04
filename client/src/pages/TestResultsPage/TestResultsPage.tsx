@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Grid, MenuItem } from '@material-ui/core/';
+import { Box, Grid, MenuItem, CircularProgress } from '@material-ui/core/';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
@@ -28,6 +28,7 @@ export default function TestResultsPage() {
     const classes = useStyles();
     const { t } = useTranslation();
     const [page, setPage] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const { kindergartenList, isKindergartenListLoading } = useKindergartensWithChildren(assessmentId, page);
     // const { assessmentResults } = useAssessmentResults(assessmentId);
@@ -79,6 +80,7 @@ export default function TestResultsPage() {
 
             const token = localStorage.getItem('token') || '';
 
+            setLoading(true);
             const response = await axios.get(url, {
                 headers: {
                     authorization: token,
@@ -90,6 +92,7 @@ export default function TestResultsPage() {
         } catch (error: unknown) {
             console.log({ error });
         }
+        setLoading(false);
     };
 
     if (!kindergartenList) return <NoResults />;
@@ -109,10 +112,15 @@ export default function TestResultsPage() {
                                         {assessment.title}
                                     </MenuItem>
                                 ))}
+                                disabled={loading}
                             />
                         </div>
 
-                        <TestToggleButton value={selectedAssessmentPart} onChange={handleSelectAssessmentType} />
+                        <TestToggleButton
+                            value={selectedAssessmentPart}
+                            onChange={handleSelectAssessmentType}
+                            disabled={loading}
+                        />
                     </Box>
 
                     <Box className={classes.optionsContainer} justifyContent={'flex-end'}>
@@ -120,7 +128,10 @@ export default function TestResultsPage() {
                             onClick={downloadResults}
                             icon={<SaveAltIcon />}
                             innerText={t('test-results.download-result')}
+                            disabled={loading}
                         />
+
+                        {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
                     </Box>
                 </Grid>
 
@@ -197,6 +208,18 @@ const useStyles = makeStyles((theme: Theme) =>
         ResultStatusText: {
             fontSize: 16,
             fontWeight: 500,
+        },
+        buttonProgress: {
+            color: theme.palette.secondary.main,
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+            zIndex: 1000,
+        },
+        buttonProgressText: {
+            color: theme.palette.action.hover,
         },
     }),
 );
