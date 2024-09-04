@@ -28,6 +28,7 @@ export class SendMail {
     }
 
     await this.sandboxProvider.send(options);
+    console.log('Emails processed:', options.bcc.length);
 
     return [];
   }
