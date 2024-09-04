@@ -12,6 +12,33 @@ export class FreshmailProvider implements Sendable {
     html: string;
   }): Promise<string[]> {
     const errors: string[] = [];
+    const chunkSize = 100;
+
+    for (let i = 0; i < options.bcc.length; i += chunkSize) {
+      const chunk = options.bcc.slice(i, i + chunkSize);
+      const error = await this.sendChunk({ ...options, bcc: chunk });
+      errors.push(...error);
+    }
+
+    return errors;
+  }
+
+  private createHeader() {
+    return { Authorization: `Bearer ${process.env.FRESHMAIL_TOKEN}` };
+  }
+
+  private getRootUrl() {
+    return 'https://api.freshmail.com/v3';
+  }
+
+  private async sendChunk(options: {
+    from: string;
+    bcc: string[];
+    subject: string;
+    text: string;
+    html: string;
+  }): Promise<string[]> {
+    const errors: string[] = [];
 
     await axios
       .post(
@@ -40,21 +67,13 @@ export class FreshmailProvider implements Sendable {
         },
         { headers: this.createHeader() },
       )
-      .then()
+      .then(() => {
+        console.log('Emails processed: ', options.bcc.length);
+      })
       .catch(error => {
-        error.response.data.errors.map(error => {
-          errors.push(error);
-        });
+        errors.push(...error.response.data.errors);
       });
 
     return errors;
-  }
-
-  private createHeader() {
-    return { Authorization: `Bearer ${process.env.FRESHMAIL_TOKEN}` };
-  }
-
-  private getRootUrl() {
-    return 'https://api.freshmail.com/v3';
   }
 }
