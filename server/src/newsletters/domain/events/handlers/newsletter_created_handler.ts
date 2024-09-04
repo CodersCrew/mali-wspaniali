@@ -55,7 +55,7 @@ export class NewsletterCreatedHandler
       );
     }
 
-    if (errors.length) {
+    if (errors?.length) {
       console.error('send mail ERRORS:', errors);
     }
 
