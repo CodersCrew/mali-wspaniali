@@ -20,20 +20,21 @@ export class NewsletterCreatedHandler
     private childRepository: ChildRepository,
   ) {}
 
-  async handle({ newsletter }: NewsletterCreatedEvent): Promise<void> {
+  async handle({ newsletter }: NewsletterCreatedEvent): Promise<string[]> {
+    let errors: string[] = [];
     await this.repository.create(newsletter);
 
     if (
       newsletter.recipients.length === 1 &&
       newsletter.recipients[0] === 'fundacja@mali-wspaniali.pl'
     ) {
-      await this.sendMailWith(newsletter, newsletter.recipients);
+      errors = await this.sendMailWith(newsletter, newsletter.recipients);
     }
 
     if (newsletter.type.includes('ALL')) {
       const users = await this.userRepository.getAll({ role: 'parent' });
 
-      await this.sendMailWith(
+      errors = await this.sendMailWith(
         newsletter,
         users.map(u => u.mail),
       );
@@ -48,15 +49,24 @@ export class NewsletterCreatedHandler
         children.map(c => c.id),
       );
 
-      await this.sendMailWith(
+      errors = await this.sendMailWith(
         newsletter,
         parents.map(u => u.mail),
       );
     }
+
+    if (errors.length) {
+      console.error('send mail ERRORS:', errors);
+    }
+
+    return errors;
   }
 
-  sendMailWith(newsletter: NewsletterCore, bcc: string[]) {
-    return this.sendMail.send({
+  async sendMailWith(
+    newsletter: NewsletterCore,
+    bcc: string[],
+  ): Promise<string[]> {
+    return await this.sendMail.send({
       from: process.env.SENDER,
       bcc,
       subject: newsletter.title,
