@@ -21,8 +21,9 @@ import ArrowedCell, { useArrowedCell } from '@app/components/ArrowedCell';
 import { BaseChildInfo } from '@app/graphql/types';
 import { useAssessmentResults } from '@app/operations/queries/Results/getAssessmentResults';
 
-import { ResultParametersInfo } from './ResultParametersInfo';
 import { getQuarter, parseToDetailedAge } from '@app/utils/parseDateToAge';
+import { useEffect } from 'react';
+import { ResultParametersInfo } from './ResultParametersInfo';
 
 interface Props {
     open: boolean;
@@ -36,16 +37,29 @@ const AGE_NAME = 'AgeName';
 export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }: Props) => {
     const { measurementType, assessmentId, kindergartenId } = parameterInfo;
     const classes = useStyles({ open });
-    const { t } = useTranslation();
+    const {
+        t,
+        i18n: { language },
+    } = useTranslation();
     const history = useHistory<object>();
     const [children, selectedSortableCell, cellParameters] = useArrowedCell(childrenInfo);
     const { kindergartenResults } = useAssessmentResults(kindergartenId, assessmentId);
 
+    const collator = new Intl.Collator('pl', { sensitivity: 'base' });
+
     const childCell = cellParameters(
         CHILD_NAME,
-        (c: BaseChildInfo, b: BaseChildInfo) => `${c.firstname} ${c.lastname}` < `${b.firstname} ${b.lastname}`,
+        (c: BaseChildInfo, b: BaseChildInfo) =>
+            collator.compare(
+                `${c.lastname}, ${c.firstname}`.toLowerCase(),
+                `${b.lastname}, ${b.firstname}`.toLowerCase(),
+            ) * (selectedSortableCell === childCell.name ? -1 : 1),
     );
-    const ageCell = cellParameters(AGE_NAME, (c: BaseChildInfo, b: BaseChildInfo) => (c.age ?? 0) < (b.age ?? 0));
+    const ageCell = cellParameters(
+        AGE_NAME,
+        (c: BaseChildInfo, b: BaseChildInfo) =>
+            collator.compare(String(c.age ?? 0), String(b.age ?? 0)) * (selectedSortableCell === ageCell.name ? -1 : 1),
+    );
 
     const onEditChildInfo = (childId: string) => {
         const actualPath = history.location.pathname;
@@ -63,6 +77,10 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
         });
     };
 
+    useEffect(() => {
+        childCell.setActive();
+    }, []);
+
     return (
         <TableRow className={classes.mainRow}>
             <TableCell className={classes.collapseCell} colSpan={6}>
@@ -77,15 +95,18 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                         onClick={childCell.changeActive}
                                         arrowSize="0.85em"
                                     />
+
                                     <ArrowedCell
                                         text={t('test-results.age')}
                                         isSelected={selectedSortableCell === ageCell.name}
                                         onClick={ageCell.changeActive}
                                         arrowSize="0.85em"
                                     />
+
                                     <TableCell />
                                 </TableRow>
                             </TableHead>
+
                             <TableBody>
                                 {children.map((child) => {
                                     const result = kindergartenResults.find((r) => r.childId === child._id);
@@ -107,8 +128,9 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                                 scope="row"
                                                 style={{ width: '46%' }}
                                             >
-                                                {child.firstname} {child.lastname}
+                                                {`${child.lastname}, ${child.firstname}`}
                                             </TableCell>
+
                                             <TableCell className={classes.cell}>
                                                 <Tooltip
                                                     title={
@@ -119,18 +141,21 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                                                     q: assessmentAge[1],
                                                                 })}
                                                             </div>
+
                                                             <div>
                                                                 {t('test-results.age-description.current-age', {
                                                                     age: realAge[0],
                                                                     q: realAge[1],
                                                                 })}
                                                             </div>
+
                                                             <div>
                                                                 {t('test-results.age-description.dob', {
                                                                     year: child.birthYear,
                                                                     q: child.birthQuarter,
                                                                 })}
                                                             </div>
+
                                                             <div>
                                                                 {t('test-results.age-description.current-date', {
                                                                     year: new Date().getFullYear(),
@@ -141,10 +166,13 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                                     }
                                                 >
                                                     <span>
-                                                        {child.age} {t('years_1')}
+                                                        {language === 'en'
+                                                            ? ` ${child.age || ''} ${t('years_2')}`
+                                                            : `${t('years_2')} ${child.age || ''}`}
                                                     </span>
                                                 </Tooltip>
                                             </TableCell>
+
                                             <TableCell className={classes.iconCell} align="right">
                                                 <Tooltip title={t('test-results.edit').toString()}>
                                                     <IconButton
@@ -155,6 +183,7 @@ export const KindergartenChildrenTable = ({ parameterInfo, open, childrenInfo }:
                                                         <EditIcon />
                                                     </IconButton>
                                                 </Tooltip>
+
                                                 {result && (
                                                     <Link to={`/instructor/results/${result._id}`}>
                                                         <Tooltip

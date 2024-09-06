@@ -16,8 +16,8 @@ import {
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { LabeledContainer } from '../../components/LabeledContainer';
 import { Kindergarten } from '@app/graphql/types';
+import { LabeledContainer } from '@app/components/LabeledContainer';
 
 interface Props {
     isDisabled: boolean;

@@ -90,6 +90,8 @@ export type User = Omit<Me, 'notifications'>;
 
 export type PrivilegedUser = Omit<User, 'children' | 'agreements'>;
 
+export type PrivilegedUserSimplified = Pick<PrivilegedUser, '_id' | 'mail' | 'firstname' | 'lastname'>;
+
 export interface Me {
     _id: string;
     mail: string;

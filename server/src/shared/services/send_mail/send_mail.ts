@@ -22,13 +22,14 @@ export class SendMail {
     private readonly freshmailService: FreshmailProvider,
   ) {}
 
-  send(options: MailOptions): void {
+  async send(options: MailOptions): Promise<string[]> {
     if (process.env.IS_PRODUCTION_MAIL === 'true') {
-      this.freshmailService.send(options);
-
-      return;
+      return await this.freshmailService.send(options);
     }
 
-    this.sandboxProvider.send(options);
+    await this.sandboxProvider.send(options);
+    console.log('Emails processed:', options.bcc.length);
+
+    return [];
   }
 }
