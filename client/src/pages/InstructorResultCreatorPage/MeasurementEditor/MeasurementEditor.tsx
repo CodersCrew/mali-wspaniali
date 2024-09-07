@@ -154,7 +154,7 @@ export function MeasurementEditor({
         onChange({ ...value, [name]: inputValue });
 
         if (origin === Origin.CHECKBOX && Number(inputValue) === 0) {
-            resultCreator.add(name);
+            resultCreator.add();
         }
     }
 
