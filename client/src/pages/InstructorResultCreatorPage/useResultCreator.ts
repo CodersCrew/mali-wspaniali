@@ -29,6 +29,7 @@ export interface ResultCreatorReturnProps {
     edited: string;
     kindergartenResults: AssessmentResult[];
     edit: (name: string) => void;
+    add: (name: string) => void;
 }
 
 export interface ResultCreatorErrorReturnProps {
@@ -71,9 +72,15 @@ export function useResultCreator({
         localStorage.setItem('edited', name);
     };
 
+    const add = (name: string) => {
+        setEdited('');
+        localStorage.removeItem('edited');
+    };
+
     return {
         assessments,
         edit,
+        add,
         edited,
         error: null,
         kindergartenResults,

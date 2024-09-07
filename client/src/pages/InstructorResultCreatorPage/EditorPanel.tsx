@@ -53,16 +53,12 @@ export function EditorPanel({ resultCreator, measurement, onClick, isLoading }: 
     };
 
     const handleChange = (value: MeasurementValues) => {
-        console.log('%c EditorPanel: ', 'color: black; background-color: yellow', {
-            localResult,
-            value,
-            resultCreator,
+        setLocalResult((prev) => {
+            return {
+                ...prev,
+                ...value,
+            };
         });
-
-        setLocalResult((prev) => ({
-            ...prev,
-            ...value,
-        }));
     };
 
     return (

@@ -17,6 +17,13 @@ import { ButtonSecondary } from '@app/components/Button';
 import { useIsDevice } from '@app/queries/useBreakpoints';
 import { AssessmentParam } from '@app/graphql/types';
 
+// eslint-disable-next-line no-shadow
+export enum Origin {
+    INPUT = 'input',
+    CHECKBOX = 'checkbox',
+    SLIDER = 'slider',
+}
+
 interface Props {
     changeDate?: string;
     color: string;
@@ -24,7 +31,7 @@ interface Props {
     isEmpty: boolean;
     label: string;
     maxValue: number;
-    onChange: (value: string) => void;
+    onChange: (value: string, origin: Origin) => void;
     onClick: () => void;
     param: AssessmentParam;
     points: number;
@@ -132,12 +139,12 @@ export const MeasurementPoint = memo((props: Props) => {
 
             <Grid item>
                 <FormControlLabel
-                    checked={props.points === 0}
+                    checked={props.isEmpty}
                     disabled={props.isEmpty}
                     control={<Checkbox color="default" />}
                     label={<Typography variant="body1">{t('add-result-page.no-result')}</Typography>}
                     labelPlacement="end"
-                    onChange={() => props.onChange('0')}
+                    onChange={() => props.onChange('0', Origin.CHECKBOX)}
                 />
             </Grid>
         </Grid>
@@ -148,13 +155,16 @@ export const MeasurementPoint = memo((props: Props) => {
         const vv = v
             .replace(/[^\d.]/g, '')
             .replace(/,/g, '.')
+            .replace(/\.\./g, '.')
             .replace(/(\.\d{1})\d*/g, '$1');
 
-        return props.onChange(vv);
+        return props.onChange(vv, Origin.INPUT);
     }
 
     function handleSliderChange(_: React.ChangeEvent<{}>, v: number | number[]) {
-        return props.onChange((v as number).toFixed(1));
+        const value = (v as number).toFixed(1);
+
+        return props.onChange(value, Origin.SLIDER);
     }
 
     function getMarks() {

@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { AssessmentParam } from '@app/graphql/types';
 import { theme } from '@app/theme/theme';
 import { OutlinedTextField } from '@app/components/OutlinedTextField';
-import { useEffect } from 'react';
 import dayjs from '@app/localizedMoment';
-import { MeasurementPoint } from './MeasurementPoint';
+import { MeasurementPoint, Origin } from './MeasurementPoint';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 
@@ -37,6 +36,7 @@ export function MeasurementEditor({
 }: MeasurementEditorProps) {
     const classes = useStyles();
     const { t } = useTranslation();
+
     const LENGTH_LIMIT = 500;
 
     const { selectedChild: child } = resultCreator;
@@ -49,11 +49,6 @@ export function MeasurementEditor({
         return <Typography variant="body1">{"The child doesn't suit to the test"}</Typography>;
     }
 
-    useEffect(() => {
-        // TODO: remove!
-        console.log('%c resultCreator: ', 'color: black; background-color: yellow', { resultCreator });
-    }, [resultCreator]);
-
     return (
         <Grid container justifyContent="space-between" direction="column" spacing={1} className={classes.container}>
             <Grid item>
@@ -64,7 +59,7 @@ export function MeasurementEditor({
                     isEmpty={resultCreator.values.pendelumRun === 0 && resultCreator.edited !== 'pendelumRun'}
                     label={t('add-result-page.dexterity')}
                     maxValue={pendelumRun.lowerLimitPoints}
-                    onChange={(inputValue) => handleChange(inputValue, 'pendelumRun')}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'pendelumRun', origin)}
                     onClick={() => onEditClick('pendelumRun')}
                     param={pendelumRun}
                     points={countPoints(value.pendelumRun, pendelumRun)}
@@ -82,7 +77,7 @@ export function MeasurementEditor({
                     isEmpty={resultCreator.values.jump === 0 && resultCreator.edited !== 'jump'}
                     label={t('add-result-page.power')}
                     maxValue={jump.upperLimitPoints}
-                    onChange={(inputValue) => handleChange(inputValue, 'jump')}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'jump', origin)}
                     onClick={() => onEditClick('jump')}
                     param={jump}
                     points={countInvertedPoints(value.jump, jump)}
@@ -100,7 +95,7 @@ export function MeasurementEditor({
                     isEmpty={resultCreator.values.throw === 0 && resultCreator.edited !== 'throw'}
                     label={t('add-result-page.strength')}
                     maxValue={_throw.upperLimitPoints}
-                    onChange={(inputValue) => handleChange(inputValue, 'throw')}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'throw', origin)}
                     onClick={() => onEditClick('throw')}
                     param={_throw}
                     points={countInvertedPoints(value.throw, _throw)}
@@ -118,7 +113,7 @@ export function MeasurementEditor({
                     isEmpty={resultCreator.values.run === 0 && resultCreator.edited !== 'run'}
                     label={t('add-result-page.velocity')}
                     maxValue={run.lowerLimitPoints}
-                    onChange={(inputValue) => handleChange(inputValue, 'run')}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'run', origin)}
                     onClick={() => onEditClick('run')}
                     param={run}
                     points={countPoints(value.run, run)}
@@ -155,8 +150,12 @@ export function MeasurementEditor({
         </Grid>
     );
 
-    function handleChange(inputValue: string, name: string) {
+    function handleChange(inputValue: string, name: string, origin: Origin) {
         onChange({ ...value, [name]: inputValue });
+
+        if (origin === Origin.CHECKBOX && Number(inputValue) === 0) {
+            resultCreator.add(name);
+        }
     }
 
     function getPendelumRunMeasurementDate() {
