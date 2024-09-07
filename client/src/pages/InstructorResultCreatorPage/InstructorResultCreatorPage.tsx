@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { activePage } from '../../apollo_client';
-import { PageContainer } from '../../components/PageContainer';
-import { openSnackbar } from '../../components/Snackbar/openSnackbar';
+import { activePage } from '@app/apollo_client';
+import { PageContainer } from '@app/components/PageContainer';
+import { openSnackbar } from '@app/components/Snackbar/openSnackbar';
 
-import { useIsDevice } from '../../queries/useBreakpoints';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
-} from '../../operations/mutations/Results/updateAssessmentResult';
+} from '@app/operations/mutations/Results/updateAssessmentResult';
 import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
-} from '../../operations/mutations/Results/createAssessmentResult';
+} from '@app/operations/mutations/Results/createAssessmentResult';
 import {
     ResultCreatorErrorReturnProps,
     ResultCreatorReturnProps,

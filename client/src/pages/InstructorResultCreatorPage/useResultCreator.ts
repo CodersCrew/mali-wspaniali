@@ -29,6 +29,7 @@ export interface ResultCreatorReturnProps {
     edited: string;
     kindergartenResults: AssessmentResult[];
     edit: (name: string) => void;
+    add: () => void;
 }
 
 export interface ResultCreatorErrorReturnProps {
@@ -66,20 +67,28 @@ export function useResultCreator({
         };
     }
 
+    const edit = (name: string) => {
+        setEdited(name);
+        localStorage.setItem('edited', name);
+    };
+
+    const add = () => {
+        setEdited('');
+        localStorage.removeItem('edited');
+    };
+
     return {
         assessments,
-        values: getResultValue(),
+        edit,
+        add,
+        edited,
+        error: null,
+        kindergartenResults,
         selectedAssessment,
-        selectedKindergarten,
         selectedChild,
         selectedGroup: groupId,
-        error: null,
-        edited,
-        kindergartenResults,
-        edit: (name: string) => {
-            setEdited(name);
-            localStorage.setItem('edited', name);
-        },
+        selectedKindergarten,
+        values: getResultValue(),
     };
 
     function getResultValue() {
