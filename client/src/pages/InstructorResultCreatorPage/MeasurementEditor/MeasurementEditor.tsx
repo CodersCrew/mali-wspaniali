@@ -3,19 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { AssessmentParam } from '@app/graphql/types';
 import { theme } from '@app/theme/theme';
 import { OutlinedTextField } from '@app/components/OutlinedTextField';
-import { MeasurementPoint } from './MeasurementPoint';
-import dayjs from '../../../localizedMoment';
+import dayjs from '@app/localizedMoment';
+import { MeasurementPoint, Origin } from './MeasurementPoint';
 import { countPoints, countInvertedPoints } from '../countPoints';
 import { ResultCreatorReturnProps, AssessmentValues } from '../useResultCreator';
 
-interface MeasurementValues {
+export interface MeasurementValues {
     run: number;
     pendelumRun: number;
     throw: number;
     jump: number;
 }
 
-interface Props {
+interface MeasurementEditorProps {
     resultCreator: ResultCreatorReturnProps;
     measurement: string;
     value: AssessmentValues;
@@ -25,18 +25,25 @@ interface Props {
     onEditClick: (name: string) => void;
 }
 
-export function MeasurementEditor(props: Props) {
+export function MeasurementEditor({
+    resultCreator,
+    value,
+    onChange,
+    onEditClick,
+    note,
+    onNoteChange,
+    measurement,
+}: MeasurementEditorProps) {
     const classes = useStyles();
     const { t } = useTranslation();
+
     const LENGTH_LIMIT = 500;
 
-    const { selectedChild: child } = props.resultCreator;
+    const { selectedChild: child } = resultCreator;
 
     const { run, pendelumRun, jump, throw: _throw } = child.currentParams!;
 
-    const result = props.resultCreator.kindergartenResults.find(
-        (r) => r.childId === props.resultCreator.selectedChild._id,
-    );
+    const result = resultCreator.kindergartenResults.find((r) => r.childId === resultCreator.selectedChild._id);
 
     if (!child.currentParams || !run || !pendelumRun || !jump || !_throw) {
         return <Typography variant="body1">{"The child doesn't suit to the test"}</Typography>;
@@ -46,89 +53,93 @@ export function MeasurementEditor(props: Props) {
         <Grid container justifyContent="space-between" direction="column" spacing={1} className={classes.container}>
             <Grid item>
                 <MeasurementPoint
-                    isEmpty={
-                        props.resultCreator.values.pendelumRun === 0 && props.resultCreator.edited !== 'pendelumRun'
-                    }
-                    step={0.1}
-                    maxValue={pendelumRun.lowerLimitPoints}
-                    param={pendelumRun}
-                    points={countPoints(props.value.pendelumRun, pendelumRun)}
-                    color={getInvertedColor(props.value.pendelumRun, pendelumRun)}
-                    value={props.value.pendelumRun}
                     changeDate={getPendelumRunMeasurementDate()}
-                    unit="s"
+                    color={getInvertedColor(value.pendelumRun, pendelumRun)}
+                    disabled={resultCreator.edited === 'pendelumRun'}
+                    isEmpty={resultCreator.values.pendelumRun === 0 && resultCreator.edited !== 'pendelumRun'}
                     label={t('add-result-page.dexterity')}
-                    disabled={props.resultCreator.edited === 'pendelumRun'}
-                    onChange={(value) => props.onChange({ ...props.value, pendelumRun: value })}
-                    onClick={() => props.onEditClick('pendelumRun')}
-                />
-            </Grid>
-            <Grid item>
-                <MeasurementPoint
-                    isEmpty={props.resultCreator.values.jump === 0 && props.resultCreator.edited !== 'jump'}
-                    step={1}
-                    maxValue={jump.upperLimitPoints}
-                    param={jump}
-                    points={countInvertedPoints(props.value.jump, jump)}
-                    color={getColor(props.value.jump, jump)}
-                    value={props.value.jump}
-                    changeDate={getJumpMeasurementDate()}
-                    unit="cm"
-                    label={t('add-result-page.power')}
-                    disabled={props.resultCreator.edited === 'jump'}
-                    onChange={(value) => props.onChange({ ...props.value, jump: value })}
-                    onClick={() => props.onEditClick('jump')}
-                />
-            </Grid>
-            <Grid item>
-                <MeasurementPoint
-                    isEmpty={props.resultCreator.values.throw === 0 && props.resultCreator.edited !== 'throw'}
-                    step={10}
-                    maxValue={_throw.upperLimitPoints}
-                    param={_throw}
-                    points={countInvertedPoints(props.value.throw, _throw)}
-                    color={getColor(props.value.throw, _throw)}
-                    value={props.value.throw}
-                    changeDate={getThrowMeasurementDate()}
-                    unit="cm"
-                    label={t('add-result-page.strength')}
-                    disabled={props.resultCreator.edited === 'throw'}
-                    onChange={(value) => props.onChange({ ...props.value, throw: value })}
-                    onClick={() => props.onEditClick('throw')}
-                />
-            </Grid>
-            <Grid item>
-                <MeasurementPoint
-                    isEmpty={props.resultCreator.values.run === 0 && props.resultCreator.edited !== 'run'}
+                    maxValue={pendelumRun.lowerLimitPoints}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'pendelumRun', origin)}
+                    onClick={() => onEditClick('pendelumRun')}
+                    param={pendelumRun}
+                    points={countPoints(value.pendelumRun, pendelumRun)}
                     step={0.1}
-                    maxValue={run.lowerLimitPoints}
-                    param={run}
-                    points={countPoints(props.value.run, run)}
-                    color={getInvertedColor(props.value.run, run)}
-                    value={props.value.run}
-                    changeDate={getRunMeasurementDate()}
                     unit="s"
-                    label={t('add-result-page.velocity')}
-                    disabled={props.resultCreator.edited === 'run'}
-                    onChange={(value) => props.onChange({ ...props.value, run: value })}
-                    onClick={() => props.onEditClick('run')}
+                    value={value.pendelumRun}
                 />
             </Grid>
+
+            <Grid item>
+                <MeasurementPoint
+                    changeDate={getJumpMeasurementDate()}
+                    color={getColor(value.jump, jump)}
+                    disabled={resultCreator.edited === 'jump'}
+                    isEmpty={resultCreator.values.jump === 0 && resultCreator.edited !== 'jump'}
+                    label={t('add-result-page.power')}
+                    maxValue={jump.upperLimitPoints}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'jump', origin)}
+                    onClick={() => onEditClick('jump')}
+                    param={jump}
+                    points={countInvertedPoints(value.jump, jump)}
+                    step={1}
+                    unit="cm"
+                    value={value.jump}
+                />
+            </Grid>
+
+            <Grid item>
+                <MeasurementPoint
+                    changeDate={getThrowMeasurementDate()}
+                    color={getColor(value.throw, _throw)}
+                    disabled={resultCreator.edited === 'throw'}
+                    isEmpty={resultCreator.values.throw === 0 && resultCreator.edited !== 'throw'}
+                    label={t('add-result-page.strength')}
+                    maxValue={_throw.upperLimitPoints}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'throw', origin)}
+                    onClick={() => onEditClick('throw')}
+                    param={_throw}
+                    points={countInvertedPoints(value.throw, _throw)}
+                    step={10}
+                    unit="cm"
+                    value={value.throw}
+                />
+            </Grid>
+
+            <Grid item>
+                <MeasurementPoint
+                    changeDate={getRunMeasurementDate()}
+                    color={getInvertedColor(value.run, run)}
+                    disabled={resultCreator.edited === 'run'}
+                    isEmpty={resultCreator.values.run === 0 && resultCreator.edited !== 'run'}
+                    label={t('add-result-page.velocity')}
+                    maxValue={run.lowerLimitPoints}
+                    onChange={(inputValue, origin) => handleChange(inputValue, 'run', origin)}
+                    onClick={() => onEditClick('run')}
+                    param={run}
+                    points={countPoints(value.run, run)}
+                    step={0.1}
+                    unit="s"
+                    value={value.run}
+                />
+            </Grid>
+
             <Grid item>
                 <Box mb={2}>
                     <Typography variant="subtitle2">{t('add-result-page.note')}</Typography>
                 </Box>
+
                 <OutlinedTextField
-                    value={props.note || ''}
+                    onChange={(inputValue) => inputValue.length <= LENGTH_LIMIT && onNoteChange(inputValue)}
                     options={{ multiline: true, minRows: 7 }}
-                    onChange={(value) => value.length <= LENGTH_LIMIT && props.onNoteChange(value)}
+                    value={note || ''}
                 />
+
                 <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Box mt={1}>
                             <Typography variant="caption" color="textSecondary">
                                 {t('add-results-page.add-note-modal.text-limit', {
-                                    noteLength: props.note?.length || 0,
+                                    noteLength: note?.length || 0,
                                     noteLimit: LENGTH_LIMIT,
                                 })}
                             </Typography>
@@ -139,10 +150,18 @@ export function MeasurementEditor(props: Props) {
         </Grid>
     );
 
+    function handleChange(inputValue: string, name: string, origin: Origin) {
+        onChange({ ...value, [name]: inputValue });
+
+        if (origin === Origin.CHECKBOX && Number(inputValue) === 0) {
+            resultCreator.add();
+        }
+    }
+
     function getPendelumRunMeasurementDate() {
         let date: Date | undefined;
 
-        if (props.measurement === 'first') {
+        if (measurement === 'first') {
             date = result?.firstMeasurementPendelumRunDate;
         } else {
             date = result?.lastMeasurementPendelumRunDate;
@@ -156,7 +175,7 @@ export function MeasurementEditor(props: Props) {
     function getRunMeasurementDate() {
         let date: Date | undefined;
 
-        if (props.measurement === 'first') {
+        if (measurement === 'first') {
             date = result?.firstMeasurementRunDate;
         } else {
             date = result?.lastMeasurementRunDate;
@@ -170,7 +189,7 @@ export function MeasurementEditor(props: Props) {
     function getThrowMeasurementDate() {
         let date: Date | undefined;
 
-        if (props.measurement === 'first') {
+        if (measurement === 'first') {
             date = result?.firstMeasurementThrowDate;
         } else {
             date = result?.lastMeasurementThrowDate;
@@ -184,7 +203,7 @@ export function MeasurementEditor(props: Props) {
     function getJumpMeasurementDate() {
         let date: Date | undefined;
 
-        if (props.measurement === 'first') {
+        if (measurement === 'first') {
             date = result?.firstMeasurementJumpDate;
         } else {
             date = result?.lastMeasurementJumpDate;
@@ -195,25 +214,25 @@ export function MeasurementEditor(props: Props) {
         return dayjs(date).fromNow();
     }
 
-    function getColor(value: number, param: AssessmentParam) {
-        if (value <= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
+    function getColor(limit: number, param: AssessmentParam) {
+        if (limit <= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
 
-        if (value <= param.middleStageLimit)
+        if (limit <= param.middleStageLimit)
             return (theme.palette?.warning as SimplePaletteColorOptions).main || 'yellow';
 
-        if (value <= param.goodStageLimit)
+        if (limit <= param.goodStageLimit)
             return (theme.palette?.success as SimplePaletteColorOptions).light || 'green';
 
         return (theme.palette?.success as SimplePaletteColorOptions).main || 'green';
     }
 
-    function getInvertedColor(value: number, param: AssessmentParam) {
-        if (value >= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
+    function getInvertedColor(limit: number, param: AssessmentParam) {
+        if (limit >= param.weakStageLimit) return (theme.palette?.error as SimplePaletteColorOptions).main || 'red';
 
-        if (value >= param.middleStageLimit)
+        if (limit >= param.middleStageLimit)
             return (theme.palette?.warning as SimplePaletteColorOptions).main || 'yellow';
 
-        if (value >= param.goodStageLimit)
+        if (limit >= param.goodStageLimit)
             return (theme.palette?.warning as SimplePaletteColorOptions).light || 'green';
 
         return (theme.palette?.success as SimplePaletteColorOptions).main || 'green';
