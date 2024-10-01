@@ -89,7 +89,9 @@ export default function InstructorResultCreatorPage() {
 
         if (type === MeasurementEditorActionType.CHILD) {
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${resultCreator.selectedGroup}/${value}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${
+                    resultCreator.selectedGroup
+                }/${value as string}`,
             );
         }
 
@@ -106,12 +108,16 @@ export default function InstructorResultCreatorPage() {
             const firstChildren = currentSelectedKindergarten?.children![0];
 
             if (firstChildren) {
-                pushHistory(`${measurement}/${resultCreator.selectedAssessment._id}/${value}/all/${firstChildren._id}`);
+                pushHistory(
+                    `${measurement}/${resultCreator.selectedAssessment._id}/${value as string}/all/${
+                        firstChildren._id
+                    }`,
+                );
             }
         }
 
         if (type === MeasurementEditorActionType.GROUP) {
-            pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value}/${childId}`);
+            pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value as string}/${childId}`);
         }
 
         if (type === MeasurementEditorActionType.BACK_TO_TABLE) {
@@ -144,7 +150,8 @@ export default function InstructorResultCreatorPage() {
     function onSaveSnackbar(results: ResultCreatorReturnProps) {
         const { edited, selectedChild } = results;
 
-        openSnackbar({
+        // eslint-disable-next-line no-void
+        void openSnackbar({
             text: `${t('add-result-page.result-saved-snackbar-1')}${t(`add-result-page.${edited}`)}${t(
                 'add-result-page.result-saved-snackbar-2',
             )}${selectedChild.firstname} ${selectedChild?.lastname}`,
@@ -177,9 +184,11 @@ export default function InstructorResultCreatorPage() {
         const childResult = results.kindergartenResults.find((r) => r.childId === update.childId);
 
         if (childResult) {
-            updateAssessmentResult({ _id: childResult._id, ...update });
+            // eslint-disable-next-line no-void
+            void updateAssessmentResult({ _id: childResult._id, ...update });
         } else {
-            createAssessmentResult(update);
+            // eslint-disable-next-line no-void
+            void createAssessmentResult(update);
         }
     }
 
@@ -208,7 +217,9 @@ export default function InstructorResultCreatorPage() {
 
         if (foundNextChild) {
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${resultCreator.selectedGroup}/${foundNextChild._id}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${
+                    resultCreator.selectedGroup || ''
+                }/${foundNextChild._id}`,
             );
         }
     }

@@ -5,9 +5,9 @@ import { Grid, Typography, Box } from '@material-ui/core';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
-import { useIsDevice } from '../../../queries/useBreakpoints';
-import { Assessment, Group } from '../../../graphql/types';
-import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+import { Assessment, Group } from '@app/graphql/types';
+import { ButtonSecondary } from '@app/components/Button';
 
 import { openGroupsModal } from './GroupsModal';
 import { GroupsChip } from './GroupsChip';
