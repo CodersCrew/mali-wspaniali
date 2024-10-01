@@ -4,6 +4,7 @@ import { Grid, Typography, Box } from '@material-ui/core';
 
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 import { useIsDevice } from '../../../queries/useBreakpoints';
 import { Assessment, Group } from '../../../graphql/types';
 import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
@@ -22,7 +23,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
     const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const toggleOrSelect = (groupId: string) => {
-        props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
+        props.onChange(MeasurementEditorActionType.GROUP, props.selectedGroup === groupId ? '' : groupId);
     };
 
     const { t } = useTranslation();

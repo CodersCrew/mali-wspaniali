@@ -18,6 +18,7 @@ import {
     useUpdateAssessmentResult,
     UpdatedAssessmentInput,
 } from '@app/operations/mutations/Results/updateAssessmentResult';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 import { AssessmentSubheader } from './AssessmentSubheader';
 import { ChildListCompactContainer } from './ChildListCompactContainer';
 import { NoAssessmentView } from './NoAssessmentsView';
@@ -160,13 +161,13 @@ export default function InstructorAddResultsPage() {
             return;
         }
 
-        if (type === 'group') {
+        if (type === MeasurementEditorActionType.GROUP) {
             setSelectedGroup(value);
 
             return;
         }
 
-        if (type === 'kindergarten') {
+        if (type === MeasurementEditorActionType.KINDERGARTEN) {
             setSelectedGroup('');
             setSelectedKindergarten(value);
         }

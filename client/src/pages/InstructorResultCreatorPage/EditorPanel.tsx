@@ -11,6 +11,7 @@ import {
 import { ButtonSecondary } from '@app/components/Button';
 import { ActionMenuButtonSecondary } from '@app/components/Button/ActionMenuButtonSecondary';
 import { AssessmentParam } from '@app/graphql/types';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 
 interface EditorPanelProps {
     isLoading: boolean;
@@ -96,7 +97,10 @@ export function EditorPanel({ resultCreator, measurement, onClick, isLoading }: 
                 <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Box mr={2}>
-                            <ButtonSecondary onClick={() => onClick('back-to-table', '')} variant="text">
+                            <ButtonSecondary
+                                onClick={() => onClick(MeasurementEditorActionType.BACK_TO_TABLE, '')}
+                                variant="text"
+                            >
                                 {t('add-result-page.back-to-table')}
                             </ButtonSecondary>
                         </Box>
@@ -107,7 +111,12 @@ export function EditorPanel({ resultCreator, measurement, onClick, isLoading }: 
                             <ButtonSecondary
                                 variant="contained"
                                 disabled={isLoading}
-                                onClick={() => onClick('save-and-back-to-table', { ...localResult, note: localNote })}
+                                onClick={() =>
+                                    onClick(MeasurementEditorActionType.SAVE_AND_BACK_TO_TABLE, {
+                                        ...localResult,
+                                        note: localNote,
+                                    })
+                                }
                             >
                                 {t('add-result-page.save-and-back-to-table')}
                             </ButtonSecondary>
@@ -115,11 +124,19 @@ export function EditorPanel({ resultCreator, measurement, onClick, isLoading }: 
                             <ActionMenuButtonSecondary
                                 isDisabled={isLoading}
                                 label={t('add-result-page.save-and-next')}
-                                onClick={() => onClick('save-and-next', { ...localResult, note: localNote })}
+                                onClick={() =>
+                                    onClick(MeasurementEditorActionType.SAVE_AND_NEXT, {
+                                        ...localResult,
+                                        note: localNote,
+                                    })
+                                }
                                 options={[
                                     <MenuItem
                                         onClick={() =>
-                                            onClick('save-and-back-to-table', { ...localResult, note: localNote })
+                                            onClick(MeasurementEditorActionType.SAVE_AND_BACK_TO_TABLE, {
+                                                ...localResult,
+                                                note: localNote,
+                                            })
                                         }
                                         key="add-result-page.save-and-back-to-table"
                                     >

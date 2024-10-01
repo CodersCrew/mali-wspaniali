@@ -15,6 +15,7 @@ import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '@app/operations/mutations/Results/createAssessmentResult';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 import {
     ResultCreatorErrorReturnProps,
     ResultCreatorReturnProps,
@@ -41,7 +42,7 @@ interface HistoryResultCreatorParams {
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, groupId, measurement } = useParams<PageParams>();
     const { createAssessmentResult, isCreationPending } = useCreateAssessmentResult();
-    const { updateAssessmentResult, isUpdateending: isUpdatePending } = useUpdateAssessmentResult();
+    const { updateAssessmentResult, isUpdatePending } = useUpdateAssessmentResult();
 
     const history = useHistory<HistoryResultCreatorParams | undefined>();
 
@@ -86,17 +87,19 @@ export default function InstructorResultCreatorPage() {
             return;
         }
 
-        if (type === 'child') {
+        if (type === MeasurementEditorActionType.CHILD) {
             pushHistory(
                 `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${resultCreator.selectedGroup}/${value}`,
             );
         }
 
-        if (type === 'measurement') {
-            pushHistory(`${value}/${assessmentId}/${kindergartenId}/${resultCreator.selectedGroup}/${childId}`);
+        if (type === MeasurementEditorActionType.MEASUREMENT) {
+            pushHistory(
+                `${value as string}/${assessmentId}/${kindergartenId}/${resultCreator.selectedGroup}/${childId}`,
+            );
         }
 
-        if (type === 'kindergarten') {
+        if (type === MeasurementEditorActionType.KINDERGARTEN) {
             const currentSelectedKindergarten = resultCreator.selectedAssessment?.kindergartens.find(
                 (k) => k.kindergarten?._id === value,
             )?.kindergarten;
@@ -107,15 +110,15 @@ export default function InstructorResultCreatorPage() {
             }
         }
 
-        if (type === 'group') {
+        if (type === MeasurementEditorActionType.GROUP) {
             pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value}/${childId}`);
         }
 
-        if (type === 'back-to-table') {
+        if (type === MeasurementEditorActionType.BACK_TO_TABLE) {
             redirectToResultTable();
         }
 
-        if (type === 'save-and-next') {
+        if (type === MeasurementEditorActionType.SAVE_AND_NEXT) {
             createOrUpdateResult(
                 { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
                 resultCreator,
@@ -126,7 +129,7 @@ export default function InstructorResultCreatorPage() {
             redirectToNextChild();
         }
 
-        if (type === 'save-and-back-to-table') {
+        if (type === MeasurementEditorActionType.SAVE_AND_BACK_TO_TABLE) {
             createOrUpdateResult(
                 { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
                 resultCreator,
