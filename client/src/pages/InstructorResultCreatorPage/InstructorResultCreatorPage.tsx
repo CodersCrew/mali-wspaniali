@@ -83,15 +83,15 @@ export default function InstructorResultCreatorPage() {
     }
 
     function handleClick(type: string, value: string | AssessmentValues) {
+        if (isResultCreatorErrorReturnProps(resultCreator)) {
+            return;
+        }
+
         const convertValuesToNumber = (valuesToConvert: AssessmentValues) => {
             return Object.fromEntries(
                 Object.entries(valuesToConvert).map(([key, val]) => (key === 'note' ? [key, val] : [key, Number(val)])),
             );
         };
-
-        if (isResultCreatorErrorReturnProps(resultCreator)) {
-            return;
-        }
 
         if (type === MeasurementEditorActionType.CHILD) {
             pushHistory(
@@ -140,6 +140,8 @@ export default function InstructorResultCreatorPage() {
 
             onSaveSnackbar(resultCreator);
 
+            resultCreator.add();
+
             redirectToNextChild();
         }
 
@@ -152,6 +154,8 @@ export default function InstructorResultCreatorPage() {
             );
 
             onSaveSnackbar(resultCreator);
+
+            resultCreator.add();
 
             redirectToResultTable();
         }
