@@ -83,6 +83,12 @@ export default function InstructorResultCreatorPage() {
     }
 
     function handleClick(type: string, value: string | AssessmentValues) {
+        const convertValuesToNumber = (valuesToConvert: AssessmentValues) => {
+            return Object.fromEntries(
+                Object.entries(valuesToConvert).map(([key, val]) => (key === 'note' ? [key, val] : [key, Number(val)])),
+            );
+        };
+
         if (isResultCreatorErrorReturnProps(resultCreator)) {
             return;
         }
@@ -125,8 +131,10 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === MeasurementEditorActionType.SAVE_AND_NEXT) {
+            const results = convertValuesToNumber(value as AssessmentValues);
+
             createOrUpdateResult(
-                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(results as AssessmentValues) },
                 resultCreator,
             );
 
@@ -136,8 +144,10 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === MeasurementEditorActionType.SAVE_AND_BACK_TO_TABLE) {
+            const results = convertValuesToNumber(value as AssessmentValues);
+
             createOrUpdateResult(
-                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(results as AssessmentValues) },
                 resultCreator,
             );
 
