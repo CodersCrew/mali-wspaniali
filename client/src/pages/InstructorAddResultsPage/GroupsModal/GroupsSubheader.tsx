@@ -4,9 +4,10 @@ import { Grid, Typography, Box } from '@material-ui/core';
 
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
-import { useIsDevice } from '../../../queries/useBreakpoints';
-import { Assessment, Group } from '../../../graphql/types';
-import { ButtonSecondary } from '../../../components/Button/ButtonSecondary';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
+import { useIsDevice } from '@app/queries/useBreakpoints';
+import { Assessment, Group } from '@app/graphql/types';
+import { ButtonSecondary } from '@app/components/Button';
 
 import { openGroupsModal } from './GroupsModal';
 import { GroupsChip } from './GroupsChip';
@@ -22,7 +23,7 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
     const [groups, setGroups] = useState<Group[]>([]);
     const currentAssessment = props.assessments.find((a) => a._id === props.selectedAssessment);
     const toggleOrSelect = (groupId: string) => {
-        props.onChange('group', props.selectedGroup === groupId ? '' : groupId);
+        props.onChange(MeasurementEditorActionType.GROUP, props.selectedGroup === groupId ? '' : groupId);
     };
 
     const { t } = useTranslation();
@@ -85,7 +86,8 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
     );
 
     function onGroupClicked() {
-        openGroupsModal({
+        // eslint-disable-next-line no-void
+        void openGroupsModal({
             ...props,
             assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
         });

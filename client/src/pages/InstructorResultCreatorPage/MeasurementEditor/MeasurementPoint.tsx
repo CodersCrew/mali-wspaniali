@@ -56,7 +56,7 @@ export const MeasurementPoint = memo((props: Props) => {
                         {props.changeDate && <Typography variant="overline">({props.changeDate})</Typography>}
                     </Grid>
 
-                    <Grid item>{<SelectButton disabled={props.disabled} onClick={props.onClick} />}</Grid>
+                    <Grid item>{<SelectButton disabled={!props.disabled} onClick={props.onClick} />}</Grid>
                 </Grid>
             </Grid>
 
@@ -73,7 +73,7 @@ export const MeasurementPoint = memo((props: Props) => {
                                 valueLabel: classes.valueLabel,
                                 disabled: classes.sliderDisabled,
                             }}
-                            disabled={!props.disabled}
+                            disabled={props.disabled}
                             marks={getMarks()}
                             max={Math.floor(props.param.upperLimit + 0.25 * props.param.upperLimit)}
                             min={Math.floor(props.param.lowerLimit - 0.25 * props.param.lowerLimit)}
@@ -89,7 +89,7 @@ export const MeasurementPoint = memo((props: Props) => {
                             <Grid item xs={8}>
                                 <Input
                                     classes={{ input: classes.input }}
-                                    disabled={!props.disabled}
+                                    disabled={props.disabled}
                                     fullWidth
                                     inputProps={{
                                         'aria-labelledby': 'input-slider',

@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { AssessmentResult } from '../../../graphql/types';
+import { AssessmentResult } from '@app/graphql/types';
 
 export interface Test {
     title: string;
@@ -80,7 +80,7 @@ export function useUpdateAssessmentResult() {
                 variables: { result },
             });
         },
-        isUpdateending: loading,
+        isUpdatePending: loading,
         data,
         error,
     };

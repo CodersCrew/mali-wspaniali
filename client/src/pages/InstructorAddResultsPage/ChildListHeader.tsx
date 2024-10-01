@@ -3,6 +3,7 @@ import { createStyles, Grid, makeStyles, MenuItem, TextField, Theme } from '@mat
 
 import { Assessment } from '@app/graphql/types';
 import { SearchChildField } from '@app/components/SearchChildField';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 
 interface Props {
     assessments: Assessment[];
@@ -55,7 +56,7 @@ export function ChildListHeader({
                         select
                         classes={{ root: classes.selectKindergarten }}
                         label={t('add-results-page.kindergarten-name')}
-                        onChange={({ target: { value } }) => onChange('kindergarten', value)}
+                        onChange={({ target: { value } }) => onChange(MeasurementEditorActionType.KINDERGARTEN, value)}
                         variant="outlined"
                         value={selectedKindergarten}
                         fullWidth

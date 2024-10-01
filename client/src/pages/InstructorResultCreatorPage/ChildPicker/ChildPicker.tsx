@@ -6,6 +6,7 @@ import { CustomContainer } from '@app/components/CustomContainer';
 import { SelectList } from '@app/components/SelectList';
 import { SearchChildField } from '@app/components/SearchChildField';
 import { Assessment, Child, Kindergarten, AssessmentResult } from '@app/graphql/types';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 import { countProgress } from '../countProgress';
 import { ChildItem } from './ChildItem';
 
@@ -63,7 +64,7 @@ export function ChildPicker({
                                         <div className={classes.helperLabel}>{k.address}</div>
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => onClick('kindergarten', value)}
+                                onSelect={(value) => onClick(MeasurementEditorActionType.KINDERGARTEN, value)}
                             />
                         </Grid>
 
@@ -80,7 +81,7 @@ export function ChildPicker({
                                         {t('add-result-page.last')}
                                     </MenuItem>,
                                 ]}
-                                onSelect={(value) => onClick('measurement', value)}
+                                onSelect={(value) => onClick(MeasurementEditorActionType.MEASUREMENT, value)}
                             />
                         </Grid>
 
@@ -93,7 +94,7 @@ export function ChildPicker({
                                         {g.label}
                                     </MenuItem>
                                 ))}
-                                onSelect={(value) => onClick('group', value)}
+                                onSelect={(value) => onClick(MeasurementEditorActionType.GROUP, value)}
                             />
                         </Grid>
 
@@ -116,7 +117,7 @@ export function ChildPicker({
                                     child={c}
                                     selected={c._id === selected}
                                     progress={countResultProgress(c._id)}
-                                    onClick={() => onClick('child', c._id)}
+                                    onClick={() => onClick(MeasurementEditorActionType.CHILD, c._id)}
                                 />
                             );
                         })}

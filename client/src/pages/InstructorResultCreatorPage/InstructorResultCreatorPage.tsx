@@ -15,6 +15,7 @@ import {
     CreatedAssessmentInput,
     useCreateAssessmentResult,
 } from '@app/operations/mutations/Results/createAssessmentResult';
+import { MeasurementEditorActionType } from '@app/pages/InstructorResultCreatorPage/InstructorResultCreatorPage.types';
 import {
     ResultCreatorErrorReturnProps,
     ResultCreatorReturnProps,
@@ -41,7 +42,7 @@ interface HistoryResultCreatorParams {
 export default function InstructorResultCreatorPage() {
     const { assessmentId, kindergartenId, childId, groupId, measurement } = useParams<PageParams>();
     const { createAssessmentResult, isCreationPending } = useCreateAssessmentResult();
-    const { updateAssessmentResult, isUpdateending: isUpdatePending } = useUpdateAssessmentResult();
+    const { updateAssessmentResult, isUpdatePending } = useUpdateAssessmentResult();
 
     const history = useHistory<HistoryResultCreatorParams | undefined>();
 
@@ -86,53 +87,81 @@ export default function InstructorResultCreatorPage() {
             return;
         }
 
-        if (type === 'child') {
+        const convertValuesToNumber = (valuesToConvert: AssessmentValues) => {
+            return Object.fromEntries(
+                Object.entries(valuesToConvert).map(([key, val]) => (key === 'note' ? [key, val] : [key, Number(val)])),
+            );
+        };
+
+        if (type === MeasurementEditorActionType.CHILD) {
+            if (value !== resultCreator.selectedChild?._id) {
+                resultCreator.add();
+            }
+
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${resultCreator.selectedGroup}/${value}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${
+                    resultCreator.selectedGroup
+                }/${value as string}`,
             );
         }
 
-        if (type === 'measurement') {
-            pushHistory(`${value}/${assessmentId}/${kindergartenId}/${resultCreator.selectedGroup}/${childId}`);
+        if (type === MeasurementEditorActionType.MEASUREMENT) {
+            pushHistory(
+                `${value as string}/${assessmentId}/${kindergartenId}/${resultCreator.selectedGroup}/${childId}`,
+            );
         }
 
-        if (type === 'kindergarten') {
+        if (type === MeasurementEditorActionType.KINDERGARTEN) {
             const currentSelectedKindergarten = resultCreator.selectedAssessment?.kindergartens.find(
                 (k) => k.kindergarten?._id === value,
             )?.kindergarten;
             const firstChildren = currentSelectedKindergarten?.children![0];
 
             if (firstChildren) {
-                pushHistory(`${measurement}/${resultCreator.selectedAssessment._id}/${value}/all/${firstChildren._id}`);
+                pushHistory(
+                    `${measurement}/${resultCreator.selectedAssessment._id}/${value as string}/all/${
+                        firstChildren._id
+                    }`,
+                );
             }
         }
 
-        if (type === 'group') {
-            pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value}/${childId}`);
+        if (type === MeasurementEditorActionType.GROUP) {
+            pushHistory(`${measurement}/${assessmentId}/${kindergartenId}/${value as string}/${childId}`);
         }
 
-        if (type === 'back-to-table') {
+        if (type === MeasurementEditorActionType.BACK_TO_TABLE) {
+            resultCreator.add();
+
             redirectToResultTable();
         }
 
-        if (type === 'save-and-next') {
+        if (type === MeasurementEditorActionType.SAVE_AND_NEXT) {
+            const results = convertValuesToNumber(value as AssessmentValues);
+
             createOrUpdateResult(
-                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(results as AssessmentValues) },
                 resultCreator,
             );
 
             onSaveSnackbar(resultCreator);
+
+            resultCreator.add();
 
             redirectToNextChild();
         }
 
-        if (type === 'save-and-back-to-table') {
+        if (type === MeasurementEditorActionType.SAVE_AND_BACK_TO_TABLE) {
+            const results = convertValuesToNumber(value as AssessmentValues);
+
             createOrUpdateResult(
-                { childId, assessmentId, kindergartenId, ...mapValuesToResult(value as AssessmentValues) },
+                { childId, assessmentId, kindergartenId, ...mapValuesToResult(results as AssessmentValues) },
                 resultCreator,
             );
 
             onSaveSnackbar(resultCreator);
+
+            resultCreator.add();
 
             redirectToResultTable();
         }
@@ -141,7 +170,8 @@ export default function InstructorResultCreatorPage() {
     function onSaveSnackbar(results: ResultCreatorReturnProps) {
         const { edited, selectedChild } = results;
 
-        openSnackbar({
+        // eslint-disable-next-line no-void
+        void openSnackbar({
             text: `${t('add-result-page.result-saved-snackbar-1')}${t(`add-result-page.${edited}`)}${t(
                 'add-result-page.result-saved-snackbar-2',
             )}${selectedChild.firstname} ${selectedChild?.lastname}`,
@@ -174,9 +204,11 @@ export default function InstructorResultCreatorPage() {
         const childResult = results.kindergartenResults.find((r) => r.childId === update.childId);
 
         if (childResult) {
-            updateAssessmentResult({ _id: childResult._id, ...update });
+            // eslint-disable-next-line no-void
+            void updateAssessmentResult({ _id: childResult._id, ...update });
         } else {
-            createAssessmentResult(update);
+            // eslint-disable-next-line no-void
+            void createAssessmentResult(update);
         }
     }
 
@@ -205,7 +237,9 @@ export default function InstructorResultCreatorPage() {
 
         if (foundNextChild) {
             pushHistory(
-                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${resultCreator.selectedGroup}/${foundNextChild._id}`,
+                `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten._id}/${
+                    resultCreator.selectedGroup || ''
+                }/${foundNextChild._id}`,
             );
         }
     }

@@ -55,7 +55,7 @@ export function MeasurementEditor({
                 <MeasurementPoint
                     changeDate={getPendelumRunMeasurementDate()}
                     color={getInvertedColor(value.pendelumRun, pendelumRun)}
-                    disabled={resultCreator.edited === 'pendelumRun'}
+                    disabled={resultCreator.edited !== 'pendelumRun'}
                     isEmpty={resultCreator.values.pendelumRun === 0 && resultCreator.edited !== 'pendelumRun'}
                     label={t('add-result-page.dexterity')}
                     maxValue={pendelumRun.lowerLimitPoints}
@@ -73,7 +73,7 @@ export function MeasurementEditor({
                 <MeasurementPoint
                     changeDate={getJumpMeasurementDate()}
                     color={getColor(value.jump, jump)}
-                    disabled={resultCreator.edited === 'jump'}
+                    disabled={resultCreator.edited !== 'jump'}
                     isEmpty={resultCreator.values.jump === 0 && resultCreator.edited !== 'jump'}
                     label={t('add-result-page.power')}
                     maxValue={jump.upperLimitPoints}
@@ -91,7 +91,7 @@ export function MeasurementEditor({
                 <MeasurementPoint
                     changeDate={getThrowMeasurementDate()}
                     color={getColor(value.throw, _throw)}
-                    disabled={resultCreator.edited === 'throw'}
+                    disabled={resultCreator.edited !== 'throw'}
                     isEmpty={resultCreator.values.throw === 0 && resultCreator.edited !== 'throw'}
                     label={t('add-result-page.strength')}
                     maxValue={_throw.upperLimitPoints}
@@ -109,7 +109,7 @@ export function MeasurementEditor({
                 <MeasurementPoint
                     changeDate={getRunMeasurementDate()}
                     color={getInvertedColor(value.run, run)}
-                    disabled={resultCreator.edited === 'run'}
+                    disabled={resultCreator.edited !== 'run'}
                     isEmpty={resultCreator.values.run === 0 && resultCreator.edited !== 'run'}
                     label={t('add-result-page.velocity')}
                     maxValue={run.lowerLimitPoints}
