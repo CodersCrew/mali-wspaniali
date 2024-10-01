@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
-import { activePage } from '../../apollo_client';
-import { childProfileCategoriesList } from './ChildProfileCategory';
-import { MobileAwareCategoryTabs } from '../../components/Navigation/MobileAwareCategoryTabs';
-import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
-import { ChildProfileAboutTests } from './ChildProfileAboutTests/ChildProfileAboutTests';
+import { activePage } from '@app/apollo_client';
+import { MobileAwareCategoryTabs } from '@app/components/Navigation/MobileAwareCategoryTabs';
+import { ChildProfileAboutTests } from '@app/pages/ChildProfile/ChildProfileAboutTests';
+import { useMe } from '@app/utils/useMe';
+import { PageContainer } from '@app/components/PageContainer';
 import { ChildDetails } from './Details/ChildDetails';
-import { useMe } from '../../utils/useMe';
-import { PageContainer } from '../../components/PageContainer';
+import { ChildRecommendations } from './ChildRecommendations/ChildRecommendations';
+import { childProfileCategoriesList } from './ChildProfileCategory';
+import { ChildProfileResults } from './ChildProfileResults/ChildProfileResults';
 
 export default function ChildResultsPage() {
     const { childId, category } = useParams<{
@@ -36,6 +36,7 @@ export default function ChildResultsPage() {
                     name="results"
                     categories={childProfileCategoriesList}
                 />
+
                 <EmptyProfile />
             </>
         );
@@ -49,6 +50,7 @@ export default function ChildResultsPage() {
                 name="results"
                 categories={childProfileCategoriesList}
             />
+
             <PageContainer>
                 {category === 'results' && <ChildProfileResults child={child} />}
                 {category === 'recommendations' && <ChildRecommendations />}
@@ -59,7 +61,7 @@ export default function ChildResultsPage() {
     );
 
     function onTabChange(value: string) {
-        history.push(`/parent/child/${child?._id}/${value}`);
+        history.push(`/parent/child/${child?._id || ''}/${value}`);
     }
 }
 

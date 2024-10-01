@@ -6,10 +6,10 @@ import clsx from 'clsx';
 import BoyAvatar from '@app/assets/boy.svg';
 import GirlAvatar from '@app/assets/girl.svg';
 import { Child, ChildInput } from '@app/graphql/types';
+import { openAddChildModal } from '@app/components/ChilModals/AddChildModal';
+import { useKindergartens } from '@app/operations/queries/Kindergartens/getKindergartens';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import { HomePageAddChildButton } from '../HomePageAddChildButton/HomePageAddChildButton';
-import { openAddChildModal } from '../../../../components/ChilModals/AddChildModal';
-import { useKindergartens } from '../../../../operations/queries/Kindergartens/getKindergartens';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
 import { HomePageInfo } from '../HomePageInfo';
 
 import { HomePageChildCard } from './HomePageChildCard';
@@ -40,7 +40,8 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
         <MobileCarousel
             childList={children}
             onAddChildClick={() => {
-                openAddChildModal({
+                // eslint-disable-next-line no-void
+                void openAddChildModal({
                     kindergartens: kindergartenList,
                     isCancelButtonVisible: true,
                 }).then((results) => {
@@ -77,10 +78,12 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
                     </Grid>
                 );
             })}
+
             <Grid item>
                 <HomePageAddChildButton
                     onClick={() => {
-                        openAddChildModal({
+                        // eslint-disable-next-line no-void
+                        void openAddChildModal({
                             kindergartens: kindergartenList,
                             isCancelButtonVisible: true,
                         }).then((results) => {
@@ -91,6 +94,7 @@ export const HomePageChildren = ({ childrenList: children, handleModalSubmit, on
                     }}
                 />
             </Grid>
+
             {isInfoComponentVisible && children.length <= 1 && (
                 <Grid item>
                     <HomePageInfo childrenCount={children.length} toggleInfoComponent={toggleInfoComponent} />
@@ -136,6 +140,7 @@ function MobileCarousel({ childList, onAddChildClick, onChildClick }: MobileCaro
                         </Slide>
                     );
                 })}
+
                 <Slide index={childList.length}>
                     <HomePageAddChildButton onClick={onAddChildClick} />
                 </Slide>

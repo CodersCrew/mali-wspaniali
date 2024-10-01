@@ -2,9 +2,9 @@ import { makeStyles } from '@material-ui/styles';
 import { createStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { CarouselProvider, DotGroup, Slide, Slider } from 'pure-react-carousel';
+import { Measurement } from '@app/pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Measurement';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import { TESTS } from './constants';
-import { Measurement } from '../../pages/ChildProfile/ChildProfileResults/ExtendedGroupedTest/Measurement';
-import { useIsDevice } from '../../queries/useBreakpoints';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 export const TestDetails = (props: { prefix: string }) => {
@@ -65,6 +65,7 @@ export const TestDetails = (props: { prefix: string }) => {
                 {props.prefix === 'first' ? t('child-profile.initial-test-title') : t('child-profile.final-test-title')}
                 :
             </Typography>
+
             {measurementScoresCharts()}
         </div>
     );
