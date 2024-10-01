@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-shadow
 export enum MeasurementEditorActionType {
     BACK_TO_TABLE = 'back-to-table',
     CHILD = 'child',

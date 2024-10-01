@@ -86,7 +86,8 @@ export function GroupsSubheader(props: GroupsSubheaderProps) {
     );
 
     function onGroupClicked() {
-        openGroupsModal({
+        // eslint-disable-next-line no-void
+        void openGroupsModal({
             ...props,
             assessment: props.assessments.find((a) => a._id === props.selectedAssessment),
         });
