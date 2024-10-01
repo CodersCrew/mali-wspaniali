@@ -94,6 +94,10 @@ export default function InstructorResultCreatorPage() {
         };
 
         if (type === MeasurementEditorActionType.CHILD) {
+            if (value !== resultCreator.selectedChild?._id) {
+                resultCreator.add();
+            }
+
             pushHistory(
                 `${measurement}/${resultCreator.selectedAssessment._id}/${resultCreator.selectedKindergarten?._id}/${
                     resultCreator.selectedGroup
@@ -127,6 +131,8 @@ export default function InstructorResultCreatorPage() {
         }
 
         if (type === MeasurementEditorActionType.BACK_TO_TABLE) {
+            resultCreator.add();
+
             redirectToResultTable();
         }
 
