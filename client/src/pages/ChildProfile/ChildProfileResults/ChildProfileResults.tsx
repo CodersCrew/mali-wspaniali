@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Typography, Box, makeStyles } from '@material-ui/core/';
 import { useTranslation } from 'react-i18next';
 
+import { Child } from '@app/graphql/types';
 import { GroupedTests } from './GroupedTest';
-import { Child } from '../../../graphql/types';
 
 export function ChildProfileResults({ child }: { child: Child }) {
     const [activeItem, setActiveItem] = useState('');
@@ -13,6 +13,7 @@ export function ChildProfileResults({ child }: { child: Child }) {
     return (
         <Box pb={3}>
             <Descriptiom />
+
             {child.results.map((result) => {
                 return (
                     <GroupedTests

@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { Theme } from '@app/theme';
-import { activePage } from '../../apollo_client';
-import { useMe } from '../../utils/useMe';
-import { useLastArticles } from '../../operations/queries/Articles/getLastArticles';
-import { useKindergartens } from '../../operations/queries/Kindergartens/getKindergartens';
-import { useAddChild } from '../../operations/mutations/User/addChild';
-import { PageContainer } from '../../components/PageContainer';
-import { useIsDevice } from '../../queries/useBreakpoints';
+import { activePage } from '@app/apollo_client';
+import { useMe } from '@app/utils/useMe';
+import { useLastArticles } from '@app/operations/queries/Articles/getLastArticles';
+import { useKindergartens } from '@app/operations/queries/Kindergartens/getKindergartens';
+import { useAddChild } from '@app/operations/mutations/User/addChild';
+import { PageContainer } from '@app/components/PageContainer';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 
 import { Footer } from './HomePageFooter/Footer';
 import { HomePageArticles } from './HomePageArticles';
@@ -52,6 +52,7 @@ export default function ParentHomePage() {
                             {t('home-page-content.greeting')}
                         </Typography>
                     </Grid>
+
                     <Grid item xs={12}>
                         <p className={classes.description}>
                             <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
@@ -75,6 +76,7 @@ export default function ParentHomePage() {
                             </Box>
                         </p>
                     </Grid>
+
                     <HomePageChildren
                         childrenList={user.children}
                         handleModalSubmit={addChild}
@@ -82,6 +84,7 @@ export default function ParentHomePage() {
                             history.push(`parent/child/${id}/results`);
                         }}
                     />
+
                     {(isMobile || user.children.length > 1) && (
                         <>
                             <Box mb={3} />
@@ -95,10 +98,13 @@ export default function ParentHomePage() {
                             </div>
                         </>
                     )}
+
                     <Box mb={4} />
+
                     <HomePageArticles articles={articles} />
                 </Grid>
             </PageContainer>
+
             <Footer />
         </>
     );

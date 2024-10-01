@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { AccordionSummary, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 
-import { ButtonSecondary } from '../../../../components/Button';
-import { useIsDevice } from '../../../../queries/useBreakpoints';
+import { ButtonSecondary } from '@app/components/Button';
+import { useIsDevice } from '@app/queries/useBreakpoints';
 import { AssessmentResult } from '@app/graphql/types';
 
 interface Props {
@@ -25,6 +25,7 @@ export function SummarisedGroupedTest({ onClick, isExpanded, test }: Props) {
                     </Typography>
                 </Grid>
             </Grid>
+
             <Grid item>
                 <DetailsButton onClick={onClick} isExpanded={isExpanded} />
             </Grid>
